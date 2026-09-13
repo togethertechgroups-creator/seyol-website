@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Garet';
+  src: url('/fonts/Garet-Medium.otf') format('opentype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'HelloValentina';
+  src: url('/fonts/hello-valentina.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'RusticDelight';
+  src: url('/fonts/rustic-delight.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PlayfairDisplay';
+  src: url('/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --cream: #f7f4ef;
+    --cream-light: #fcfbfa;
+    --cream-dark: #ede7dc;
+    --maroon: #7b1131;
+    --maroon-dark: #5a0c24;
+    --maroon-light: #991840;
+    --gold: #c8a45d;
+    --gold-light: #e4cf9e;
+    --gold-dark: #a6833d;
+    --text-brown: #3a1d1d;
+    --font-heading: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-primary: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-sans: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  html {
+    scroll-behavior: auto;
+    background-color: #f7f4ef;
+    color: #3a1d1d;
+    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f7f4ef;
+    color: #3a1d1d;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .scroll-reveal,
+  .scroll-scale {
+    will-change: transform, opacity;
+  }
+
+  .parallax {
+    will-change: transform;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: #3a1d1d;
+    letter-spacing: -0.015em;
+  }
+}
+
+@layer components {
+  /* Standard Content Container (Max 1440px) */
+  .site-container {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 3vw, 2.5rem);
+    padding-right: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  /* Wide Container for Hero & Edge Showcases (Max 1820px) */
+  .site-container-wide {
+    width: 100%;
+    max-width: 1820px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(0.75rem, 2vw, 2rem);
+    padding-right: clamp(0.75rem, 2vw, 2rem);
+  }
+
+  /* Responsive Height for Hero on Desktop (+20mm / ~75px increase) */
+  .hero-viewport-height {
+    min-height: 550px;
+    height: auto;
+  }
+
+  @media (min-width: 640px) {
+    .hero-viewport-height {
+      min-height: 620px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-viewport-height {
+      min-height: 670px;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-viewport-height {
+      min-height: 700px;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .hero-viewport-height {
+      min-height: 710px;
+    }
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ede7dc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8a45d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a6833d;
+}
+
+/* Luxury animations */
+.glow-gold-pulse {
+  animation: glowGoldPulse 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes glowGoldPulse {
+  0% {
+    box-shadow: 0 0 15px -3px rgba(200, 164, 93, 0.25);
+  }
+  100% {
+    box-shadow: 0 0 35px 2px rgba(200, 164, 93, 0.55);
+  }
+}
+
+.shimmer-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 80%
+  );
+  transform: translateX(-100%);
+  animation: shimmerSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-100%) rotate(15deg);
+  }
+  30%, 100% {
+    transform: translateX(100%) rotate(15deg);
+  }
+}

@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cream: #f7f4ef;
+    --cream-light: #fcfbfa;
+    --cream-dark: #ede7dc;
+    --maroon: #7b1131;
+    --maroon-dark: #5a0c24;
+    --maroon-light: #991840;
+    --gold: #c8a45d;
+    --gold-light: #e4cf9e;
+    --gold-dark: #a6833d;
+    --text-brown: #3a1d1d;
+    --font-heading: var(--font-playfair), 'Cinzel', Georgia, serif;
+    --font-body: var(--font-lato), system-ui, -apple-system, sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #f7f4ef;
+    color: #3a1d1d;
+  }
+
+  body {
+    font-family: var(--font-lato), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f7f4ef;
+    color: #3a1d1d;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-playfair), 'Cinzel', Georgia, serif;
+    color: #3a1d1d;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Editorial Brand Enhancements */
+.font-display {
+  font-family: var(--font-cinzel), var(--font-playfair), Georgia, serif;
+}
+
+.font-serif {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-lato), -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #a6833d 0%, #c8a45d 50%, #e4cf9e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.maroon-gradient-text {
+  background: linear-gradient(135deg, #5a0c24 0%, #7b1131 50%, #991840 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Warm subtle border */
+.border-seyol-gold {
+  border-color: rgba(200, 164, 93, 0.3);
+}
+
+.border-seyol-maroon {
+  border-color: rgba(123, 17, 49, 0.2);
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ede7dc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c8a45d;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7b1131;
+}

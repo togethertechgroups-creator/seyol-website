@@ -1,0 +1,19 @@
+@keyframes cleanTitleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.stroke-char-animate {
+  display: inline-block;
+  color: #fcfbfa;
+  -webkit-text-stroke: none;
+  text-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  animation: cleanTitleReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
