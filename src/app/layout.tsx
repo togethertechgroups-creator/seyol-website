@@ -13,6 +13,7 @@ import { QuickEnquiryProvider } from '../context/QuickEnquiryContext';
 import { VisitorJourneyProvider } from '../context/VisitorJourneyContext';
 import { AuthProvider } from '../context/AuthContext';
 import { AdminDataProvider } from '../context/AdminDataContext';
+import { PortalDataProvider } from '../context/PortalDataContext';
 import { AnnouncementTicker, StickyJourneyCTA, FloatingHelpWidget } from '../components/seyol';
 import { BookingWizardModal } from '../components/booking/BookingWizardModal';
 import { PortalAuthModal } from '../components/auth/PortalAuthModal';
@@ -38,25 +39,25 @@ const cinzel = Cinzel({
 });
 
 const garet = localFont({
-  src: '../../FONT/Garet-Medium.otf',
+  src: '../../public/fonts/Garet-Medium.otf',
   variable: '--font-garet',
   display: 'swap',
 });
 
 const josephSophia = localFont({
-  src: '../../FONT/josephsophia.otf',
+  src: '../../public/fonts/josephsophia.otf',
   variable: '--font-josephsophia',
   display: 'swap',
 });
 
 const helloValentina = localFont({
-  src: '../../FONT/Hello Valentina.ttf',
+  src: '../../public/fonts/hello-valentina.ttf',
   variable: '--font-valentina',
   display: 'swap',
 });
 
 const rusticDelight = localFont({
-  src: '../../FONT/Rustic Delight.ttf',
+  src: '../../public/fonts/rustic-delight.ttf',
   variable: '--font-rustic-delight',
   display: 'swap',
 });
@@ -99,6 +100,7 @@ export default function RootLayout({
             <CartProvider>
               <VideoAuthProvider>
                 <AdminDataProvider>
+                  <PortalDataProvider>
                   <BookingModalProvider>
                     <QuickEnquiryProvider>
                       <Header />
@@ -113,6 +115,7 @@ export default function RootLayout({
                       <FloatingHelpWidget />
                     </QuickEnquiryProvider>
                   </BookingModalProvider>
+                  </PortalDataProvider>
                 </AdminDataProvider>
               </VideoAuthProvider>
             </CartProvider>

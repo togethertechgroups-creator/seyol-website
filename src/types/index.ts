@@ -342,7 +342,18 @@ export interface CartItem {
   isDigital?: boolean;
 }
 
-export type OrderStatus = 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled';
+export type OrderStatus =
+  | 'pending'          // 1. New Order Received
+  | 'accepted'         // 2. Order Accepted
+  | 'confirmed'        // Backward-compatibility alias for accepted
+  | 'processing'       // 3. Processing (In Apothecary Preparation)
+  | 'packed'           // 4. Packed & Sealed
+  | 'shipped'          // 5. Shipped / Out for Delivery
+  | 'delivered'        // 6. Delivered
+  | 'completed'        // 7. Order Completed
+  | 'rejected'         // Rejected Order
+  | 'cancelled';       // Cancelled Order
+
 export type PaymentStatus = 'pending' | 'paid' | 'cod';
 
 export interface OrderItem {
@@ -352,6 +363,13 @@ export interface OrderItem {
   price: number;
   quantity: number;
   image: string;
+}
+
+export interface OrderTimelineEvent {
+  status: OrderStatus;
+  timestamp: string;
+  note?: string;
+  actor?: string;
 }
 
 export interface ProductOrder {
@@ -372,10 +390,26 @@ export interface ProductOrder {
   discount: number;
   shippingFee: number;
   totalAmount: number;
-  paymentMethod: 'cod' | 'upi' | 'card' | 'whatsapp';
+  paymentMethod: 'cod' | 'upi' | 'card' | 'whatsapp' | 'stripe' | 'netbanking';
   paymentStatus: PaymentStatus;
   orderStatus: OrderStatus;
   notes?: string;
+  rejectReason?: string;
+  courierPartner?: string;
+  trackingNumber?: string;
+  timeline?: OrderTimelineEvent[];
+  orderType?: 'product' | 'service';
+  currency?: string;
+  stripePaymentIntentId?: string;
+  serviceDetails?: {
+    serviceId: string;
+    serviceTitle: string;
+    packageName: string;
+    sessions?: string;
+    location?: string;
+    bookingDate?: string;
+    recipient?: string;
+  };
 }
 
 // ==========================================

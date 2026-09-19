@@ -107,28 +107,29 @@ export const ShopByRoutine: React.FC = () => {
     <div className="w-full space-y-8 font-sans">
       
       {/* Top Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-3">
+      <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
           <ShoppingBag className="w-3.5 h-3.5" />
           <span>SEY by SEYOL Formulations</span>
         </div>
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-          Shop by Routine
+        <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+          Shop by{' '}
+          <span className="font-serif italic font-normal text-maroon">Routine</span>
         </h2>
-        <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+        <p className="font-sans text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-brown/85 max-w-3xl mx-auto leading-relaxed">
           Discover our 100% natural, AYUSH-certified cold-pressed botanical formulations bundled into daily ritual sequences for mother and newborn.
         </p>
       </div>
 
       {/* Routine Selector Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 bg-cream rounded-2xl sm:rounded-full border border-cream-border max-w-3xl mx-auto">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 p-1.5 bg-cream rounded-full border border-cream-border max-w-fit mx-auto">
         {ROUTINE_OPTIONS.map((routine) => {
           const isActive = activeRoutineId === routine.id;
           return (
             <button
               key={routine.id}
               onClick={() => setActiveRoutineId(routine.id)}
-              className={`px-4 sm:px-6 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
+              className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer whitespace-nowrap ${
                 isActive
                   ? 'bg-maroon text-cream-light shadow-warm-md scale-[1.02]'
                   : 'text-brown hover:text-maroon hover:bg-white/80'

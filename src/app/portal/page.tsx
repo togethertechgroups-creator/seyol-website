@@ -5,7 +5,7 @@ import { SeyolCarePortal } from '../../components/portal/SeyolCarePortal';
 
 export default function PortalPage() {
   return (
-    <div className="site-container py-8 sm:py-12">
+    <div className="w-full h-screen overflow-hidden bg-cream-light">
       <SeyolCarePortal />
     </div>
   );

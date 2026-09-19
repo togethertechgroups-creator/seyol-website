@@ -10,7 +10,7 @@ export const FloatingHelpWidget: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { openEnquiry } = useQuickEnquiry();
 
-  if (pathname?.startsWith('/admin')) {
+  if (pathname?.startsWith('/admin') || pathname?.startsWith('/portal')) {
     return null;
   }
 

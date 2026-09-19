@@ -42,11 +42,26 @@ import {
   Clock,
   CheckCheck,
   Ban,
-  FileText
+  FileText,
+  BarChart3,
+  Settings as SettingsIcon,
+  LogOut,
+  Globe,
+  DollarSign,
+  TrendingUp,
+  Download,
+  Shield,
+  Key
 } from 'lucide-react';
 import { useAdminData, extractYouTubeId, CombinedPackageItem, ProductBannerSlide } from '../../context/AdminDataContext';
 import { Service, Product, Testimonial, JourneyStage, ProductOrder, OrderStatus, PaymentStatus } from '../../types';
 import { SeyolCarePortal } from '../../components/portal/SeyolCarePortal';
+import { AdminClientEditor } from '../../components/admin/AdminClientEditor';
+import { AdminLoginScreen } from '../../components/admin/AdminLoginScreen';
+import { AdminOrderManager } from '../../components/admin/AdminOrderManager';
+import { AdminPaymentManager } from '../../components/admin/AdminPaymentManager';
+import { AdminReportsAnalytics } from '../../components/admin/AdminReportsAnalytics';
+import { AdminSettingsManager } from '../../components/admin/AdminSettingsManager';
 
 export default function AdminPage() {
   const {
@@ -83,13 +98,45 @@ export default function AdminPage() {
   } = useAdminData();
 
   const [mounted, setMounted] = useState(false);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(true);
+  const [currentDateTime, setCurrentDateTime] = useState<string>('');
 
   React.useEffect(() => {
     setMounted(true);
+    const session = typeof window !== 'undefined' ? localStorage.getItem('seyol_admin_auth_v1') : null;
+    if (session === 'authenticated') {
+      setIsAdminAuthenticated(true);
+    } else {
+      setIsAdminAuthenticated(false);
+    }
+
+    // Live Indian Standard Time & Date updater
+    const updateTime = () => {
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-IN', {
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      });
+      const timeStr = now.toLocaleTimeString('en-IN', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true,
+      });
+      setCurrentDateTime(`${dateStr} • ${timeStr}`);
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
   }, []);
 
-  // Main 5-Tab Navigation: Home, Services, Products, Orders, Care Portal
-  const [activeTab, setActiveTab] = useState<'home' | 'services' | 'products' | 'orders' | 'care_portal'>('home');
+  // 7-Core Modules Navigation: Website, Customers, Orders, Products, Payments, Reports, Settings
+  const [activeTab, setActiveTab] = useState<
+    'website' | 'customers' | 'orders' | 'products' | 'payments' | 'reports' | 'settings'
+  >('customers');
+  const [websiteSubTab, setWebsiteSubTab] = useState<'home' | 'services' | 'banners' | 'testimonials'>('home');
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   // Search & Filter States
@@ -97,11 +144,6 @@ export default function AdminPage() {
   const [serviceCategoryFilter, setServiceCategoryFilter] = useState('all');
   const [productSearch, setProductSearch] = useState('');
   const [productCategoryFilter, setProductCategoryFilter] = useState('all');
-  const [orderSearch, setOrderSearch] = useState('');
-  const [orderStatusFilter, setOrderStatusFilter] = useState<'all' | 'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'>('all');
-
-  // Selected Order for Full Detail / Invoice View
-  const [selectedOrderForView, setSelectedOrderForView] = useState<ProductOrder | null>(null);
 
   // Home Page Form State
   const [homeForm, setHomeForm] = useState({
@@ -258,7 +300,7 @@ export default function AdminPage() {
 
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#F8F6F0] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
         <div className="text-center space-y-3">
           <div className="w-8 h-8 border-3 border-[#7B1131] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-xs font-bold text-[#7B1131] tracking-widest uppercase">Loading SEYOL Admin...</p>
@@ -267,8 +309,13 @@ export default function AdminPage() {
     );
   }
 
+  // Gate: ADMIN LOGIN
+  if (!isAdminAuthenticated) {
+    return <AdminLoginScreen onLoginSuccess={() => { setIsAdminAuthenticated(true); showToast('Welcome to SEYOL Admin Dashboard'); }} />;
+  }
+
   return (
-    <div className="min-h-screen bg-[#F8F6F0] text-[#3a1d1d] font-sans flex">
+    <div className="min-h-screen bg-[#F8F9FA] text-neutral-900 font-sans flex">
       
       {/* Toast Notification */}
       {successMessage && (
@@ -338,164 +385,370 @@ export default function AdminPage() {
       )}
 
       {/* ========================================================================= */}
-      {/* 1. FIXED LEFT SIDEBAR NAVIGATION WITH ROUNDED CORNERS                      */}
+      {/* 1. PROFESSIONAL MODERN SAAS SIDEBAR                                       */}
       {/* ========================================================================= */}
-      <aside className="w-64 sm:w-72 bg-[#2D0813] text-white flex flex-col justify-between fixed top-3 left-3 bottom-3 z-40 rounded-[32px] border border-[#4A1020] shadow-2xl overflow-hidden">
-        <div className="p-6 space-y-7">
-          
-          {/* SEYOL Admin Brand Logo - Centered */}
-          <div className="flex flex-col items-center justify-center text-center space-y-1.5 pb-3 border-b border-white/10">
-            <Link href="/" className="inline-block group">
-              <div className="font-serif text-2xl sm:text-3xl font-black tracking-widest text-[#E9C377] group-hover:text-white transition-colors">
-                SEYOL
+      <aside className="w-64 bg-white border-r border-neutral-200/90 text-neutral-800 flex flex-col justify-between fixed top-0 left-0 bottom-0 z-40 shadow-xs">
+        <div className="flex flex-col h-full overflow-y-auto">
+          {/* Top Brand Header */}
+          <div className="p-5 border-b border-neutral-200/80 flex items-center justify-between">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="w-10 h-10 rounded-xl bg-[#7B1131] border border-[#E9C377]/30 flex items-center justify-center overflow-hidden shadow-xs group-hover:scale-105 transition-transform p-1 shrink-0">
+                <img
+                  src="/logo.png"
+                  alt="SEYOL"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    const el = e.currentTarget as HTMLElement;
+                    el.style.display = 'none';
+                    if (el.parentElement) {
+                      el.parentElement.innerHTML = '<span class="text-[#E9C377] font-serif font-black text-lg">S</span>';
+                    }
+                  }}
+                />
+              </div>
+              <div>
+                <div className="font-serif font-black text-base tracking-wider text-neutral-900 leading-none">
+                  SEYOL
+                </div>
+                <div className="text-[10px] font-bold uppercase tracking-widest text-[#7B1131] mt-1">
+                  Admin Console
+                </div>
               </div>
             </Link>
-            <div className="flex items-center justify-center space-x-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-white/70">
-                Control Management
-              </span>
+
+            <div className="flex items-center space-x-1 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full" title="All Services Operational">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider">Live</span>
             </div>
           </div>
 
-          {/* Clean 4 Navigation Links: Home, Services, Products, Orders */}
-          <nav className="space-y-2.5">
-            <button
-              onClick={() => setActiveTab('home')}
-              className={`w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs flex items-center space-x-3 transition-all cursor-pointer ${
-                activeTab === 'home'
-                  ? 'bg-[#7B1131] text-white shadow-lg border border-gold/30 font-extrabold'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <Home className={`w-4 h-4 ${activeTab === 'home' ? 'text-gold-light' : 'text-white/60'}`} />
-              <span className="text-sm">Home</span>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('services')}
-              className={`w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                activeTab === 'services'
-                  ? 'bg-[#7B1131] text-white shadow-lg border border-gold/30 font-extrabold'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <Layers className={`w-4 h-4 ${activeTab === 'services' ? 'text-gold-light' : 'text-white/60'}`} />
-                <span className="text-sm">Services</span>
+          {/* Navigation Links Grouped (7-Core Modules) */}
+          <div className="p-4 space-y-6 flex-1">
+            {/* Group 1: Core Operations */}
+            <div className="space-y-1">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
+                Core Operations
               </div>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white/80">
-                {services.length}
-              </span>
-            </button>
 
-            <button
-              onClick={() => setActiveTab('products')}
-              className={`w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                activeTab === 'products'
-                  ? 'bg-[#7B1131] text-white shadow-lg border border-gold/30 font-extrabold'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <ShoppingBag className={`w-4 h-4 ${activeTab === 'products' ? 'text-gold-light' : 'text-white/60'}`} />
-                <span className="text-sm">Products</span>
-              </div>
-              <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white/80">
-                {products.length}
-              </span>
-            </button>
+              {/* 1. Website */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('website')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'website'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <Globe className={`w-4 h-4 ${activeTab === 'website' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Website</span>
+                </div>
+              </button>
 
-            <button
-              onClick={() => setActiveTab('orders')}
-              className={`w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                activeTab === 'orders'
-                  ? 'bg-[#7B1131] text-white shadow-lg border border-gold/30 font-extrabold'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <ShoppingCart className={`w-4 h-4 ${activeTab === 'orders' ? 'text-gold-light' : 'text-white/60'}`} />
-                <span className="text-sm">Orders</span>
-              </div>
-              <div className="flex items-center space-x-1.5">
-                {orders.some((o) => o.orderStatus === 'pending') && (
-                  <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                )}
-                <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-white/10 text-white/80">
-                  {orders.length}
+              {/* 2. Customers */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('customers')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'customers'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <Users className={`w-4 h-4 ${activeTab === 'customers' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Customers</span>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  activeTab === 'customers' ? 'bg-[#7B1131] text-white' : 'bg-[#7B1131]/10 text-[#7B1131]'
+                }`}>
+                  CRM
                 </span>
-              </div>
-            </button>
-
-            <button
-              onClick={() => setActiveTab('care_portal')}
-              className={`w-full text-left px-4 py-3.5 rounded-2xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                activeTab === 'care_portal'
-                  ? 'bg-[#7B1131] text-white shadow-lg border border-gold/30 font-extrabold'
-                  : 'text-white/70 hover:bg-white/5 hover:text-white'
-              }`}
-            >
-              <div className="flex items-center space-x-3">
-                <FileText className={`w-4 h-4 ${activeTab === 'care_portal' ? 'text-gold-light' : 'text-white/60'}`} />
-                <span className="text-sm">My SEYOL Care Portal</span>
-              </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-gold/20 text-gold-light">
-                10 Modules
-              </span>
-            </button>
-          </nav>
-
-        </div>
-
-        {/* Sidebar Footer */}
-        <div className="p-6 border-t border-white/10 space-y-3">
-          <Link
-            href="/"
-            target="_blank"
-            className="w-full py-2.5 px-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white/80 text-xs font-bold flex items-center justify-between transition-colors"
-          >
-            <div className="flex items-center space-x-2">
-              <Eye className="w-3.5 h-3.5 text-gold" />
-              <span>View Live Website</span>
+              </button>
             </div>
-            <ExternalLink className="w-3 h-3 text-white/40" />
-          </Link>
 
-          <button
-            onClick={() => {
-              if (confirm('Reset all content, services, and products to default SEYOL configuration?')) {
-                resetAllToDefaults();
-                showToast('Reset all data to defaults.');
-              }
-            }}
-            className="w-full py-2 px-3 rounded-xl text-white/40 hover:text-white/70 text-[11px] font-semibold flex items-center justify-center space-x-1.5 transition-colors cursor-pointer"
-          >
-            <RotateCcw className="w-3 h-3" />
-            <span>Reset Defaults</span>
-          </button>
+            {/* Group 2: E-Commerce & Inventory */}
+            <div className="space-y-1">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
+                Store &amp; Inventory
+              </div>
+
+              {/* 3. Orders */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('orders')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'orders'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <ShoppingCart className={`w-4 h-4 ${activeTab === 'orders' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Orders</span>
+                </div>
+                <div className="flex items-center space-x-1.5">
+                  {orders.some((o) => o.orderStatus === 'pending') ? (
+                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-rose-100 text-[#7B1131] text-[9px] font-black tracking-tight animate-pulse border border-[#7B1131]/20 shadow-xs">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600 animate-ping" />
+                      NEW ({orders.filter((o) => o.orderStatus === 'pending').length})
+                    </span>
+                  ) : (
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      activeTab === 'orders' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
+                    }`}>
+                      {orders.length}
+                    </span>
+                  )}
+                </div>
+              </button>
+
+              {/* 4. Products */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('products')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'products'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <ShoppingBag className={`w-4 h-4 ${activeTab === 'products' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Products</span>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  activeTab === 'products' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
+                }`}>
+                  {products.length}
+                </span>
+              </button>
+            </div>
+
+            {/* Group 3: Finance, Analytics & Config */}
+            <div className="space-y-1">
+              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
+                Finance &amp; Config
+              </div>
+
+              {/* 5. Payments */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('payments')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'payments'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <CreditCard className={`w-4 h-4 ${activeTab === 'payments' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Payments</span>
+                </div>
+                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  activeTab === 'payments' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
+                }`}>
+                  Ledger
+                </span>
+              </button>
+
+              {/* 6. Reports & Analytics */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('reports')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'reports'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <BarChart3 className={`w-4 h-4 ${activeTab === 'reports' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Reports &amp; Analytics</span>
+                </div>
+              </button>
+
+              {/* 7. Settings */}
+              <button
+                type="button"
+                onClick={() => setActiveTab('settings')}
+                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
+                  activeTab === 'settings'
+                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
+                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <SettingsIcon className={`w-4 h-4 ${activeTab === 'settings' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
+                  <span>Settings</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Sidebar Footer */}
+          <div className="p-4 border-t border-neutral-200/80 space-y-3 bg-neutral-50/50">
+            {/* Sign Out Button (Only Logout, no name display as requested) */}
+            <button
+              type="button"
+              onClick={() => {
+                if (confirm('Sign out of SEYOL Admin Console?')) {
+                  localStorage.removeItem('seyol_admin_auth_v1');
+                  setIsAdminAuthenticated(false);
+                  showToast('Signed out of Admin Console.');
+                }
+              }}
+              className="w-full py-2.5 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 text-xs font-bold flex items-center justify-center space-x-2 transition-colors cursor-pointer"
+              title="Sign Out"
+            >
+              <LogOut className="w-3.5 h-3.5 text-red-600" />
+              <span>Sign Out</span>
+            </button>
+
+            {/* Powered by Together Tech Groups (Bottom-most link) */}
+            <div className="pt-2 text-center border-t border-neutral-200/60">
+              <p className="text-[11px] text-neutral-400">
+                Powered by{' '}
+                <a
+                  href="https://togethertechgroups.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-[#7B1131] hover:text-[#5e0c24] hover:underline transition-colors"
+                >
+                  Together Tech Groups
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
       </aside>
 
       {/* ========================================================================= */}
-      {/* 2. MAIN CONTENT AREA (Offset by sidebar width)                           */}
+      {/* 2. MAIN CONTENT AREA (Offset by standard sidebar width)                  */}
       {/* ========================================================================= */}
-      <main className="flex-1 ml-72 sm:ml-80 p-6 sm:p-10 max-w-7xl">
+      <main className="flex-1 ml-64 p-6 sm:p-10 max-w-7xl min-h-screen">
         
+        {/* Persistent Top Header Bar with Live Date & Time on the Right Side */}
+        <div className="flex items-center justify-between pb-5 mb-8 border-b border-neutral-200/90 gap-4">
+          <div className="flex items-center space-x-2 text-xs text-neutral-500">
+            <span className="font-bold text-neutral-400">Admin</span>
+            <span>/</span>
+            <span className="font-extrabold text-[#7B1131] tracking-wide uppercase text-[11px]">
+              {activeTab === 'website' && 'Website'}
+              {activeTab === 'customers' && 'Customers'}
+              {activeTab === 'orders' && 'Orders'}
+              {activeTab === 'products' && 'Products'}
+              {activeTab === 'payments' && 'Payments'}
+              {activeTab === 'reports' && 'Reports & Analytics'}
+              {activeTab === 'settings' && 'Settings'}
+            </span>
+          </div>
+
+          {/* Right-aligned Live Date & Time */}
+          <div className="flex items-center space-x-2.5 px-3.5 py-1.5 rounded-xl bg-white border border-neutral-200/80 shadow-2xs text-xs font-semibold text-neutral-700 shrink-0">
+            <Calendar className="w-3.5 h-3.5 text-[#7B1131]" />
+            <span className="tabular-nums font-mono">{currentDateTime || 'Loading Date & Time...'}</span>
+          </div>
+        </div>
+
         {/* ======================================================================= */}
-        {/* SECTION 0: MY SEYOL CARE PORTAL (ADMIN & CLIENT MANAGEMENT)             */}
+        {/* SECTION: CUSTOMER MANAGEMENT & CLIENT PORTAL                            */}
         {/* ======================================================================= */}
-        {activeTab === 'care_portal' && (
+        {activeTab === 'customers' && (
           <div className="space-y-6 animate-fadeIn">
-            <SeyolCarePortal isAdminView={true} />
+            <AdminClientEditor />
           </div>
         )}
 
         {/* ======================================================================= */}
-        {/* SECTION 1: HOME PAGE CONTENT MANAGEMENT                                 */}
+        {/* SECTION 1: WEBSITE MANAGEMENT                                           */}
         {/* ======================================================================= */}
-        {activeTab === 'home' && (
-          <div className="space-y-8 animate-fadeIn">
+        {activeTab === 'website' && (
+          <div className="space-y-6 animate-fadeIn">
+            {/* Website Management Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-200">
+              <div>
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
+                  Content &amp; Brand Experience
+                </span>
+                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
+                  Website Management
+                </h1>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Manage homepage founder story, live parent statistics counters, services catalog, and promotional hero banners.
+                </p>
+              </div>
+
+              <Link
+                href="/"
+                target="_blank"
+                className="px-4 py-2 rounded-xl bg-white border border-neutral-200 hover:border-maroon text-[#7B1131] text-xs font-bold flex items-center space-x-2 shadow-xs transition-colors shrink-0"
+              >
+                <Eye className="w-3.5 h-3.5 text-gold" />
+                <span>View Live Site</span>
+                <ExternalLink className="w-3 h-3 text-neutral-400" />
+              </Link>
+            </div>
+
+            {/* Website Sub-navigation Tabs */}
+            <div className="flex items-center space-x-2 bg-neutral-100 p-1.5 rounded-2xl border border-neutral-200 shadow-2xs overflow-x-auto">
+              <button
+                type="button"
+                onClick={() => setWebsiteSubTab('home')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
+                  websiteSubTab === 'home'
+                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <Home className="w-3.5 h-3.5" />
+                <span>Home Page &amp; Founder</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setWebsiteSubTab('services')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
+                  websiteSubTab === 'services'
+                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>Services &amp; Packages ({services.length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setWebsiteSubTab('banners')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
+                  websiteSubTab === 'banners'
+                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <ImageIcon className="w-3.5 h-3.5" />
+                <span>Hero Banners ({productBannerSlides.length})</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setWebsiteSubTab('testimonials')}
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
+                  websiteSubTab === 'testimonials'
+                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
+                    : 'text-neutral-600 hover:text-neutral-900'
+                }`}
+              >
+                <Video className="w-3.5 h-3.5" />
+                <span>Video Testimonials ({testimonials.length})</span>
+              </button>
+            </div>
+
+            {/* Sub-Tab 1: Home Page & Founder */}
+            {websiteSubTab === 'home' && (
+              <div className="space-y-8 animate-fadeIn">
             
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
@@ -816,14 +1069,12 @@ export default function AdminPage() {
               </button>
             </div>
 
-          </div>
-        )}
+              </div>
+            )}
 
-        {/* ======================================================================= */}
-        {/* SECTION 2: SERVICES MANAGEMENT                                          */}
-        {/* ======================================================================= */}
-        {activeTab === 'services' && (
-          <div className="space-y-8 animate-fadeIn">
+            {/* Sub-Tab 2: Services & Packages */}
+            {websiteSubTab === 'services' && (
+              <div className="space-y-8 animate-fadeIn">
             
             {/* Header & Add Button */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
@@ -1114,11 +1365,223 @@ export default function AdminPage() {
               </div>
             </div>
 
+              </div>
+            )}
+
+            {/* Sub-Tab 3: Hero Banners */}
+            {websiteSubTab === 'banners' && (
+              <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6 animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
+                      <Camera className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
+                        Website &amp; Product Hero Banner Slides
+                      </h3>
+                      <p className="text-xs text-neutral-500">
+                        Add, update, or remove hero banner images and promotional slides shown on the website.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingBanner(null);
+                      setBannerImageFile('');
+                      setIsBannerModalOpen(true);
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add Banner Slide</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {productBannerSlides.map((slide, idx) => (
+                    <div
+                      key={slide.id || idx}
+                      className="rounded-2xl border border-neutral-200 bg-[#FAF7F2] p-4 flex flex-col justify-between space-y-4 hover:shadow-warm-xs transition-all relative group"
+                    >
+                      <div className="w-full aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-300/80 relative">
+                        <img
+                          src={slide.image || '/images/products-hero-banner.png'}
+                          alt={slide.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
+                          }}
+                        />
+                        <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[10px] text-white font-mono font-bold">
+                          Slide {idx + 1}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] font-bold text-[10px] uppercase tracking-wider">
+                          {slide.badge || 'PROMOTIONAL BANNER'}
+                        </div>
+                        <h4 className="font-serif font-black text-base text-[#3a1d1d] line-clamp-1">
+                          {slide.title}
+                        </h4>
+                        <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
+                          {slide.subtitle}
+                        </p>
+                      </div>
+
+                      <div className="pt-3 border-t border-neutral-200 flex items-center justify-between">
+                        <span className="text-[10px] text-neutral-400 font-mono">
+                          Target: {slide.categoryTarget || 'all'}
+                        </span>
+
+                        <div className="flex items-center space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingBanner(slide);
+                              setBannerImageFile(slide.image || '');
+                              setIsBannerModalOpen(true);
+                            }}
+                            className="p-2 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
+                            title="Edit / Replace Image"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDeleteConfirmation({
+                                isOpen: true,
+                                type: 'banner',
+                                id: slide.id,
+                                name: slide.title,
+                              });
+                            }}
+                            className="p-2 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
+                            title="Delete Banner Slide"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Sub-Tab 4: Video Testimonials */}
+            {websiteSubTab === 'testimonials' && (
+              <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6 animate-fadeIn">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
+                      <Video className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
+                        Parent Video Reviews &amp; Client Stories
+                      </h3>
+                      <p className="text-xs text-neutral-500">
+                        Add, edit, or delete YouTube video reviews shown in the website video carousel.
+                      </p>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setEditingTestimonial(null);
+                      setVideoUrlInput('https://www.youtube.com/watch?v=ScMzIvxBSi4');
+                      setIsTestimonialModalOpen(true);
+                    }}
+                    className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Add Video Review</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {testimonials.map((t) => {
+                    const yid = extractYouTubeId(t.youtubeUrl);
+                    return (
+                      <div
+                        key={t.id}
+                        className="bg-[#FAF7F2] rounded-2xl border border-neutral-200 p-4 flex flex-col justify-between space-y-3 hover:shadow-warm-sm transition-all"
+                      >
+                        <div className="w-full aspect-video rounded-xl overflow-hidden bg-black relative border border-neutral-300 shadow-xs">
+                          {yid ? (
+                            <iframe
+                              src={`https://www.youtube.com/embed/${yid}`}
+                              title={t.author}
+                              className="w-full h-full"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                              allowFullScreen
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs">
+                              No Video URL
+                            </div>
+                          )}
+                        </div>
+
+                        <div>
+                          <div className="flex items-center space-x-1 text-amber-500 mb-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                            ))}
+                          </div>
+                          <h4 className="font-serif font-bold text-sm text-[#3a1d1d]">{t.author}</h4>
+                          <p className="text-[11px] font-semibold text-[#7B1131]">{t.stage}</p>
+                          <p className="text-xs text-neutral-600 mt-1 line-clamp-2 italic">"{t.quote}"</p>
+                        </div>
+
+                        <div className="pt-2 border-t border-neutral-200 flex items-center justify-end space-x-2">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingTestimonial(t);
+                              setVideoUrlInput(t.youtubeUrl || '');
+                              setIsTestimonialModalOpen(true);
+                            }}
+                            className="p-1.5 rounded-lg bg-white hover:bg-amber-50 text-amber-700 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
+                            title="Edit Video Review"
+                          >
+                            <Edit3 className="w-3.5 h-3.5" />
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDeleteConfirmation({
+                                isOpen: true,
+                                type: 'testimonial',
+                                id: t.id,
+                                name: t.author,
+                              });
+                            }}
+                            className="p-1.5 rounded-lg bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
+                            title="Delete Video Review"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         {/* ======================================================================= */}
-        {/* SECTION 3: PRODUCTS MANAGEMENT & HERO BANNER                            */}
+        {/* SECTION 4: PRODUCT MANAGEMENT                                           */}
         {/* ======================================================================= */}
         {activeTab === 'products' && (
           <div className="space-y-8 animate-fadeIn">
@@ -1398,364 +1861,38 @@ export default function AdminPage() {
         )}
 
         {/* ======================================================================= */}
-        {/* SECTION 4: ORDERS MANAGEMENT                                            */}
+        {/* SECTION 4: ONLINE ORDER MANAGEMENT (7-STAGE LIFECYCLE)                  */}
         {/* ======================================================================= */}
         {activeTab === 'orders' && (
-          <div className="space-y-8 animate-fadeIn">
-            
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Store Fulfillment</span>
-                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
-                  Customer Orders Management
-                </h1>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Live customer product orders, delivery addresses, payment confirmations, and dispatch tracking.
-                </p>
-              </div>
+          <div className="space-y-6 animate-fadeIn">
+            <AdminOrderManager />
+          </div>
+        )}
 
-              <div className="flex items-center space-x-2">
-                <span className="px-3.5 py-1.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-xs flex items-center space-x-1.5 shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Real-time Live Sync</span>
-                </span>
-              </div>
-            </div>
+        {/* ======================================================================= */}
+        {/* SECTION 5: PAYMENT MANAGEMENT                                           */}
+        {/* ======================================================================= */}
+        {activeTab === 'payments' && (
+          <div className="space-y-6 animate-fadeIn">
+            <AdminPaymentManager />
+          </div>
+        )}
 
-            {/* Metrics Overview Cards */}
-            <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
-              {/* Metric 1: Total Revenue */}
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-neutral-200 shadow-xs flex flex-col justify-between">
-                <div className="flex items-center justify-between text-neutral-500 mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider">Total Sales</span>
-                  <CreditCard className="w-4 h-4 text-emerald-600" />
-                </div>
-                <div className="font-serif font-black text-xl sm:text-2xl text-[#3a1d1d]">
-                  ₹{orders.filter((o) => o.orderStatus !== 'cancelled').reduce((acc, o) => acc + o.totalAmount, 0).toLocaleString('en-IN')}
-                </div>
-                <span className="text-[10px] text-emerald-700 font-semibold mt-1">From {orders.length} orders</span>
-              </div>
+        {/* ======================================================================= */}
+        {/* SECTION 6: REPORTS & ANALYTICS                                          */}
+        {/* ======================================================================= */}
+        {activeTab === 'reports' && (
+          <div className="space-y-6 animate-fadeIn">
+            <AdminReportsAnalytics />
+          </div>
+        )}
 
-              {/* Metric 2: Total Orders */}
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-neutral-200 shadow-xs flex flex-col justify-between">
-                <div className="flex items-center justify-between text-neutral-500 mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider">All Orders</span>
-                  <ShoppingCart className="w-4 h-4 text-maroon" />
-                </div>
-                <div className="font-serif font-black text-xl sm:text-2xl text-[#7B1131]">
-                  {orders.length}
-                </div>
-                <span className="text-[10px] text-neutral-500 font-semibold mt-1">Customer checkouts</span>
-              </div>
-
-              {/* Metric 3: Pending Verification */}
-              <div className="bg-amber-50/60 p-4 sm:p-5 rounded-2xl border border-amber-200/80 shadow-xs flex flex-col justify-between">
-                <div className="flex items-center justify-between text-amber-800 mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider">Pending</span>
-                  <Clock className="w-4 h-4 text-amber-600" />
-                </div>
-                <div className="font-serif font-black text-xl sm:text-2xl text-amber-900">
-                  {orders.filter((o) => o.orderStatus === 'pending').length}
-                </div>
-                <span className="text-[10px] text-amber-700 font-semibold mt-1">Needs verification</span>
-              </div>
-
-              {/* Metric 4: Shipped / In Transit */}
-              <div className="bg-purple-50/60 p-4 sm:p-5 rounded-2xl border border-purple-200/80 shadow-xs flex flex-col justify-between">
-                <div className="flex items-center justify-between text-purple-800 mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider">Shipped</span>
-                  <Truck className="w-4 h-4 text-purple-600" />
-                </div>
-                <div className="font-serif font-black text-xl sm:text-2xl text-purple-900">
-                  {orders.filter((o) => o.orderStatus === 'shipped' || o.orderStatus === 'confirmed').length}
-                </div>
-                <span className="text-[10px] text-purple-700 font-semibold mt-1">In fulfillment/transit</span>
-              </div>
-
-              {/* Metric 5: Delivered */}
-              <div className="bg-emerald-50/60 p-4 sm:p-5 rounded-2xl border border-emerald-200/80 shadow-xs flex flex-col justify-between col-span-2 lg:col-span-1">
-                <div className="flex items-center justify-between text-emerald-800 mb-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider">Delivered</span>
-                  <CheckCheck className="w-4 h-4 text-emerald-600" />
-                </div>
-                <div className="font-serif font-black text-xl sm:text-2xl text-emerald-900">
-                  {orders.filter((o) => o.orderStatus === 'delivered').length}
-                </div>
-                <span className="text-[10px] text-emerald-700 font-semibold mt-1">Completed delivery</span>
-              </div>
-            </div>
-
-            {/* Search & Status Filters */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 bg-white p-4 rounded-2xl border border-neutral-200 shadow-xs">
-              <div className="relative flex-1 w-full">
-                <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Search by customer name, phone, email, order #, or city..."
-                  value={orderSearch}
-                  onChange={(e) => setOrderSearch(e.target.value)}
-                  className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-neutral-50 border border-neutral-200 text-xs focus:ring-1 focus:ring-maroon"
-                />
-              </div>
-
-              <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-                {[
-                  { id: 'all', label: `All (${orders.length})` },
-                  { id: 'pending', label: `Pending (${orders.filter((o) => o.orderStatus === 'pending').length})` },
-                  { id: 'confirmed', label: `Confirmed (${orders.filter((o) => o.orderStatus === 'confirmed').length})` },
-                  { id: 'shipped', label: `Shipped (${orders.filter((o) => o.orderStatus === 'shipped').length})` },
-                  { id: 'delivered', label: `Delivered (${orders.filter((o) => o.orderStatus === 'delivered').length})` },
-                  { id: 'cancelled', label: `Cancelled (${orders.filter((o) => o.orderStatus === 'cancelled').length})` },
-                ].map((st) => (
-                  <button
-                    key={st.id}
-                    onClick={() => setOrderStatusFilter(st.id as any)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer transition-all ${
-                      orderStatusFilter === st.id
-                        ? 'bg-[#7B1131] text-white shadow-2xs'
-                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                    }`}
-                  >
-                    {st.label}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Orders Table / Cards */}
-            <div className="space-y-4">
-              {orders
-                .filter((ord) => {
-                  if (orderStatusFilter !== 'all' && ord.orderStatus !== orderStatusFilter) {
-                    return false;
-                  }
-                  if (!orderSearch.trim()) return true;
-                  const q = orderSearch.toLowerCase();
-                  return (
-                    ord.orderNumber.toLowerCase().includes(q) ||
-                    ord.customerName.toLowerCase().includes(q) ||
-                    ord.customerPhone.toLowerCase().includes(q) ||
-                    ord.customerEmail.toLowerCase().includes(q) ||
-                    ord.shippingAddress.city.toLowerCase().includes(q) ||
-                    ord.shippingAddress.street.toLowerCase().includes(q)
-                  );
-                })
-                .map((ord) => {
-                  const statusColors = {
-                    pending: 'bg-amber-100 text-amber-800 border-amber-300',
-                    confirmed: 'bg-blue-100 text-blue-800 border-blue-300',
-                    shipped: 'bg-purple-100 text-purple-800 border-purple-300',
-                    delivered: 'bg-emerald-100 text-emerald-800 border-emerald-300',
-                    cancelled: 'bg-red-100 text-red-800 border-red-300',
-                  };
-
-                  const cleanPhone = ord.customerPhone.replace(/[^0-9]/g, '');
-                  const waCustomerMessage = encodeURIComponent(
-                    `Hello ${ord.customerName}! Greetings from SEYOL Care Team.%0A%0ARegarding your Order *#${ord.orderNumber}* (Total: ₹${ord.totalAmount}):%0AOrder Status: *${ord.orderStatus.toUpperCase()}*%0A%0APlease feel free to reply here if you have any questions regarding dispatch or delivery!`
-                  );
-
-                  return (
-                    <div
-                      key={ord.id}
-                      className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-5 sm:p-6 space-y-4 hover:shadow-warm-xs transition-all"
-                    >
-                      {/* Top Row: Order Number, Date, Status, Total */}
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-neutral-100">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 rounded-2xl bg-gold/20 text-maroon flex items-center justify-center font-bold font-mono text-sm shrink-0">
-                            📦
-                          </div>
-                          <div>
-                            <div className="flex items-center space-x-2">
-                              <h3 className="font-mono font-black text-sm text-[#7B1131]">
-                                #{ord.orderNumber}
-                              </h3>
-                              <span className={`px-2.5 py-0.5 rounded-full font-bold text-[10px] uppercase tracking-wider border ${statusColors[ord.orderStatus]}`}>
-                                {ord.orderStatus}
-                              </span>
-                            </div>
-                            <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
-                              {new Date(ord.createdAt).toLocaleDateString('en-IN', {
-                                day: 'numeric',
-                                month: 'short',
-                                year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit',
-                              })}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center justify-between sm:justify-end space-x-4">
-                          <div className="text-left sm:text-right">
-                            <span className="text-[10px] text-neutral-400 block font-semibold">Total Amount</span>
-                            <span className="font-serif font-black text-lg text-[#3a1d1d]">
-                              ₹{ord.totalAmount.toLocaleString('en-IN')}
-                            </span>
-                          </div>
-
-                          {/* Quick Status Updater Dropdown */}
-                          <div className="flex items-center space-x-2">
-                            <select
-                              value={ord.orderStatus}
-                              onChange={(e) => {
-                                updateOrderStatus(ord.id, e.target.value as OrderStatus);
-                                showToast(`Order #${ord.orderNumber} updated to ${e.target.value}`);
-                              }}
-                              className="px-3 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 font-bold text-xs cursor-pointer focus:ring-1 focus:ring-maroon"
-                            >
-                              <option value="pending">🟡 Pending</option>
-                              <option value="confirmed">🔵 Confirmed</option>
-                              <option value="shipped">🟣 Shipped</option>
-                              <option value="delivered">🟢 Delivered</option>
-                              <option value="cancelled">🔴 Cancelled</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Middle Row: Customer Info, Shipping Address, Items Ordered */}
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                        {/* 1. Customer Details */}
-                        <div className="bg-[#FAF7F2] p-3.5 rounded-2xl border border-neutral-200/80 space-y-2">
-                          <span className="font-bold text-[#7B1131] uppercase tracking-wider text-[10px] block">
-                            Customer Details
-                          </span>
-                          <div className="font-bold text-[#3a1d1d] text-sm">
-                            {ord.customerName}
-                          </div>
-                          <div className="space-y-1 text-neutral-600">
-                            <div className="flex items-center space-x-1.5">
-                              <Phone className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                              <a href={`tel:${ord.customerPhone}`} className="hover:underline font-mono">
-                                {ord.customerPhone}
-                              </a>
-                            </div>
-                            {ord.customerEmail && (
-                              <div className="flex items-center space-x-1.5">
-                                <Mail className="w-3.5 h-3.5 text-neutral-400 shrink-0" />
-                                <span className="truncate">{ord.customerEmail}</span>
-                              </div>
-                            )}
-                            <div className="flex items-center space-x-1.5 pt-1">
-                              <span className="font-bold text-[10px] uppercase text-neutral-500">Payment:</span>
-                              <span className="font-bold text-maroon bg-white px-2 py-0.5 rounded border border-neutral-200 uppercase">
-                                {ord.paymentMethod} ({ord.paymentStatus})
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* 2. Shipping Address */}
-                        <div className="bg-[#FAF7F2] p-3.5 rounded-2xl border border-neutral-200/80 space-y-2">
-                          <span className="font-bold text-[#7B1131] uppercase tracking-wider text-[10px] block">
-                            Shipping Address
-                          </span>
-                          <div className="flex items-start space-x-1.5 text-neutral-700 font-medium">
-                            <MapPin className="w-3.5 h-3.5 text-gold-dark shrink-0 mt-0.5" />
-                            <div className="leading-snug">
-                              <p className="font-semibold text-[#3a1d1d]">{ord.shippingAddress.street}</p>
-                              <p>{ord.shippingAddress.city}, {ord.shippingAddress.state} - <strong className="font-mono">{ord.shippingAddress.pincode}</strong></p>
-                            </div>
-                          </div>
-                          {ord.notes && (
-                            <div className="bg-amber-50 p-2 rounded-xl border border-amber-200 text-amber-900 text-[11px]">
-                              <strong>Note:</strong> {ord.notes}
-                            </div>
-                          )}
-                        </div>
-
-                        {/* 3. Items Summary */}
-                        <div className="bg-[#FAF7F2] p-3.5 rounded-2xl border border-neutral-200/80 space-y-2">
-                          <span className="font-bold text-[#7B1131] uppercase tracking-wider text-[10px] block">
-                            Items ({ord.items.reduce((acc, i) => acc + i.quantity, 0)} Total)
-                          </span>
-                          <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
-                            {ord.items.map((item, idx) => (
-                              <div key={idx} className="flex items-center space-x-2.5 bg-white p-2 rounded-xl border border-neutral-200/70">
-                                <img
-                                  src={item.image}
-                                  alt={item.title}
-                                  className="w-9 h-9 rounded-lg object-cover shrink-0 border border-neutral-200"
-                                />
-                                <div className="flex-1 min-w-0">
-                                  <h5 className="font-serif font-bold text-[11px] text-[#3a1d1d] truncate">
-                                    {item.title}
-                                  </h5>
-                                  <div className="flex justify-between text-[10px] text-neutral-500">
-                                    <span>{item.volumeOrType} × {item.quantity}</span>
-                                    <span className="font-bold text-[#7B1131]">₹{item.price * item.quantity}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Bottom Action Buttons */}
-                      <div className="pt-3 border-t border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                        <div className="text-[11px] text-neutral-400 font-mono">
-                          ID: {ord.id}
-                        </div>
-
-                        <div className="flex items-center space-x-2">
-                          {/* WhatsApp Customer Button */}
-                          <a
-                            href={`https://wa.me/${cleanPhone}?text=${waCustomerMessage}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-3.5 py-2 rounded-xl bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#15803d] font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer"
-                            title="Chat with customer on WhatsApp"
-                          >
-                            <MessageCircle className="w-3.5 h-3.5" />
-                            <span>WhatsApp Customer</span>
-                          </a>
-
-                          {/* View Full Order Details */}
-                          <button
-                            type="button"
-                            onClick={() => setSelectedOrderForView(ord)}
-                            className="px-3.5 py-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 font-bold text-xs flex items-center space-x-1.5 transition-colors cursor-pointer"
-                          >
-                            <Eye className="w-3.5 h-3.5" />
-                            <span>View Invoice</span>
-                          </button>
-
-                          {/* Delete / Cancel Order */}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setDeleteConfirmation({
-                                isOpen: true,
-                                type: 'order',
-                                id: ord.id,
-                                name: `Order #${ord.orderNumber} (${ord.customerName})`,
-                              });
-                            }}
-                            className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
-                            title="Delete Order"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-
-              {orders.length === 0 && (
-                <div className="bg-white p-12 rounded-3xl border border-neutral-200 text-center space-y-3">
-                  <ShoppingCart className="w-12 h-12 text-neutral-300 mx-auto" />
-                  <h3 className="font-serif font-bold text-lg text-neutral-700">No Orders Yet</h3>
-                  <p className="text-xs text-neutral-500 max-w-sm mx-auto">
-                    When customers place orders via the storefront cart, all customer and order details will appear here in real-time.
-                  </p>
-                </div>
-              )}
-            </div>
-
+        {/* ======================================================================= */}
+        {/* SECTION 7: SETTINGS                                                     */}
+        {/* ======================================================================= */}
+        {activeTab === 'settings' && (
+          <div className="space-y-6 animate-fadeIn">
+            <AdminSettingsManager />
           </div>
         )}
 
@@ -2808,154 +2945,7 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 8. ORDER DETAILS & INVOICE BREAKDOWN MODAL                                */}
-      {/* ========================================================================= */}
-      {selectedOrderForView && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-xl bg-gold/20 text-maroon flex items-center justify-center font-bold text-sm">
-                  📦
-                </div>
-                <div>
-                  <h3 className="font-mono font-black text-lg text-[#7B1131]">
-                    Order #{selectedOrderForView.orderNumber}
-                  </h3>
-                  <p className="text-[11px] text-neutral-400">
-                    Placed on {new Date(selectedOrderForView.createdAt).toLocaleString('en-IN')}
-                  </p>
-                </div>
-              </div>
 
-              <button
-                onClick={() => setSelectedOrderForView(null)}
-                className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            {/* Customer & Address Details */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-neutral-200/80 space-y-2">
-                <span className="text-[10px] font-bold uppercase text-[#7B1131] tracking-wider block">Customer Contact</span>
-                <div className="font-bold text-sm text-[#3a1d1d]">{selectedOrderForView.customerName}</div>
-                <div className="text-neutral-600 space-y-1">
-                  <div>📞 {selectedOrderForView.customerPhone}</div>
-                  <div>✉️ {selectedOrderForView.customerEmail}</div>
-                </div>
-              </div>
-
-              <div className="bg-[#FAF7F2] p-4 rounded-2xl border border-neutral-200/80 space-y-2">
-                <span className="text-[10px] font-bold uppercase text-[#7B1131] tracking-wider block">Delivery Destination</span>
-                <div className="text-neutral-700 font-medium leading-relaxed">
-                  <p className="font-semibold text-[#3a1d1d]">{selectedOrderForView.shippingAddress.street}</p>
-                  <p>{selectedOrderForView.shippingAddress.city}, {selectedOrderForView.shippingAddress.state}</p>
-                  <p className="font-mono font-bold">PIN: {selectedOrderForView.shippingAddress.pincode}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Items Table */}
-            <div className="space-y-2 text-xs">
-              <span className="font-bold text-neutral-700 block">Ordered Products</span>
-              <div className="rounded-2xl border border-neutral-200 overflow-hidden">
-                <table className="w-full text-left">
-                  <thead className="bg-neutral-50 text-[10px] uppercase font-bold text-neutral-500 border-b border-neutral-200">
-                    <tr>
-                      <th className="p-3">Product</th>
-                      <th className="p-3 text-center">Qty</th>
-                      <th className="p-3 text-right">Price</th>
-                      <th className="p-3 text-right">Total</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-100">
-                    {selectedOrderForView.items.map((item, idx) => (
-                      <tr key={idx}>
-                        <td className="p-3 flex items-center space-x-2.5">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-10 h-10 rounded-lg object-cover border border-neutral-200"
-                          />
-                          <div>
-                            <div className="font-serif font-bold text-neutral-800">{item.title}</div>
-                            <div className="text-[10px] text-neutral-400">{item.volumeOrType}</div>
-                          </div>
-                        </td>
-                        <td className="p-3 text-center font-bold text-neutral-700">{item.quantity}</td>
-                        <td className="p-3 text-right font-mono">₹{item.price}</td>
-                        <td className="p-3 text-right font-mono font-bold text-[#7B1131]">₹{item.price * item.quantity}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* Financial Summary */}
-            <div className="bg-neutral-50 p-4 rounded-2xl border border-neutral-200 space-y-1.5 text-xs">
-              <div className="flex justify-between text-neutral-600">
-                <span>Subtotal:</span>
-                <span className="font-mono">₹{selectedOrderForView.subtotal}</span>
-              </div>
-              {selectedOrderForView.discount > 0 && (
-                <div className="flex justify-between text-maroon font-semibold">
-                  <span>Routine &amp; Bundle Savings:</span>
-                  <span className="font-mono">-₹{selectedOrderForView.discount}</span>
-                </div>
-              )}
-              <div className="flex justify-between text-neutral-600">
-                <span>Shipping:</span>
-                <span className="text-emerald-700 font-semibold">FREE</span>
-              </div>
-              <div className="flex justify-between text-base font-serif font-bold text-[#7B1131] pt-2 border-t border-neutral-200">
-                <span>Total Amount:</span>
-                <span>₹{selectedOrderForView.totalAmount}</span>
-              </div>
-              <div className="flex justify-between text-[11px] text-neutral-500 pt-1">
-                <span>Payment Mode:</span>
-                <span className="uppercase font-bold text-neutral-700">{selectedOrderForView.paymentMethod} ({selectedOrderForView.paymentStatus})</span>
-              </div>
-            </div>
-
-            {/* Change Status & Actions */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="flex items-center space-x-2 w-full sm:w-auto">
-                <span className="text-xs font-bold text-neutral-600">Update Status:</span>
-                <select
-                  value={selectedOrderForView.orderStatus}
-                  onChange={(e) => {
-                    updateOrderStatus(selectedOrderForView.id, e.target.value as OrderStatus);
-                    setSelectedOrderForView({
-                      ...selectedOrderForView,
-                      orderStatus: e.target.value as OrderStatus,
-                    });
-                    showToast(`Order #${selectedOrderForView.orderNumber} updated!`);
-                  }}
-                  className="px-3 py-1.5 rounded-xl bg-neutral-100 border border-neutral-300 font-bold text-xs cursor-pointer"
-                >
-                  <option value="pending">🟡 Pending</option>
-                  <option value="confirmed">🔵 Confirmed</option>
-                  <option value="shipped">🟣 Shipped</option>
-                  <option value="delivered">🟢 Delivered</option>
-                  <option value="cancelled">🔴 Cancelled</option>
-                </select>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => setSelectedOrderForView(null)}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-md cursor-pointer"
-              >
-                Close Invoice
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
     </div>
   );

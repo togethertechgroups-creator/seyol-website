@@ -52,16 +52,16 @@ export function ScrollObserver() {
 
       // 3. Mark elements ready and observe
       autoTargets.forEach((el) => {
-        // Skip sticky pinned horizontal scroll & sections with no-scroll-reveal
+        // Skip header, nav, sticky pinned horizontal scroll & sections with no-scroll-reveal
         if (
+          el.closest('header') ||
+          el.closest('nav') ||
           el.closest('.sticky') || 
           el.classList.contains('sticky') || 
           el.closest('.no-scroll-reveal') || 
           el.classList.contains('no-scroll-reveal') ||
           el.id === 'booking-process'
         ) {
-          el.classList.add('is-revealed');
-          el.classList.add('aos-animate');
           return;
         }
 

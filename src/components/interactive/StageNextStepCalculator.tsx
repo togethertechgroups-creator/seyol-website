@@ -70,9 +70,9 @@ export const StageNextStepCalculator: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto font-sans">
+    <div className="w-full max-w-6xl xl:max-w-7xl mx-auto font-sans">
       {/* ── Deep Maroon SEYOL Brand Container ── */}
-      <div className="bg-[#5C1D24] text-cream-light rounded-3xl sm:rounded-[36px] p-6 sm:p-10 lg:p-12 border border-[#8C2836]/60 shadow-[0_15px_40px_rgba(0,0,0,0.25)] space-y-6 sm:space-y-7">
+      <div className="bg-[#5C1D24] text-cream-light rounded-3xl sm:rounded-[36px] p-6 sm:p-9 lg:p-12 border border-[#8C2836]/60 shadow-[0_15px_40px_rgba(0,0,0,0.25)] space-y-6 sm:space-y-7">
         
         {/* Top Tag & Headings */}
         <div className="space-y-2">
@@ -84,7 +84,7 @@ export const StageNextStepCalculator: React.FC = () => {
             Tell us a little more, we&apos;ll do the rest
           </h2>
           
-          <p className="text-cream-light/85 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl font-normal">
+          <p className="text-cream-light/85 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl font-normal">
             Enter your due date, pregnancy week or your baby&apos;s age &mdash; we&apos;ll match you to the right service, class or product.
           </p>
         </div>
@@ -113,7 +113,7 @@ export const StageNextStepCalculator: React.FC = () => {
         </div>
 
         {/* Input Field + Button Row */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 max-w-xl">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 max-w-2xl">
           <div className="relative flex-1">
             <input
               type="text"

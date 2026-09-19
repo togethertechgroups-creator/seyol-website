@@ -29,7 +29,9 @@ import {
   Users,
   Home,
   MessageCircle,
-  HelpCircle
+  HelpCircle,
+  CreditCard,
+  Loader2
 } from 'lucide-react';
 import {
   BookingServiceId,
@@ -47,6 +49,84 @@ import {
   bookingRecipients,
   initialBookingFormData
 } from '../../data/bookingServicesData';
+import { useAdminData } from '../../context/AdminDataContext';
+import { ProductOrder } from '../../types';
+
+// Helper to extract numeric price and currency for service packages
+const getServicePackagePricing = (
+  serviceId: BookingServiceId,
+  pkg: ServicePackageOption | null,
+  country?: string
+): { fullPrice: number; depositPrice: number; currency: 'sgd' | 'inr' } => {
+  const isSingapore = country?.toLowerCase().includes('singapore');
+  const currency: 'sgd' | 'inr' = isSingapore ? 'sgd' : 'inr';
+
+  // If priceNote contains numbers (e.g. "SGD $1,400" or "₹32,000")
+  if (pkg?.priceNote) {
+    const cleanStr = pkg.priceNote.replace(/,/g, '');
+    const numMatch = cleanStr.match(/(\d+)/);
+    if (numMatch && numMatch[1]) {
+      const parsed = parseInt(numMatch[1], 10);
+      if (parsed > 0) {
+        return {
+          fullPrice: parsed,
+          depositPrice: isSingapore ? Math.min(150, parsed) : Math.min(2500, parsed),
+          currency,
+        };
+      }
+    }
+  }
+
+  // Fallback defaults based on service & package
+  if (serviceId === 'preconception-support' || serviceId === 'general-consultation') {
+    return {
+      fullPrice: isSingapore ? 180 : 4500,
+      depositPrice: isSingapore ? 80 : 1500,
+      currency,
+    };
+  }
+
+  if (serviceId === 'prenatal-massage') {
+    if (pkg?.id?.includes('10')) return { fullPrice: isSingapore ? 1400 : 24000, depositPrice: isSingapore ? 200 : 3000, currency };
+    if (pkg?.id?.includes('5')) return { fullPrice: isSingapore ? 750 : 13000, depositPrice: isSingapore ? 150 : 2500, currency };
+    return { fullPrice: isSingapore ? 160 : 2800, depositPrice: isSingapore ? 100 : 1500, currency };
+  }
+
+  if (serviceId === 'birth-doula-support') {
+    if (pkg?.id?.includes('complete')) return { fullPrice: isSingapore ? 3200 : 75000, depositPrice: isSingapore ? 400 : 5000, currency };
+    if (pkg?.id?.includes('pregnancy-birth')) return { fullPrice: isSingapore ? 2600 : 55000, depositPrice: isSingapore ? 350 : 5000, currency };
+    return { fullPrice: isSingapore ? 1800 : 35000, depositPrice: isSingapore ? 300 : 4000, currency };
+  }
+
+  if (serviceId === 'postpartum-massage-wrap') {
+    if (pkg?.id?.includes('30')) return { fullPrice: isSingapore ? 3100 : 60000, depositPrice: isSingapore ? 350 : 5000, currency };
+    if (pkg?.id?.includes('20')) return { fullPrice: isSingapore ? 2200 : 42000, depositPrice: isSingapore ? 300 : 4000, currency };
+    if (pkg?.id?.includes('15')) return { fullPrice: isSingapore ? 1750 : 32000, depositPrice: isSingapore ? 250 : 3500, currency };
+    if (pkg?.id?.includes('10')) return { fullPrice: isSingapore ? 1250 : 22000, depositPrice: isSingapore ? 200 : 2500, currency };
+    return { fullPrice: isSingapore ? 160 : 2500, depositPrice: isSingapore ? 100 : 1500, currency };
+  }
+
+  if (serviceId === 'infant-massage-bath') {
+    if (pkg?.id?.includes('30')) return { fullPrice: isSingapore ? 2400 : 38000, depositPrice: isSingapore ? 300 : 4000, currency };
+    if (pkg?.id?.includes('15')) return { fullPrice: isSingapore ? 1350 : 20000, depositPrice: isSingapore ? 200 : 2500, currency };
+    if (pkg?.id?.includes('10')) return { fullPrice: isSingapore ? 950 : 14000, depositPrice: isSingapore ? 150 : 2000, currency };
+    return { fullPrice: isSingapore ? 120 : 1500, depositPrice: isSingapore ? 80 : 1000, currency };
+  }
+
+  if (serviceId === 'mother-baby-combo') {
+    return { fullPrice: isSingapore ? 2100 : 32000, depositPrice: isSingapore ? 300 : 4000, currency };
+  }
+
+  if (serviceId === 'confinement-nanny') {
+    return { fullPrice: isSingapore ? 3800 : 85000, depositPrice: isSingapore ? 500 : 10000, currency };
+  }
+
+  return {
+    fullPrice: isSingapore ? 180 : 3500,
+    depositPrice: isSingapore ? 100 : 1500,
+    currency,
+  };
+};
 
 interface ServiceBookingWizardProps {
   initialServiceId?: BookingServiceId;
@@ -65,6 +145,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
   onClose,
   isModal = false
 }) => {
+  const { addOrder } = useAdminData();
   const [activeServiceId, setActiveServiceId] = useState<BookingServiceId>(initialServiceId);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<BookingFormData>({
@@ -75,6 +156,9 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
   const [bookingRefId, setBookingRefId] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showPackageModal, setShowPackageModal] = useState(false);
+  const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
+  const [paymentPlan, setPaymentPlan] = useState<'full' | 'deposit'>('full');
+  const [paidStripeIntent, setPaidStripeIntent] = useState<string | null>(null);
 
   const serviceConfig = useMemo(() => bookingServicesConfig[activeServiceId] || bookingServicesConfig['postpartum-massage-wrap'], [activeServiceId]);
 
@@ -200,6 +284,83 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
     onSuccess?.();
   };
 
+  const handleStripePaymentSuccess = (paymentIntent: {
+    id: string;
+    amount: number;
+    currency: string;
+    status: string;
+    paymentMethod?: 'stripe' | 'upi' | 'card' | 'netbanking';
+  }) => {
+    setIsSubmittingPayment(false);
+
+    const refCode = bookingRefId || `SEY-SVC-${Math.floor(100000 + Math.random() * 900000)}`;
+    setBookingRefId(refCode);
+    setPaidStripeIntent(paymentIntent.id);
+
+    const activePkg = getActivePackageSummary();
+    const pricing = getServicePackagePricing(activeServiceId, activePkg, formData.country);
+    const amountPaid = paymentPlan === 'full' ? pricing.fullPrice : pricing.depositPrice;
+    const chosenMethod = paymentIntent.paymentMethod || 'stripe';
+
+    const newServiceOrder: ProductOrder = {
+      id: `svc-${Date.now()}`,
+      orderNumber: refCode,
+      createdAt: new Date().toISOString(),
+      customerName: formData.fullName.trim() || 'Valued Client',
+      customerPhone: formData.whatsapp.trim(),
+      customerEmail: formData.email.trim() || 'client@seyolcare.com',
+      shippingAddress: {
+        street: formData.address?.trim() || `${serviceConfig.title} In-Home Therapy`,
+        city: formData.country === 'Singapore' ? 'Singapore' : 'Chennai',
+        state: formData.country === 'Singapore' ? 'Singapore' : 'Tamil Nadu',
+        pincode: formData.postalCode?.trim() || (formData.country === 'Singapore' ? '238801' : '600020'),
+      },
+      items: [
+        {
+          productId: activeServiceId,
+          title: serviceConfig.title,
+          volumeOrType: `${activePkg?.name || 'Care Service'} (${paymentPlan === 'full' ? 'Full Package' : 'Booking Deposit'})`,
+          price: amountPaid,
+          quantity: 1,
+          image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=600',
+        }
+      ],
+      subtotal: amountPaid,
+      discount: 0,
+      shippingFee: 0,
+      totalAmount: amountPaid,
+      paymentMethod: chosenMethod as any,
+      paymentStatus: 'paid', // SUCCESS!
+      orderStatus: 'confirmed',
+      orderType: 'service',
+      currency: pricing.currency.toUpperCase(),
+      stripePaymentIntentId: paymentIntent.id,
+      notes: `Service: ${serviceConfig.title} | Package: ${activePkg?.name || 'Standard'} | Booking For: ${formData.bookingFor} | Preferred mode: ${formData.preferredConsultationMode || 'Flexible'} | Time: ${formData.preferredTime || 'Flexible'}`,
+      serviceDetails: {
+        serviceId: activeServiceId,
+        serviceTitle: serviceConfig.title,
+        packageName: activePkg?.name || 'Selected Package',
+        sessions: activePkg?.sessions,
+        location: formData.country,
+        bookingDate: formData.postpartumPreferredStartDate || formData.prenatalPreferredDate || formData.doulaEdd || new Date().toISOString().split('T')[0],
+        recipient: formData.bookingFor,
+      },
+      timeline: [
+        {
+          status: 'confirmed',
+          timestamp: new Date().toISOString(),
+          note: `Service Booking Confirmed! Verified ${chosenMethod.toUpperCase()} Payment of ${pricing.currency.toUpperCase()} ${amountPaid} Succeeded (Gateway Ref: ${paymentIntent.id})`,
+          actor: 'Seyol Payment Gateway'
+        }
+      ]
+    };
+
+    // Add to Admin system immediately upon verified payment
+    addOrder(newServiceOrder);
+    setIsSubmitted(true);
+    onSuccess?.();
+  };
+
   // Generate pre-filled WhatsApp message
   const getWhatsAppMessageUrl = () => {
     const lines = [
@@ -261,14 +422,22 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
         </div>
 
         <div className="space-y-2">
-          <span className="text-[11px] font-bold uppercase tracking-widest text-maroon bg-maroon-soft px-3.5 py-1 rounded-full border border-maroon/20">
-            Booking Reference: {bookingRefId}
-          </span>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-maroon bg-maroon-soft px-3.5 py-1 rounded-full border border-maroon/20">
+              Booking Reference: {bookingRefId}
+            </span>
+            {paidStripeIntent && (
+              <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-3.5 py-1 rounded-full border border-emerald-300 flex items-center space-x-1">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span>Stripe Live Paid: {paidStripeIntent}</span>
+              </span>
+            )}
+          </div>
           <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
             Your SEYOL Care Journey Begins!
           </h2>
           <p className="text-xs sm:text-sm text-brown max-w-md mx-auto leading-relaxed">
-            Thank you, <strong>{formData.fullName}</strong>. Your consultation request for <strong>{serviceConfig.title}</strong> has been received by our senior care matrons.
+            Thank you, <strong>{formData.fullName}</strong>. Your consultation request for <strong>{serviceConfig.title}</strong> has been confirmed and registered in our Admin system.
           </p>
         </div>
 
@@ -2784,12 +2953,83 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     </div>
 
                     {getActivePackageSummary() && (
-                      <div className="sm:col-span-2 p-3 rounded-xl bg-cream border border-cream-border">
-                        <span className="text-[10px] font-bold uppercase text-maroon block">Selected Package</span>
-                        <div className="font-serif font-bold text-brown text-sm">{getActivePackageSummary()?.name}</div>
-                        <div className="text-[11px] text-brown-muted mt-0.5">{getActivePackageSummary()?.sessions}</div>
+                      <div className="sm:col-span-2 p-3.5 rounded-xl bg-cream border border-cream-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase text-maroon block">Selected Package</span>
+                          <div className="font-serif font-bold text-brown text-sm">{getActivePackageSummary()?.name}</div>
+                          <div className="text-[11px] text-brown-muted mt-0.5">{getActivePackageSummary()?.sessions}</div>
+                        </div>
+                        {(() => {
+                          const p = getServicePackagePricing(activeServiceId, getActivePackageSummary(), formData.country);
+                          const sym = p.currency === 'sgd' ? 'SGD $' : '₹';
+                          return (
+                            <div className="text-right sm:border-l sm:border-cream-border sm:pl-4">
+                              <span className="text-[10px] uppercase font-bold text-brown-muted block">Package Investment</span>
+                              <span className="font-serif font-bold text-base text-maroon">
+                                {sym}{p.fullPrice.toLocaleString()}
+                              </span>
+                            </div>
+                          );
+                        })()}
                       </div>
                     )}
+                  </div>
+
+                  {/* Stripe Payment Option Selector */}
+                  <div className="pt-2 border-t border-cream-border space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <CreditCard className="w-4 h-4 text-gold-dark" />
+                        <span className="text-xs font-bold uppercase tracking-wider text-brown">
+                          Online Care Payment &amp; Reservation (Stripe Live)
+                        </span>
+                      </div>
+                      <span className="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-bold">
+                        Instant Admin Confirmation
+                      </span>
+                    </div>
+
+                    {(() => {
+                      const p = getServicePackagePricing(activeServiceId, getActivePackageSummary(), formData.country);
+                      const sym = p.currency === 'sgd' ? 'SGD $' : '₹';
+                      return (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                          <label
+                            onClick={() => setPaymentPlan('full')}
+                            className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                              paymentPlan === 'full'
+                                ? 'bg-gold-soft border-gold-dark text-maroon font-bold ring-1 ring-gold shadow-xs'
+                                : 'bg-cream-light border-cream-border hover:bg-white text-brown'
+                            }`}
+                          >
+                            <div>
+                              <div className="font-bold">Full Package Payment</div>
+                              <div className="text-[11px] text-brown-muted font-normal">Complete care investment upfront</div>
+                            </div>
+                            <span className="font-serif font-bold text-sm text-maroon">
+                              {sym}{p.fullPrice.toLocaleString()}
+                            </span>
+                          </label>
+
+                          <label
+                            onClick={() => setPaymentPlan('deposit')}
+                            className={`p-3 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
+                              paymentPlan === 'deposit'
+                                ? 'bg-gold-soft border-gold-dark text-maroon font-bold ring-1 ring-gold shadow-xs'
+                                : 'bg-cream-light border-cream-border hover:bg-white text-brown'
+                            }`}
+                          >
+                            <div>
+                              <div className="font-bold">Advance Booking Deposit</div>
+                              <div className="text-[11px] text-brown-muted font-normal">Lock in matron calendar dates</div>
+                            </div>
+                            <span className="font-serif font-bold text-sm text-maroon">
+                              {sym}{p.depositPrice.toLocaleString()}
+                            </span>
+                          </label>
+                        </div>
+                      );
+                    })()}
                   </div>
                 </div>
 
@@ -2797,11 +3037,80 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 <div className="pt-2 flex flex-col sm:flex-row gap-3">
                   <button
                     type="button"
-                    onClick={() => handleFinalSubmit()}
-                    className="flex-1 py-4 px-6 rounded-2xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    disabled={isSubmittingPayment}
+                    onClick={() => {
+                      if (!validateCurrentStep()) return;
+                      setIsSubmittingPayment(true);
+
+                      const activePkg = getActivePackageSummary();
+                      const p = getServicePackagePricing(activeServiceId, activePkg, formData.country);
+                      const amountToPay = paymentPlan === 'full' ? p.fullPrice : p.depositPrice;
+
+                      fetch('/api/stripe/create-checkout-session', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          amount: amountToPay,
+                          currency: p.currency,
+                          orderType: 'service',
+                          title: `${serviceConfig.title} - ${activePkg?.name || 'Selected Package'}`,
+                          subtitle: `${paymentPlan === 'full' ? 'Full Package Investment' : 'Initial Booking Deposit'} • Location: ${formData.country}`,
+                          customerName: formData.fullName.trim() || 'Valued Client',
+                          customerEmail: formData.email.trim() || 'client@seyolcare.com',
+                          customerPhone: formData.whatsapp.trim(),
+                          shippingAddress: {
+                            street: formData.address?.trim() || `${serviceConfig.title} In-Home Therapy`,
+                            city: formData.country === 'Singapore' ? 'Singapore' : 'Chennai',
+                            state: formData.country === 'Singapore' ? 'Singapore' : 'Tamil Nadu',
+                            pincode: formData.postalCode?.trim() || (formData.country === 'Singapore' ? '238801' : '600020'),
+                          },
+                          serviceDetails: {
+                            serviceId: activeServiceId,
+                            serviceTitle: serviceConfig.title,
+                            packageName: activePkg?.name || 'Selected Package',
+                            sessions: activePkg?.sessions,
+                            location: formData.country,
+                            bookingDate: formData.postpartumPreferredStartDate || formData.prenatalPreferredDate || formData.doulaEdd || new Date().toISOString().split('T')[0],
+                            recipient: formData.bookingFor,
+                          },
+                          notes: `Service: ${serviceConfig.title} | Package: ${activePkg?.name || 'Standard'} | Booking For: ${formData.bookingFor} | Preferred mode: ${formData.preferredConsultationMode || 'Flexible'} | Time: ${formData.preferredTime || 'Flexible'}`,
+                        }),
+                      })
+                        .then((res) => res.json())
+                        .then((data) => {
+                          if (data.error || !data.url) {
+                            alert(data.error || 'Failed to start payment. Please try again.');
+                            setIsSubmittingPayment(false);
+                            return;
+                          }
+                          // Directly redirect straight to Stripe's payment page!
+                          window.location.href = data.url;
+                        })
+                        .catch((err) => {
+                          alert(err.message || 'Payment connection error. Please try again.');
+                          setIsSubmittingPayment(false);
+                        });
+                    }}
+                    className="flex-1 py-4 px-6 rounded-2xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-75"
                   >
-                    <span>Submit &amp; Coordinate with SEYOL</span>
-                    <ArrowRight className="w-4 h-4 text-gold-light" />
+                    {isSubmittingPayment ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin text-gold-light" />
+                        <span>Redirecting to Payment...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock className="w-4 h-4 text-gold-light" />
+                        <span>
+                          {(() => {
+                            const p = getServicePackagePricing(activeServiceId, getActivePackageSummary(), formData.country);
+                            const sym = p.currency === 'sgd' ? 'SGD $' : '₹';
+                            const amt = paymentPlan === 'full' ? p.fullPrice : p.depositPrice;
+                            return `Proceed to Payment (${sym}${amt.toLocaleString()})`;
+                          })()}
+                        </span>
+                      </>
+                    )}
                   </button>
 
                   <a

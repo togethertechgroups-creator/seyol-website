@@ -103,7 +103,7 @@ export default function ProductsPage() {
       {/* ========================================================================= */}
       {/* 1. HIGH-IMPACT PROMOTIONAL HERO BANNER (VILVAH HERO STYLE)                */}
       {/* ========================================================================= */}
-      <section className="px-2 sm:px-4 lg:px-6 pt-8 sm:pt-10 lg:pt-11 max-w-[98%] 2xl:max-w-[1780px] mx-auto w-full">
+      <section className="px-2 sm:px-4 lg:px-6 pt-20 sm:pt-24 lg:pt-26 pb-4 sm:pb-6 max-w-[98%] 2xl:max-w-[1780px] mx-auto w-full">
         <div 
           className={`relative rounded-3xl sm:rounded-[36px] overflow-hidden min-h-[480px] sm:min-h-[520px] lg:min-h-[580px] ${slide.isLight ? 'bg-[#EFE7DB] text-[#3a1d1d]' : 'bg-[#1a382c] text-white'} transition-all duration-700 flex flex-col justify-between p-6 sm:p-12 lg:p-16 shadow-warm-lg border border-neutral-200/90`}
         >

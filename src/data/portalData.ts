@@ -103,6 +103,16 @@ export const mockClientPortals: Record<string, ClientPortalProfile> = {
         location: 'In-Home'
       },
       {
+        id: 'cal-3b',
+        type: 'package_session',
+        title: 'Session 22: Full Body Herbal Bodywork',
+        date: '2026-09-03',
+        time: '09:30 AM',
+        status: 'confirmed',
+        location: 'In-Home',
+        matronName: 'Mrs. Lakshmi S.'
+      },
+      {
         id: 'cal-4',
         type: 'pending_request',
         title: 'Lactation Consultant Home Follow-up Request',
@@ -127,24 +137,41 @@ export const mockClientPortals: Record<string, ClientPortalProfile> = {
         title: 'Final Milestone Invoice Due (₹18,000)',
         date: '2026-09-07',
         status: 'due',
-        notes: 'Milestone 2 final balance payment.'
+        notes: 'Milestone 2 final balance payment. Please pay before this date to avoid service hold.'
       },
       {
         id: 'cal-7',
         type: 'scn_duration',
-        title: 'Stay-in Confinement Support Duration',
-        date: '2026-08-04 to 2026-09-01',
+        title: 'Stay-In Confinement Nanny Support: Start Date',
+        date: '2026-08-04',
         status: 'confirmed',
-        notes: 'Continuous 28-day mother & baby stay-in support.'
+        notes: 'SCN Ms. Priya begins full-time stay-in nanny support from this date.'
+      },
+      {
+        id: 'cal-7b',
+        type: 'scn_duration',
+        title: 'Stay-In Confinement Nanny Support: End Date',
+        date: '2026-09-01',
+        status: 'confirmed',
+        notes: 'Last day of 28-day continuous stay-in confinement nanny support. Transition to drop-in visits begins.'
       },
       {
         id: 'cal-8',
         type: 'time_to_avoid',
-        title: 'Mother Rest Window (Do Not Schedule)',
+        title: 'Mother Rest Window — Do Not Schedule',
         date: '2026-08-31',
         time: '01:30 PM – 04:00 PM',
         status: 'rest_window',
-        notes: 'Protected quiet rest & baby nap window.'
+        notes: 'Protected quiet rest & baby nap window. No visitors or calls.'
+      },
+      {
+        id: 'cal-9',
+        type: 'time_to_avoid',
+        title: 'Baby Sleep Window — Do Not Disturb',
+        date: '2026-09-02',
+        time: '12:00 PM – 02:30 PM',
+        status: 'rest_window',
+        notes: 'Baby Aarav\'s established afternoon nap window. Matron has scheduled session after this window.'
       }
     ],
 

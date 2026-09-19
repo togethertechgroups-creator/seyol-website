@@ -19,7 +19,9 @@ import {
   Mail,
   MapPin,
   CreditCard,
-  Truck
+  Truck,
+  Lock,
+  Loader2
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useAdminData } from '../../context/AdminDataContext';
@@ -59,7 +61,7 @@ export const CartDrawer: React.FC = () => {
     city: 'Chennai',
     state: 'Tamil Nadu',
     pincode: '',
-    paymentMethod: 'upi' as 'cod' | 'upi' | 'card' | 'whatsapp',
+    paymentMethod: 'stripe' as 'stripe' | 'cod' | 'whatsapp',
     notes: '',
   });
 
@@ -82,11 +84,130 @@ export const CartDrawer: React.FC = () => {
       return;
     }
 
+    if (formData.paymentMethod === 'stripe') {
+      setIsSubmitting(true);
+      fetch('/api/stripe/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: total,
+          currency: 'inr',
+          title: `SEYOL Order (${cart.length} item${cart.length > 1 ? 's' : ''})`,
+          subtitle: cart.map((i) => `${i.title} (${i.volumeOrType}) x${i.quantity}`).join(', '),
+          customerName: formData.name.trim(),
+          customerEmail: formData.email.trim() || 'customer@seyolcare.com',
+          customerPhone: formData.phone.trim(),
+          orderType: 'product',
+          shippingAddress: {
+            street: formData.street.trim(),
+            city: formData.city.trim() || 'Chennai',
+            state: formData.state.trim() || 'Tamil Nadu',
+            pincode: formData.pincode.trim() || '600001',
+          },
+          items: cart.map((item) => ({
+            productId: item.id,
+            title: item.title,
+            volumeOrType: item.volumeOrType,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image,
+          })),
+          notes: formData.notes.trim(),
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error || !data.url) {
+            alert(data.error || 'Failed to start payment. Please try again.');
+            setIsSubmitting(false);
+            return;
+          }
+          // Straight to Stripe Checkout payment page!
+          window.location.href = data.url;
+        })
+        .catch((err) => {
+          alert(err.message || 'Payment connection error. Please try again.');
+          setIsSubmitting(false);
+        });
+      return;
+    }
+
+    if (formData.paymentMethod === 'cod') {
+      setIsSubmitting(true);
+      const randomDigits = Math.floor(10000 + Math.random() * 90000);
+      const orderNum = `SEY-${randomDigits}`;
+      const orderId = `ord-${Date.now()}`;
+
+      const newOrder: ProductOrder = {
+        id: orderId,
+        orderNumber: orderNum,
+        createdAt: new Date().toISOString(),
+        customerName: formData.name.trim(),
+        customerPhone: formData.phone.trim(),
+        customerEmail: formData.email.trim() || 'customer@seyolcare.com',
+        shippingAddress: {
+          street: formData.street.trim(),
+          city: formData.city.trim() || 'Chennai',
+          state: formData.state.trim() || 'Tamil Nadu',
+          pincode: formData.pincode.trim() || '600001',
+        },
+        items: cart.map((item) => ({
+          productId: item.id,
+          title: item.title,
+          volumeOrType: item.volumeOrType,
+          price: item.price,
+          quantity: item.quantity,
+          image: item.image,
+        })),
+        subtotal: subtotal,
+        discount: discount,
+        shippingFee: 0,
+        totalAmount: total,
+        paymentMethod: 'cod',
+        paymentStatus: 'cod',
+        orderStatus: 'pending',
+        orderType: 'product',
+        currency: 'INR',
+        notes: formData.notes.trim(),
+        timeline: [
+          {
+            status: 'pending',
+            timestamp: new Date().toISOString(),
+            note: 'Order placed with Cash on Delivery',
+            actor: 'Customer'
+          }
+        ]
+      };
+
+      setTimeout(() => {
+        addOrder(newOrder);
+        setConfirmedOrder(newOrder);
+        clearCart();
+        setIsSubmitting(false);
+        setStep('success');
+      }, 500);
+      return;
+    }
+
+    if (formData.paymentMethod === 'whatsapp') {
+      window.open(getWhatsAppLink(), '_blank');
+      return;
+    }
+  };
+
+  const handleStripePaymentSuccess = (paymentIntent: {
+    id: string;
+    amount: number;
+    currency: string;
+    status: string;
+    paymentMethod?: 'stripe' | 'upi' | 'card' | 'netbanking';
+  }) => {
     setIsSubmitting(true);
 
     const randomDigits = Math.floor(10000 + Math.random() * 90000);
     const orderNum = `SEY-${randomDigits}`;
     const orderId = `ord-${Date.now()}`;
+    const methodUsed = paymentIntent.paymentMethod || 'stripe';
 
     const newOrder: ProductOrder = {
       id: orderId,
@@ -113,19 +234,29 @@ export const CartDrawer: React.FC = () => {
       discount: discount,
       shippingFee: 0,
       totalAmount: total,
-      paymentMethod: formData.paymentMethod,
-      paymentStatus: formData.paymentMethod === 'cod' ? 'cod' : 'paid',
-      orderStatus: 'pending',
+      paymentMethod: methodUsed as any,
+      paymentStatus: 'paid', // SUCCESS!
+      orderStatus: 'confirmed',
+      orderType: 'product',
+      currency: 'INR',
+      stripePaymentIntentId: paymentIntent.id,
       notes: formData.notes.trim(),
+      timeline: [
+        {
+          status: 'confirmed',
+          timestamp: new Date().toISOString(),
+          note: `Payment of ₹${total} verified via ${methodUsed.toUpperCase()} (Ref: ${paymentIntent.id})`,
+          actor: 'SEYOL Payment Gateway'
+        }
+      ]
     };
 
-    setTimeout(() => {
-      addOrder(newOrder);
-      setConfirmedOrder(newOrder);
-      clearCart();
-      setIsSubmitting(false);
-      setStep('success');
-    }, 800);
+    // Add directly to admin system ONLY after verified payment
+    addOrder(newOrder);
+    setConfirmedOrder(newOrder);
+    clearCart();
+    setIsSubmitting(false);
+    setStep('success');
   };
 
   // WhatsApp checkout message generator
@@ -238,6 +369,14 @@ export const CartDrawer: React.FC = () => {
                     <span className="text-brown-muted">Payment Mode:</span>
                     <span className="font-bold uppercase text-brown">{confirmedOrder.paymentMethod}</span>
                   </div>
+                  {confirmedOrder.stripePaymentIntentId && (
+                    <div className="flex justify-between border-b border-cream-border/60 pb-2">
+                      <span className="text-brown-muted">Stripe Reference:</span>
+                      <span className="font-mono font-bold text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                        {confirmedOrder.stripePaymentIntentId}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between border-b border-cream-border/60 pb-2">
                     <span className="text-brown-muted">Contact Phone:</span>
                     <span className="font-semibold text-brown">{confirmedOrder.customerPhone}</span>
@@ -379,31 +518,37 @@ export const CartDrawer: React.FC = () => {
                     <span>Payment Method</span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {[
-                      { id: 'upi', label: 'UPI / GPay / QR', icon: '📱' },
+                      { id: 'stripe', label: 'Online Payment (Cards / GPay / NetBanking)', icon: '💳', badge: 'Instant' },
                       { id: 'cod', label: 'Cash on Delivery', icon: '💵' },
-                      { id: 'card', label: 'Card / Net Banking', icon: '💳' },
                       { id: 'whatsapp', label: 'WhatsApp Order', icon: '💬' },
                     ].map((m) => (
                       <label
                         key={m.id}
-                        className={`p-2.5 rounded-xl border flex items-center space-x-2 cursor-pointer transition-all ${
+                        className={`p-2.5 rounded-xl border flex items-center justify-between cursor-pointer transition-all ${
                           formData.paymentMethod === m.id
                             ? 'bg-gold-soft border-gold-dark text-maroon font-bold ring-1 ring-gold'
                             : 'bg-cream-light border-cream-border hover:bg-white text-brown'
                         }`}
                       >
-                        <input
-                          type="radio"
-                          name="paymentMethod"
-                          value={m.id}
-                          checked={formData.paymentMethod === m.id}
-                          onChange={() => setFormData({ ...formData, paymentMethod: m.id as any })}
-                          className="sr-only"
-                        />
-                        <span>{m.icon}</span>
-                        <span className="text-[11px]">{m.label}</span>
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="radio"
+                            name="paymentMethod"
+                            value={m.id}
+                            checked={formData.paymentMethod === m.id}
+                            onChange={() => setFormData({ ...formData, paymentMethod: m.id as any })}
+                            className="sr-only"
+                          />
+                          <span>{m.icon}</span>
+                          <span className="text-[11px]">{m.label}</span>
+                        </div>
+                        {m.badge && (
+                          <span className="text-[9px] bg-[#7B1131] text-cream-light px-1.5 py-0.5 rounded font-bold uppercase tracking-wider">
+                            {m.badge}
+                          </span>
+                        )}
                       </label>
                     ))}
                   </div>
@@ -587,7 +732,15 @@ export const CartDrawer: React.FC = () => {
                     className="w-full py-3.5 px-4 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs tracking-wide shadow-warm-md transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-75"
                   >
                     {isSubmitting ? (
-                      <span>Placing Order in Admin System...</span>
+                      <span className="flex items-center space-x-2">
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        <span>Redirecting to Payment...</span>
+                      </span>
+                    ) : formData.paymentMethod === 'stripe' ? (
+                      <>
+                        <CreditCard className="w-4 h-4 text-gold-light" />
+                        <span>Proceed to Payment (₹{total})</span>
+                      </>
                     ) : (
                       <>
                         <CheckCircle2 className="w-4 h-4 text-gold-light" />

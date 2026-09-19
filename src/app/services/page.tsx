@@ -25,7 +25,7 @@ export default function ServicesPage() {
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
       {/* Hero Header with Full-Bleed Mother & Baby Sanctuary Background */}
-      <section className="relative overflow-hidden min-h-[420px] sm:min-h-[480px] lg:min-h-[520px] flex items-center py-10 sm:py-14 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
+      <section className="relative overflow-hidden min-h-[440px] sm:min-h-[500px] lg:min-h-[540px] flex items-center pt-24 sm:pt-28 pb-10 sm:pb-14 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
         {/* Full-Bleed Ambient Hero Background Image */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
           <Image

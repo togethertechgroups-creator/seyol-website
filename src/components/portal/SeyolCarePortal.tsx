@@ -46,6 +46,7 @@ import {
   Lock
 } from 'lucide-react';
 import { mockClientPortals } from '../../data/portalData';
+import { usePortalData } from '../../context/PortalDataContext';
 import { useAuth, PRECONFIGURED_CLIENTS } from '../../context/AuthContext';
 import { 
   ClientPortalProfile, 
@@ -72,6 +73,19 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState<string | null>(null);
 
+  // Live Clock
+  const [currentTime, setCurrentTime] = useState(new Date());
+  React.useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+  const formattedDate = currentTime.toLocaleDateString('en-IN', {
+    weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
+  });
+  const formattedTime = currentTime.toLocaleTimeString('en-IN', {
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+  });
+
   const [selectedClientId, setSelectedClientId] = useState<string>(
     !isAdminView && user?.id ? user.id : initialClientId
   );
@@ -88,26 +102,28 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
     | 'support'
   >('dashboard');
 
+  const { allClientData, updateClientData: persistClientUpdate } = usePortalData();
+
   const [clientData, setClientData] = useState<ClientPortalProfile>(
-    mockClientPortals[selectedClientId] || mockClientPortals['usr_seyol_8819']
+    allClientData[selectedClientId] || mockClientPortals['usr_seyol_8819']
   );
+
+  // Sync clientData from shared context whenever selectedClientId or allClientData changes
+  React.useEffect(() => {
+    const fresh = allClientData[selectedClientId];
+    if (fresh) setClientData(fresh);
+  }, [selectedClientId, allClientData]);
 
   // Sync with auth user on mount/update
   React.useEffect(() => {
     if (!isAdminView && user?.id) {
       setSelectedClientId(user.id);
-      if (mockClientPortals[user.id]) {
-        setClientData(mockClientPortals[user.id]);
-      }
     }
   }, [user, isAdminView]);
 
   // Switch client
   const handleClientChange = (newId: string) => {
     setSelectedClientId(newId);
-    if (mockClientPortals[newId]) {
-      setClientData(mockClientPortals[newId]);
-    }
     if (!isAdminView) {
       loginAsClient(newId);
     }
@@ -243,8 +259,8 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
   const navModules = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
     { id: 'calendar', label: 'My Care Calendar', icon: <Calendar className="w-4 h-4" /> },
-    { id: 'invoices', label: 'Invoices & Receipts', icon: <CreditCard className="w-4 h-4" /> },
-    { id: 'preparation', label: 'Preparation Item List', icon: <CheckSquare className="w-4 h-4" /> },
+    { id: 'invoices', label: 'Invoices & Payments', icon: <CreditCard className="w-4 h-4" /> },
+    { id: 'preparation', label: 'Preparation List', icon: <CheckSquare className="w-4 h-4" /> },
     { id: 'scn_checkin', label: 'SCN Weekly Check-In', icon: <FileSpreadsheet className="w-4 h-4" /> },
     { 
       id: 'messages', 
@@ -255,128 +271,215 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
     { id: 'classes', label: 'My Classes', icon: <GraduationCap className="w-4 h-4" /> },
     { id: 'resources', label: 'My Resources', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'documents', label: 'Documents & Consent', icon: <FileText className="w-4 h-4" /> },
-    { id: 'support', label: 'Support & Concierge', icon: <HelpCircle className="w-4 h-4" /> },
+    { id: 'support', label: 'Support', icon: <HelpCircle className="w-4 h-4" /> },
   ];
 
   // If customer is logged out, show dedicated Care Portal Login Screen
   if (!isAdminView && (!isAuthenticated || !user)) {
     return (
-      <div className="w-full max-w-xl mx-auto bg-cream-light border border-gold-border rounded-3xl shadow-warm-lg overflow-hidden font-sans text-brown animate-fadeIn">
-        <div className="bg-[#7B1131] text-cream-light p-6 sm:p-8 text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold-light mx-auto">
-            <FileText className="w-6 h-6" />
+      <div className="w-full min-h-screen bg-[#F5EFE8] flex items-center justify-center p-4 font-sans">
+        <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl animate-fadeIn border border-cream-border">
+
+          {/* Left Panel — Brand */}
+          <div className="bg-[#7B1131] flex flex-col items-center justify-center p-10 sm:p-14 text-center relative overflow-hidden">
+            {/* Background circles */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+
+            {/* Logo */}
+            <div className="relative z-10 w-28 h-28 mb-6 drop-shadow-xl">
+              <Image
+                src="/assets4/Logo - Transparent Logo copy.png"
+                alt="SEYOL Logo"
+                width={112}
+                height={112}
+                className="object-contain w-full h-full"
+                unoptimized
+              />
+            </div>
+
+            <div className="relative z-10 space-y-3">
+              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
+                My SEYOL<br />Care Portal
+              </h1>
+              <p className="text-xs text-cream-light/70 leading-relaxed max-w-xs mx-auto">
+                Your personal space for appointments, care updates, invoices, and your postpartum journey.
+              </p>
+            </div>
+
+            {/* Bottom features list */}
+            <div className="relative z-10 mt-8 space-y-2 text-left w-full max-w-xs">
+              {[
+                'Upcoming Appointments & Sessions',
+                'Active Package & Care Progress',
+                'Invoices, Receipts & Payments',
+                'Messages & SEYOL Updates',
+              ].map((item) => (
+                <div key={item} className="flex items-center space-x-2.5 text-xs text-cream-light/80">
+                  <div className="w-4 h-4 rounded-full bg-gold/30 border border-gold/40 flex items-center justify-center shrink-0">
+                    <Check className="w-2.5 h-2.5 text-gold-light" />
+                  </div>
+                  <span>{item}</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light bg-gold/20 px-3 py-1 rounded-full border border-gold/30">
-            Customer Portal Access
-          </span>
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-cream-light mt-1">
-            My SEYOL Care Portal Login
-          </h2>
-          <p className="text-xs text-cream-light/80 max-w-md mx-auto leading-relaxed">
-            Sign in to access your upcoming appointments, active package sessions, daily matron clinical updates, receipts, and preparation checklist.
-          </p>
-        </div>
 
-        <div className="p-6 sm:p-8 space-y-6">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              if (!loginIdentifier.trim()) {
-                setLoginError('Please enter your email address or WhatsApp number');
-                return;
-              }
-              login(loginIdentifier, loginPassword);
-            }}
-            className="space-y-4"
-          >
-            {loginError && (
-              <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center space-x-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{loginError}</span>
-              </div>
-            )}
-
-            <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-brown mb-1.5">
-                Registered Email or Number <span className="text-maroon">*</span>
-              </label>
-              <div className="relative">
-                <Mail className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
-                <input
-                  type="text"
-                  placeholder="e.g. ananya.r@example.com / +91 98400..."
-                  value={loginIdentifier}
-                  onChange={(e) => {
-                    setLoginIdentifier(e.target.value);
-                    setLoginError(null);
-                  }}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-cream border border-cream-border text-xs font-medium text-brown focus:outline-none focus:ring-2 focus:ring-gold"
-                />
-              </div>
+          {/* Right Panel — Login Form */}
+          <div className="bg-white flex flex-col justify-center p-8 sm:p-12">
+            <div className="mb-8">
+              <h2 className="font-serif text-2xl font-bold text-brown">Welcome back</h2>
+              <p className="text-xs text-brown-muted mt-1">Sign in to access your care journey</p>
             </div>
 
-            <div>
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-brown">
-                  Password
-                </label>
-                <span className="text-[10px] text-maroon font-semibold cursor-pointer hover:underline">
-                  Forgot Password?
-                </span>
-              </div>
-              <div className="relative">
-                <User className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
-                <input
-                  type="password"
-                  placeholder="Enter passcode (or leave blank for demo)"
-                  value={loginPassword}
-                  onChange={(e) => setLoginPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-cream border border-cream-border text-xs font-medium text-brown focus:outline-none focus:ring-2 focus:ring-gold"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full py-3.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs shadow-warm-md flex items-center justify-center space-x-2 transition-all hover:scale-[1.01]"
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!loginIdentifier.trim()) {
+                  setLoginError('Please enter your email address or WhatsApp number');
+                  return;
+                }
+                login(loginIdentifier, loginPassword);
+              }}
+              className="space-y-5"
             >
-              <span>Log In to My SEYOL Care Portal</span>
-              <ArrowRight className="w-4 h-4 text-gold-light" />
-            </button>
-          </form>
+              {loginError && (
+                <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center space-x-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{loginError}</span>
+                </div>
+              )}
+
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-brown-muted mb-2">
+                  Registered Email or Phone
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
+                  <input
+                    type="text"
+                    placeholder="ananya.r@example.com / +91 98400..."
+                    value={loginIdentifier}
+                    onChange={(e) => {
+                      setLoginIdentifier(e.target.value);
+                      setLoginError(null);
+                    }}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#FAF7F2] border border-cream-border text-sm text-brown focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold transition-all"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-brown-muted">
+                    Password
+                  </label>
+                  <span className="text-[10px] text-maroon font-semibold cursor-pointer hover:underline">
+                    Forgot Password?
+                  </span>
+                </div>
+                <div className="relative">
+                  <Lock className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
+                  <input
+                    type="password"
+                    placeholder="Enter your passcode"
+                    value={loginPassword}
+                    onChange={(e) => setLoginPassword(e.target.value)}
+                    className="w-full pl-10 pr-4 py-3 rounded-xl bg-[#FAF7F2] border border-cream-border text-sm text-brown focus:outline-none focus:ring-2 focus:ring-gold focus:border-gold transition-all"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-3.5 rounded-xl bg-[#7B1131] hover:bg-maroon-dark text-cream-light font-bold text-sm shadow-warm-md flex items-center justify-center space-x-2 transition-all hover:scale-[1.01] mt-2"
+              >
+                <span>Sign In to My Portal</span>
+                <ArrowRight className="w-4 h-4 text-gold-light" />
+              </button>
+
+              <p className="text-center text-[11px] text-brown-muted pt-2">
+                Having trouble signing in?{' '}
+                <a href="https://wa.me/919840012345" className="text-maroon font-bold hover:underline" target="_blank" rel="noopener noreferrer">
+                  WhatsApp SEYOL
+                </a>
+              </p>
+            </form>
+
+            {/* Powered by */}
+            <div className="mt-8 pt-5 border-t border-gray-100 text-center">
+              <p className="text-[10px] text-gray-400 tracking-wide">
+                Powered by{' '}
+                <a
+                  href="https://togethertechgroups.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500 font-semibold hover:text-maroon transition-colors hover:underline"
+                >
+                  Together Tech Groups
+                </a>
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full bg-cream-light border border-cream-border rounded-3xl shadow-warm-lg font-sans text-brown relative">
+    <div
+      className={
+        isAdminView
+          ? 'w-full bg-cream-light border border-cream-border rounded-3xl shadow-warm-lg font-sans text-brown relative'
+          : 'w-full h-screen overflow-hidden bg-cream-light font-sans text-brown relative flex flex-col'
+      }
+    >
       {/* Top Header Bar */}
-      <div className="bg-[#7B1131] text-cream-light p-4 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 rounded-t-[23px]">
-        <div className="flex items-center space-x-3.5">
-          <div className="w-12 h-12 rounded-2xl bg-gold/20 border border-gold/40 flex items-center justify-center text-gold-light shrink-0 shadow-sm">
-            <FileText className="w-6 h-6" />
+      <div
+        className={`bg-white ${
+          isAdminView
+            ? 'p-3 sm:p-4 rounded-t-[23px] border-b border-cream-border'
+            : 'shrink-0 px-4 sm:px-8 py-2 sm:py-2.5 border-b border-cream-border shadow-sm z-30'
+        } flex flex-col md:flex-row md:items-center justify-between gap-3`}
+      >
+        <div className="flex items-center space-x-3">
+          <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 overflow-hidden">
+            <Image
+              src="/assets4/Logo - Transparent Logo copy.png"
+              alt="SEYOL Logo"
+              width={48}
+              height={48}
+              className="object-contain w-full h-full"
+              unoptimized
+            />
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-gold-light bg-gold-dark/30 px-2.5 py-0.5 rounded-full border border-gold/30">
-                Official Client Portal
-              </span>
               {isAdminView && (
-                <span className="text-[10px] font-bold uppercase bg-white/20 text-white px-2 py-0.5 rounded-full">
+                <span className="text-[10px] font-bold uppercase bg-maroon/10 text-maroon px-2 py-0.5 rounded-full border border-maroon/20">
                   Admin Management View
                 </span>
               )}
             </div>
-            <h1 className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-cream-light mt-0.5">
+            <h1 className="font-serif text-lg sm:text-xl font-bold tracking-tight text-brown leading-tight">
               My SEYOL Care Portal
             </h1>
           </div>
         </div>
 
-        {/* Client Profile / Switcher & Log Out */}
-        <div className="flex items-center space-x-3 bg-black/20 backdrop-blur-sm p-2 sm:p-2.5 rounded-2xl border border-white/10 self-start md:self-auto">
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gold shrink-0">
+        {/* Client Profile / Log Out */}
+        <div className="flex items-center space-x-3 self-start md:self-auto">
+          {/* Date & Time — right side */}
+          <div className="hidden md:flex flex-col items-end pr-2 border-r border-cream-border">
+            <div className="text-sm font-bold text-brown tabular-nums tracking-tight leading-none">
+              {formattedTime}
+            </div>
+            <div className="text-[10px] text-brown-muted font-medium mt-0.5">
+              {formattedDate} • IST
+            </div>
+          </div>
+          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-gold shrink-0">
             <Image
               src={clientData.avatar}
               alt={clientData.clientName}
@@ -385,44 +488,48 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
               className="object-cover"
             />
           </div>
-          <div className="text-left pr-2">
-            <div className="text-xs font-bold text-cream-light leading-tight">{clientData.clientName}</div>
-            <div className="text-[10px] text-gold-light flex items-center space-x-1">
-              <span>{clientData.babyNameOrEdd}</span>
-              <span>•</span>
-              <span>{clientData.location.split(',')[0]}</span>
-            </div>
-          </div>
 
-          {/* Quick Client Switcher (for admin preview & demo switching) */}
-          <div className="pl-2 border-l border-white/20 flex items-center space-x-2">
+          {/* Admin switcher only */}
+          {isAdminView && (
             <select
               value={selectedClientId}
               onChange={(e) => handleClientChange(e.target.value)}
-              className="bg-maroon-dark text-white text-[11px] font-semibold py-1 px-2 rounded-lg border border-white/20 focus:outline-none cursor-pointer"
+              className="bg-white text-brown text-[11px] font-semibold py-1 px-2 rounded-lg border border-cream-border focus:outline-none cursor-pointer"
               title="Switch Client Portal Profile"
             >
               <option value="usr_seyol_8819">Ananya R. (Postpartum)</option>
               <option value="usr_seyol_9921">Priya S. (Prenatal SG)</option>
             </select>
+          )}
 
-            {!isAdminView && (
-              <button
-                onClick={logout}
-                className="p-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[11px] font-bold transition-colors"
-                title="Log Out of Portal"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
-            )}
-          </div>
+          {!isAdminView && (
+            <button
+              onClick={logout}
+              className="p-1.5 rounded-lg bg-cream-dark hover:bg-cream-border text-brown text-[11px] font-bold transition-colors border border-cream-border"
+              title="Log Out of Portal"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+            </button>
+          )}
         </div>
       </div>
 
       {/* Main Grid: Sticky Sidebar Tabs + Module Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[680px] items-start">
+      <div
+        className={
+          isAdminView
+            ? 'grid grid-cols-1 lg:grid-cols-12 min-h-[680px] items-start w-full'
+            : 'flex-1 flex flex-col lg:flex-row overflow-hidden w-full'
+        }
+      >
         {/* Sidebar Nav */}
-        <div className="lg:col-span-3 bg-cream p-4 border-b lg:border-b-0 lg:border-r border-cream-border space-y-1.5 flex lg:flex-col gap-1 lg:gap-1.5 overflow-x-auto lg:overflow-visible lg:sticky lg:top-20 self-start lg:rounded-bl-[23px] z-20">
+        <div
+          className={
+            isAdminView
+              ? 'lg:col-span-3 bg-[#FAF7F2] p-4 border-b lg:border-b-0 lg:border-r border-cream-border space-y-1.5 flex lg:flex-col gap-1 lg:gap-1.5 overflow-x-auto lg:overflow-visible lg:sticky lg:top-20 lg:rounded-bl-[23px] self-start z-20'
+              : 'w-full lg:w-64 xl:w-72 shrink-0 bg-[#FAF7F2] p-4 sm:p-5 border-b lg:border-b-0 lg:border-r border-cream-border space-y-1.5 flex lg:flex-col gap-1 lg:gap-1.5 overflow-x-auto lg:overflow-y-auto h-auto lg:h-full z-20 select-none'
+          }
+        >
           <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted px-3 py-1 hidden lg:block">
             Portal Navigation
           </div>
@@ -472,7 +579,13 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
         </div>
 
         {/* Module Content Area */}
-        <div className="lg:col-span-9 p-6 sm:p-8 bg-cream-light lg:rounded-br-[23px]">
+        <div
+          className={
+            isAdminView
+              ? 'lg:col-span-9 p-6 sm:p-8 bg-cream-light lg:rounded-br-[23px]'
+              : 'flex-1 h-full overflow-y-auto p-5 sm:p-8 lg:p-10 bg-cream-light w-full scroll-smooth'
+          }
+        >
           {/* ========================================================
               MODULE 1: DASHBOARD
              ======================================================== */}
@@ -740,10 +853,13 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                 <div className="flex flex-wrap gap-1.5">
                   {[
                     { id: 'all', label: 'All Events' },
-                    { id: 'confirmed_appointment', label: 'Appointments' },
-                    { id: 'class_date', label: 'Classes' },
-                    { id: 'payment_due', label: 'Payments' },
-                    { id: 'time_to_avoid', label: 'Rest Windows' }
+                    { id: 'confirmed_appointment', label: 'Confirmed Appointments' },
+                    { id: 'pending_request', label: 'Pending Requests' },
+                    { id: 'class_date', label: 'Class Dates' },
+                    { id: 'package_session', label: 'Package Session Dates' },
+                    { id: 'payment_due', label: 'Payment Due Dates' },
+                    { id: 'scn_duration', label: 'SCN Stay-In Period' },
+                    { id: 'time_to_avoid', label: 'Times to Avoid' }
                   ].map((f) => (
                     <button
                       key={f.id}
@@ -769,19 +885,22 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                     let typeLabel = 'Confirmed Appointment';
                     if (ev.type === 'pending_request') {
                       badgeColor = 'bg-yellow-100 text-yellow-800 border-yellow-200';
-                      typeLabel = 'Pending Request';
+                      typeLabel = 'Pending Appointment Request';
                     } else if (ev.type === 'class_date') {
                       badgeColor = 'bg-purple-100 text-purple-800 border-purple-200';
-                      typeLabel = 'Class / Workshop';
+                      typeLabel = 'Class Date';
+                    } else if (ev.type === 'package_session') {
+                      badgeColor = 'bg-blue-100 text-blue-800 border-blue-200';
+                      typeLabel = 'Package Session Date';
                     } else if (ev.type === 'payment_due') {
                       badgeColor = 'bg-red-100 text-red-800 border-red-200';
-                      typeLabel = 'Payment Due';
+                      typeLabel = 'Payment Due Date';
                     } else if (ev.type === 'scn_duration') {
                       badgeColor = 'bg-orange-100 text-orange-800 border-orange-200';
-                      typeLabel = 'Stay-In Nanny Support Duration';
+                      typeLabel = 'SCN Stay-In Support Period';
                     } else if (ev.type === 'time_to_avoid') {
                       badgeColor = 'bg-neutral-200 text-neutral-800 border-neutral-300';
-                      typeLabel = 'Protected Rest Window';
+                      typeLabel = 'Time to Avoid';
                     }
 
                     return (

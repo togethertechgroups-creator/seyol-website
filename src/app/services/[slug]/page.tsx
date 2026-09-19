@@ -244,7 +244,7 @@ export default function ServiceDetailPage() {
       {/* ========================================================================= */}
       {/* 1. HERO SHOWCASE SECTION                                                  */}
       {/* ========================================================================= */}
-      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
+      <section className="pt-24 sm:pt-28 pb-8 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Details */}

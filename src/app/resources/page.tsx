@@ -67,7 +67,7 @@ export default function ResourcesPage() {
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
       {/* 1. Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream-light to-cream py-14 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
+      <section className="relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream-light to-cream pt-24 sm:pt-28 pb-14 md:pb-20 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
         {/* Subtle Background Elements */}
         <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-maroon/5 blur-3xl pointer-events-none" />

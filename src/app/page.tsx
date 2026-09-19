@@ -12,23 +12,23 @@ import WordReveal from '../components/shared/WordReveal';
 import HorizontalWords from '../components/shared/HorizontalWords';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { 
-  Heart, 
-  Baby, 
-  ShieldCheck, 
-  Sparkles, 
-  Calendar, 
-  ArrowRight, 
-  CheckCircle2, 
-  Star, 
-  Award, 
-  Flower2, 
-  ShoppingBag, 
-  Users, 
+import {
+  Heart,
+  Baby,
+  ShieldCheck,
+  Sparkles,
+  Calendar,
+  ArrowRight,
+  CheckCircle2,
+  Star,
+  Award,
+  Flower2,
+  ShoppingBag,
+  Users,
   Compass,
-  Clock, 
-  BookOpen, 
-  Send, 
+  Clock,
+  BookOpen,
+  Send,
   MessageSquare,
   CreditCard,
   BellRing
@@ -127,13 +127,16 @@ export default function HomePage() {
 
       {/* ── Upper Maroon Background Region (Edge-to-Edge Solid Maroon) ── */}
       <div className="w-full bg-[#7B1131] text-cream-light border-b border-[#991840]/40 shadow-warm-xl">
-        
+
         {/* ========================================================================= */}
         {/* SECTION 1: START HERE / BEGIN YOUR SEYOL CARE JOURNEY (Hero Slideshow)     */}
         {/* ========================================================================= */}
         <section className="relative w-full px-1.5 sm:px-3 lg:px-4 pt-3.5 sm:pt-4 pb-6 sm:pb-8">
-          <div className="relative rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden hero-viewport-height border border-gold/30 shadow-warm-lg bg-brown flex items-center justify-start">
-            
+          <div
+            className="relative rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden hero-viewport-height border border-gold/30 shadow-warm-lg bg-brown flex items-center justify-start"
+            style={{ marginTop: '5.5mm' }}
+          >
+
             {/* Background Media with Smooth Auto Cross-Fade */}
             <div className="absolute inset-0 z-0 overflow-hidden">
               {heroSlides.map((slide, idx) => {
@@ -141,9 +144,11 @@ export default function HomePage() {
                 return (
                   <div
                     key={slide.id}
-                    className={`absolute inset-x-0 -top-10 bottom-0 translate-y-[10mm] transition-opacity duration-1000 ease-in-out ${
-                      isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
-                    }`}
+                    className={`absolute inset-x-0 -top-16 -bottom-16 transition-opacity duration-1000 ease-in-out ${isActive ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                      }`}
+                    style={{
+                      transform: 'translateY(12mm)',
+                    }}
                   >
                     <Image
                       src={slide.image}
@@ -164,7 +169,7 @@ export default function HomePage() {
 
               {/* Maven-Style Animated Flowing Wave Line from Left to Right */}
               <FlowingHeroThreads activeSlideIndex={currentSlideIndex} />
-              
+
               {/* 4 Slide Switch Indicators */}
               <div className="absolute bottom-5 sm:bottom-6 right-6 sm:right-8 z-20 flex items-center gap-2">
                 {heroSlides.map((_, idx) => (
@@ -172,11 +177,10 @@ export default function HomePage() {
                     key={idx}
                     onClick={() => setCurrentSlideIndex(idx)}
                     aria-label={`Switch to hero slide ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
-                      currentSlideIndex === idx
+                    className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${currentSlideIndex === idx
                         ? 'w-8 bg-gold shadow-gold-glow'
                         : 'w-2 bg-white/40 hover:bg-white/75'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -184,7 +188,7 @@ export default function HomePage() {
 
             {/* Left-Aligned Slide Content */}
             <div className="relative z-10 max-w-xl lg:max-w-2xl xl:max-w-3xl px-5 sm:px-10 lg:px-14 pt-14 sm:pt-16 pb-6 sm:pb-8 text-left text-cream-light space-y-2.5 sm:space-y-3.5 w-full">
-              
+
               {/* Slide Heading with Font Pairing: Bold Sans + Italic Serif */}
               <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-extrabold text-white tracking-tight leading-[1.2] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
                 {activeSlide.headingSans}{' '}
@@ -231,11 +235,6 @@ export default function HomePage() {
         >
           <div className="space-y-6">
             <div className="text-center max-w-2xl mx-auto space-y-2">
-              <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/15 text-gold-light border border-white/25 text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-                <Compass className="w-3.5 h-3.5 text-gold-light" />
-                <span>Step 1: Your Milestone</span>
-              </div>
-
               {/* Font Combination: Sans-serif + Italic Serif */}
               <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-md">
                 Where Are You{' '}
@@ -262,12 +261,6 @@ export default function HomePage() {
         <StageNextStepCalculator />
       </section>
 
-      {/* ========================================================================= */}
-      {/* SECTION 5: MOST PARENTS START HERE (High-Conversion Starter Cards)        */}
-      {/* ========================================================================= */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <MostParentsStartHere />
-      </section>
 
       {/* ========================================================================= */}
       {/* CINEMATIC INTERACTIVE SCROLL EXPAND SANCTUARY SHOWCASE                    */}
@@ -337,7 +330,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* SECTION 8: THE SEYOL METHOD (Section Explaining Philosophy in 4 Pillars)  */}
       {/* ========================================================================= */}
-      
+
       {/* Top Organic Wave Transition to Deep Maroon - Overlapping directly onto the photo */}
       <div className="w-full overflow-hidden leading-none -mt-16 sm:-mt-24 lg:-mt-32 relative z-30 pointer-events-none">
         <svg
@@ -362,15 +355,18 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:28px_28px] opacity-40 pointer-events-none" />
 
         <div className="site-container mx-auto space-y-12 relative z-10">
-          
+
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-gold-light text-xs font-bold uppercase tracking-widest border border-gold/30 shadow-xs">
               <Flower2 className="w-3.5 h-3.5 text-gold-light" />
               <span>Our Care Philosophy</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">
-              The SEYOL Method
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">
+              The SEYOL{' '}
+              <span className="font-serif italic font-normal text-gold-light">
+                Method
+              </span>
             </h2>
             <p className="font-playfair text-xs sm:text-sm text-white/80 max-w-xl mx-auto">
               Four fundamental pillars that protect maternal mental health, hormonal recovery, and newborn vitality.
@@ -486,8 +482,11 @@ export default function HomePage() {
               <Sparkles className="w-3.5 h-3.5" />
               <span>Transparent Comparison</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-              Not Sure Which Option Fits?
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+              Not Sure Which{' '}
+              <span className="font-serif italic font-normal text-maroon">
+                Option Fits?
+              </span>
             </h2>
             <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
               Compare our in-home confinement visits, stay-in nanny care, and live education workshops side-by-side.
@@ -501,7 +500,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* SECTION 10: WHY FAMILIES BEGIN WITH SEYOL (Trust Badges & Founder Story)   */}
       {/* ========================================================================= */}
-      
+
       {/* Founder Story Snippet */}
       <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full">
         <div className="relative rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-cream-light via-cream to-gold/10 border border-cream-border/90 p-8 sm:p-12 lg:p-16 shadow-warm-md overflow-hidden">
@@ -530,7 +529,7 @@ export default function HomePage() {
                 <p className="text-sm sm:text-base text-brown-muted leading-relaxed">
                   Headquartered in Singapore, <strong className="text-brown">SEYOL</strong> is a family business led by <strong className="text-maroon font-bold">Mrs. Jemma Francis</strong>, a Certified Birth &amp; Postpartum Doula and Childbirth Educator.
                 </p>
-                
+
                 <p className="font-valentina text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
                   &ldquo;Embrace the warmth of Indian tradition coupled with our passion and dedication at SEYOL, your trusted partner in the beautiful journey to parenthood!&rdquo;
                 </p>
@@ -599,8 +598,11 @@ export default function HomePage() {
               <Star className="w-3.5 h-3.5 fill-gold-dark text-gold-dark" />
               <span>Verified Parent Stories</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-              Trusted by Families at Every Stage
+            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+              Trusted by Families{' '}
+              <span className="font-serif italic font-normal text-maroon">
+                at Every Stage
+              </span>
             </h2>
             <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted">
               Real experiences from parents, families, and learners who started their care journey with SEYOL.
@@ -621,8 +623,11 @@ export default function HomePage() {
               <BookOpen className="w-3.5 h-3.5 text-gold-dark" />
               <span>Complimentary Knowledge</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-brown">
-              Your First SEYOL Resource
+            <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-brown tracking-tight">
+              Your First{' '}
+              <span className="font-serif italic font-normal text-maroon">
+                SEYOL Resource
+              </span>
             </h2>
             <p className="font-playfair text-xs sm:text-sm text-brown-muted">
               Download our expert-crafted checklists, newborn bath guides, and postpartum recovery handbooks.

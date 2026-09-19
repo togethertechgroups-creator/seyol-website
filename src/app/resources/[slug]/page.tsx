@@ -55,7 +55,7 @@ export default function ResourceDetailPage() {
     return (
       <div className="flex flex-col w-full font-sans bg-cream text-brown">
         {/* Breadcrumb */}
-        <div className="bg-cream-dark/30 py-3.5 px-4 sm:px-6 lg:px-8 border-b border-cream-border text-xs text-brown-muted">
+        <div className="bg-cream-dark/30 pt-20 sm:pt-24 pb-3.5 px-4 sm:px-6 lg:px-8 border-b border-cream-border text-xs text-brown-muted">
           <div className="max-w-7xl mx-auto flex items-center space-x-2">
             <Link href="/resources" className="hover:text-maroon flex items-center space-x-1">
               <ChevronLeft className="w-3.5 h-3.5" />
@@ -218,7 +218,7 @@ export default function ResourceDetailPage() {
   // Individual resource item fallback
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
-      <div className="bg-cream-dark/30 py-3.5 px-4 sm:px-6 lg:px-8 border-b border-cream-border text-xs text-brown-muted">
+      <div className="bg-cream-dark/30 pt-20 sm:pt-24 pb-3.5 px-4 sm:px-6 lg:px-8 border-b border-cream-border text-xs text-brown-muted">
         <div className="max-w-7xl mx-auto flex items-center space-x-2">
           <Link href="/resources" className="hover:text-maroon flex items-center space-x-1">
             <ChevronLeft className="w-3.5 h-3.5" />

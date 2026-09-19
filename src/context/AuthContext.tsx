@@ -93,7 +93,52 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = (emailOrPhone: string, password?: string): boolean => {
     const cleanQuery = emailOrPhone.trim().toLowerCase();
     
-    // Check if matches known mock client
+    // 1. Check dynamic portal credentials saved by Admin
+    try {
+      const savedCredsStr = localStorage.getItem('seyol_portal_credentials_v1');
+      const savedDataStr = localStorage.getItem('seyol_portal_client_data_v1');
+      if (savedCredsStr) {
+        const creds = JSON.parse(savedCredsStr);
+        const allData = savedDataStr ? JSON.parse(savedDataStr) : {};
+        
+        for (const [clientId, cred] of Object.entries(creds) as [string, any][]) {
+          const clientData = allData[clientId];
+          const matchesUser =
+            cred.username?.toLowerCase() === cleanQuery ||
+            clientData?.clientEmail?.toLowerCase() === cleanQuery ||
+            clientData?.clientPhone?.replace(/\D/g, '') === cleanQuery.replace(/\D/g, '') ||
+            cred.customerName?.toLowerCase() === cleanQuery;
+
+          if (matchesUser) {
+            // Check password if provided
+            if (password && cred.password && password !== cred.password) {
+              return false; // Wrong password
+            }
+
+            const profile: UserProfile = {
+              id: clientId,
+              name: clientData?.clientName || cred.customerName || 'Valued Parent',
+              email: clientData?.clientEmail || `${cred.username}@seyolclient.com`,
+              phone: clientData?.clientPhone || '+91 98400 12345',
+              stage: clientData?.stage || 'postpartum',
+              eddOrBabyAge: clientData?.babyNameOrEdd || 'Active SEYOL Care Member',
+              location: clientData?.location || 'Chennai / Singapore',
+              avatar: clientData?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=300',
+              purchasedResourceIds: ['res-postpartum-meal-plan'],
+              enrolledClassIds: ['class-infant-massage'],
+              activeBookingIds: ['pkg-postpartum-28day'],
+            };
+            saveSession(true, profile);
+            setIsAuthModalOpen(false);
+            return true;
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('AuthContext credentials check error', e);
+    }
+
+    // 2. Check if matches known preconfigured clients
     const matchedKey = Object.keys(PRECONFIGURED_CLIENTS).find(
       (k) =>
         PRECONFIGURED_CLIENTS[k].email.toLowerCase() === cleanQuery ||
@@ -104,7 +149,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     if (matchedKey) {
       saveSession(true, PRECONFIGURED_CLIENTS[matchedKey]);
     } else {
-      // Create new customer profile
+      // 3. Fallback generic customer profile
       const newProfile: UserProfile = {
         id: `usr_seyol_${Date.now().toString().slice(-4)}`,
         name: cleanQuery.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) || 'Valued Parent',
@@ -126,6 +171,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const loginAsClient = (clientId: string) => {
+    try {
+      const savedDataStr = localStorage.getItem('seyol_portal_client_data_v1');
+      if (savedDataStr) {
+        const allData = JSON.parse(savedDataStr);
+        if (allData[clientId]) {
+          const clientData = allData[clientId];
+          const profile: UserProfile = {
+            id: clientId,
+            name: clientData.clientName,
+            email: clientData.clientEmail,
+            phone: clientData.clientPhone,
+            stage: clientData.stage,
+            eddOrBabyAge: clientData.babyNameOrEdd,
+            location: clientData.location,
+            avatar: clientData.avatar,
+            purchasedResourceIds: ['res-postpartum-meal-plan'],
+            enrolledClassIds: ['class-infant-massage'],
+            activeBookingIds: ['pkg-postpartum-28day'],
+          };
+          saveSession(true, profile);
+          setIsAuthModalOpen(false);
+          return;
+        }
+      }
+    } catch (e) {}
+
     if (PRECONFIGURED_CLIENTS[clientId]) {
       saveSession(true, PRECONFIGURED_CLIENTS[clientId]);
     }

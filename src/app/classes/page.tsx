@@ -44,7 +44,7 @@ export default function ClassesPage() {
       {/* ========================================================================= */}
       {/* SECTION 1: HERO SECTION                                                   */}
       {/* ========================================================================= */}
-      <section className="relative bg-gradient-to-b from-[#2a0c16] via-[#3b0f20] to-[#220710] text-cream-light py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-gold/30 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[#2a0c16] via-[#3b0f20] to-[#220710] text-cream-light pt-24 sm:pt-28 pb-14 sm:pb-20 px-4 sm:px-6 lg:px-8 border-b border-gold/30 overflow-hidden">
         {/* Ambient glow effects */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-maroon-light/20 rounded-full blur-3xl pointer-events-none" />

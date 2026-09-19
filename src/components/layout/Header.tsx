@@ -82,15 +82,15 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY, mobileMenuOpen]);
 
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
-
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
     setActiveDropdown(null);
   }, [pathname]);
+
+  if (pathname?.startsWith('/admin') || pathname?.startsWith('/portal')) {
+    return null;
+  }
 
   const handleMouseEnter = (menuKey: string) => {
     if (dropdownTimeoutRef.current) {
@@ -103,6 +103,23 @@ export const Header: React.FC = () => {
     dropdownTimeoutRef.current = setTimeout(() => {
       setActiveDropdown(null);
     }, 180);
+  };
+
+  const getDropdownAlignmentClass = (key?: string) => {
+    switch (key) {
+      case 'services':
+        return 'left-0';
+      case 'classes':
+        return 'left-0';
+      case 'products':
+        return 'left-1/2 -translate-x-1/2';
+      case 'resources':
+        return 'left-1/2 -translate-x-1/2';
+      case 'careers':
+        return 'right-0';
+      default:
+        return 'left-1/2 -translate-x-1/2';
+    }
   };
 
   const navLinks = [
@@ -184,13 +201,18 @@ export const Header: React.FC = () => {
 
                     {/* Dropdown Menu Container */}
                     <div
-                      className={`absolute top-[58px] left-1/2 -translate-x-1/2 pt-2 transition-all duration-200 z-[9999] pointer-events-auto ${
+                      onMouseEnter={() => handleMouseEnter(link.key!)}
+                      onMouseLeave={handleMouseLeave}
+                      className={`absolute top-[58px] ${getDropdownAlignmentClass(link.key)} pt-2 transition-all duration-200 z-[9999] pointer-events-auto ${
                         isDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'
                       }`}
                     >
                       {/* Services Dropdown */}
                       {link.key === 'services' && (
-                        <div className="w-[580px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left">
+                        <div
+                          className="w-[580px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          style={{ backgroundColor: '#ffffff' }}
+                        >
                           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                             <div>
                               <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
@@ -252,7 +274,10 @@ export const Header: React.FC = () => {
 
                       {/* Classes Dropdown */}
                       {link.key === 'classes' && (
-                        <div className="w-[480px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left">
+                        <div
+                          className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          style={{ backgroundColor: '#ffffff' }}
+                        >
                           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                             <div>
                               <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
@@ -306,7 +331,10 @@ export const Header: React.FC = () => {
 
                       {/* Products Dropdown */}
                       {link.key === 'products' && (
-                        <div className="w-[500px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left">
+                        <div
+                          className="w-[500px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          style={{ backgroundColor: '#ffffff' }}
+                        >
                           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                             <div>
                               <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
@@ -361,7 +389,10 @@ export const Header: React.FC = () => {
 
                       {/* Resources Dropdown */}
                       {link.key === 'resources' && (
-                        <div className="w-[480px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left">
+                        <div
+                          className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          style={{ backgroundColor: '#ffffff' }}
+                        >
                           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                             <div>
                               <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
@@ -415,7 +446,10 @@ export const Header: React.FC = () => {
 
                       {/* Careers & Training Dropdown */}
                       {link.key === 'careers' && (
-                        <div className="w-[480px] bg-white border border-neutral-200 shadow-[0_20px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left">
+                        <div
+                          className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          style={{ backgroundColor: '#ffffff' }}
+                        >
                           <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
                             <div>
                               <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">

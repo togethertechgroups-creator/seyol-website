@@ -4,7 +4,6 @@ import React from 'react';
 import Link from 'next/link';
 import { 
   Star, 
-  Sparkles, 
   CheckCircle2, 
   ArrowRight, 
   Clock, 
@@ -124,12 +123,11 @@ export const MostParentsStartHere: React.FC = () => {
     <div className="w-full space-y-8 font-sans">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Curated Entry Points for First-Time Visitors</span>
-        </div>
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-          Most Parents Start Here
+        <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+          Most Parents{' '}
+          <span className="font-serif italic font-normal text-maroon">
+            Start Here
+          </span>
         </h2>
         <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
           If you feel overwhelmed by choices, these four flagship programmes represent the most trusted starting points for over 4,500+ SEYOL families.
@@ -137,95 +135,102 @@ export const MostParentsStartHere: React.FC = () => {
       </div>
 
       {/* Grid of Starter Cards */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-7">
         {STARTER_PACKAGES.map((pkg) => (
           <div
             key={pkg.id}
-            className={`relative rounded-3xl bg-white border transition-all duration-300 p-6 sm:p-8 flex flex-col justify-between shadow-warm-sm hover:shadow-warm-lg ${
+            className={`group relative rounded-3xl bg-white border transition-all duration-300 overflow-hidden flex flex-col justify-between shadow-[0_6px_25px_rgba(58,29,29,0.06)] hover:shadow-[0_20px_45px_rgba(123,17,49,0.13)] hover:-translate-y-1 ${
               pkg.isPopular
                 ? 'border-gold ring-2 ring-gold/40'
-                : 'border-cream-border hover:border-maroon/40'
+                : 'border-cream-border/90 hover:border-gold/60'
             }`}
           >
-            {/* Top Pill & Stage */}
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold uppercase tracking-wider ${pkg.badgeColor}`}>
-                  {pkg.badge}
-                </span>
-                <span className="text-xs font-bold text-brown-muted flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-gold-dark" />
+            {/* Top Image Banner with Floating Badges */}
+            <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-[#2D0B12]">
+              <img
+                src={pkg.image}
+                alt={pkg.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10 pointer-events-none" />
+
+              {/* Floating Badge (Only #1 First Card) */}
+              {pkg.isPopular && (
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-3 py-1 rounded-full text-[10.5px] font-extrabold uppercase tracking-wider bg-gold text-maroon-dark shadow-md">
+                    {pkg.badge}
+                  </span>
+                </div>
+              )}
+
+              {/* Floating Duration with Glassmorphism */}
+              <div className="absolute top-3 right-3 z-10">
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold text-white bg-black/60 backdrop-blur-md border border-white/20 flex items-center gap-1.5 shadow-sm">
+                  <Clock className="w-3 h-3 text-gold-light" />
                   <span>{pkg.duration}</span>
                 </span>
               </div>
 
-              {/* Title & Subtitle */}
-              <div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown hover:text-maroon transition-colors">
-                  {pkg.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-brown-muted mt-1 leading-relaxed">
-                  {pkg.subtitle}
-                </p>
-              </div>
-
-              {/* Price Row */}
-              <div className="p-3.5 rounded-xl bg-cream border border-cream-border flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-brown-muted block">Pricing Guide</span>
-                  <span className="font-serif font-bold text-lg text-maroon">{pkg.price}</span>
-                </div>
-                <div className="text-right">
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-brown-muted block">Recommended Stage</span>
-                  <span className="text-xs font-bold text-brown">{pkg.stage}</span>
-                </div>
-              </div>
-
-              {/* Best For Box */}
-              <div className="text-xs bg-cream-light p-3 rounded-xl border border-cream-border text-brown leading-relaxed">
-                <strong className="text-maroon font-bold">Best For: </strong>
-                <span>{pkg.bestFor}</span>
-              </div>
-
-              {/* Feature Highlights */}
-              <div className="space-y-2 pt-2 text-xs text-brown">
-                <div className="font-bold text-brown text-[11px] uppercase tracking-wider">What’s Included:</div>
-                {pkg.features.map((feat, idx) => (
-                  <div key={idx} className="flex items-start space-x-2">
-                    <CheckCircle2 className="w-4 h-4 text-maroon shrink-0 mt-0.5" />
-                    <span className="leading-snug">{feat}</span>
-                  </div>
-                ))}
+              {/* Floating Recommended Stage */}
+              <div className="absolute bottom-3 left-3 z-10 flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-lg text-[10.5px] font-bold tracking-wide text-cream-light bg-[#5C1D24]/85 backdrop-blur-md border border-white/15 shadow-sm">
+                  {pkg.stage}
+                </span>
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="pt-6 mt-6 border-t border-cream-border/80 flex flex-col sm:flex-row items-center gap-3">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: pkg.title })}
-                className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light text-xs font-bold transition-all shadow-warm-sm flex items-center justify-center space-x-2 cursor-pointer shimmer-button"
-              >
-                <span>Book This Programme</span>
-                <ArrowRight className="w-4 h-4 text-gold-light" />
-              </button>
+            {/* Compact Card Content Body */}
+            <div className="p-5 sm:p-6 space-y-3 flex-1 flex flex-col justify-between">
+              <div className="space-y-2">
+                {/* Title */}
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-brown group-hover:text-maroon transition-colors line-clamp-1">
+                  {pkg.title}
+                </h3>
 
-              {pkg.serviceSlug && (
-                <Link
-                  href={`/services#${pkg.serviceSlug}`}
-                  className="w-full sm:w-auto py-3 px-5 rounded-xl bg-cream hover:bg-cream-dark text-brown text-xs font-bold transition-all border border-cream-border text-center"
-                >
-                  View Details
-                </Link>
-              )}
+                {/* Subtitle */}
+                <p className="text-xs text-brown-muted line-clamp-2 leading-relaxed">
+                  {pkg.subtitle}
+                </p>
 
-              {pkg.classSlug && (
-                <Link
-                  href={`/classes#${pkg.classSlug}`}
-                  className="w-full sm:w-auto py-3 px-5 rounded-xl bg-cream hover:bg-cream-dark text-brown text-xs font-bold transition-all border border-cream-border text-center"
+                {/* Curated Highlights (2 essential features) */}
+                <div className="space-y-1.5 pt-1 text-xs text-neutral-700">
+                  {pkg.features.slice(0, 2).map((feat, idx) => (
+                    <div key={idx} className="flex items-center space-x-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-gold-dark shrink-0" />
+                      <span className="truncate leading-tight font-medium text-brown/90">{feat}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-3 mt-1 border-t border-neutral-100 flex items-center gap-2.5">
+                <button
+                  onClick={() => openEnquiry({ serviceTitle: pkg.title })}
+                  className="flex-1 py-2.5 px-4 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light text-xs font-bold transition-all shadow-warm-xs flex items-center justify-center space-x-1.5 cursor-pointer shimmer-button"
                 >
-                  Class Details
-                </Link>
-              )}
+                  <span>Book This Programme</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-gold-light" />
+                </button>
+
+                {pkg.serviceSlug && (
+                  <Link
+                    href={`/services#${pkg.serviceSlug}`}
+                    className="py-2.5 px-4 rounded-xl bg-cream hover:bg-cream-dark text-brown text-xs font-bold transition-all border border-cream-border text-center shrink-0 hover:border-maroon/30"
+                  >
+                    View Details
+                  </Link>
+                )}
+
+                {pkg.classSlug && (
+                  <Link
+                    href={`/classes#${pkg.classSlug}`}
+                    className="py-2.5 px-4 rounded-xl bg-cream hover:bg-cream-dark text-brown text-xs font-bold transition-all border border-cream-border text-center shrink-0 hover:border-maroon/30"
+                  >
+                    Class Details
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         ))}

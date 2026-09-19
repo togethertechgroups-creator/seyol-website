@@ -368,7 +368,16 @@ export interface AdminDataContextType {
   deleteProductBannerSlide: (id: string) => void;
   // Orders CRUD
   addOrder: (order: ProductOrder) => void;
-  updateOrderStatus: (orderId: string, status: OrderStatus, notes?: string) => void;
+  updateOrderStatus: (
+    orderId: string, 
+    status: OrderStatus, 
+    notes?: string,
+    extraMeta?: {
+      rejectReason?: string;
+      courierPartner?: string;
+      trackingNumber?: string;
+    }
+  ) => void;
   updatePaymentStatus: (orderId: string, status: PaymentStatus) => void;
   deleteOrder: (orderId: string) => void;
   // Service CRUD
@@ -777,36 +786,79 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     saveProductBannerSlides(updated);
   };
 
-  // Orders CRUD
-  const saveOrders = (newOrders: ProductOrder[]) => {
-    setOrders(newOrders);
-    try {
-      localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(newOrders));
-    } catch (e) {
-      console.error('Failed to save orders to localStorage', e);
-    }
+  // Orders CRUD with robust functional state updaters
+  const saveOrders = (updater: ProductOrder[] | ((prev: ProductOrder[]) => ProductOrder[])) => {
+    setOrders((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater;
+      try {
+        localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(next));
+      } catch (e) {
+        console.error('Failed to save orders to localStorage', e);
+      }
+      return next;
+    });
   };
 
   const addOrder = (order: ProductOrder) => {
-    const updated = [order, ...orders];
-    saveOrders(updated);
+    saveOrders((prev) => [order, ...prev]);
   };
 
-  const updateOrderStatus = (orderId: string, status: OrderStatus, notes?: string) => {
-    const updated = orders.map((o) =>
-      o.id === orderId ? { ...o, orderStatus: status, ...(notes !== undefined ? { notes } : {}) } : o
+  const updateOrderStatus = (
+    orderId: string, 
+    status: OrderStatus, 
+    notes?: string,
+    extraMeta?: {
+      rejectReason?: string;
+      courierPartner?: string;
+      trackingNumber?: string;
+      paymentStatus?: PaymentStatus;
+    }
+  ) => {
+    saveOrders((prevOrders) =>
+      prevOrders.map((o) => {
+        if (o.id !== orderId) return o;
+        const currentTimeline = o.timeline || [
+          {
+            status: o.orderStatus,
+            timestamp: o.createdAt || new Date().toISOString(),
+            note: 'Order placed by customer',
+            actor: 'Customer'
+          }
+        ];
+        const newEvent = {
+          status,
+          timestamp: new Date().toISOString(),
+          note: notes || (extraMeta?.rejectReason ? `Reason: ${extraMeta.rejectReason}` : undefined),
+          actor: 'Admin'
+        };
+
+        // Auto-mark COD orders as paid when delivered
+        const nextPaymentStatus = extraMeta?.paymentStatus 
+          ? extraMeta.paymentStatus 
+          : (status === 'delivered' && o.paymentMethod === 'cod' ? 'paid' : o.paymentStatus);
+
+        return {
+          ...o,
+          orderStatus: status,
+          paymentStatus: nextPaymentStatus,
+          ...(notes !== undefined ? { notes } : {}),
+          ...(extraMeta?.rejectReason ? { rejectReason: extraMeta.rejectReason } : {}),
+          ...(extraMeta?.courierPartner ? { courierPartner: extraMeta.courierPartner } : {}),
+          ...(extraMeta?.trackingNumber ? { trackingNumber: extraMeta.trackingNumber } : {}),
+          timeline: [...currentTimeline, newEvent]
+        };
+      })
     );
-    saveOrders(updated);
   };
 
   const updatePaymentStatus = (orderId: string, status: PaymentStatus) => {
-    const updated = orders.map((o) => (o.id === orderId ? { ...o, paymentStatus: status } : o));
-    saveOrders(updated);
+    saveOrders((prevOrders) =>
+      prevOrders.map((o) => (o.id === orderId ? { ...o, paymentStatus: status } : o))
+    );
   };
 
   const deleteOrder = (orderId: string) => {
-    const updated = orders.filter((o) => o.id !== orderId);
-    saveOrders(updated);
+    saveOrders((prevOrders) => prevOrders.filter((o) => o.id !== orderId));
   };
 
   // Reset
