@@ -123,7 +123,7 @@ export default function HomePage() {
   const activeSlide = heroSlides[currentSlideIndex];
 
   return (
-    <div className="flex flex-col w-full font-sans bg-cream text-brown">
+    <div className="w-full font-sans bg-cream text-brown">
 
       {/* ── Upper Maroon Background Region (Edge-to-Edge Solid Maroon) ── */}
       <div className="w-full bg-[#7B1131] text-cream-light border-b border-[#991840]/40 shadow-warm-xl">
