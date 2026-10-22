@@ -50,10 +50,7 @@ export default function ClassesPage() {
         <div className="absolute bottom-0 left-1/4 w-80 h-80 bg-maroon-light/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-light/10 backdrop-blur-md text-gold-light text-xs font-bold uppercase tracking-widest border border-gold/40 shadow-warm-sm">
-            <BookOpen className="w-4 h-4 text-gold-light" />
-            <span>Empowering Hands-On Parenthood Workshops</span>
-          </div>
+
 
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-md">
             Master the Sacred Art of <br className="hidden sm:inline" />
@@ -105,10 +102,7 @@ export default function ClassesPage() {
       <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Compass className="w-3.5 h-3.5" />
-              <span>Stage-Based Learning</span>
-            </div>
+
             <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Choose by Learning Stage
             </h2>
@@ -168,10 +162,7 @@ export default function ClassesPage() {
       <section id="directory" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>Full Workshop Catalog</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Explore SEYOL Classes
             </h2>
@@ -197,10 +188,7 @@ export default function ClassesPage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Side-by-Side Comparison</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Not Sure Which Class Fits?
             </h2>
@@ -226,10 +214,7 @@ export default function ClassesPage() {
       <section id="calendar" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-cream-light/60 border-b border-cream-border">
         <div className="site-container mx-auto space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Live Scheduled Cohorts</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Class Calendar &amp; Online Registration
             </h2>
@@ -264,10 +249,7 @@ export default function ClassesPage() {
         {/* Facilitators Spotlight */}
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Award className="w-3.5 h-3.5" />
-              <span>Master Facilitators</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Trusted by Parents and Learners
             </h2>
@@ -343,10 +325,7 @@ export default function ClassesPage() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60 font-sans">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Personalized Class Concierge</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Need Help Choosing a Class? SEYOL Will Guide You.
             </h2>
@@ -365,10 +344,7 @@ export default function ClassesPage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <BookOpen className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Complimentary Knowledge</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-brown">
               Your First SEYOL Resource
             </h2>

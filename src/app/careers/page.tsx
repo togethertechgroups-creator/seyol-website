@@ -47,10 +47,7 @@ export default function CareersPage() {
         <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-maroon/5 blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider shadow-warm-sm">
-            <GraduationCap className="w-4 h-4 text-gold-dark" />
-            <span>SEYOL Academy of Maternal & Infant Care</span>
-          </div>
+
 
           <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-extrabold text-brown tracking-tight leading-tight">
             Elevate Your Vocation in <br />
@@ -105,10 +102,7 @@ export default function CareersPage() {
       {/* 2. Choose Your Path Section */}
       <section id="choose-path" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-            <span>Choose Your Entry Route</span>
-          </div>
+
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
             Find the Pathway Matched to Your Experience
           </h2>
@@ -188,10 +182,7 @@ export default function CareersPage() {
       <section id="training-courses" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-y border-cream-border">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Award className="w-3.5 h-3.5 text-maroon" />
-              <span>Certified Curriculum</span>
-            </div>
+
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
               SEYOL In-Training Courses
             </h2>
@@ -290,10 +281,7 @@ export default function CareersPage() {
       {/* 4. Interactive Caregiver Application Wizard Section */}
       <section ref={applySectionRef} id="apply-wizard" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider">
-            <Briefcase className="w-3.5 h-3.5 text-gold-dark" />
-            <span>Online Application Portal</span>
-          </div>
+
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
             Start Your SEYOL Caregiver Application
           </h2>

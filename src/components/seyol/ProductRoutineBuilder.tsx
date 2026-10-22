@@ -37,10 +37,7 @@ export const ProductRoutineBuilder: React.FC = () => {
     <div className="w-full bg-cream-light p-6 sm:p-10 rounded-3xl border border-gold/40 shadow-warm-lg space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider mb-1">
-            <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-            <span>Targeted Botanical Stack</span>
-          </div>
+
           <h3 className="font-serif text-2xl font-bold text-brown">
             Product Routine Builder
           </h3>

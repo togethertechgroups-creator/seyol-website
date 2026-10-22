@@ -38,10 +38,7 @@ export const SmartCareFinder: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider mb-1">
-            <Compass className="w-3.5 h-3.5 text-gold-dark" />
-            <span>Interactive Care Finder</span>
-          </div>
+
           <h3 className="font-serif text-2xl font-bold text-brown">
             Smart Care & Routine Finder
           </h3>

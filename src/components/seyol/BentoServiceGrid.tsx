@@ -21,11 +21,6 @@ export const BentoServiceGrid: React.FC = () => {
             <div className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-gold/20 text-gold-light text-xs font-semibold uppercase tracking-wider">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Flagship 40-Day Care Package</span>
-              </div>
-
               <h3 className="font-serif text-2xl sm:text-4xl font-bold leading-tight">
                 {featured.title}
               </h3>

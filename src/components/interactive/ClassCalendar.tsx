@@ -59,10 +59,6 @@ export const ClassCalendar: React.FC = () => {
       {/* Header & Month Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-cream-border mb-6">
         <div>
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-maroon-soft text-maroon text-xs font-semibold uppercase tracking-wider mb-2">
-            <CalendarIcon className="w-3.5 h-3.5" />
-            <span>Interactive Live Cohort Schedule</span>
-          </div>
           <h3 className="font-serif text-2xl font-bold text-brown">
             Upcoming Masterclasses & Workshops
           </h3>

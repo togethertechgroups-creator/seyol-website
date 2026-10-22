@@ -1175,10 +1175,6 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'scn_checkin' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-[11px] font-bold uppercase tracking-wider mb-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-gold-dark" />
-                  <span>Stay-In Confinement Nanny Weekly Review</span>
-                </div>
                 <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">SCN Weekly Check-In Form</h2>
                 <p className="text-xs text-brown-muted">
                   Submit weekly updates on baby milestones, mother recovery status, and nanny feedback so SEYOL senior matrons can optimize your care plan.

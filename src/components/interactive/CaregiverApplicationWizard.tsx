@@ -323,10 +323,6 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
       <div className="bg-cream-dark/60 p-6 border-b border-cream-border">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-cream-border/60">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-[11px] font-bold uppercase tracking-wider mb-1">
-              <Award className="w-3.5 h-3.5 text-gold-dark" />
-              <span>SEYOL Caregiver Academy & Recruitment</span>
-            </div>
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">
               {isSuccess ? 'Application Submitted' : 'Caregiver Pathway Application'}
             </h2>

@@ -44,14 +44,7 @@ export default function ServicesPage() {
         <div className="relative z-10 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
           <div className="max-w-xl md:max-w-2xl lg:max-w-[620px] xl:max-w-[680px] pl-2 sm:pl-6 md:pl-10 lg:pl-14 xl:pl-16 space-y-2.5 sm:space-y-3 text-left">
             
-            {/* Eyebrow Tag: Compassion • Guidance • Care Beyond Birth */}
-            <div className="inline-flex items-center space-x-2 text-[#9E5361] text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em]">
-              <svg className="w-3.5 h-3.5 text-[#9E5361] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-              </svg>
-              <span>Compassion &bull; Guidance &bull; Care Beyond Birth</span>
-            </div>
+
 
             {/* Two-Tone Distinctive H1 Headline */}
             <h1 className="font-serif text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] font-black tracking-tight leading-[1.12]">
@@ -103,10 +96,7 @@ export default function ServicesPage() {
       <section className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border max-w-full">
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider border border-gold/40">
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Side-by-Side Comparison</span>
-            </div>
+
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
               Compare Our Care Packages
             </h2>

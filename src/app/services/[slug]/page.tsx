@@ -249,14 +249,7 @@ export default function ServiceDetailPage() {
           
           {/* Left Details */}
           <div className="lg:col-span-7 space-y-4 pl-2 sm:pl-6 md:pl-10 lg:pl-12">
-            <div className="flex flex-wrap gap-2">
-              <span className="bg-maroon-soft text-maroon text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-maroon/20">
-                {isPostpartumPage ? 'Sacred Postpartum Confinement' : service.stages[0]}
-              </span>
-              <span className="bg-gold/25 text-brown text-[11px] font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-gold/30">
-                Certified Matrons
-              </span>
-            </div>
+
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
               {service.title}
@@ -354,10 +347,7 @@ export default function ServiceDetailPage() {
           {/* Left Column: Heading & 6 Clean Benefit Items with Checkmarks */}
           <div className="lg:col-span-8 space-y-6 flex flex-col justify-center pl-4 sm:pl-8 lg:pl-[30mm]">
             <div className="space-y-2">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 text-gold-light border border-white/20 text-xs font-bold uppercase tracking-wider backdrop-blur-sm shadow-xs">
-                <Sparkles className="w-3.5 h-3.5 text-gold-light" />
-                <span>Evidence-Based Maternal Recovery</span>
-              </div>
+
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
                 Benefits Of Service
               </h2>
@@ -507,10 +497,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-12">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider border border-maroon/20">
-              <Flower2 className="w-3.5 h-3.5 text-maroon" />
-              <span>Ayurvedic Herbal Confinement Ritual</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
               Postpartum Bath Add-On
             </h2>
@@ -580,10 +567,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-12 relative z-10">
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider border border-maroon/20">
-              <Sparkles className="w-3.5 h-3.5 text-maroon" />
-              <span>Mother &amp; Infant Postnatal Care</span>
-            </div>
+
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
               Combined Packages
             </h2>

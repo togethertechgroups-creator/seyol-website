@@ -120,10 +120,7 @@ export default function ProductsPage() {
 
           {/* Left Text Content */}
           <div className="relative z-10 max-w-xl lg:max-w-2xl space-y-4 sm:space-y-6">
-            <div className={`inline-flex items-center space-x-2 px-3.5 py-1 rounded-full ${slide.isLight ? 'bg-[#7B1131] text-white shadow-xs' : 'bg-white/15 backdrop-blur-md border border-white/30 text-gold-light'} text-[10px] sm:text-xs font-extrabold uppercase tracking-widest`}>
-              <Sparkles className="w-3.5 h-3.5 text-gold-light" />
-              <span>{slide.badge}</span>
-            </div>
+
 
             <div className="space-y-2">
               <p className={`text-xs sm:text-sm md:text-base font-serif italic ${slide.isLight ? 'text-[#7B1131] font-semibold' : 'text-gold-light/95'}`}>
@@ -284,10 +281,7 @@ export default function ProductsPage() {
           
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2 border-b border-neutral-200">
             <div>
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-[#7B1131] text-xs font-bold uppercase tracking-wider mb-2">
-                <Gift className="w-3.5 h-3.5 text-gold-dark" />
-                <span>Signature Confinement Combos</span>
-              </div>
+
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
                 Curated Gift Sets &amp; Confinement Combos
               </h2>
@@ -380,10 +374,7 @@ export default function ProductsPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-neutral-200">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Leaf className="w-3.5 h-3.5" />
-              <span>Purity &amp; Safety Assurance</span>
-            </div>
+
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
               Product Safety &amp; Botanical FAQs
             </h2>

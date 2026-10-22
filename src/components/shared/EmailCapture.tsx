@@ -181,12 +181,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({
 
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left Side: Live dynamic guide information based on selected stage */}
-        <div className="lg:col-span-7 space-y-3.5">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-gold/20 text-gold-light text-xs font-semibold uppercase tracking-wider border border-gold/30">
-            <Sparkles className="w-3.5 h-3.5 text-gold" />
-            <span className="font-playfair tracking-wider">{currentBadge}</span>
-          </div>
-
+        <div className="space-y-3.5 lg:col-span-7">
           <h3 className="font-playfair text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
             {currentTitle}
           </h3>

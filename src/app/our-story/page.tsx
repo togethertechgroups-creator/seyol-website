@@ -32,10 +32,7 @@ export default function OurStoryPage() {
       {/* Hero Section */}
       <section className="bg-cream-dark/40 py-6 sm:py-8 md:py-10 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
         <div className="max-w-4xl mx-auto text-center space-y-2.5 sm:space-y-3">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-            <Flower2 className="w-3.5 h-3.5 text-gold-dark" />
-            <span>The Heart of SEYOL</span>
-          </div>
+
 
           <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-brown tracking-tight leading-tight">
             Rooted in Tradition. <br />
@@ -52,10 +49,7 @@ export default function OurStoryPage() {
       <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
           <div className="md:col-span-6 space-y-5">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Our Sacred Origin</span>
-            </div>
+
 
             <div className="space-y-1">
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown leading-tight">
@@ -111,10 +105,7 @@ export default function OurStoryPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-t border-cream-border">
         <div className="max-w-6xl mx-auto space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Our Evolutionary Path</span>
-            </div>
+
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-brown">
               The Journey of SEYOL
             </h2>
@@ -129,9 +120,6 @@ export default function OurStoryPage() {
               <div className="space-y-3">
                 <div className="w-12 h-12 rounded-2xl bg-gold/20 text-maroon flex items-center justify-center border border-gold/40 shadow-xs">
                   <Clock className="w-6 h-6 text-maroon" />
-                </div>
-                <div className="text-xs font-bold uppercase tracking-wider text-gold-dark">
-                  Est. 2017
                 </div>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
                   Our History
@@ -148,9 +136,6 @@ export default function OurStoryPage() {
                 <div className="w-12 h-12 rounded-2xl bg-maroon-soft text-maroon flex items-center justify-center border border-maroon/20 shadow-xs">
                   <Users className="w-6 h-6 text-maroon" />
                 </div>
-                <div className="text-xs font-bold uppercase tracking-wider text-maroon">
-                  Evolution &amp; Trust
-                </div>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
                   Our Growth
                 </h3>
@@ -165,9 +150,6 @@ export default function OurStoryPage() {
               <div className="space-y-3">
                 <div className="w-12 h-12 rounded-2xl bg-gold/20 text-maroon flex items-center justify-center border border-gold/40 shadow-xs">
                   <Award className="w-6 h-6 text-maroon" />
-                </div>
-                <div className="text-xs font-bold uppercase tracking-wider text-gold-dark">
-                  Celebrated Achievements
                 </div>
                 <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
                   Our Milestones
@@ -238,10 +220,7 @@ export default function OurStoryPage() {
         <div className="max-w-[1400px] w-full mx-auto space-y-7 sm:space-y-9 relative z-10">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto space-y-2.5">
-            <div className="inline-flex items-center space-x-1.5 px-4 py-1 rounded-full bg-white/90 text-maroon text-[11px] font-semibold uppercase tracking-wider border border-cream-border shadow-2xs">
-              <Heart className="w-3.5 h-3.5 text-maroon fill-maroon/10" />
-              <span className="font-bold tracking-widest text-brown">OUR STORY</span>
-            </div>
+
             
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight leading-tight">
               Meet Ms Jemma Francis &amp;{' '}
@@ -678,10 +657,7 @@ export default function OurStoryPage() {
       {/* The SEYOL Care Ecosystem Timeline */}
       <section id="method" className="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-10">
         <div className="text-center space-y-2">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-            <Clock className="w-3.5 h-3.5 text-gold-dark" />
-            <span>The Care Journey</span>
-          </div>
+
           <h2 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
             How We Walk Beside You
           </h2>

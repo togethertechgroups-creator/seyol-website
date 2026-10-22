@@ -56,10 +56,7 @@ export const ClassExperiencePreview: React.FC = () => {
     <div className="w-full space-y-8 font-sans">
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-          <Video className="w-3.5 h-3.5" />
-          <span>Inside SEYOL Live Cohorts</span>
-        </div>
+
         <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
           Preview the SEYOL Learning Experience
         </h2>

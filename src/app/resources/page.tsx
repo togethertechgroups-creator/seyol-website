@@ -73,10 +73,7 @@ export default function ResourcesPage() {
         <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-maroon/5 blur-3xl pointer-events-none" />
 
         <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider shadow-warm-sm">
-            <BookOpen className="w-4 h-4 text-gold-dark" />
-            <span>Digital Library • Evidence-Grounded Maternal Wisdom</span>
-          </div>
+
 
           <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-extrabold text-brown tracking-tight leading-tight">
             Curated Mother & Baby <br />
@@ -237,11 +234,6 @@ export default function ResourcesPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
               <div className="lg:col-span-8 space-y-4">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold text-maroon-dark text-[10px] font-extrabold uppercase tracking-wider">
-                  <Star className="w-3.5 h-3.5 fill-maroon-dark" />
-                  <span>Ultimate Digital Library • 37 Guides Across 6 Bundles</span>
-                </div>
-
                 <div>
                   <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-cream-light">
                     {masterBundle.title}

@@ -531,9 +531,9 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#2a0c16]/90 via-[#2a0c16]/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-cream-light space-y-1.5">
-                  <span className="inline-block px-3 py-1 rounded-full bg-gold/90 text-brown font-bold text-[11px] tracking-wider uppercase">
+                  <div className="text-[11px] font-bold text-gold-light tracking-wider uppercase">
                     {homeSettings?.founderTitle || 'Founder & Childbirth Educator'}
-                  </span>
+                  </div>
                   <h4 className="font-serif text-xl sm:text-2xl font-bold text-cream-light">
                     {homeSettings?.founderName || 'Mrs. Jemma Francis'}
                   </h4>

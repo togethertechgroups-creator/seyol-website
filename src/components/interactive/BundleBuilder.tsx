@@ -70,10 +70,7 @@ export const BundleBuilder: React.FC = () => {
   return (
     <section className="bg-cream-dark/30 rounded-3xl border border-cream-border p-6 sm:p-10 shadow-warm-md font-sans">
       <div className="max-w-3xl mx-auto text-center mb-8">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider mb-2">
-          <Gift className="w-3.5 h-3.5 text-gold-dark" />
-          <span>Custom Routine Creator</span>
-        </div>
+
         <h2 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
           Build Your Custom Mother & Baby Care Routine
         </h2>

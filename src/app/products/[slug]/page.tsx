@@ -207,10 +207,7 @@ export default function ProductDetailPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* Hero Botanical Ingredients */}
           <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Leaf className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Pure Botanical Sourcing</span>
-            </div>
+
             <h3 className="font-serif text-xl font-bold text-brown">
               Hero Ayurvedic & Siddha Ingredients
             </h3>
@@ -233,10 +230,7 @@ export default function ProductDetailPage() {
 
           {/* How to Use Ritual */}
           <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-maroon-soft text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5" />
-              <span>Step-by-Step Ritual</span>
-            </div>
+
             <h3 className="font-serif text-xl font-bold text-brown">
               Traditional Daily Application Routine
             </h3>

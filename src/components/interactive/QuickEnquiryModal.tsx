@@ -117,10 +117,6 @@ export const QuickEnquiryModal: React.FC = () => {
             <div>
               {/* Header */}
               <div className="mb-6">
-                <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-maroon-soft text-maroon text-xs font-semibold uppercase tracking-wider mb-2">
-                  <Flower2 className="w-3.5 h-3.5" />
-                  <span>Personalised Care Guidance</span>
-                </div>
                 <h3 className="font-serif text-2xl font-bold text-brown">
                   {serviceTitle || classTitle ? `Enquire for ${serviceTitle || classTitle}` : 'Begin Your Care Consultation'}
                 </h3>

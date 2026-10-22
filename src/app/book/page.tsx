@@ -59,10 +59,7 @@ function BookPageContent() {
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="max-w-5xl mx-auto text-center space-y-3 relative z-10">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-white/10 text-gold-light text-xs font-bold uppercase tracking-wider border border-white/20">
-            <Sparkles className="w-3.5 h-3.5 text-gold-light" />
-            <span>Dedicated Mother &amp; Newborn Sanctuary</span>
-          </div>
+
 
           <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
             Book Your SEYOL Care Journey

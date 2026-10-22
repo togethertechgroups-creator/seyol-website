@@ -117,12 +117,6 @@ export const TrustBadges: React.FC<{ variant?: 'full' | 'compact' }> = ({ varian
           
           {/* Centered Header Block */}
           <div className="text-center max-w-2xl mx-auto space-y-3 pt-2">
-            {/* Pill Tag */}
-            <div className="inline-flex items-center space-x-1.5 px-4 py-1.5 rounded-full bg-[#fcedeb] border border-[#f5d0cb] text-[#7B1131] text-[11px] font-bold uppercase tracking-widest shadow-2xs">
-              <Users className="w-3.5 h-3.5" />
-              <span>STRONGER TOGETHER</span>
-            </div>
-
             {/* Title */}
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
               Our Community

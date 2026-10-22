@@ -34,10 +34,6 @@ export const FounderStoryTimeline: React.FC = () => {
   return (
     <div className="w-full bg-cream-light p-6 sm:p-10 rounded-3xl border border-cream-border shadow-warm-lg space-y-8">
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-          <Award className="w-3.5 h-3.5 text-gold-dark" />
-          <span>Our Heritage Journey</span>
-        </div>
         <h3 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
           18+ Years of Sacred Postnatal Heritage
         </h3>

@@ -48,10 +48,7 @@ export const PersonalisedCareCard: React.FC = () => {
       <div className="absolute top-0 right-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative z-10 space-y-4 max-w-2xl">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-gold-light text-xs font-semibold uppercase tracking-wider">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>Recommended For Stage: {stage.toUpperCase()}</span>
-        </div>
+
 
         <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-snug">
           {info.title}

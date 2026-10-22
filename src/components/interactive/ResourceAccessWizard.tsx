@@ -241,10 +241,6 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-[11px] font-bold uppercase tracking-wider mb-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Digital Resource Access Gateway</span>
-            </div>
             <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">
               {isComplete ? 'Resource Locker Unlocked' : 'Access Your SEYOL Guide Kit'}
             </h2>

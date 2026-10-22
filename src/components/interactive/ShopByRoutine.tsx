@@ -143,9 +143,6 @@ export const ShopByRoutine: React.FC = () => {
         {/* Routine Story & Sequence */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-cream-border/80 pb-8">
           <div className="lg:col-span-7 space-y-3">
-            <span className="inline-block px-3 py-1 rounded-full bg-gold/20 text-maroon text-[11px] font-bold uppercase tracking-wider">
-              {currentRoutine.badge}
-            </span>
             <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown tracking-tight">
               {currentRoutine.title}
             </h3>
