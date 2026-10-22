@@ -34,10 +34,10 @@ import {
   BellRing
 } from 'lucide-react';
 import { StageSelector } from '../components/interactive/StageSelector';
+import Timeline from '../components/interactive/Timeline';
 import { StageNextStepCalculator } from '../components/interactive/StageNextStepCalculator';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
-import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
 import { ComparisonCards } from '../components/interactive/ComparisonCards';
 import HorizontalServicesScroll from '../components/interactive/HorizontalServicesScroll';
 import { TrustBadges } from '../components/shared/TrustBadges';
@@ -226,32 +226,18 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 2: WHERE ARE YOU RIGHT NOW? (Interactive Stage Selector)          */}
+        {/* SECTION 2: WHERE ARE YOU RIGHT NOW? (Interactive Horizontal Timeline)     */}
         {/* ========================================================================= */}
-        <section
-          ref={milestoneSectionRef}
-          id="care-path"
-          className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full"
-        >
-          <div className="space-y-6">
-            <div className="text-center max-w-2xl mx-auto space-y-2">
-              {/* Font Combination: Sans-serif + Italic Serif */}
-              <h2 className="font-sans text-2xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-md">
-                Where Are You{' '}
-                <span className="font-serif italic font-normal text-gold-light">
-                  Right Now?
-                </span>
-              </h2>
-
-              <p className="font-sans text-sm sm:text-base text-cream-light/85 leading-relaxed max-w-xl mx-auto">
-                Select your current milestone to explore tailored care routines, masterclasses, and certified Indian postpartum care.
-              </p>
-            </div>
-
-            {/* 5 Milestone Stages + Dynamic "Your Suggested Care Path" */}
-            <StageSelector />
-          </div>
-        </section>
+        <div id="care-path">
+          <Timeline
+            title="Where Are You Right Now?"
+            periodLabel="Preconception • Birth • Postpartum"
+            activeColor="#C8A45D"
+            backgroundColor="#7B1131"
+            textColor="#FAF6EE"
+            mutedTextColor="rgba(250, 246, 238, 0.85)"
+          />
+        </div>
       </div>
 
       {/* ========================================================================= */}
@@ -272,11 +258,6 @@ export default function HomePage() {
         scrollHint="SCROLL DOWN TO EXPAND SANCTUARY"
       >
         <div className="space-y-5 sm:space-y-6 max-w-3xl text-center text-cream-light px-4">
-          <div className="inline-flex items-center space-x-2 px-5 py-2 rounded-full bg-[#160307]/85 text-gold-light border border-gold/60 text-xs sm:text-sm font-bold uppercase tracking-widest backdrop-blur-md shadow-2xl">
-            <Sparkles className="w-4 h-4 text-gold" />
-            <span>The SEYOL Sacred Sanctuary</span>
-          </div>
-
           <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
             Honouring Every Sacred Step of Motherhood
           </h2>
@@ -310,12 +291,7 @@ export default function HomePage() {
         <SupportModeTabs />
       </section>
 
-      {/* ========================================================================= */}
-      {/* SECTION 7: SHOP BY ROUTINE (Product Discovery for SEY by SEYOL)           */}
-      {/* ========================================================================= */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <ShopByRoutine />
-      </section>
+
 
       {/* ========================================================================= */}
       {/* ALL 10 SEYOL SERVICES HORIZONTAL SCROLL SANCTUARY                         */}
@@ -358,10 +334,6 @@ export default function HomePage() {
 
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-gold-light text-xs font-bold uppercase tracking-widest border border-gold/30 shadow-xs">
-              <Flower2 className="w-3.5 h-3.5 text-gold-light" />
-              <span>Our Care Philosophy</span>
-            </div>
             <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">
               The SEYOL{' '}
               <span className="font-serif italic font-normal text-gold-light">
@@ -478,10 +450,6 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Transparent Comparison</span>
-            </div>
             <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Not Sure Which{' '}
               <span className="font-serif italic font-normal text-maroon">
@@ -512,11 +480,6 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             {/* Left Narrative */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider border border-maroon/20">
-                <Flower2 className="w-4 h-4 text-maroon" />
-                <span>Our Heritage & Origin</span>
-              </div>
-
               <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
                 Why Families Begin with SEYOL
               </h2>
@@ -594,10 +557,6 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider">
-              <Star className="w-3.5 h-3.5 fill-gold-dark text-gold-dark" />
-              <span>Verified Parent Stories</span>
-            </div>
             <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Trusted by Families{' '}
               <span className="font-serif italic font-normal text-maroon">
@@ -619,10 +578,6 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <BookOpen className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Complimentary Knowledge</span>
-            </div>
             <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-brown tracking-tight">
               Your First{' '}
               <span className="font-serif italic font-normal text-maroon">
@@ -644,10 +599,6 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full font-sans">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-gold/20 text-maroon text-xs font-semibold uppercase tracking-wider">
-              <Heart className="w-3.5 h-3.5 text-gold-dark" />
-              <span>Personalised Care Guidance</span>
-            </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
               Still Unsure? We’ll Guide You.
             </h2>

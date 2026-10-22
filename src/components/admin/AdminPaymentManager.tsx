@@ -263,8 +263,8 @@ export const AdminPaymentManager: React.FC = () => {
 
         {activeLedgerTab === 'stripe' ? (
           /* Stripe Live Transactions Table */
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[720px] text-left text-xs">
               <thead className="bg-neutral-50 text-[10px] uppercase font-bold text-neutral-500 border-b border-neutral-200">
                 <tr>
                   <th className="p-4">Customer &amp; Contact</th>
@@ -372,8 +372,8 @@ export const AdminPaymentManager: React.FC = () => {
           </div>
         ) : (
           /* Care Invoices Table */
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="overflow-x-auto w-full">
+            <table className="w-full min-w-[720px] text-left text-xs">
             <thead className="bg-neutral-50 text-[10px] uppercase font-bold text-neutral-500 border-b border-neutral-200">
               <tr>
                 <th className="p-4">Customer</th>

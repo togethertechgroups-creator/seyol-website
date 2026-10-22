@@ -192,7 +192,7 @@ export const StageSelector: React.FC<StageSelectorProps> = ({
             <button
               key={st.id}
               onClick={() => setSelectedStage(st.id)}
-              className={`group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl text-center transition-all duration-300 flex flex-col items-center justify-center cursor-pointer ${
+              className={`group relative p-4 sm:p-5 rounded-2xl sm:rounded-3xl text-center transition-all duration-300 flex flex-col items-center justify-center cursor-pointer last:col-span-2 sm:last:col-span-1 lg:last:col-span-1 ${
                 isSelected
                   ? 'bg-white text-[#7B1131] shadow-[0_16px_36px_rgba(0,0,0,0.25)] scale-[1.04] border-2 border-gold ring-4 ring-gold/20 z-10'
                   : 'bg-white/10 hover:bg-white/20 text-cream-light border border-white/20 backdrop-blur-md hover:scale-[1.02] hover:-translate-y-0.5'

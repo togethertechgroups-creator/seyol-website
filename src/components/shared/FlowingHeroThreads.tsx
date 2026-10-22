@@ -11,56 +11,69 @@ export interface FlowingHeroThreadsProps {
 interface ThreadDefinition {
   id: string;
   name: string;
+  label: string;
+  color: string;
   restingPath: string;
   restingEndX: number;
   restingEndY: number;
   extendedPath: string;
   extendedEndX: number;
   extendedEndY: number;
-  color: string;
 }
 
-// 3 distinct woven threads matching user instructions:
-// 1. Cyan/Teal (#2dd4bf): Arches highest under buttons, ending at (430, 472)
-// 2. Yellow/Gold (#facc15): Sweeps between Cyan (top) and Purple (bottom), resting at (385, 505)
-// 3. Purple (#c084fc): Runs below Yellow, resting at (410, 532)
+// 4 distinct flowing threads matching the 4 hero slides:
+// Slide 0: Certified Doulas (Teal / Turquoise)
+// Slide 1: Licensed Employment Agency (Gold / Honey)
+// Slide 2: Registered Company (Lilac / Purple)
+// Slide 3: Years of Hands-On Care Experience (Coral / Rose)
 const THREADS: ThreadDefinition[] = [
   {
-    id: 'thread-gold',
-    name: 'Yellow',
-    // Starts at (0, 475), curves into the middle between Cyan (above) and Purple (below)
-    restingPath: 'M 0 475 C 100 475, 200 515, 290 515 C 330 515, 360 510, 385 505',
-    restingEndX: 385,
-    restingEndY: 505,
-    // Maven's signature wide, gentle golden swoop across the open hero area
-    extendedPath: 'M 0 475 C 100 475, 200 515, 290 515 C 440 515, 620 480, 820 420 C 920 390, 1000 405, 1060 435',
-    extendedEndX: 1060,
-    extendedEndY: 435,
-    color: '#facc15', // Gold / Yellow
-  },
-  {
-    id: 'thread-cyan',
-    name: 'Cyan',
-    // Starts at (0, 525), arches UP crossing over purple, resting highest under 2nd button
-    restingPath: 'M 0 525 C 100 525, 200 480, 310 470 C 360 465, 400 468, 430 472',
-    restingEndX: 430,
-    restingEndY: 472,
-    extendedPath: 'M 0 525 C 100 525, 200 480, 310 470 C 450 455, 650 480, 850 450 C 950 435, 1010 450, 1060 460',
-    extendedEndX: 1060,
-    extendedEndY: 460,
+    id: 'thread-doulas',
+    name: 'Teal',
+    label: 'Certified Doulas',
     color: '#2dd4bf', // Teal / Cyan
+    restingPath: 'M 0 470 C 100 470, 200 495, 290 490 C 330 485, 360 475, 385 465',
+    restingEndX: 385,
+    restingEndY: 465,
+    extendedPath: 'M 0 470 C 120 470, 220 500, 320 495 C 460 490, 620 445, 800 405 C 890 385, 960 395, 1020 415',
+    extendedEndX: 1020,
+    extendedEndY: 415,
   },
   {
-    id: 'thread-purple',
-    name: 'Purple',
-    // Starts at (0, 500), dips down below yellow, resting below yellow
-    restingPath: 'M 0 500 C 90 505, 180 550, 270 545 C 330 540, 380 535, 410 532',
+    id: 'thread-agency',
+    name: 'Gold',
+    label: 'Licensed Employment Agency',
+    color: '#facc15', // Gold / Honey
+    restingPath: 'M 0 495 C 100 495, 190 470, 290 480 C 340 485, 380 495, 410 495',
     restingEndX: 410,
-    restingEndY: 532,
-    extendedPath: 'M 0 500 C 90 505, 180 550, 270 545 C 410 540, 580 530, 760 500 C 880 480, 970 495, 1040 510',
+    restingEndY: 495,
+    extendedPath: 'M 0 495 C 110 495, 220 465, 330 475 C 470 490, 660 515, 840 470 C 920 445, 990 450, 1040 455',
     extendedEndX: 1040,
-    extendedEndY: 510,
+    extendedEndY: 455,
+  },
+  {
+    id: 'thread-company',
+    name: 'Purple',
+    label: 'Registered Company',
     color: '#c084fc', // Lilac / Purple
+    restingPath: 'M 0 520 C 90 520, 180 545, 270 540 C 330 535, 380 525, 420 520',
+    restingEndX: 420,
+    restingEndY: 520,
+    extendedPath: 'M 0 520 C 100 520, 200 550, 310 540 C 440 525, 620 510, 790 520 C 880 525, 960 510, 1020 495',
+    extendedEndX: 1020,
+    extendedEndY: 495,
+  },
+  {
+    id: 'thread-experience',
+    name: 'Coral',
+    label: 'Years of Hands-On Care Experience',
+    color: '#fb7185', // Warm Coral / Rose
+    restingPath: 'M 0 550 C 90 550, 180 530, 260 535 C 310 540, 345 545, 375 550',
+    restingEndX: 375,
+    restingEndY: 550,
+    extendedPath: 'M 0 550 C 110 550, 210 525, 310 535 C 450 550, 630 565, 810 540 C 900 525, 960 535, 1000 535',
+    extendedEndX: 1000,
+    extendedEndY: 535,
   },
 ];
 
@@ -68,28 +81,28 @@ export const FlowingHeroThreads: React.FC<FlowingHeroThreadsProps> = ({
   activeSlideIndex = 0,
   className = '',
 }) => {
-  // Exactly 3 seconds delay after website load before lines appear & start animating
   const [animationStarted, setAnimationStarted] = useState(false);
 
   useEffect(() => {
+    // Immediate, crisp initialization
     const timer = setTimeout(() => {
       setAnimationStarted(true);
-    }, 3000);
+    }, 50);
 
     return () => clearTimeout(timer);
   }, []);
 
-  // Before 3 seconds: do not render lines at all
   if (!animationStarted) {
     return null;
   }
 
-  // Slide 0: Yellow thread (idx 0), Slide 1: Cyan (idx 1), Slide 2: Purple (idx 2)
+  // Active thread advances with the hero slideshow (4 slides total)
   const activeIdx = activeSlideIndex % THREADS.length;
+  const activeThread = THREADS[activeIdx];
 
   return (
     <div
-      className={`pointer-events-none absolute inset-0 z-10 overflow-hidden transition-opacity duration-1000 ${className}`}
+      className={`pointer-events-none absolute inset-0 z-10 overflow-hidden transition-opacity duration-700 ${className}`}
       aria-hidden="true"
     >
       <svg
@@ -99,20 +112,19 @@ export const FlowingHeroThreads: React.FC<FlowingHeroThreadsProps> = ({
         xmlns="http://www.w3.org/2000/svg"
         preserveAspectRatio="none"
       >
-        {/* Render Order: Purple -> Yellow -> Cyan (so they weave and overlap cleanly) */}
         {THREADS.map((thread, idx) => {
           const isExtended = activeIdx === idx;
 
           return (
             <g key={thread.id} className="maven-thread-group">
-              {/* Crisp Solid Vector Line - No Blurs, No Glows */}
+              {/* Crisp Solid Vector Line */}
               <path
                 key={`${thread.id}-${isExtended ? 'ext' : 'rst'}`}
                 d={isExtended ? thread.extendedPath : thread.restingPath}
                 stroke={thread.color}
-                strokeWidth={isExtended ? 1.4 : 1.15}
+                strokeWidth={isExtended ? 1.6 : 1.15}
                 strokeLinecap="round"
-                strokeOpacity={isExtended ? 0.95 : 0.7}
+                strokeOpacity={isExtended ? 0.95 : 0.6}
                 className={isExtended ? 'maven-line-active' : 'maven-line-static'}
               />
 
@@ -141,6 +153,23 @@ export const FlowingHeroThreads: React.FC<FlowingHeroThreadsProps> = ({
           );
         })}
       </svg>
+
+      {/* Pure text label beside the terminal dot (No box / No tag container) */}
+      {activeThread && (
+        <div
+          key={`text-${activeThread.id}-${activeIdx}`}
+          className="maven-text-container absolute flex items-center pointer-events-none maven-text-reveal"
+          style={{
+            left: `${(activeThread.extendedEndX / 1440) * 100}%`,
+            top: `${(activeThread.extendedEndY / 650) * 100}%`,
+            transform: 'translate(10px, -50%)',
+          }}
+        >
+          <span className="text-[11px] sm:text-xs md:text-sm font-extrabold tracking-widest uppercase whitespace-nowrap text-white font-sans drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
+            {activeThread.label}
+          </span>
+        </div>
+      )}
     </div>
   );
 };

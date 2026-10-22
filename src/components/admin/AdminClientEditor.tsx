@@ -415,7 +415,7 @@ export const AdminClientEditor: React.FC = () => {
                   placeholder="Search name, phone, email, login ID..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-9 pr-4 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs w-64 focus:outline-none focus:ring-2 focus:ring-[#7B1131] focus:bg-white transition-all"
+                  className="pl-9 pr-4 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-[#7B1131] focus:bg-white transition-all"
                 />
               </div>
 
@@ -1201,7 +1201,7 @@ export const AdminClientEditor: React.FC = () => {
       {/* ========================================================================= */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8">
+          <div className="bg-white rounded-3xl p-4 sm:p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-5 sm:space-y-6 my-4 sm:my-8">
             <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-2xl bg-[#7B1131]/10 text-[#7B1131] flex items-center justify-center font-bold">

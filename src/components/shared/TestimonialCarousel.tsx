@@ -38,10 +38,6 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
         
         {/* Header */}
         <div className="text-center mb-8 space-y-2">
-          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-gold/20 text-maroon text-xs font-bold uppercase tracking-wider shadow-xs">
-            <Heart className="w-3.5 h-3.5 text-gold-dark" />
-            <span>What Our Clients Have To Say About SEYOL?</span>
-          </div>
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight">
             Real Stories, Healing Touch &amp; Video Journeys
           </h2>

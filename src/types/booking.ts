@@ -127,7 +127,7 @@ export interface BookingFormData {
   comboArrangement?: string;
 
   // Stay-In Confinement Nanny Support
-  nannyStage?: 'pregnant' | 'delivered-urgent';
+  nannyStage?: 'pregnant' | 'delivered' | 'urgent' | 'delivered-urgent';
   nannyEdd?: string;
   nannyBabyOrder?: BabyOrder;
   nannyOtherChildrenAges?: string;

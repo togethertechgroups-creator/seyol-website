@@ -71,8 +71,8 @@ export const StageNextStepCalculator: React.FC = () => {
 
   return (
     <div className="w-full max-w-6xl xl:max-w-7xl mx-auto font-sans">
-      {/* ── Deep Maroon SEYOL Brand Container ── */}
-      <div className="bg-[#5C1D24] text-cream-light rounded-3xl sm:rounded-[36px] p-6 sm:p-9 lg:p-12 border border-[#8C2836]/60 shadow-[0_15px_40px_rgba(0,0,0,0.25)] space-y-6 sm:space-y-7">
+      {/* ── SEYOL Brand Container (#7B1131) ── */}
+      <div className="bg-[#7B1131] text-cream-light rounded-3xl sm:rounded-[36px] p-6 sm:p-9 lg:p-12 border border-[#991840]/60 shadow-[0_15px_40px_rgba(0,0,0,0.25)] space-y-6 sm:space-y-7">
         
         {/* Top Tag & Headings */}
         <div className="space-y-2">
@@ -102,8 +102,8 @@ export const StageNextStepCalculator: React.FC = () => {
                 onClick={() => handleTabChange(tabKey)}
                 className={`px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-200 cursor-pointer ${
                   isSelected
-                    ? 'bg-[#FAF6EE] text-[#5C1D24] shadow-warm-xs scale-[1.02]'
-                    : 'bg-[#431218] text-cream-light/80 hover:text-white hover:bg-[#4E161D] border border-white/10'
+                    ? 'bg-[#FAF6EE] text-[#7B1131] shadow-warm-xs scale-[1.02]'
+                    : 'bg-[#630D26] text-cream-light/80 hover:text-white hover:bg-[#520A1F] border border-white/10'
                 }`}
               >
                 {tabData.label}
@@ -120,17 +120,17 @@ export const StageNextStepCalculator: React.FC = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder={currentConfig.placeholder}
-              className="w-full px-4 sm:px-5 py-3 rounded-2xl bg-[#431218] border border-white/20 text-white placeholder-cream-light/50 text-xs sm:text-sm focus:outline-none focus:border-gold transition-colors"
+              className="w-full px-4 sm:px-5 py-3 rounded-2xl bg-[#630D26] border border-white/20 text-white placeholder-cream-light/50 text-xs sm:text-sm focus:outline-none focus:border-gold transition-colors"
             />
           </div>
 
           <button
             type="button"
             onClick={() => openEnquiry({ serviceTitle: `Pathfinder for ${currentConfig.label}: ${inputValue}` })}
-            className="px-5 sm:px-6 py-3 rounded-full bg-[#E5C378] hover:bg-[#DFC075] text-[#5C1D24] font-extrabold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] shadow-warm-xs flex items-center justify-center space-x-1.5 shrink-0 cursor-pointer"
+            className="px-5 sm:px-6 py-3 rounded-full bg-[#E5C378] hover:bg-[#DFC075] text-[#7B1131] font-extrabold text-xs sm:text-sm transition-all duration-200 hover:scale-[1.02] shadow-warm-xs flex items-center justify-center space-x-1.5 shrink-0 cursor-pointer"
           >
             <span>Show My Path</span>
-            <ArrowRight className="w-4 h-4 text-[#5C1D24]" />
+            <ArrowRight className="w-4 h-4 text-[#7B1131]" />
           </button>
         </div>
 
@@ -146,7 +146,7 @@ export const StageNextStepCalculator: React.FC = () => {
                 key={recItem.name}
                 type="button"
                 onClick={() => handlePillClick(recItem)}
-                className="px-4 py-2 rounded-full bg-[#431218] hover:bg-[#4E161D] text-cream-light hover:text-white border border-white/20 text-xs sm:text-xs font-semibold transition-all duration-200 hover:scale-[1.02] shadow-2xs flex items-center space-x-1.5 cursor-pointer"
+                className="px-4 py-2 rounded-full bg-[#630D26] hover:bg-[#520A1F] text-cream-light hover:text-white border border-white/20 text-xs sm:text-xs font-semibold transition-all duration-200 hover:scale-[1.02] shadow-2xs flex items-center space-x-1.5 cursor-pointer"
               >
                 <span>{recItem.name}</span>
                 <ArrowRight className="w-3 h-3 text-gold opacity-75" />

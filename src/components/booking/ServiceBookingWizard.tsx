@@ -31,7 +31,8 @@ import {
   MessageCircle,
   HelpCircle,
   CreditCard,
-  Loader2
+  Loader2,
+  X
 } from 'lucide-react';
 import {
   BookingServiceId,
@@ -156,6 +157,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
   const [bookingRefId, setBookingRefId] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
   const [showPackageModal, setShowPackageModal] = useState(false);
+  const [packageModalTier, setPackageModalTier] = useState<'standard' | 'premium'>('standard');
   const [isSubmittingPayment, setIsSubmittingPayment] = useState(false);
   const [paymentPlan, setPaymentPlan] = useState<'full' | 'deposit'>('full');
   const [paidStripeIntent, setPaidStripeIntent] = useState<string | null>(null);
@@ -210,6 +212,50 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
     }
   };
 
+  // Helper to select package across different service types
+  const selectPackage = (packageId: string) => {
+    if (activeServiceId === 'prenatal-massage') {
+      updateFormData({ prenatalPackage: packageId });
+    } else if (activeServiceId === 'birth-doula-support') {
+      updateFormData({ doulaPackage: packageId });
+    } else if (activeServiceId === 'postpartum-massage-wrap') {
+      updateFormData({ postpartumPackage: packageId, postpartumTier: packageModalTier });
+    } else if (activeServiceId === 'infant-massage-bath') {
+      updateFormData({ infantPackage: packageId });
+    } else if (activeServiceId === 'mother-baby-combo') {
+      updateFormData({ comboPackage: packageId, comboTier: packageModalTier });
+    } else if (activeServiceId === 'confinement-nanny') {
+      updateFormData({ nannyPackage: packageId });
+    }
+    setShowPackageModal(false);
+  };
+
+  // Helper to get active selected package ID
+  const getCurrentPackageId = (): string => {
+    if (activeServiceId === 'prenatal-massage') return formData.prenatalPackage || '';
+    if (activeServiceId === 'birth-doula-support') return formData.doulaPackage || '';
+    if (activeServiceId === 'postpartum-massage-wrap') return formData.postpartumPackage || '';
+    if (activeServiceId === 'infant-massage-bath') return formData.infantPackage || '';
+    if (activeServiceId === 'mother-baby-combo') return formData.comboPackage || '';
+    if (activeServiceId === 'confinement-nanny') return formData.nannyPackage || '';
+    return '';
+  };
+
+  // Helper to check if gestational age from EDD is under 16 weeks
+  const isEddUnder16Weeks = (eddString?: string): { isUnder: boolean; estimatedWeeks: number } => {
+    if (!eddString) return { isUnder: false, estimatedWeeks: 0 };
+    const edd = new Date(eddString);
+    if (isNaN(edd.getTime())) return { isUnder: false, estimatedWeeks: 0 };
+    const today = new Date();
+    const daysRemaining = Math.round((edd.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    // Standard gestation is 280 days (40 weeks)
+    const estimatedWeeks = Math.max(1, Math.min(42, Math.round((280 - daysRemaining) / 7)));
+    return {
+      isUnder: estimatedWeeks < 16 && daysRemaining > 168,
+      estimatedWeeks
+    };
+  };
+
   // Step Validation before going forward
   const validateCurrentStep = (): boolean => {
     setValidationError(null);
@@ -232,13 +278,46 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
         setValidationError('This service is exclusively available for home visits in Singapore. Please see alternative recommendations below.');
         return false;
       }
+      if (formData.country === 'Singapore') {
+        if ((activeServiceId === 'confinement-nanny' || activeServiceId === 'hourly-newborn-support') && !formData.postalCode?.trim()) {
+          setValidationError('Please enter your Singapore postal code.');
+          return false;
+        }
+        if ((activeServiceId === 'postpartum-massage-wrap' || activeServiceId === 'infant-massage-bath' || activeServiceId === 'mother-baby-combo') && !formData.address?.trim()) {
+          setValidationError('Please enter your Singapore residential address.');
+          return false;
+        }
+        if (activeServiceId === 'birth-doula-support' && formData.doulaPreferredMode === 'in-person' && !formData.address?.trim()) {
+          setValidationError('Please enter your residential address in Singapore for in-person doula visits.');
+          return false;
+        }
+      }
       return true;
     }
 
-    // Step 2 & 3: Recipient & Permission check
-    if (formData.bookingFor !== 'Myself' && !formData.hasPermissionToShare) {
-      setValidationError('Please confirm that you have permission to share these details with SEYOL.');
-      return false;
+    // Step 2: Recipient & Permission check for services that have recipient selection
+    if (currentStep === 2 && activeServiceId !== 'prenatal-massage') {
+      if (formData.bookingFor !== 'Myself' && !formData.hasPermissionToShare) {
+        setValidationError('Please confirm that you have permission to share these details with SEYOL.');
+        return false;
+      }
+    }
+
+    // Step 4: Residential address check for Prenatal Massage and in-person consultation modes in Singapore
+    if (currentStep === 4 && formData.country === 'Singapore') {
+      if (activeServiceId === 'prenatal-massage' && !formData.address?.trim()) {
+        setValidationError('Please enter your Singapore residential address for prenatal massage home visit.');
+        return false;
+      }
+      if (
+        (activeServiceId === 'lactation-support' && formData.lactationPreferredMode === 'in-person') ||
+        (activeServiceId === 'general-consultation' && formData.generalPreferredMode === 'in-person')
+      ) {
+        if (!formData.address?.trim()) {
+          setValidationError('Please enter your residential address in Singapore for in-person consultation.');
+          return false;
+        }
+      }
     }
 
     // Consent Step validation (Step count - 1)
@@ -707,53 +786,288 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                             Service Available Exclusively in Singapore
                           </span>
                           <p className="text-amber-800/90 leading-relaxed font-medium">
-                            Our hands-on {serviceConfig.title} requires in-home visits by our certified Singapore matrons. For clients residing in other countries, we warmly offer our virtual guidance and classes:
+                            Our hands-on {serviceConfig.title} requires in-home visits by our certified Singapore matrons. For clients residing in other countries, we warmly offer our virtual guidance, masterclasses, and consultation roadmaps:
                           </p>
                         </div>
                       </div>
 
+                      {/* Service-Specific Action Cards for International Users */}
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setActiveServiceId('general-consultation');
-                            setCurrentStep(1);
-                          }}
-                          className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
-                        >
-                          Book General Consultation
-                        </button>
-                        <Link
-                          href="/classes"
-                          className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
-                        >
-                          View Workshops &amp; Classes
-                        </Link>
-                        <Link
-                          href="/resources"
-                          className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
-                        >
-                          Explore SEYOL Resources
-                        </Link>
+                        {activeServiceId === 'prenatal-massage' && (
+                          <>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Prenatal Movement &amp; Comfort Class
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveServiceId('general-consultation');
+                                setCurrentStep(1);
+                              }}
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
+                            >
+                              Book General Consultation
+                            </button>
+                            <Link
+                              href="/resources"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              Stay Connected with SEYOL
+                            </Link>
+                          </>
+                        )}
+
+                        {activeServiceId === 'postpartum-massage-wrap' && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveServiceId('general-consultation');
+                                setCurrentStep(1);
+                              }}
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
+                            >
+                              Book General Consultation
+                            </button>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Postpartum &amp; Confinement Preparation Class
+                            </Link>
+                            <Link
+                              href="/resources"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              Explore SEYOL Resources
+                            </Link>
+                          </>
+                        )}
+
+                        {activeServiceId === 'infant-massage-bath' && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveServiceId('general-consultation');
+                                setCurrentStep(1);
+                              }}
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
+                            >
+                              Book General Consultation
+                            </button>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Baby Massage &amp; Bath Workshop
+                            </Link>
+                            <Link
+                              href="/resources"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              Explore SEYOL Resources
+                            </Link>
+                          </>
+                        )}
+
+                        {(activeServiceId === 'mother-baby-combo' || activeServiceId === 'confinement-nanny') && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveServiceId('general-consultation');
+                                setCurrentStep(1);
+                              }}
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
+                            >
+                              Book General Consultation
+                            </button>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Postpartum &amp; Confinement Preparation Class
+                            </Link>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Baby Massage &amp; Bath Workshop
+                            </Link>
+                            <Link
+                              href="/resources"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center sm:col-span-3"
+                            >
+                              Explore SEYOL Resources
+                            </Link>
+                          </>
+                        )}
+
+                        {activeServiceId === 'hourly-newborn-support' && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setActiveServiceId('general-consultation');
+                                setCurrentStep(1);
+                              }}
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-maroon font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs"
+                            >
+                              Book General Consultation
+                            </button>
+                            <Link
+                              href="/classes"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              View Newborn Care Class
+                            </Link>
+                            <Link
+                              href="/resources"
+                              className="p-3 rounded-xl bg-white border border-amber-300 text-brown font-bold text-xs text-center hover:bg-amber-100/60 transition-colors shadow-2xs inline-flex items-center justify-center"
+                            >
+                              Explore SEYOL Resources
+                            </Link>
+                          </>
+                        )}
                       </div>
                     </div>
                   )}
 
-                  {/* Address or Postal Code for In-Person / Singapore Services */}
-                  {(serviceConfig.supportsInPerson && formData.country === 'Singapore') && (
-                    <div className="sm:col-span-2 space-y-1 pt-1">
+                  {/* Consultation Mode Selector for Virtual/In-Person/Flexible Supported Services */}
+                  {(activeServiceId === 'preconception-support' ||
+                    activeServiceId === 'lactation-support' ||
+                    activeServiceId === 'general-consultation') && (
+                    <div className="sm:col-span-2 space-y-1.5 pt-1">
                       <label className="block text-xs font-bold text-brown">
-                        Residential Address / Postal Code (Singapore) <span className="text-maroon">*</span>
+                        Consultation Mode {formData.country === 'Singapore' ? '(Singapore)' : '(International)'} <span className="text-maroon">*</span>
                       </label>
-                      <input
-                        type="text"
-                        value={formData.address || formData.postalCode || ''}
-                        onChange={(e) => updateFormData({ address: e.target.value, postalCode: e.target.value })}
-                        placeholder="e.g. 128 Tanjong Pagar Road, #04-02, Singapore 088535"
-                        className="w-full px-4 py-3 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium focus:outline-none focus:border-maroon focus:bg-white transition-all"
-                      />
+                      {formData.country === 'Singapore' ? (
+                        <div className="grid grid-cols-3 gap-2.5">
+                          {(['Virtual', 'In-person', 'Flexible'] as const).map((m) => (
+                            <button
+                              key={m}
+                              type="button"
+                              onClick={() => updateFormData({ preferredConsultationMode: m.toLowerCase() as ConsultationMode })}
+                              className={`p-3 rounded-xl border text-xs sm:text-sm font-bold text-center transition-all ${
+                                (formData.preferredConsultationMode || 'virtual').toLowerCase() === m.toLowerCase()
+                                  ? 'bg-maroon text-cream-light border-maroon shadow-xs'
+                                  : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                              }`}
+                            >
+                              {m}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="p-3.5 rounded-2xl bg-cream border border-cream-border flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-xs sm:text-sm font-bold text-brown">
+                              Consultation Mode: <strong>Virtual</strong>
+                            </span>
+                          </div>
+                          <span className="text-[11px] font-semibold text-brown-muted">
+                            Encrypted HD Video Call (Google Meet / Zoom)
+                          </span>
+                        </div>
+                      )}
                     </div>
                   )}
+
+                  {/* Birth Doula Support: Singapore (Virtual, In-Person + Address) vs Other Countries (Virtual, no Address) */}
+                  {activeServiceId === 'birth-doula-support' && (
+                    <div className="sm:col-span-2 space-y-3 pt-1">
+                      <label className="block text-xs font-bold text-brown">
+                        Doula Consultation &amp; Care Mode <span className="text-maroon">*</span>
+                      </label>
+                      {formData.country === 'Singapore' ? (
+                        <>
+                          <div className="grid grid-cols-2 gap-3">
+                            {(['Virtual', 'In-Person'] as const).map((m) => (
+                              <button
+                                key={m}
+                                type="button"
+                                onClick={() => updateFormData({ doulaPreferredMode: m.toLowerCase() as 'virtual' | 'in-person' })}
+                                className={`p-3 rounded-xl border text-xs sm:text-sm font-bold text-center transition-all ${
+                                  (formData.doulaPreferredMode || 'in-person').toLowerCase() === m.toLowerCase()
+                                    ? 'bg-maroon text-cream-light border-maroon shadow-xs'
+                                    : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                                }`}
+                              >
+                                {m} Support
+                              </button>
+                            ))}
+                          </div>
+
+                          <div className="space-y-1">
+                            <label className="block text-xs font-bold text-brown">
+                              Residential Address (Singapore) <span className="text-maroon">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              value={formData.address || ''}
+                              onChange={(e) => updateFormData({ address: e.target.value })}
+                              placeholder="e.g. 128 Tanjong Pagar Road, #04-02, Singapore 088535"
+                              className="w-full px-4 py-3 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium focus:outline-none focus:border-maroon focus:bg-white transition-all"
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <div className="p-3.5 rounded-2xl bg-cream border border-cream-border flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                            <span className="text-xs sm:text-sm font-bold text-brown">
+                              Consultation Mode: <strong>Virtual</strong>
+                            </span>
+                          </div>
+                          <span className="text-[11px] font-semibold text-brown-muted">
+                            Remote Birth Planning &amp; On-Call Video Guidance
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Postal Code for Confinement Nanny & Hourly Support in Singapore */}
+                  {formData.country === 'Singapore' &&
+                    (activeServiceId === 'confinement-nanny' || activeServiceId === 'hourly-newborn-support') && (
+                      <div className="sm:col-span-2 space-y-1 pt-1">
+                        <label className="block text-xs font-bold text-brown">
+                          Postal Code (Singapore) <span className="text-maroon">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.postalCode || ''}
+                          onChange={(e) => updateFormData({ postalCode: e.target.value })}
+                          placeholder="e.g. 238801 / 520123"
+                          maxLength={6}
+                          className="w-full px-4 py-3 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium focus:outline-none focus:border-maroon focus:bg-white transition-all"
+                        />
+                      </div>
+                    )}
+
+                  {/* Address for Postpartum Massage, Infant Massage, Mother & Baby Combo in Singapore */}
+                  {formData.country === 'Singapore' &&
+                    (activeServiceId === 'postpartum-massage-wrap' ||
+                      activeServiceId === 'infant-massage-bath' ||
+                      activeServiceId === 'mother-baby-combo') && (
+                      <div className="sm:col-span-2 space-y-1 pt-1">
+                        <label className="block text-xs font-bold text-brown">
+                          Residential Address (Singapore) <span className="text-maroon">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.address || ''}
+                          onChange={(e) => updateFormData({ address: e.target.value })}
+                          placeholder="e.g. 128 Tanjong Pagar Road, #04-02, Singapore 088535"
+                          className="w-full px-4 py-3 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium focus:outline-none focus:border-maroon focus:bg-white transition-all"
+                        />
+                      </div>
+                    )}
                 </div>
               </div>
             )}
@@ -1000,18 +1314,36 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     onChange={(e) => updateFormData({ prenatalEdd: e.target.value })}
                     className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown focus:outline-none focus:border-maroon focus:bg-white"
                   />
-                  <div className="p-3.5 rounded-xl bg-gold/15 border border-gold/30 text-xs text-brown flex items-start space-x-2">
-                    <Info className="w-4 h-4 text-gold-dark shrink-0 mt-0.5" />
-                    <span>Prenatal massage is safely recommended from <strong>16 weeks of gestation onward</strong>. If you are currently under 16 weeks, we will pre-reserve your slots starting from your 16th week!</span>
-                  </div>
+                  {(() => {
+                    const { isUnder, estimatedWeeks } = isEddUnder16Weeks(formData.prenatalEdd);
+                    if (isUnder) {
+                      return (
+                        <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-300 text-amber-950 text-xs space-y-1 animate-fadeIn">
+                          <div className="flex items-center space-x-1.5 font-bold text-amber-900">
+                            <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
+                            <span>Clinical Guidance: Estimated ~{estimatedWeeks} Weeks Gestation (Below 16 Weeks)</span>
+                          </div>
+                          <p className="text-amber-800 leading-relaxed font-medium">
+                            Prenatal massage is safely recommended from <strong>16 weeks of gestation onward</strong>. If you are currently under 16 weeks, service is not immediately recommended, but we can advance-reserve your therapist visits to start promptly once you cross 16 weeks.
+                          </p>
+                        </div>
+                      );
+                    }
+                    return (
+                      <div className="p-3.5 rounded-xl bg-gold/15 border border-gold/30 text-xs text-brown flex items-start space-x-2">
+                        <Info className="w-4 h-4 text-gold-dark shrink-0 mt-0.5" />
+                        <span>Prenatal massage is safely recommended from <strong>16 weeks of gestation onward</strong>. If you are currently under 16 weeks, we will pre-reserve your slots starting from your 16th week!</span>
+                      </div>
+                    );
+                  })()}
                 </div>
 
                 {/* Singleton or Twins */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-bold text-brown">Singleton or Twins?</label>
+                  <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
                   <div className="grid grid-cols-3 gap-2.5">
                     {[
-                      { id: 'one-baby', label: 'One Baby' },
+                      { id: 'one-baby', label: 'One baby' },
                       { id: 'twins', label: 'Twins' },
                       { id: 'triplets-or-more', label: 'Triplets or more' }
                     ].map((opt) => (
@@ -1084,7 +1416,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
-                  <p className="text-xs text-brown-muted">Select your package, preferred date, and session timing.</p>
+                  <p className="text-xs text-brown-muted">Select your package, preferred date, session timing, and residential address.</p>
                 </div>
 
                 {/* Package selector */}
@@ -1096,7 +1428,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       onClick={() => setShowPackageModal(true)}
                       className="text-xs text-maroon underline font-semibold cursor-pointer"
                     >
-                      Change Package
+                      Change package
                     </button>
                   </div>
 
@@ -1134,7 +1466,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 {/* Preferred Date & Time */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
+                    <label className="block text-xs font-bold text-brown">Preferred Date</label>
                     <input
                       type="date"
                       value={formData.prenatalPreferredDate || ''}
@@ -1149,11 +1481,25 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       onChange={(e) => updateFormData({ prenatalPreferredTime: e.target.value as PreferredTime })}
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium"
                     >
-                      <option value="morning">Morning (9am - 12pm)</option>
-                      <option value="afternoon">Afternoon (1pm - 5pm)</option>
-                      <option value="evening">Evening (6pm - 8pm)</option>
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
                       <option value="flexible">Flexible</option>
                     </select>
+                  </div>
+
+                  {/* Address */}
+                  <div className="sm:col-span-2 space-y-1">
+                    <label className="block text-xs font-bold text-brown">
+                      Residential Address (Singapore) <span className="text-maroon">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.address || ''}
+                      onChange={(e) => updateFormData({ address: e.target.value })}
+                      placeholder="e.g. 128 Tanjong Pagar Road, #04-02, Singapore 088535"
+                      className="w-full px-4 py-3 rounded-2xl bg-cream border border-cream-border text-xs sm:text-sm text-brown font-medium focus:outline-none focus:border-maroon focus:bg-white transition-all"
+                    />
                   </div>
                 </div>
               </div>
@@ -1276,8 +1622,8 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   )}
                 </div>
 
-                {/* Which baby & Previous Birth Experience */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Which baby & Singleton or twins & Previous Birth Experience */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1">
                     <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
                     <select
@@ -1293,16 +1639,29 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Previous Birth Experience (if any)</label>
+                    <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                    <select
+                      value={formData.doulaBabyCount || 'one-baby'}
+                      onChange={(e) => updateFormData({ doulaBabyCount: e.target.value as BabyCount })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    >
+                      <option value="one-baby">One baby</option>
+                      <option value="twins">Twins</option>
+                      <option value="triplets-or-more">Triplets or more</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Previous birth experience, if any</label>
                     <select
                       value={formData.doulaPreviousBirth || 'Not applicable'}
                       onChange={(e) => updateFormData({ doulaPreviousBirth: e.target.value })}
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
                     >
-                      <option value="Not applicable">Not applicable (First baby)</option>
+                      <option value="Not applicable">Not applicable</option>
                       <option value="Vaginal birth">Vaginal birth</option>
                       <option value="C-section">C-section</option>
-                      <option value="Assisted birth">Assisted birth (Vacuum/Forceps)</option>
+                      <option value="Assisted birth">Assisted birth</option>
                       <option value="Previous difficult birth experience">Previous difficult birth experience</option>
                       <option value="Pregnancy loss">Pregnancy loss</option>
                     </select>
@@ -1312,7 +1671,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 {/* Preparation topics (Limit 3) */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label className="block text-xs font-bold text-brown">What would you like SEYOL to help you prepare for? (Limit: 3)</label>
+                    <label className="block text-xs font-bold text-brown">What would you like SEYOL to help you feel more prepared for? (Limit: 3)</label>
                     <span className="text-[10px] font-bold text-maroon bg-maroon-soft px-2 py-0.5 rounded-full">
                       {(formData.doulaPreparationTopics?.length || 0)} / 3 selected
                     </span>
@@ -1362,30 +1721,43 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 </div>
 
                 {/* Packages */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {serviceConfig.packages?.flat?.map((pkg) => (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-bold text-brown">Preferred Package</label>
                     <button
-                      key={pkg.id}
                       type="button"
-                      onClick={() => updateFormData({ doulaPackage: pkg.id })}
-                      className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
-                        formData.doulaPackage === pkg.id
-                          ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
-                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
-                      }`}
+                      onClick={() => setShowPackageModal(true)}
+                      className="text-xs text-maroon underline font-semibold cursor-pointer"
                     >
-                      <div className="space-y-1">
-                        {pkg.badge && (
-                          <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
-                            {pkg.badge}
-                          </span>
-                        )}
-                        <div className="font-serif font-bold text-sm">{pkg.name}</div>
-                        <div className="text-[11px] opacity-80">{pkg.sessions}</div>
-                      </div>
-                      <p className="text-[11px] leading-relaxed opacity-90">{pkg.details}</p>
+                      Change package
                     </button>
-                  ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {serviceConfig.packages?.flat?.map((pkg) => (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => updateFormData({ doulaPackage: pkg.id })}
+                        className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
+                          formData.doulaPackage === pkg.id
+                            ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          {pkg.badge && (
+                            <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
+                              {pkg.badge}
+                            </span>
+                          )}
+                          <div className="font-serif font-bold text-sm">{pkg.name}</div>
+                          <div className="text-[11px] opacity-80">{pkg.sessions}</div>
+                        </div>
+                        <p className="text-[11px] leading-relaxed opacity-90">{pkg.details}</p>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Mode */}
@@ -1567,6 +1939,33 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                        <select
+                          value={formData.postpartumBabyOrder || 'first-baby'}
+                          onChange={(e) => updateFormData({ postpartumBabyOrder: e.target.value as BabyOrder })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        >
+                          <option value="first-baby">First baby</option>
+                          <option value="second-baby">Second baby</option>
+                          <option value="third-baby">Third baby</option>
+                          <option value="fourth-or-more">Fourth baby or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                        <select
+                          value={formData.postpartumBabyCount || 'one-baby'}
+                          onChange={(e) => updateFormData({ postpartumBabyCount: e.target.value as BabyCount })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        >
+                          <option value="one-baby">One baby</option>
+                          <option value="twins">Twins</option>
+                          <option value="triplets-or-more">Triplets or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
                         <label className="block text-xs font-bold text-brown">Baby's Date of Birth *</label>
                         <input
                           type="date"
@@ -1597,11 +1996,23 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                           onChange={(e) => updateFormData({ postpartumDischargedStatus: e.target.value })}
                           className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
                         >
-                          <option value="Yes">Yes, discharged home</option>
-                          <option value="No">No, still in hospital</option>
-                          <option value="Will be discharged on date">Will be discharged on specific date</option>
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Will be discharged on this date...">Will be discharged on this date...</option>
                         </select>
                       </div>
+
+                      {formData.postpartumDischargedStatus === 'Will be discharged on this date...' && (
+                        <div className="space-y-1 animate-fadeIn">
+                          <label className="block text-xs font-bold text-brown">Expected Discharge Date</label>
+                          <input
+                            type="date"
+                            value={formData.postpartumDischargeDate || ''}
+                            onChange={(e) => updateFormData({ postpartumDischargeDate: e.target.value })}
+                            className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                          />
+                        </div>
+                      )}
 
                       <div className="space-y-1">
                         <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
@@ -1648,52 +2059,68 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         : 'text-brown hover:text-maroon'
                     }`}
                   >
-                    Premium Herbal Bath (SPP)
+                    Premium (SPP)
                   </button>
                 </div>
 
                 {/* Packages Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {(formData.postpartumTier === 'premium'
-                    ? serviceConfig.packages?.premium
-                    : serviceConfig.packages?.standard
-                  )?.map((pkg) => (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-bold text-brown">Preferred Package</label>
                     <button
-                      key={pkg.id}
                       type="button"
-                      onClick={() => updateFormData({ postpartumPackage: pkg.id })}
-                      className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
-                        formData.postpartumPackage === pkg.id
-                          ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
-                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
-                      }`}
+                      onClick={() => {
+                        setPackageModalTier(formData.postpartumTier || 'standard');
+                        setShowPackageModal(true);
+                      }}
+                      className="text-xs text-maroon underline font-semibold cursor-pointer"
                     >
-                      <div className="space-y-1">
-                        {pkg.badge && (
-                          <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
-                            {pkg.badge}
-                          </span>
-                        )}
-                        <div className="font-serif font-bold text-sm">{pkg.name}</div>
-                        <div className="text-[11px] opacity-80">{pkg.sessions}</div>
-                      </div>
-                      <p className="text-[11px] opacity-90 line-clamp-2">{pkg.details}</p>
+                      Change package
                     </button>
-                  ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {(formData.postpartumTier === 'premium'
+                      ? serviceConfig.packages?.premium
+                      : serviceConfig.packages?.standard
+                    )?.map((pkg) => (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => updateFormData({ postpartumPackage: pkg.id })}
+                        className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
+                          formData.postpartumPackage === pkg.id
+                            ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          {pkg.badge && (
+                            <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
+                              {pkg.badge}
+                            </span>
+                          )}
+                          <div className="font-serif font-bold text-sm">{pkg.name}</div>
+                          <div className="text-[11px] opacity-80">{pkg.sessions}</div>
+                        </div>
+                        <p className="text-[11px] opacity-90 line-clamp-2">{pkg.details}</p>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
-                {/* Preferred Timing */}
+                {/* Preferred Timing & Custom Sessions */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Preferred Daily Visit Time</label>
+                    <label className="block text-xs font-bold text-brown">Preferred Time</label>
                     <select
                       value={formData.postpartumPreferredTime || 'flexible'}
                       onChange={(e) => updateFormData({ postpartumPreferredTime: e.target.value as PreferredTime })}
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
                     >
-                      <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
-                      <option value="afternoon">Afternoon (1:00 PM - 4:30 PM)</option>
-                      <option value="evening">Evening (5:00 PM - 7:30 PM)</option>
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
                       <option value="flexible">Flexible</option>
                     </select>
                   </div>
@@ -1741,6 +2168,20 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       </button>
                     ))}
                   </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <label className="flex items-start space-x-2 pt-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.hasPermissionToShare}
+                        onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                        className="mt-0.5 rounded text-maroon"
+                      />
+                      <span className="text-xs text-brown font-semibold">
+                        I confirm that I have permission to share these details with SEYOL.
+                      </span>
+                    </label>
+                  )}
                 </div>
 
                 {/* Stage */}
@@ -1791,9 +2232,58 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         <option value="fourth-or-more">Fourth baby or more</option>
                       </select>
                     </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                      <select
+                        value={formData.infantBabyCount || 'one-baby'}
+                        onChange={(e) => updateFormData({ infantBabyCount: e.target.value as BabyCount })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="one-baby">One baby</option>
+                        <option value="twins">Twins</option>
+                        <option value="triplets-or-more">Triplets or more</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">When would you like SEYOL to start after birth?</label>
+                      <select
+                        value={formData.infantStartTiming || 'After hospital discharge'}
+                        onChange={(e) => updateFormData({ infantStartTiming: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="After hospital discharge">After hospital discharge</option>
+                        <option value="After doctor advice">After doctor advice</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-3xl bg-cream border border-cream-border">
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                      <select
+                        value={formData.infantBabyOrder || 'first-baby'}
+                        onChange={(e) => updateFormData({ infantBabyOrder: e.target.value as BabyOrder })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="first-baby">First baby</option>
+                        <option value="second-baby">Second baby</option>
+                        <option value="third-baby">Third baby</option>
+                        <option value="fourth-or-more">Fourth baby or more</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                      <select
+                        value={formData.infantBabyCount || 'one-baby'}
+                        onChange={(e) => updateFormData({ infantBabyCount: e.target.value as BabyCount })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="one-baby">One baby</option>
+                        <option value="twins">Twins</option>
+                        <option value="triplets-or-more">Triplets or more</option>
+                      </select>
+                    </div>
                     <div className="space-y-1">
                       <label className="block text-xs font-bold text-brown">Baby's Date of Birth *</label>
                       <input
@@ -1810,10 +2300,30 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         onChange={(e) => updateFormData({ infantDischargedStatus: e.target.value })}
                         className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
                       >
-                        <option value="Yes">Yes, baby is home</option>
-                        <option value="No">No, still in hospital</option>
-                        <option value="Will be discharged on date">Discharge pending</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Will be discharged on this date...">Will be discharged on this date...</option>
                       </select>
+                    </div>
+                    {formData.infantDischargedStatus === 'Will be discharged on this date...' && (
+                      <div className="space-y-1 animate-fadeIn">
+                        <label className="block text-xs font-bold text-brown">Expected Discharge Date</label>
+                        <input
+                          type="date"
+                          value={formData.infantDischargeDate || ''}
+                          onChange={(e) => updateFormData({ infantDischargeDate: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
+                    )}
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
+                      <input
+                        type="date"
+                        value={formData.infantPreferredStartDate || ''}
+                        onChange={(e) => updateFormData({ infantPreferredStartDate: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      />
                     </div>
                   </div>
                 )}
@@ -1828,43 +2338,56 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <p className="text-xs text-brown-muted">Select your baby massage &amp; bath package.</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {serviceConfig.packages?.flat?.map((pkg) => (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-bold text-brown">Preferred Package</label>
                     <button
-                      key={pkg.id}
                       type="button"
-                      onClick={() => updateFormData({ infantPackage: pkg.id })}
-                      className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
-                        formData.infantPackage === pkg.id
-                          ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
-                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
-                      }`}
+                      onClick={() => setShowPackageModal(true)}
+                      className="text-xs text-maroon underline font-semibold cursor-pointer"
                     >
-                      <div className="space-y-1">
-                        {pkg.badge && (
-                          <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
-                            {pkg.badge}
-                          </span>
-                        )}
-                        <div className="font-serif font-bold text-sm">{pkg.name}</div>
-                        <div className="text-[11px] opacity-80">{pkg.sessions}</div>
-                      </div>
-                      <p className="text-[11px] opacity-90">{pkg.details}</p>
+                      Change package
                     </button>
-                  ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    {serviceConfig.packages?.flat?.map((pkg) => (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => updateFormData({ infantPackage: pkg.id })}
+                        className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
+                          formData.infantPackage === pkg.id
+                            ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          {pkg.badge && (
+                            <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
+                              {pkg.badge}
+                            </span>
+                          )}
+                          <div className="font-serif font-bold text-sm">{pkg.name}</div>
+                          <div className="text-[11px] opacity-80">{pkg.sessions}</div>
+                        </div>
+                        <p className="text-[11px] opacity-90">{pkg.details}</p>
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Preferred Daily Visit Time</label>
+                    <label className="block text-xs font-bold text-brown">Preferred Time</label>
                     <select
                       value={formData.infantPreferredTime || 'flexible'}
                       onChange={(e) => updateFormData({ infantPreferredTime: e.target.value as PreferredTime })}
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
                     >
-                      <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
-                      <option value="afternoon">Afternoon (1:00 PM - 4:30 PM)</option>
-                      <option value="evening">Evening (5:00 PM - 7:30 PM)</option>
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
                       <option value="flexible">Flexible</option>
                     </select>
                   </div>
@@ -1893,6 +2416,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <p className="text-xs text-brown-muted">Tell us about your delivery timeline for synchronized dual care.</p>
                 </div>
 
+                {/* Recipient */}
                 <div className="space-y-2">
                   <label className="block text-xs font-bold text-brown">Who are you booking for?</label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -1911,8 +2435,23 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       </button>
                     ))}
                   </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <label className="flex items-start space-x-2 pt-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.hasPermissionToShare}
+                        onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                        className="mt-0.5 rounded text-maroon"
+                      />
+                      <span className="text-xs text-brown font-semibold">
+                        I confirm that I have permission to share these details with SEYOL.
+                      </span>
+                    </label>
+                  )}
                 </div>
 
+                {/* Stage */}
                 <div className="space-y-2">
                   <label className="block text-xs font-bold text-brown">Which best describes your stage now?</label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1939,7 +2478,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 {formData.comboStage === 'pregnant' ? (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-3xl bg-cream border border-cream-border">
                     <div className="space-y-1">
-                      <label className="block text-xs font-bold text-brown">Estimated Due Date (EDD) *</label>
+                      <label className="block text-xs font-bold text-brown">Estimated Due Date *</label>
                       <input
                         type="date"
                         value={formData.comboEdd || ''}
@@ -1959,6 +2498,31 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         <option value="Not sure yet">Not sure yet</option>
                       </select>
                     </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                      <select
+                        value={formData.comboBabyOrder || 'first-baby'}
+                        onChange={(e) => updateFormData({ comboBabyOrder: e.target.value as BabyOrder })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="first-baby">First baby</option>
+                        <option value="second-baby">Second baby</option>
+                        <option value="third-baby">Third baby</option>
+                        <option value="fourth-or-more">Fourth baby or more</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                      <select
+                        value={formData.comboBabyCount || 'one-baby'}
+                        onChange={(e) => updateFormData({ comboBabyCount: e.target.value as BabyCount })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="one-baby">One baby</option>
+                        <option value="twins">Twins</option>
+                        <option value="triplets-or-more">Triplets or more</option>
+                      </select>
+                    </div>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-5 rounded-3xl bg-cream border border-cream-border">
@@ -1972,6 +2536,67 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       />
                     </div>
                     <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Delivery Type</label>
+                      <select
+                        value={formData.comboActualDelivery || 'Vaginal birth'}
+                        onChange={(e) => updateFormData({ comboActualDelivery: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="Vaginal birth">Vaginal birth</option>
+                        <option value="C-section">C-section</option>
+                        <option value="Assisted birth">Assisted birth</option>
+                        <option value="Others">Others</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Have you been discharged from hospital?</label>
+                      <select
+                        value={formData.comboDischargedStatus || 'Yes'}
+                        onChange={(e) => updateFormData({ comboDischargedStatus: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Will be discharged on this date...">Will be discharged on this date...</option>
+                      </select>
+                    </div>
+                    {formData.comboDischargedStatus === 'Will be discharged on this date...' && (
+                      <div className="space-y-1 animate-fadeIn">
+                        <label className="block text-xs font-bold text-brown">Expected Discharge Date</label>
+                        <input
+                          type="date"
+                          value={formData.comboDischargeDate || ''}
+                          onChange={(e) => updateFormData({ comboDischargeDate: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
+                    )}
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                      <select
+                        value={formData.comboBabyOrder || 'first-baby'}
+                        onChange={(e) => updateFormData({ comboBabyOrder: e.target.value as BabyOrder })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="first-baby">First baby</option>
+                        <option value="second-baby">Second baby</option>
+                        <option value="third-baby">Third baby</option>
+                        <option value="fourth-or-more">Fourth baby or more</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1">
+                      <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                      <select
+                        value={formData.comboBabyCount || 'one-baby'}
+                        onChange={(e) => updateFormData({ comboBabyCount: e.target.value as BabyCount })}
+                        className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                      >
+                        <option value="one-baby">One baby</option>
+                        <option value="twins">Twins</option>
+                        <option value="triplets-or-more">Triplets or more</option>
+                      </select>
+                    </div>
+                    <div className="space-y-1 sm:col-span-2">
                       <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
                       <input
                         type="date"
@@ -2020,34 +2645,78 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 </div>
 
                 {/* Packages List */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {(formData.comboTier === 'premium'
-                    ? serviceConfig.packages?.premium
-                    : serviceConfig.packages?.standard
-                  )?.map((pkg) => (
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-bold text-brown">Preferred Package</label>
                     <button
-                      key={pkg.id}
                       type="button"
-                      onClick={() => updateFormData({ comboPackage: pkg.id })}
-                      className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
-                        formData.comboPackage === pkg.id
-                          ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
-                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
-                      }`}
+                      onClick={() => {
+                        setPackageModalTier(formData.comboTier || 'standard');
+                        setShowPackageModal(true);
+                      }}
+                      className="text-xs text-maroon underline font-semibold cursor-pointer"
                     >
-                      <div className="space-y-1">
-                        {pkg.badge && (
-                          <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
-                            {pkg.badge}
-                          </span>
-                        )}
-                        <div className="font-serif font-bold text-sm">{pkg.name}</div>
-                      </div>
-                      <div className="text-[11px] font-medium leading-relaxed opacity-95">
-                        {pkg.sessions}
-                      </div>
+                      Change package
                     </button>
-                  ))}
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                    {(formData.comboTier === 'premium'
+                      ? serviceConfig.packages?.premium
+                      : serviceConfig.packages?.standard
+                    )?.map((pkg) => (
+                      <button
+                        key={pkg.id}
+                        type="button"
+                        onClick={() => updateFormData({ comboPackage: pkg.id })}
+                        className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all ${
+                          formData.comboPackage === pkg.id
+                            ? 'bg-maroon text-cream-light border-maroon shadow-warm-md'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          {pkg.badge && (
+                            <span className="text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold text-maroon">
+                              {pkg.badge}
+                            </span>
+                          )}
+                          <div className="font-serif font-bold text-sm">{pkg.name}</div>
+                        </div>
+                        <div className="text-[11px] font-medium leading-relaxed opacity-95">
+                          {pkg.sessions}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Preferred Time & Custom Sessions */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Preferred Time</label>
+                    <select
+                      value={formData.comboPreferredTime || 'flexible'}
+                      onChange={(e) => updateFormData({ comboPreferredTime: e.target.value as PreferredTime })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    >
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
+                      <option value="flexible">Flexible</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Need a different number of sessions?</label>
+                    <input
+                      type="text"
+                      value={formData.comboCustomSessions || ''}
+                      onChange={(e) => updateFormData({ comboCustomSessions: e.target.value })}
+                      placeholder="e.g. Need 25 sessions combo"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    />
+                  </div>
                 </div>
 
                 {/* Preferred Arrangement */}
@@ -2089,7 +2758,44 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <p className="text-xs text-brown-muted">Helping us tailor your residential confinement care placement.</p>
                 </div>
 
-                {/* Stage */}
+                {/* Who are you booking for? */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-brown">Who are you booking for?</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {bookingRecipients.map((rec) => (
+                      <button
+                        key={rec}
+                        type="button"
+                        onClick={() => updateFormData({ bookingFor: rec as BookingRecipient })}
+                        className={`p-3 rounded-xl border text-xs font-bold text-left transition-colors ${
+                          formData.bookingFor === rec
+                            ? 'bg-maroon text-cream-light border-maroon'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        {rec}
+                      </button>
+                    ))}
+                  </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <div className="pt-2">
+                      <label className="flex items-center space-x-2.5 p-3 rounded-xl bg-gold/15 border border-gold/40 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.hasPermissionToShare}
+                          onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                          className="w-4 h-4 rounded text-maroon focus:ring-maroon"
+                        />
+                        <span className="text-xs text-brown font-semibold">
+                          I confirm that I have permission to share these details with SEYOL. *
+                        </span>
+                      </label>
+                    </div>
+                  )}
+                </div>
+
+                {/* Which best describes your stage now? */}
                 <div className="space-y-2">
                   <label className="block text-xs font-bold text-brown">Which best describes your stage now?</label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -2101,11 +2807,11 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       <button
                         key={stg.id}
                         type="button"
-                        onClick={() => updateFormData({ nannyStage: stg.id as 'pregnant' | 'delivered-urgent' })}
-                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left ${
+                        onClick={() => updateFormData({ nannyStage: stg.id as 'pregnant' | 'delivered' | 'urgent' })}
+                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left transition-colors ${
                           formData.nannyStage === stg.id
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         {stg.label}
@@ -2114,46 +2820,170 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">
-                      {formData.nannyStage === 'pregnant' ? 'Estimated Due Date (EDD) *' : "Baby's Date of Birth *"}
-                    </label>
-                    <input
-                      type="date"
-                      value={formData.nannyEdd || formData.nannyBabyDob || ''}
-                      onChange={(e) => updateFormData({ nannyEdd: e.target.value, nannyBabyDob: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
-                    />
-                  </div>
+                {/* Branch 1: Pregnant and booking in advance */}
+                {formData.nannyStage === 'pregnant' && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-cream/70 border border-cream-border space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Estimated Due Date *</label>
+                        <input
+                          type="date"
+                          value={formData.nannyEdd || ''}
+                          onChange={(e) => updateFormData({ nannyEdd: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
 
-                  <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
-                    <select
-                      value={formData.nannyBabyOrder || 'first-baby'}
-                      onChange={(e) => updateFormData({ nannyBabyOrder: e.target.value as BabyOrder })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
-                    >
-                      <option value="first-baby">First baby</option>
-                      <option value="second-baby">Second baby</option>
-                      <option value="third-baby">Third baby</option>
-                      <option value="fourth-or-more">Fourth baby or more</option>
-                    </select>
-                  </div>
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                        <select
+                          value={formData.nannyBabyOrder || 'first-baby'}
+                          onChange={(e) => updateFormData({ nannyBabyOrder: e.target.value as BabyOrder })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="first-baby">First baby</option>
+                          <option value="second-baby">Second baby</option>
+                          <option value="third-baby">Third baby</option>
+                          <option value="fourth-or-more">Fourth baby or more</option>
+                        </select>
+                      </div>
 
-                  {formData.nannyBabyOrder !== 'first-baby' && (
-                    <div className="sm:col-span-2 space-y-1">
-                      <label className="block text-xs font-bold text-brown">What are your other children's ages?</label>
-                      <input
-                        type="text"
-                        value={formData.nannyOtherChildrenAges || ''}
-                        onChange={(e) => updateFormData({ nannyOtherChildrenAges: e.target.value })}
-                        placeholder="e.g. 3 years old, 6 years old"
-                        className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
-                      />
+                      {formData.nannyBabyOrder && formData.nannyBabyOrder !== 'first-baby' && (
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="block text-xs font-bold text-brown">What are your other children’s ages?</label>
+                          <input
+                            type="text"
+                            value={formData.nannyOtherChildrenAges || ''}
+                            onChange={(e) => updateFormData({ nannyOtherChildrenAges: e.target.value })}
+                            placeholder="e.g. 2 years old and 4 years old"
+                            className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                          />
+                        </div>
+                      )}
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                        <select
+                          value={formData.nannyBabyCount || 'one-baby'}
+                          onChange={(e) => updateFormData({ nannyBabyCount: e.target.value as BabyCount })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="one-baby">One baby</option>
+                          <option value="twins">Twins</option>
+                          <option value="triplets-or-more">Triplets or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
+                        <select
+                          value={formData.nannyPreferredStartDate || 'From EDD'}
+                          onChange={(e) => updateFormData({ nannyPreferredStartDate: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="Specific date">Specific date</option>
+                          <option value="From EDD">From EDD</option>
+                          <option value="After hospital discharge">After hospital discharge</option>
+                          <option value="Flexible">Flexible</option>
+                        </select>
+                      </div>
+
+                      {formData.nannyPreferredStartDate === 'Specific date' && (
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="block text-xs font-bold text-maroon">Specific Start Date</label>
+                          <input
+                            type="date"
+                            value={formData.nannySpecificStartDate || ''}
+                            onChange={(e) => updateFormData({ nannySpecificStartDate: e.target.value })}
+                            className="w-full p-3.5 rounded-2xl bg-white border border-maroon text-xs text-brown"
+                          />
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
+
+                {/* Branch 2: Delivered or urgent support */}
+                {(formData.nannyStage === 'delivered' || formData.nannyStage === 'urgent' || formData.nannyStage === 'delivered-urgent') && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-cream/70 border border-cream-border space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Baby's Date of Birth *</label>
+                        <input
+                          type="date"
+                          value={formData.nannyBabyDob || ''}
+                          onChange={(e) => updateFormData({ nannyBabyDob: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Preferred Start Date</label>
+                        <select
+                          value={formData.nannyPreferredStartDate || 'As soon as possible'}
+                          onChange={(e) => updateFormData({ nannyPreferredStartDate: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="Specific date">Specific date</option>
+                          <option value="As soon as possible">As soon as possible</option>
+                          <option value="Flexible">Flexible</option>
+                        </select>
+                      </div>
+
+                      {formData.nannyPreferredStartDate === 'Specific date' && (
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="block text-xs font-bold text-maroon">Specific Start Date</label>
+                          <input
+                            type="date"
+                            value={formData.nannySpecificStartDate || ''}
+                            onChange={(e) => updateFormData({ nannySpecificStartDate: e.target.value })}
+                            className="w-full p-3.5 rounded-2xl bg-white border border-maroon text-xs text-brown"
+                          />
+                        </div>
+                      )}
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                        <select
+                          value={formData.nannyBabyOrder || 'first-baby'}
+                          onChange={(e) => updateFormData({ nannyBabyOrder: e.target.value as BabyOrder })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="first-baby">First baby</option>
+                          <option value="second-baby">Second baby</option>
+                          <option value="third-baby">Third baby</option>
+                          <option value="fourth-or-more">Fourth baby or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                        <select
+                          value={formData.nannyBabyCount || 'one-baby'}
+                          onChange={(e) => updateFormData({ nannyBabyCount: e.target.value as BabyCount })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="one-baby">One baby</option>
+                          <option value="twins">Twins</option>
+                          <option value="triplets-or-more">Triplets or more</option>
+                        </select>
+                      </div>
+
+                      {formData.nannyBabyOrder && formData.nannyBabyOrder !== 'first-baby' && (
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="block text-xs font-bold text-brown">What are your other children’s ages?</label>
+                          <input
+                            type="text"
+                            value={formData.nannyOtherChildrenAges || ''}
+                            onChange={(e) => updateFormData({ nannyOtherChildrenAges: e.target.value })}
+                            placeholder="e.g. 2 years old and 4 years old"
+                            className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -2174,7 +3004,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       max={10}
                       value={formData.nannyAdultsCount || 2}
                       onChange={(e) => updateFormData({ nannyAdultsCount: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     />
                   </div>
 
@@ -2183,7 +3013,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     <select
                       value={formData.nannyHasHelper || 'No'}
                       onChange={(e) => updateFormData({ nannyHasHelper: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
@@ -2191,42 +3021,57 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     </select>
                   </div>
 
+                  {formData.nannyBabyOrder && formData.nannyBabyOrder !== 'first-baby' && (
+                    <div className="sm:col-span-2 space-y-1">
+                      <label className="block text-xs font-bold text-brown">
+                        How many children will be at home during the confinement period?
+                      </label>
+                      <input
+                        type="text"
+                        value={formData.nannyChildrenAtHome || ''}
+                        onChange={(e) => updateFormData({ nannyChildrenAtHome: e.target.value })}
+                        placeholder="e.g. 1 older child (3 years old)"
+                        className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
+                      />
+                    </div>
+                  )}
+
                   <div className="space-y-1">
                     <label className="block text-xs font-bold text-brown">Meal Preferences</label>
                     <select
                       value={formData.nannyMealPreference || 'Vegetarian'}
                       onChange={(e) => updateFormData({ nannyMealPreference: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
                       <option value="Vegetarian">Vegetarian</option>
                       <option value="Non-vegetarian">Non-vegetarian</option>
                       <option value="Lacto-ovo vegetarian">Lacto-ovo vegetarian</option>
-                      <option value="Mixed: vegetarian and non-vegetarian">Mixed (Vegetarian &amp; Non-veg)</option>
+                      <option value="Mixed: vegetarian and non-vegetarian">Mixed: vegetarian and non-vegetarian</option>
                       <option value="Other">Other</option>
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Accommodation for SCN</label>
+                    <label className="block text-xs font-bold text-brown">Are you able to provide accommodation for the SCN?</label>
                     <select
                       value={formData.nannyAccommodation || 'Separate room'}
                       onChange={(e) => updateFormData({ nannyAccommodation: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
-                      <option value="Separate room">Separate private room</option>
-                      <option value="Baby’s or mother’s bedroom with no other family member">Baby's or Mother's bedroom (no other family member)</option>
+                      <option value="Separate room">Separate room</option>
+                      <option value="Baby’s or mother’s bedroom with no other family member">Baby’s or mother’s bedroom with no other family member</option>
                     </select>
                   </div>
 
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Stairs inside household?</label>
+                    <label className="block text-xs font-bold text-brown">Do you have stairs inside your household?</label>
                     <select
                       value={formData.nannyHasStairs || 'No'}
                       onChange={(e) => updateFormData({ nannyHasStairs: e.target.value as 'Yes' | 'No' })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
-                      <option value="No">No (Single-level apartment)</option>
-                      <option value="Yes">Yes (Multi-story landed/maisonette)</option>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                     </select>
                   </div>
 
@@ -2235,20 +3080,47 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     <select
                       value={formData.nannyHasPets || 'No'}
                       onChange={(e) => updateFormData({ nannyHasPets: e.target.value as 'Yes' | 'No' })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
-                      <option value="No">No pets</option>
-                      <option value="Yes">Yes, have pets</option>
+                      <option value="No">No</option>
+                      <option value="Yes">Yes</option>
                     </select>
                   </div>
 
+                  {formData.nannyHasPets === 'Yes' && (
+                    <div className="sm:col-span-2 space-y-2 p-3.5 rounded-2xl bg-gold/10 border border-gold/30">
+                      <label className="block text-xs font-bold text-brown">Select Pet Types</label>
+                      <div className="flex flex-wrap gap-2">
+                        {['Cats', 'Dogs', 'Other Pets'].map((pt) => {
+                          const isSelected = formData.nannyPetTypes?.includes(pt);
+                          return (
+                            <button
+                              key={pt}
+                              type="button"
+                              onClick={() => handleChipToggle('nannyPetTypes', pt)}
+                              className={`px-3 py-1.5 rounded-xl border text-xs font-bold flex items-center space-x-1.5 ${
+                                isSelected
+                                  ? 'bg-maroon text-cream-light border-maroon'
+                                  : 'bg-white text-brown border-cream-border'
+                              }`}
+                            >
+                              <span>{pt}</span>
+                              {isSelected && <Check className="w-3 h-3" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
                   <div className="sm:col-span-2 space-y-1">
-                    <label className="block text-xs font-bold text-brown">Language Preference</label>
+                    <label className="block text-xs font-bold text-brown">Do you have any additional language preference?</label>
                     <select
-                      value={formData.nannyLanguagePreference || 'Tamil / Malay / English is fine'}
+                      value={formData.nannyLanguagePreference || 'No'}
                       onChange={(e) => updateFormData({ nannyLanguagePreference: e.target.value })}
-                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
+                      <option value="No">No</option>
                       <option value="Tamil / Malay / English is fine">Tamil / Malay / English is fine</option>
                       <option value="Mandarin preferred, if available">Mandarin preferred, if available</option>
                       <option value="Hindi preferred, if available">Hindi preferred, if available</option>
@@ -2261,10 +3133,20 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
 
             {activeServiceId === 'confinement-nanny' && currentStep === 4 && (
               <div className="space-y-6">
-                <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
-                  <p className="text-xs text-brown-muted">Select your confinement nanny package and stay duration.</p>
+                <div className="flex items-center justify-between">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                    <p className="text-xs text-brown-muted">Select your interested confinement nanny package.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPackageModal(true)}
+                    className="text-xs font-bold text-maroon hover:underline flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-gold/15 border border-gold/30 hover:bg-gold/25 transition-all"
+                  >
+                    <span>Change package</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
@@ -2300,10 +3182,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         key={dur}
                         type="button"
                         onClick={() => updateFormData({ nannyDuration: dur })}
-                        className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold text-center ${
+                        className={`p-3.5 rounded-2xl border text-xs sm:text-sm font-bold text-center transition-colors ${
                           formData.nannyDuration === dur
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         {dur}
@@ -2325,6 +3207,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <p className="text-xs text-brown-muted">Tell us about your baby’s stage and specific health requirements.</p>
                 </div>
 
+                {/* Who are you booking for? */}
                 <div className="space-y-2">
                   <label className="block text-xs font-bold text-brown">Who are you booking for?</label>
                   <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -2333,49 +3216,228 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         key={rec}
                         type="button"
                         onClick={() => updateFormData({ bookingFor: rec as BookingRecipient })}
-                        className={`p-3 rounded-xl border text-xs font-bold text-left ${
+                        className={`p-3 rounded-xl border text-xs font-bold text-left transition-colors ${
                           formData.bookingFor === rec
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         {rec}
                       </button>
                     ))}
                   </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <div className="pt-2">
+                      <label className="flex items-center space-x-2.5 p-3 rounded-xl bg-gold/15 border border-gold/40 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.hasPermissionToShare}
+                          onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                          className="w-4 h-4 rounded text-maroon focus:ring-maroon"
+                        />
+                        <span className="text-xs text-brown font-semibold">
+                          I confirm that I have permission to share these details with SEYOL. *
+                        </span>
+                      </label>
+                    </div>
+                  )}
                 </div>
 
+                {/* Which best describes your stage now? */}
                 <div className="space-y-2">
-                  <label className="block text-xs font-bold text-brown">Baby Health Concerns (if any)</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  <label className="block text-xs font-bold text-brown">Which best describes your stage now?</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {[
-                      'No major concerns',
-                      'Jaundice',
-                      'Premature baby',
-                      'Low birth weight',
-                      'Skin sensitivity / rashes',
-                      'Doctor restrictions',
-                      'Other concern'
-                    ].map((concern) => {
-                      const isSelected = formData.hourlyBabyConcerns?.includes(concern);
-                      return (
-                        <button
-                          key={concern}
-                          type="button"
-                          onClick={() => handleChipToggle('hourlyBabyConcerns', concern)}
-                          className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between ${
-                            isSelected
-                              ? 'bg-maroon text-cream-light border-maroon'
-                              : 'bg-cream text-brown border-cream-border'
-                          }`}
-                        >
-                          <span>{concern}</span>
-                          {isSelected && <Check className="w-3 h-3" />}
-                        </button>
-                      );
-                    })}
+                      { id: 'pregnant', label: 'I am pregnant and booking in advance' },
+                      { id: 'delivered', label: 'My baby has already been born' }
+                    ].map((stg) => (
+                      <button
+                        key={stg.id}
+                        type="button"
+                        onClick={() => updateFormData({ hourlyStage: stg.id as 'pregnant' | 'delivered' })}
+                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left transition-colors ${
+                          formData.hourlyStage === stg.id
+                            ? 'bg-maroon text-cream-light border-maroon'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        {stg.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
+
+                {/* Branch 1: Pregnant and booking in advance */}
+                {formData.hourlyStage === 'pregnant' && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-cream/70 border border-cream-border space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Estimated Due Date *</label>
+                        <input
+                          type="date"
+                          value={formData.hourlyEdd || ''}
+                          onChange={(e) => updateFormData({ hourlyEdd: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Expected delivery type</label>
+                        <select
+                          value={formData.hourlyExpectedDelivery || 'Vaginal birth expected'}
+                          onChange={(e) => updateFormData({ hourlyExpectedDelivery: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="Vaginal birth expected">Vaginal birth expected</option>
+                          <option value="Planned C-section">Planned C-section</option>
+                          <option value="Not sure yet">Not sure yet</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                        <select
+                          value={formData.hourlyBabyOrder || 'first-baby'}
+                          onChange={(e) => updateFormData({ hourlyBabyOrder: e.target.value as BabyOrder })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="first-baby">First baby</option>
+                          <option value="second-baby">Second baby</option>
+                          <option value="third-baby">Third baby</option>
+                          <option value="fourth-or-more">Fourth baby or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                        <select
+                          value={formData.hourlyBabyCount || 'one-baby'}
+                          onChange={(e) => updateFormData({ hourlyBabyCount: e.target.value as BabyCount })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="one-baby">One baby</option>
+                          <option value="twins">Twins</option>
+                          <option value="triplets-or-more">Triplets or more</option>
+                        </select>
+                      </div>
+
+                      <div className="sm:col-span-2 space-y-1">
+                        <label className="block text-xs font-bold text-brown">When would you like SEYOL to start after birth?</label>
+                        <select
+                          value={formData.hourlyStartTiming || 'After hospital discharge'}
+                          onChange={(e) => updateFormData({ hourlyStartTiming: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="After hospital discharge">After hospital discharge</option>
+                          <option value="After doctor advice">After doctor advice</option>
+                          <option value="Others">Others</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Branch 2: Baby has already been born */}
+                {formData.hourlyStage === 'delivered' && (
+                  <div className="p-4 sm:p-5 rounded-2xl bg-cream/70 border border-cream-border space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Baby’s date of birth *</label>
+                        <input
+                          type="date"
+                          value={formData.hourlyBabyDob || ''}
+                          onChange={(e) => updateFormData({ hourlyBabyDob: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown"
+                        />
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                        <select
+                          value={formData.hourlyBabyOrder || 'first-baby'}
+                          onChange={(e) => updateFormData({ hourlyBabyOrder: e.target.value as BabyOrder })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="first-baby">First baby</option>
+                          <option value="second-baby">Second baby</option>
+                          <option value="third-baby">Third baby</option>
+                          <option value="fourth-or-more">Fourth baby or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                        <select
+                          value={formData.hourlyBabyCount || 'one-baby'}
+                          onChange={(e) => updateFormData({ hourlyBabyCount: e.target.value as BabyCount })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="one-baby">One baby</option>
+                          <option value="twins">Twins</option>
+                          <option value="triplets-or-more">Triplets or more</option>
+                        </select>
+                      </div>
+
+                      <div className="space-y-1">
+                        <label className="block text-xs font-bold text-brown">Has baby been discharged from hospital?</label>
+                        <select
+                          value={formData.hourlyDischargedStatus || 'Yes'}
+                          onChange={(e) => updateFormData({ hourlyDischargedStatus: e.target.value })}
+                          className="w-full p-3.5 rounded-2xl bg-white border border-cream-border text-xs text-brown font-medium"
+                        >
+                          <option value="Yes">Yes</option>
+                          <option value="No">No</option>
+                          <option value="Will be discharged on this date...">Will be discharged on this date...</option>
+                        </select>
+                      </div>
+
+                      {formData.hourlyDischargedStatus === 'Will be discharged on this date...' && (
+                        <div className="sm:col-span-2 space-y-1">
+                          <label className="block text-xs font-bold text-maroon">Expected Hospital Discharge Date</label>
+                          <input
+                            type="date"
+                            value={formData.hourlyDischargeDate || ''}
+                            onChange={(e) => updateFormData({ hourlyDischargeDate: e.target.value })}
+                            className="w-full p-3.5 rounded-2xl bg-white border border-maroon text-xs text-brown"
+                          />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2 pt-2">
+                      <label className="block text-xs font-bold text-brown">Does baby have any concern SEYOL should know?</label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {[
+                          'No major concerns',
+                          'Jaundice',
+                          'Premature baby',
+                          'Low birth weight',
+                          'Skin sensitivity / rashes',
+                          'Doctor restrictions',
+                          'Other concern'
+                        ].map((concern) => {
+                          const isSelected = formData.hourlyBabyConcerns?.includes(concern);
+                          return (
+                            <button
+                              key={concern}
+                              type="button"
+                              onClick={() => handleChipToggle('hourlyBabyConcerns', concern)}
+                              className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between transition-colors ${
+                                isSelected
+                                  ? 'bg-maroon text-cream-light border-maroon'
+                                  : 'bg-white text-brown border-cream-border hover:bg-cream'
+                              }`}
+                            >
+                              <span>{concern}</span>
+                              {isSelected && <Check className="w-3 h-3" />}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -2387,7 +3449,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <p className="text-xs text-brown-muted">Choose your hours, timing, and required respite assistance.</p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="space-y-1">
                     <label className="block text-xs font-bold text-brown">When do you need support?</label>
                     <select
@@ -2396,9 +3458,24 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
                       <option value="Specific date">Specific date</option>
-                      <option value="Urgent">Urgent (Today / Tomorrow)</option>
+                      <option value="Urgent">Urgent</option>
                       <option value="As soon as possible">As soon as possible</option>
                       <option value="Regular weekly support">Regular weekly support</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Preferred time</label>
+                    <select
+                      value={formData.hourlyPreferredTime || 'flexible'}
+                      onChange={(e) => updateFormData({ hourlyPreferredTime: e.target.value as PreferredTime })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
+                    >
+                      <option value="morning">Morning</option>
+                      <option value="afternoon">Afternoon</option>
+                      <option value="evening">Evening</option>
+                      <option value="night">Night</option>
+                      <option value="flexible">Flexible</option>
                     </select>
                   </div>
 
@@ -2415,6 +3492,18 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       <option value="5 hours or more">5 hours or more</option>
                     </select>
                   </div>
+
+                  {formData.hourlyWhenNeed === 'Specific date' && (
+                    <div className="sm:col-span-3 space-y-1">
+                      <label className="block text-xs font-bold text-maroon">Specific Date Needed</label>
+                      <input
+                        type="date"
+                        value={formData.hourlySpecificDate || ''}
+                        onChange={(e) => updateFormData({ hourlySpecificDate: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-cream border border-maroon text-xs text-brown"
+                      />
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2 pt-2">
@@ -2435,10 +3524,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                           key={duty}
                           type="button"
                           onClick={() => handleChipToggle('hourlyHelpWith', duty)}
-                          className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between ${
+                          className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between transition-colors ${
                             isSelected
                               ? 'bg-maroon text-cream-light border-maroon'
-                              : 'bg-cream text-brown border-cream-border'
+                              : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                           }`}
                         >
                           <span className="line-clamp-1">{duty}</span>
@@ -2457,9 +3546,46 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'lactation-support' && currentStep === 2 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 7</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your baby’s age and current feeding methods.</p>
+                </div>
+
+                {/* Who are you booking for? */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-brown">Who are you booking for?</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {bookingRecipients.map((rec) => (
+                      <button
+                        key={rec}
+                        type="button"
+                        onClick={() => updateFormData({ bookingFor: rec as BookingRecipient })}
+                        className={`p-3 rounded-xl border text-xs font-bold text-left transition-colors ${
+                          formData.bookingFor === rec
+                            ? 'bg-maroon text-cream-light border-maroon'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        {rec}
+                      </button>
+                    ))}
+                  </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <div className="pt-2">
+                      <label className="flex items-center space-x-2.5 p-3 rounded-xl bg-gold/15 border border-gold/40 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.hasPermissionToShare}
+                          onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                          className="w-4 h-4 rounded text-maroon focus:ring-maroon"
+                        />
+                        <span className="text-xs text-brown font-semibold">
+                          I confirm that I have permission to share these details with SEYOL. *
+                        </span>
+                      </label>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -2474,10 +3600,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         key={stg}
                         type="button"
                         onClick={() => updateFormData({ lactationStage: stg })}
-                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left ${
+                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left transition-colors ${
                           formData.lactationStage === stg
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         {stg}
@@ -2497,7 +3623,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brown">Baby's Date of Birth (or EDD)</label>
+                    <label className="block text-xs font-bold text-brown">Baby's Date of Birth *</label>
                     <input
                       type="date"
                       value={formData.lactationBabyDob || ''}
@@ -2507,16 +3633,68 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   </div>
 
                   <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Which baby is this for you?</label>
+                    <select
+                      value={formData.lactationBabyOrder || 'first-baby'}
+                      onChange={(e) => updateFormData({ lactationBabyOrder: e.target.value as BabyOrder })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
+                    >
+                      <option value="first-baby">First baby</option>
+                      <option value="second-baby">Second baby</option>
+                      <option value="third-baby">Third baby</option>
+                      <option value="fourth-or-more">Fourth baby or more</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Singleton or twins?</label>
+                    <select
+                      value={formData.lactationBabyCount || 'one-baby'}
+                      onChange={(e) => updateFormData({ lactationBabyCount: e.target.value as BabyCount })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
+                    >
+                      <option value="one-baby">One baby</option>
+                      <option value="twins">Twins</option>
+                      <option value="triplets-or-more">Triplets or more</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brown">Has baby been discharged from hospital?</label>
+                    <select
+                      value={formData.lactationDischargedStatus || 'Yes'}
+                      onChange={(e) => updateFormData({ lactationDischargedStatus: e.target.value })}
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
+                    >
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                      <option value="Will be discharged on this date...">Will be discharged on this date...</option>
+                    </select>
+                  </div>
+
+                  {formData.lactationDischargedStatus === 'Will be discharged on this date...' && (
+                    <div className="sm:col-span-2 space-y-1">
+                      <label className="block text-xs font-bold text-maroon">Expected Hospital Discharge Date</label>
+                      <input
+                        type="date"
+                        value={formData.lactationDischargeDate || ''}
+                        onChange={(e) => updateFormData({ lactationDischargeDate: e.target.value })}
+                        className="w-full p-3.5 rounded-2xl bg-cream border border-maroon text-xs text-brown"
+                      />
+                    </div>
+                  )}
+
+                  <div className="sm:col-span-2 space-y-1">
                     <label className="block text-xs font-bold text-brown">How is baby currently feeding?</label>
                     <select
                       value={formData.lactationFeedingMethod || 'Breastfeeding'}
                       onChange={(e) => updateFormData({ lactationFeedingMethod: e.target.value })}
                       className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                     >
-                      <option value="Breastfeeding">Breastfeeding directly</option>
+                      <option value="Breastfeeding">Breastfeeding</option>
                       <option value="Bottle feeding">Bottle feeding</option>
-                      <option value="Mixed feeding">Mixed feeding (Breast &amp; Formula)</option>
-                      <option value="Pumping / expressed milk">Exclusively pumping / expressed milk</option>
+                      <option value="Mixed feeding">Mixed feeding</option>
+                      <option value="Pumping / expressed milk">Pumping / expressed milk</option>
                     </select>
                   </div>
                 </div>
@@ -2526,7 +3704,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'lactation-support' && currentStep === 3 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 7</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
                   <p className="text-xs text-brown-muted">Select all lactation areas you’d like guidance on.</p>
                 </div>
@@ -2551,10 +3729,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         key={topic}
                         type="button"
                         onClick={() => handleChipToggle('lactationHelpWith', topic)}
-                        className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between ${
+                        className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between transition-colors ${
                           isSelected
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         <span>{topic}</span>
@@ -2580,7 +3758,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'lactation-support' && currentStep === 4 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Choose your preferred mode and session time.</p>
                 </div>
@@ -2591,10 +3769,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       key={m}
                       type="button"
                       onClick={() => updateFormData({ lactationPreferredMode: m.toLowerCase() as ConsultationMode })}
-                      className={`p-4 rounded-2xl border text-xs sm:text-sm font-bold text-center ${
+                      className={`p-4 rounded-2xl border text-xs sm:text-sm font-bold text-center transition-colors ${
                         formData.lactationPreferredMode === m.toLowerCase()
                           ? 'bg-maroon text-cream-light border-maroon'
-                          : 'bg-cream text-brown border-cream-border'
+                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                       }`}
                     >
                       {m}
@@ -2607,14 +3785,27 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <select
                     value={formData.lactationPreferredTime || 'flexible'}
                     onChange={(e) => updateFormData({ lactationPreferredTime: e.target.value as PreferredTime })}
-                    className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                   >
-                    <option value="morning">Morning (Around planned feed)</option>
+                    <option value="morning">Morning</option>
                     <option value="afternoon">Afternoon</option>
                     <option value="evening">Evening</option>
                     <option value="flexible">Flexible</option>
                   </select>
                 </div>
+
+                {formData.country === 'Singapore' && formData.lactationPreferredMode === 'in-person' && (
+                  <div className="space-y-1 pt-2">
+                    <label className="block text-xs font-bold text-brown">Residential Address for In-Person Consultation *</label>
+                    <input
+                      type="text"
+                      value={formData.address || ''}
+                      onChange={(e) => updateFormData({ address: e.target.value })}
+                      placeholder="Enter your full Singapore address, unit number, postal code"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    />
+                  </div>
+                )}
               </div>
             )}
 
@@ -2624,33 +3815,73 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'general-consultation' && currentStep === 2 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
-                  <p className="text-xs text-brown-muted">Tell us which maternal stage best describes your current journey.</p>
+                  <p className="text-xs text-brown-muted">Tell us who you are booking for and which maternal stage best describes you.</p>
                 </div>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                  {[
-                    'Planning before pregnancy',
-                    'Currently pregnant',
-                    'Preparing for birth',
-                    'Already delivered',
-                    'Baby already born',
-                    'Others'
-                  ].map((stg) => (
-                    <button
-                      key={stg}
-                      type="button"
-                      onClick={() => updateFormData({ generalStage: stg })}
-                      className={`p-3.5 rounded-2xl border text-xs font-bold text-left ${
-                        formData.generalStage === stg
-                          ? 'bg-maroon text-cream-light border-maroon'
-                          : 'bg-cream text-brown border-cream-border'
-                      }`}
-                    >
-                      {stg}
-                    </button>
-                  ))}
+                {/* Who are you booking for? */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-brown">Who are you booking for?</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {bookingRecipients.map((rec) => (
+                      <button
+                        key={rec}
+                        type="button"
+                        onClick={() => updateFormData({ bookingFor: rec as BookingRecipient })}
+                        className={`p-3 rounded-xl border text-xs font-bold text-left transition-colors ${
+                          formData.bookingFor === rec
+                            ? 'bg-maroon text-cream-light border-maroon'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        {rec}
+                      </button>
+                    ))}
+                  </div>
+
+                  {formData.bookingFor !== 'Myself' && (
+                    <div className="pt-2">
+                      <label className="flex items-center space-x-2.5 p-3 rounded-xl bg-gold/15 border border-gold/40 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.hasPermissionToShare}
+                          onChange={(e) => updateFormData({ hasPermissionToShare: e.target.checked })}
+                          className="w-4 h-4 rounded text-maroon focus:ring-maroon"
+                        />
+                        <span className="text-xs text-brown font-semibold">
+                          I confirm that I have permission to share these details with SEYOL. *
+                        </span>
+                      </label>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-xs font-bold text-brown">Which best describes your stage now?</label>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+                    {[
+                      'Planning before pregnancy',
+                      'Currently pregnant',
+                      'Preparing for birth',
+                      'Already delivered',
+                      'Baby already born',
+                      'Others'
+                    ].map((stg) => (
+                      <button
+                        key={stg}
+                        type="button"
+                        onClick={() => updateFormData({ generalStage: stg })}
+                        className={`p-3.5 rounded-2xl border text-xs font-bold text-left transition-colors ${
+                          formData.generalStage === stg
+                            ? 'bg-maroon text-cream-light border-maroon'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
+                        }`}
+                      >
+                        {stg}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
@@ -2658,7 +3889,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'general-consultation' && currentStep === 3 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
                   <p className="text-xs text-brown-muted">Select the guidance topics for your 45-minute roadmap session.</p>
                 </div>
@@ -2678,10 +3909,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                         key={topic}
                         type="button"
                         onClick={() => handleChipToggle('generalGuidanceOn', topic)}
-                        className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between ${
+                        className={`p-3 rounded-xl border text-xs font-semibold text-left flex items-center justify-between transition-colors ${
                           isSelected
                             ? 'bg-maroon text-cream-light border-maroon'
-                            : 'bg-cream text-brown border-cream-border'
+                            : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                         }`}
                       >
                         <span>{topic}</span>
@@ -2707,7 +3938,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             {activeServiceId === 'general-consultation' && currentStep === 4 && (
               <div className="space-y-6">
                 <div className="space-y-1">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 6</span>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of {serviceConfig.stepCount}</span>
                   <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Choose your preferred consultation format and timing.</p>
                 </div>
@@ -2718,10 +3949,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                       key={m}
                       type="button"
                       onClick={() => updateFormData({ generalPreferredMode: m.toLowerCase() as ConsultationMode })}
-                      className={`p-4 rounded-2xl border text-xs sm:text-sm font-bold text-center ${
+                      className={`p-4 rounded-2xl border text-xs sm:text-sm font-bold text-center transition-colors ${
                         formData.generalPreferredMode === m.toLowerCase()
                           ? 'bg-maroon text-cream-light border-maroon'
-                          : 'bg-cream text-brown border-cream-border'
+                          : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
                       }`}
                     >
                       {m}
@@ -2734,14 +3965,27 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <select
                     value={formData.generalPreferredTime || 'flexible'}
                     onChange={(e) => updateFormData({ generalPreferredTime: e.target.value as PreferredTime })}
-                    className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown font-medium"
                   >
-                    <option value="morning">Morning (9am - 12pm)</option>
-                    <option value="afternoon">Afternoon (1pm - 5pm)</option>
-                    <option value="evening">Evening (6pm - 8pm)</option>
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
                     <option value="flexible">Flexible</option>
                   </select>
                 </div>
+
+                {formData.country === 'Singapore' && formData.generalPreferredMode === 'in-person' && (
+                  <div className="space-y-1 pt-2">
+                    <label className="block text-xs font-bold text-brown">Residential Address for In-Person Consultation *</label>
+                    <input
+                      type="text"
+                      value={formData.address || ''}
+                      onChange={(e) => updateFormData({ address: e.target.value })}
+                      placeholder="Enter your full Singapore address, unit number, postal code"
+                      className="w-full p-3.5 rounded-2xl bg-cream border border-cream-border text-xs text-brown"
+                    />
+                  </div>
+                )}
               </div>
             )}
 
@@ -2806,7 +4050,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     />
                     <div className="space-y-0.5">
                       <span className="font-bold text-xs sm:text-sm text-brown">
-                        Activate My SEYOL Care Portal
+                        Create My SEYOL Care Portal {(activeServiceId === 'confinement-nanny' || activeServiceId === 'hourly-newborn-support') ? '(Optional)' : ''}
                       </span>
                       <p className="text-[11px] text-brown-muted">
                         Securely link this booking with email <strong>{formData.email || 'your email'}</strong>.
@@ -3155,6 +4399,184 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
             </button>
           )}
         </div>
+
+        {/* ========================================================================= */}
+        {/* PACKAGE SELECTION MODAL                                                   */}
+        {/* ========================================================================= */}
+        <AnimatePresence>
+          {showPackageModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-brown/70 backdrop-blur-sm">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 15 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 15 }}
+                className="relative w-full max-w-4xl bg-cream-light rounded-3xl border border-gold/40 shadow-warm-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              >
+                {/* Modal Header */}
+                <div className="p-5 sm:p-6 border-b border-cream-border flex items-center justify-between bg-white/70">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
+                      {serviceConfig.title}
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                      Choose Your Care Package
+                    </h3>
+                    <p className="text-xs text-brown-muted">
+                      Select your preferred package duration and care tier.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setShowPackageModal(false)}
+                    className="p-2 rounded-full hover:bg-cream border border-cream-border text-brown transition-colors cursor-pointer"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {/* Tier Switcher for Dual-Tier Services */}
+                {(activeServiceId === 'postpartum-massage-wrap' || activeServiceId === 'mother-baby-combo') && (
+                  <div className="px-5 sm:px-6 pt-4 bg-cream/30">
+                    <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-cream border border-cream-border">
+                      <button
+                        type="button"
+                        onClick={() => setPackageModalTier('standard')}
+                        className={`py-2 px-3 rounded-xl text-xs font-bold transition-all ${
+                          packageModalTier === 'standard'
+                            ? 'bg-maroon text-cream-light shadow-warm-xs'
+                            : 'text-brown hover:bg-cream-dark'
+                        }`}
+                      >
+                        {activeServiceId === 'postpartum-massage-wrap' ? 'Standard SSP (Pure Organic)' : 'Standard SSC (Pure Organic)'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setPackageModalTier('premium')}
+                        className={`py-2 px-3 rounded-xl text-xs font-bold transition-all ${
+                          packageModalTier === 'premium'
+                            ? 'bg-gold-dark text-white shadow-warm-xs'
+                            : 'text-brown hover:bg-cream-dark'
+                        }`}
+                      >
+                        {activeServiceId === 'postpartum-massage-wrap' ? 'Premium SPP (Herbal Bath)' : 'Premium SPC (Herbal Bath)'}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Packages Grid */}
+                <div className="p-5 sm:p-6 overflow-y-auto space-y-3 flex-1">
+                  {(() => {
+                    let packagesList: ServicePackageOption[] = [];
+                    if (activeServiceId === 'postpartum-massage-wrap' || activeServiceId === 'mother-baby-combo') {
+                      packagesList = packageModalTier === 'standard'
+                        ? (serviceConfig.packages?.standard || [])
+                        : (serviceConfig.packages?.premium || []);
+                    } else {
+                      packagesList = serviceConfig.packages?.flat || [];
+                    }
+
+                    if (packagesList.length === 0) {
+                      return (
+                        <div className="py-8 text-center text-xs text-brown-muted">
+                          No distinct packages required for this service. Your custom sessions and preferences are recorded in the wizard.
+                        </div>
+                      );
+                    }
+
+                    const currentSelectedId = getCurrentPackageId();
+
+                    return (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        {packagesList.map((pkg) => {
+                          const isSelected = currentSelectedId === pkg.id;
+                          return (
+                            <div
+                              key={pkg.id}
+                              className={`p-4 rounded-2xl border text-left flex flex-col justify-between space-y-3 transition-all ${
+                                isSelected
+                                  ? 'bg-maroon text-cream-light border-maroon shadow-warm-md ring-2 ring-gold'
+                                  : 'bg-white text-brown border-cream-border hover:border-gold/60 hover:shadow-warm-xs'
+                              }`}
+                            >
+                              <div className="space-y-1.5">
+                                <div className="flex items-center justify-between gap-1.5">
+                                  {pkg.badge && (
+                                    <span className={`text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                                      isSelected
+                                        ? 'bg-gold text-maroon'
+                                        : 'bg-gold/20 text-maroon border border-gold/40'
+                                    }`}>
+                                      {pkg.badge}
+                                    </span>
+                                  )}
+                                  {pkg.priceNote && (
+                                    <span className={`text-[10px] font-bold ${
+                                      isSelected ? 'text-gold-light' : 'text-maroon'
+                                    }`}>
+                                      {pkg.priceNote}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="font-serif font-bold text-sm leading-snug">
+                                  {pkg.name}
+                                </div>
+                                {pkg.sessions && (
+                                  <div className={`text-[11px] font-medium ${
+                                    isSelected ? 'text-cream-light/90' : 'text-brown-muted'
+                                  }`}>
+                                    {pkg.sessions}
+                                  </div>
+                                )}
+                                {pkg.details && (
+                                  <p className={`text-[11px] leading-relaxed line-clamp-3 ${
+                                    isSelected ? 'text-cream-light/80' : 'text-brown-muted'
+                                  }`}>
+                                    {pkg.details}
+                                  </p>
+                                )}
+                              </div>
+
+                              <button
+                                type="button"
+                                onClick={() => selectPackage(pkg.id)}
+                                className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center space-x-1.5 transition-all cursor-pointer ${
+                                  isSelected
+                                    ? 'bg-white text-maroon font-extrabold hover:bg-cream-light'
+                                    : 'bg-cream hover:bg-maroon hover:text-white text-brown border border-cream-border'
+                                }`}
+                              >
+                                {isSelected ? (
+                                  <>
+                                    <Check className="w-3.5 h-3.5" />
+                                    <span>Selected</span>
+                                  </>
+                                ) : (
+                                  <span>Select Package</span>
+                                )}
+                              </button>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
+                </div>
+
+                {/* Modal Footer */}
+                <div className="p-4 border-t border-cream-border bg-white/70 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setShowPackageModal(false)}
+                    className="px-5 py-2 rounded-xl bg-cream border border-cream-border text-brown hover:bg-cream-dark text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Done
+                  </button>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
 
       </div>
     </div>

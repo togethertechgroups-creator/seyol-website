@@ -1,107 +1,42 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
-  Home,
-  Layers,
-  ShoppingBag,
-  Plus, 
-  Trash2, 
-  Edit3, 
-  Upload, 
-  Video, 
-  Image as ImageIcon, 
-  Sparkles, 
-  Check, 
-  X, 
-  ArrowLeft, 
-  Search, 
-  RotateCcw, 
-  ExternalLink, 
-  CheckCircle2, 
-  Star, 
-  ChevronRight,
-  Eye,
-  Camera,
-  Heart,
-  Tag,
-  Package,
-  Users,
-  ShieldCheck,
-  AlertTriangle,
-  Play,
-  ShoppingCart,
-  Truck,
-  Phone,
-  Mail,
-  MapPin,
-  CreditCard,
-  Calendar,
-  MessageCircle,
-  Clock,
-  CheckCheck,
-  Ban,
-  FileText,
-  BarChart3,
-  Settings as SettingsIcon,
-  LogOut,
-  Globe,
-  DollarSign,
-  TrendingUp,
-  Download,
-  Shield,
-  Key
+  Globe, Users, ShoppingCart, ShoppingBag, 
+  CreditCard, BarChart3, Settings as SettingsIcon, 
+  LogOut, Calendar, Menu, X, CheckCircle2 
 } from 'lucide-react';
-import { useAdminData, extractYouTubeId, CombinedPackageItem, ProductBannerSlide } from '../../context/AdminDataContext';
-import { Service, Product, Testimonial, JourneyStage, ProductOrder, OrderStatus, PaymentStatus } from '../../types';
-import { SeyolCarePortal } from '../../components/portal/SeyolCarePortal';
+import { AdminWebsiteManager } from '../../components/admin/AdminWebsiteManager';
+import { AdminProductCatalog } from '../../components/admin/AdminProductCatalog';
 import { AdminClientEditor } from '../../components/admin/AdminClientEditor';
-import { AdminLoginScreen } from '../../components/admin/AdminLoginScreen';
 import { AdminOrderManager } from '../../components/admin/AdminOrderManager';
 import { AdminPaymentManager } from '../../components/admin/AdminPaymentManager';
 import { AdminReportsAnalytics } from '../../components/admin/AdminReportsAnalytics';
 import { AdminSettingsManager } from '../../components/admin/AdminSettingsManager';
+import { AdminLoginScreen } from '../../components/admin/AdminLoginScreen';
+import { useAdminData } from '../../context/AdminDataContext';
+import { usePortalData } from '../../context/PortalDataContext';
+
+type AdminModule = 'customers' | 'orders' | 'website' | 'products' | 'payments' | 'reports' | 'settings';
 
 export default function AdminPage() {
-  const {
-    services,
-    products,
-    orders,
-    homeSettings,
-    productsSettings,
-    testimonials,
-    combinedPackages,
-    productBannerSlides,
-    updateHomeSettings,
-    updateProductsSettings,
-    addProductBannerSlide,
-    updateProductBannerSlide,
-    deleteProductBannerSlide,
-    addOrder,
-    updateOrderStatus,
-    updatePaymentStatus,
-    deleteOrder,
-    addService,
-    updateService,
-    deleteService,
-    addProduct,
-    updateProduct,
-    deleteProduct,
-    addTestimonial,
-    updateTestimonial,
-    deleteTestimonial,
-    addCombinedPackage,
-    updateCombinedPackage,
-    deleteCombinedPackage,
-    resetAllToDefaults,
-  } = useAdminData();
+  const { orders, products } = useAdminData();
+  const { allClientData } = usePortalData();
 
   const [mounted, setMounted] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(true);
-  const [currentDateTime, setCurrentDateTime] = useState<string>('');
+  const [activeTab, setActiveTab] = useState<AdminModule>('customers');
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [currentDateTime, setCurrentDateTime] = useState('');
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  React.useEffect(() => {
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 3000);
+  };
+
+  useEffect(() => {
     setMounted(true);
     const session = typeof window !== 'undefined' ? localStorage.getItem('seyol_admin_auth_v1') : null;
     if (session === 'authenticated') {
@@ -127,272 +62,140 @@ export default function AdminPage() {
       });
       setCurrentDateTime(`${dateStr} • ${timeStr}`);
     };
+
     updateTime();
     const timer = setInterval(updateTime, 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // 7-Core Modules Navigation: Website, Customers, Orders, Products, Payments, Reports, Settings
-  const [activeTab, setActiveTab] = useState<
-    'website' | 'customers' | 'orders' | 'products' | 'payments' | 'reports' | 'settings'
-  >('customers');
-  const [websiteSubTab, setWebsiteSubTab] = useState<'home' | 'services' | 'banners' | 'testimonials'>('home');
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-  // Search & Filter States
-  const [serviceSearch, setServiceSearch] = useState('');
-  const [serviceCategoryFilter, setServiceCategoryFilter] = useState('all');
-  const [productSearch, setProductSearch] = useState('');
-  const [productCategoryFilter, setProductCategoryFilter] = useState('all');
-
-  // Home Page Form State
-  const [homeForm, setHomeForm] = useState({
-    founderStoryImage: homeSettings?.founderStoryImage || '',
-    founderName: homeSettings?.founderName || 'Mrs. Jemma Francis',
-    founderTitle: homeSettings?.founderTitle || 'Founder & Childbirth Educator',
-    founderSubtitle: homeSettings?.founderSubtitle || 'Certified Birth & Postpartum Doula • Singapore & India',
-    mothersSupported: homeSettings?.mothersSupported || '2,400+',
-    familiesSupported: homeSettings?.familiesSupported || '1,800+',
-    homeVideoUrl: homeSettings?.homeVideoUrl || 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-    homeVideoTitle: homeSettings?.homeVideoTitle || 'Natural Postpartum Healing & Doula Care',
-    homeVideoAuthor: homeSettings?.homeVideoAuthor || 'Deepika & Karthik',
-  });
-
-  // Products Page Hero Form State
-  const [productHeroForm, setProductHeroForm] = useState({
-    heroImage: productsSettings?.heroImage || '/images/products-hero-banner.png',
-    heroBadge: productsSettings?.heroBadge || 'OFFICIAL SEYOL BOTANICAL FORMULATION',
-    heroTitle: productsSettings?.heroTitle || 'Soothing Baby Massage Oil',
-    heroSubtitle: productsSettings?.heroSubtitle || 'Nourishing, gentle, pure care for newborn baby massage & sweet sleep.',
-  });
-
-  // Sync state with Context on load
-  React.useEffect(() => {
-    if (homeSettings) {
-      setHomeForm({
-        founderStoryImage: homeSettings.founderStoryImage || '',
-        founderName: homeSettings.founderName || 'Mrs. Jemma Francis',
-        founderTitle: homeSettings.founderTitle || 'Founder & Childbirth Educator',
-        founderSubtitle: homeSettings.founderSubtitle || 'Certified Birth & Postpartum Doula • Singapore & India',
-        mothersSupported: homeSettings.mothersSupported || '2,400+',
-        familiesSupported: homeSettings.familiesSupported || '1,800+',
-        homeVideoUrl: homeSettings.homeVideoUrl || 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-        homeVideoTitle: homeSettings.homeVideoTitle || 'Natural Postpartum Healing & Doula Care',
-        homeVideoAuthor: homeSettings.homeVideoAuthor || 'Deepika & Karthik',
-      });
+  const handleSignOut = () => {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('seyol_admin_auth_v1');
     }
-    if (productsSettings) {
-      setProductHeroForm({
-        heroImage: productsSettings.heroImage || '/images/products-hero-banner.png',
-        heroBadge: productsSettings.heroBadge || 'OFFICIAL SEYOL BOTANICAL FORMULATION',
-        heroTitle: productsSettings.heroTitle || 'Soothing Baby Massage Oil',
-        heroSubtitle: productsSettings.heroSubtitle || 'Nourishing, gentle, pure care for newborn baby massage & sweet sleep.',
-      });
-    }
-  }, [homeSettings, productsSettings]);
-
-  // Service Modal States
-  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
-  const [serviceImageFile, setServiceImageFile] = useState('');
-
-  // Product Modal States
-  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
-  const [productImageFile, setProductImageFile] = useState('');
-
-  // Product Banner Slide Modal States
-  const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
-  const [editingBanner, setEditingBanner] = useState<ProductBannerSlide | null>(null);
-  const [bannerImageFile, setBannerImageFile] = useState('');
-
-  // Video Testimonial Modal States
-  const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
-  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
-  const [videoUrlInput, setVideoUrlInput] = useState('');
-
-  // Combined Packages Modal States
-  const [isCombinedPackageModalOpen, setIsCombinedPackageModalOpen] = useState(false);
-  const [editingCombinedPackage, setEditingCombinedPackage] = useState<CombinedPackageItem | null>(null);
-
-  // Delete Confirmation Modal State
-  const [deleteConfirmation, setDeleteConfirmation] = useState<{
-    isOpen: boolean;
-    type: 'service' | 'product' | 'testimonial' | 'combinedPackage' | 'banner' | 'order';
-    id: string;
-    name: string;
-  } | null>(null);
-
-  const showToast = (msg: string) => {
-    setSuccessMessage(msg);
-    setTimeout(() => setSuccessMessage(null), 3000);
+    setIsAdminAuthenticated(false);
+    showToast('Signed out of administrative console');
   };
 
-  // Image upload with canvas optimization
-  const handleFileUpload = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    onResult: (base64: string) => void
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const MAX_DIM = 1200;
-        let width = img.width;
-        let height = img.height;
-
-        if (width > height) {
-          if (width > MAX_DIM) {
-            height = Math.round((height * MAX_DIM) / width);
-            width = MAX_DIM;
-          }
-        } else {
-          if (height > MAX_DIM) {
-            width = Math.round((width * MAX_DIM) / height);
-            height = MAX_DIM;
-          }
-        }
-
-        canvas.width = width;
-        canvas.height = height;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.drawImage(img, 0, 0, width, height);
-          const compressed = canvas.toDataURL('image/jpeg', 0.85);
-          onResult(compressed);
-          showToast('Image uploaded and optimized successfully!');
-        } else {
-          onResult(event.target?.result as string);
-          showToast('Image uploaded successfully!');
-        }
-      };
-      img.src = event.target?.result as string;
-    };
-    reader.readAsDataURL(file);
-  };
-
-  // Filter Services
-  const filteredServices = services.filter((s) => {
-    const matchesSearch =
-      s.title.toLowerCase().includes(serviceSearch.toLowerCase()) ||
-      s.shortTitle.toLowerCase().includes(serviceSearch.toLowerCase()) ||
-      s.summary.toLowerCase().includes(serviceSearch.toLowerCase());
-    const matchesCategory =
-      serviceCategoryFilter === 'all' || s.stages.includes(serviceCategoryFilter as JourneyStage);
-    return matchesSearch && matchesCategory;
-  });
-
-  // Filter Products
-  const filteredProducts = products.filter((p) => {
-    const matchesSearch =
-      p.title.toLowerCase().includes(productSearch.toLowerCase()) ||
-      p.subtitle?.toLowerCase().includes(productSearch.toLowerCase()) ||
-      p.volume?.toLowerCase().includes(productSearch.toLowerCase()) ||
-      p.shortDescription?.toLowerCase().includes(productSearch.toLowerCase());
-    const matchesCategory =
-      productCategoryFilter === 'all' || p.category === productCategoryFilter;
-    return matchesSearch && matchesCategory;
-  });
-
+  // Prevent SSR mismatch
   if (!mounted) {
     return (
-      <div className="min-h-screen bg-[#F8F9FA] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
         <div className="text-center space-y-3">
           <div className="w-8 h-8 border-3 border-[#7B1131] border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs font-bold text-[#7B1131] tracking-widest uppercase">Loading SEYOL Admin...</p>
+          <p className="text-xs font-bold text-[#7B1131] tracking-widest uppercase">
+            Loading SEYOL Console...
+          </p>
         </div>
       </div>
     );
   }
 
-  // Gate: ADMIN LOGIN
+  // Security Gate
   if (!isAdminAuthenticated) {
-    return <AdminLoginScreen onLoginSuccess={() => { setIsAdminAuthenticated(true); showToast('Welcome to SEYOL Admin Dashboard'); }} />;
+    return (
+      <AdminLoginScreen
+        onLoginSuccess={() => {
+          setIsAdminAuthenticated(true);
+          showToast('Welcome to SEYOL Admin Console');
+        }}
+      />
+    );
   }
 
+  const clientsCount = Object.keys(allClientData).length;
+  const pendingOrdersCount = orders.filter((o) => o.orderStatus === 'pending').length;
+
+  const navItems = [
+    {
+      group: 'Maternal Care & Store',
+      items: [
+        {
+          id: 'customers' as AdminModule,
+          label: 'Client Portals',
+          icon: Users,
+          badge: clientsCount > 0 ? clientsCount : null,
+          badgeColor: 'bg-[#7B1131]/10 text-[#7B1131]',
+        },
+        {
+          id: 'orders' as AdminModule,
+          label: 'Store Orders',
+          icon: ShoppingCart,
+          badge: pendingOrdersCount > 0 ? `${pendingOrdersCount} new` : null,
+          badgeColor: 'bg-amber-100 text-amber-800 font-bold',
+        },
+        {
+          id: 'products' as AdminModule,
+          label: 'Botanical Catalog',
+          icon: ShoppingBag,
+          badge: products.length > 0 ? products.length : null,
+          badgeColor: 'bg-stone-100 text-stone-600',
+        },
+      ],
+    },
+    {
+      group: 'Finance & Systems',
+      items: [
+        {
+          id: 'payments' as AdminModule,
+          label: 'Invoices & Stripe',
+          icon: CreditCard,
+          badge: null,
+          badgeColor: '',
+        },
+        {
+          id: 'reports' as AdminModule,
+          label: 'Reports & Analytics',
+          icon: BarChart3,
+          badge: null,
+          badgeColor: '',
+        },
+        {
+          id: 'settings' as AdminModule,
+          label: 'Platform Settings',
+          icon: SettingsIcon,
+          badge: null,
+          badgeColor: '',
+        },
+        {
+          id: 'website' as AdminModule,
+          label: 'CMS Portal',
+          icon: Globe,
+          badge: null,
+          badgeColor: '',
+        },
+      ],
+    },
+  ];
+
+  const currentTabLabel = () => {
+    switch (activeTab) {
+      case 'customers': return 'Client Portals & Care Editor';
+      case 'orders': return 'Store Orders & Dispatch Pipeline';
+      case 'products': return 'Botanical Products & Bundles';
+      case 'payments': return 'Invoices & Stripe Billing';
+      case 'reports': return 'Operational Reports & Analytics';
+      case 'settings': return 'Platform & Workspace Settings';
+      case 'website': return 'CMS Portal & Content';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-neutral-900 font-sans flex">
-      
-      {/* Toast Notification */}
-      {successMessage && (
-        <div className="fixed top-5 right-5 z-50 bg-[#7B1131] text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-2 border border-gold/40 animate-fadeIn">
-          <CheckCircle2 className="w-5 h-5 text-gold-light" />
-          <span className="text-xs font-bold">{successMessage}</span>
+    <div className="min-h-screen bg-[#FAF8F5] text-stone-900 font-sans flex">
+      {/* Global Toast Alert */}
+      {toastMessage && (
+        <div className="fixed top-5 right-5 z-50 bg-stone-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-2 border border-[#C89D4B]/30 animate-fadeIn text-xs font-medium">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Delete Confirmation Popup */}
-      {deleteConfirmation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-neutral-200 space-y-5">
-            <div className="w-12 h-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center mx-auto">
-              <AlertTriangle className="w-6 h-6" />
-            </div>
-            
-            <div className="text-center space-y-2">
-              <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                Confirm Deletion
-              </h3>
-              <p className="text-xs text-neutral-600">
-                Are you sure you want to delete this {deleteConfirmation.type}: <strong className="text-red-700 font-bold">{deleteConfirmation.name}</strong>?
-              </p>
-              <p className="text-[11px] text-neutral-400">
-                This action will immediately remove it from the live website.
-              </p>
-            </div>
-
-            <div className="flex items-center space-x-3 pt-2">
-              <button
-                onClick={() => setDeleteConfirmation(null)}
-                className="flex-1 py-3 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-bold cursor-pointer transition-colors"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  if (deleteConfirmation.type === 'service') {
-                    deleteService(deleteConfirmation.id);
-                    showToast(`Deleted service: ${deleteConfirmation.name}`);
-                  } else if (deleteConfirmation.type === 'product') {
-                    deleteProduct(deleteConfirmation.id);
-                    showToast(`Deleted product: ${deleteConfirmation.name}`);
-                  } else if (deleteConfirmation.type === 'testimonial') {
-                    deleteTestimonial(deleteConfirmation.id);
-                    showToast(`Deleted video review: ${deleteConfirmation.name}`);
-                  } else if (deleteConfirmation.type === 'combinedPackage') {
-                    deleteCombinedPackage(deleteConfirmation.id);
-                    showToast(`Deleted combined package: ${deleteConfirmation.name}`);
-                  } else if (deleteConfirmation.type === 'banner') {
-                    deleteProductBannerSlide(deleteConfirmation.id);
-                    showToast(`Deleted hero banner: ${deleteConfirmation.name}`);
-                  } else if (deleteConfirmation.type === 'order') {
-                    deleteOrder(deleteConfirmation.id);
-                    showToast(`Deleted order: ${deleteConfirmation.name}`);
-                  }
-                  setDeleteConfirmation(null);
-                }}
-                className="flex-1 py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold shadow-md cursor-pointer transition-colors"
-              >
-                Yes, Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 1. PROFESSIONAL MODERN SAAS SIDEBAR                                       */}
-      {/* ========================================================================= */}
-      <aside className="w-64 bg-white border-r border-neutral-200/90 text-neutral-800 flex flex-col justify-between fixed top-0 left-0 bottom-0 z-40 shadow-xs">
+      {/* ─── DESKTOP PERSISTENT SIDEBAR ─────────────────────────────────── */}
+      <aside className="hidden lg:flex w-64 bg-white border-r border-stone-200 text-stone-800 flex-col justify-between fixed top-0 left-0 bottom-0 z-40 shadow-xs">
         <div className="flex flex-col h-full overflow-y-auto">
-          {/* Top Brand Header */}
-          <div className="p-5 border-b border-neutral-200/80 flex items-center justify-between">
+          {/* Brand Header */}
+          <div className="p-5 border-b border-stone-200/80 flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3 group">
-              <div className="w-10 h-10 rounded-xl bg-[#7B1131] border border-[#E9C377]/30 flex items-center justify-center overflow-hidden shadow-xs group-hover:scale-105 transition-transform p-1 shrink-0">
+              <div className="w-10 h-10 rounded-xl bg-[#7B1131] border border-[#C89D4B]/30 flex items-center justify-center overflow-hidden shadow-xs p-1 shrink-0">
                 <img
                   src="/logo.png"
                   alt="SEYOL"
@@ -401,13 +204,13 @@ export default function AdminPage() {
                     const el = e.currentTarget as HTMLElement;
                     el.style.display = 'none';
                     if (el.parentElement) {
-                      el.parentElement.innerHTML = '<span class="text-[#E9C377] font-serif font-black text-lg">S</span>';
+                      el.parentElement.innerHTML = '<span class="text-[#C89D4B] font-serif font-bold text-base">S</span>';
                     }
                   }}
                 />
               </div>
               <div>
-                <div className="font-serif font-black text-base tracking-wider text-neutral-900 leading-none">
+                <div className="font-serif font-bold text-base tracking-wider text-stone-900 leading-none">
                   SEYOL
                 </div>
                 <div className="text-[10px] font-bold uppercase tracking-widest text-[#7B1131] mt-1">
@@ -418,203 +221,68 @@ export default function AdminPage() {
 
             <div className="flex items-center space-x-1 bg-emerald-50 border border-emerald-200/80 px-2 py-0.5 rounded-full" title="All Services Operational">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[9px] font-extrabold text-emerald-700 uppercase tracking-wider">Live</span>
+              <span className="text-[9px] font-bold text-emerald-700 uppercase tracking-wider">Live</span>
             </div>
           </div>
 
-          {/* Navigation Links Grouped (7-Core Modules) */}
-          <div className="p-4 space-y-6 flex-1">
-            {/* Group 1: Core Operations */}
-            <div className="space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
-                Core Operations
+          {/* Navigation Items */}
+          <div className="p-3.5 space-y-5 flex-1">
+            {navItems.map((group, idx) => (
+              <div key={idx} className="space-y-1">
+                <div className="text-[10px] font-bold uppercase tracking-wider text-stone-400 px-3 pb-1">
+                  {group.group}
+                </div>
+                {group.items.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveTab(item.id)}
+                      className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between transition-all cursor-pointer ${
+                        isActive
+                          ? 'bg-[#7B1131] text-white shadow-xs'
+                          : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
+                      }`}
+                    >
+                      <div className="flex items-center space-x-2.5">
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-white' : 'text-stone-500'}`} />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                          isActive ? 'bg-white/20 text-white' : item.badgeColor
+                        }`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
-
-              {/* 1. Website */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('website')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'website'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <Globe className={`w-4 h-4 ${activeTab === 'website' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Website</span>
-                </div>
-              </button>
-
-              {/* 2. Customers */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('customers')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'customers'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <Users className={`w-4 h-4 ${activeTab === 'customers' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Customers</span>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  activeTab === 'customers' ? 'bg-[#7B1131] text-white' : 'bg-[#7B1131]/10 text-[#7B1131]'
-                }`}>
-                  CRM
-                </span>
-              </button>
-            </div>
-
-            {/* Group 2: E-Commerce & Inventory */}
-            <div className="space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
-                Store &amp; Inventory
-              </div>
-
-              {/* 3. Orders */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('orders')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'orders'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <ShoppingCart className={`w-4 h-4 ${activeTab === 'orders' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Orders</span>
-                </div>
-                <div className="flex items-center space-x-1.5">
-                  {orders.some((o) => o.orderStatus === 'pending') ? (
-                    <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full bg-rose-100 text-[#7B1131] text-[9px] font-black tracking-tight animate-pulse border border-[#7B1131]/20 shadow-xs">
-                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600 animate-ping" />
-                      NEW ({orders.filter((o) => o.orderStatus === 'pending').length})
-                    </span>
-                  ) : (
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                      activeTab === 'orders' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
-                    }`}>
-                      {orders.length}
-                    </span>
-                  )}
-                </div>
-              </button>
-
-              {/* 4. Products */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('products')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'products'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <ShoppingBag className={`w-4 h-4 ${activeTab === 'products' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Products</span>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  activeTab === 'products' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
-                }`}>
-                  {products.length}
-                </span>
-              </button>
-            </div>
-
-            {/* Group 3: Finance, Analytics & Config */}
-            <div className="space-y-1">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-3 pb-1">
-                Finance &amp; Config
-              </div>
-
-              {/* 5. Payments */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('payments')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'payments'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <CreditCard className={`w-4 h-4 ${activeTab === 'payments' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Payments</span>
-                </div>
-                <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                  activeTab === 'payments' ? 'bg-[#7B1131] text-white' : 'bg-neutral-100 text-neutral-600'
-                }`}>
-                  Ledger
-                </span>
-              </button>
-
-              {/* 6. Reports & Analytics */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('reports')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'reports'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <BarChart3 className={`w-4 h-4 ${activeTab === 'reports' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Reports &amp; Analytics</span>
-                </div>
-              </button>
-
-              {/* 7. Settings */}
-              <button
-                type="button"
-                onClick={() => setActiveTab('settings')}
-                className={`w-full text-left px-3.5 py-2.5 rounded-xl font-bold text-xs flex items-center justify-between transition-all cursor-pointer ${
-                  activeTab === 'settings'
-                    ? 'bg-[#FAF0F3] text-[#7B1131] border border-[#7B1131]/25 shadow-2xs font-extrabold'
-                    : 'text-neutral-600 hover:bg-neutral-100/80 hover:text-neutral-900 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <SettingsIcon className={`w-4 h-4 ${activeTab === 'settings' ? 'text-[#7B1131]' : 'text-neutral-500'}`} />
-                  <span>Settings</span>
-                </div>
-              </button>
-            </div>
+            ))}
           </div>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-neutral-200/80 space-y-3 bg-neutral-50/50">
-            {/* Sign Out Button (Only Logout, no name display as requested) */}
+          <div className="p-3.5 border-t border-stone-200 space-y-2">
             <button
               type="button"
-              onClick={() => {
-                if (confirm('Sign out of SEYOL Admin Console?')) {
-                  localStorage.removeItem('seyol_admin_auth_v1');
-                  setIsAdminAuthenticated(false);
-                  showToast('Signed out of Admin Console.');
-                }
-              }}
-              className="w-full py-2.5 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200/80 text-xs font-bold flex items-center justify-center space-x-2 transition-colors cursor-pointer"
-              title="Sign Out"
+              onClick={handleSignOut}
+              className="w-full py-2 px-3 rounded-xl bg-stone-50 hover:bg-red-50 text-stone-600 hover:text-red-700 border border-stone-200 hover:border-red-200 text-xs font-semibold flex items-center justify-center space-x-2 transition-colors cursor-pointer"
             >
-              <LogOut className="w-3.5 h-3.5 text-red-600" />
+              <LogOut className="w-3.5 h-3.5" />
               <span>Sign Out</span>
             </button>
 
-            {/* Powered by Together Tech Groups (Bottom-most link) */}
-            <div className="pt-2 text-center border-t border-neutral-200/60">
-              <p className="text-[11px] text-neutral-400">
+            <div className="pt-1 text-center">
+              <p className="text-[10px] text-stone-400">
                 Powered by{' '}
                 <a
                   href="https://togethertechgroups.in/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-[#7B1131] hover:text-[#5e0c24] hover:underline transition-colors"
+                  className="font-bold text-[#7B1131] hover:underline"
                 >
                   Together Tech Groups
                 </a>
@@ -624,2329 +292,145 @@ export default function AdminPage() {
         </div>
       </aside>
 
-      {/* ========================================================================= */}
-      {/* 2. MAIN CONTENT AREA (Offset by standard sidebar width)                  */}
-      {/* ========================================================================= */}
-      <main className="flex-1 ml-64 p-6 sm:p-10 max-w-7xl min-h-screen">
-        
-        {/* Persistent Top Header Bar with Live Date & Time on the Right Side */}
-        <div className="flex items-center justify-between pb-5 mb-8 border-b border-neutral-200/90 gap-4">
-          <div className="flex items-center space-x-2 text-xs text-neutral-500">
-            <span className="font-bold text-neutral-400">Admin</span>
-            <span>/</span>
-            <span className="font-extrabold text-[#7B1131] tracking-wide uppercase text-[11px]">
-              {activeTab === 'website' && 'Website'}
-              {activeTab === 'customers' && 'Customers'}
-              {activeTab === 'orders' && 'Orders'}
-              {activeTab === 'products' && 'Products'}
-              {activeTab === 'payments' && 'Payments'}
-              {activeTab === 'reports' && 'Reports & Analytics'}
-              {activeTab === 'settings' && 'Settings'}
-            </span>
-          </div>
+      {/* ─── MOBILE DRAWER NAVIGATION ───────────────────────────────────── */}
+      {isMobileNavOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden flex">
+          <div
+            className="fixed inset-0 bg-stone-900/60 backdrop-blur-xs animate-fadeIn"
+            onClick={() => setIsMobileNavOpen(false)}
+          />
 
-          {/* Right-aligned Live Date & Time */}
-          <div className="flex items-center space-x-2.5 px-3.5 py-1.5 rounded-xl bg-white border border-neutral-200/80 shadow-2xs text-xs font-semibold text-neutral-700 shrink-0">
-            <Calendar className="w-3.5 h-3.5 text-[#7B1131]" />
-            <span className="tabular-nums font-mono">{currentDateTime || 'Loading Date & Time...'}</span>
-          </div>
-        </div>
-
-        {/* ======================================================================= */}
-        {/* SECTION: CUSTOMER MANAGEMENT & CLIENT PORTAL                            */}
-        {/* ======================================================================= */}
-        {activeTab === 'customers' && (
-          <div className="space-y-6 animate-fadeIn">
-            <AdminClientEditor />
-          </div>
-        )}
-
-        {/* ======================================================================= */}
-        {/* SECTION 1: WEBSITE MANAGEMENT                                           */}
-        {/* ======================================================================= */}
-        {activeTab === 'website' && (
-          <div className="space-y-6 animate-fadeIn">
-            {/* Website Management Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-200">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                  Content &amp; Brand Experience
-                </span>
-                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
-                  Website Management
-                </h1>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Manage homepage founder story, live parent statistics counters, services catalog, and promotional hero banners.
-                </p>
+          <aside className="relative w-72 max-w-[80vw] bg-white h-full shadow-2xl flex flex-col justify-between z-10 animate-slideRight">
+            <div className="p-4 border-b border-stone-200 flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-8 h-8 rounded-lg bg-[#7B1131] flex items-center justify-center text-white font-serif font-bold text-sm">
+                  S
+                </div>
+                <span className="font-serif font-bold text-sm text-stone-900">SEYOL Admin</span>
               </div>
-
-              <Link
-                href="/"
-                target="_blank"
-                className="px-4 py-2 rounded-xl bg-white border border-neutral-200 hover:border-maroon text-[#7B1131] text-xs font-bold flex items-center space-x-2 shadow-xs transition-colors shrink-0"
-              >
-                <Eye className="w-3.5 h-3.5 text-gold" />
-                <span>View Live Site</span>
-                <ExternalLink className="w-3 h-3 text-neutral-400" />
-              </Link>
-            </div>
-
-            {/* Website Sub-navigation Tabs */}
-            <div className="flex items-center space-x-2 bg-neutral-100 p-1.5 rounded-2xl border border-neutral-200 shadow-2xs overflow-x-auto">
               <button
                 type="button"
-                onClick={() => setWebsiteSubTab('home')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
-                  websiteSubTab === 'home'
-                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
+                onClick={() => setIsMobileNavOpen(false)}
+                className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700"
               >
-                <Home className="w-3.5 h-3.5" />
-                <span>Home Page &amp; Founder</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setWebsiteSubTab('services')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
-                  websiteSubTab === 'services'
-                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Services &amp; Packages ({services.length})</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setWebsiteSubTab('banners')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
-                  websiteSubTab === 'banners'
-                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
-              >
-                <ImageIcon className="w-3.5 h-3.5" />
-                <span>Hero Banners ({productBannerSlides.length})</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setWebsiteSubTab('testimonials')}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center space-x-2 shrink-0 ${
-                  websiteSubTab === 'testimonials'
-                    ? 'bg-[#7B1131] text-white shadow-xs font-extrabold'
-                    : 'text-neutral-600 hover:text-neutral-900'
-                }`}
-              >
-                <Video className="w-3.5 h-3.5" />
-                <span>Video Testimonials ({testimonials.length})</span>
+                <X className="w-5 h-5" />
               </button>
             </div>
 
-            {/* Sub-Tab 1: Home Page & Founder */}
-            {websiteSubTab === 'home' && (
-              <div className="space-y-8 animate-fadeIn">
-            
-            {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Page Management</span>
-                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
-                  Home Page Content &amp; Media
-                </h1>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Manage the Founder story image, live parent statistics, and video section on the main Home Page.
-                </p>
-              </div>
-
-              <Link
-                href="/"
-                target="_blank"
-                className="px-4 py-2 rounded-xl bg-white border border-neutral-200 hover:border-maroon text-[#7B1131] text-xs font-bold flex items-center space-x-2 shadow-xs transition-colors shrink-0"
-              >
-                <Eye className="w-3.5 h-3.5" />
-                <span>View Live Home Page</span>
-                <ExternalLink className="w-3 h-3 text-neutral-400" />
-              </Link>
-            </div>
-
-            {/* A. Our Story – Founder & Childbirth Educator */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6">
-              <div className="flex items-center space-x-2.5 pb-3 border-b border-neutral-100">
-                <div className="w-8 h-8 rounded-xl bg-[#FAF2F4] text-[#7B1131] flex items-center justify-center">
-                  <Camera className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                    Our Story – Founder &amp; Childbirth Educator
-                  </h3>
-                  <p className="text-xs text-neutral-500">
-                    Update the high-resolution photo and details of Mrs. Jemma Francis shown in the Our Story section.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-                {/* Current Image Preview */}
-                <div className="lg:col-span-4 flex flex-col items-center">
-                  <div className="relative w-48 h-60 rounded-2xl overflow-hidden border-2 border-cream-border shadow-warm-md bg-brown">
-                    <img
-                      src={homeForm.founderStoryImage || 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800'}
-                      alt="Founder Preview"
-                      className="w-full h-full object-cover object-center"
-                    />
-                    <div className="absolute bottom-2 left-2 right-2 px-2 py-1 rounded-lg bg-black/60 backdrop-blur-xs text-[10px] text-white text-center font-bold">
-                      Current Preview
-                    </div>
+            <div className="p-3 space-y-4 flex-1 overflow-y-auto">
+              {navItems.map((group, idx) => (
+                <div key={idx} className="space-y-1">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-stone-400 px-3 pb-1">
+                    {group.group}
                   </div>
-                </div>
-
-                {/* Upload & Replace Options */}
-                <div className="lg:col-span-8 space-y-4 text-xs">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <label className="flex items-center justify-center p-3.5 rounded-2xl border border-dashed border-[#7B1131]/40 hover:border-maroon bg-[#FAF7F2] text-xs font-bold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-all space-x-2 shadow-2xs">
-                      <Upload className="w-4 h-4 text-[#7B1131]" />
-                      <span>Upload New Image from Device</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) =>
-                          handleFileUpload(e, (b64) => setHomeForm({ ...homeForm, founderStoryImage: b64 }))
-                        }
-                      />
-                    </label>
-
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (confirm('Delete custom founder image and reset to default?')) {
-                          setHomeForm({
-                            ...homeForm,
-                            founderStoryImage: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800',
-                          });
-                          showToast('Reset image to default.');
-                        }
-                      }}
-                      className="flex items-center justify-center p-3.5 rounded-2xl border border-red-200 bg-red-50/60 hover:bg-red-100 text-red-600 text-xs font-bold transition-all cursor-pointer space-x-1.5"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                      <span>Delete / Reset Image</span>
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <div>
-                      <label className="font-bold text-neutral-700 block mb-1">Founder Name</label>
-                      <input
-                        type="text"
-                        value={homeForm.founderName}
-                        onChange={(e) => setHomeForm({ ...homeForm, founderName: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white"
-                      />
-                    </div>
-                    <div>
-                      <label className="font-bold text-neutral-700 block mb-1">Badge Title</label>
-                      <input
-                        type="text"
-                        value={homeForm.founderTitle}
-                        onChange={(e) => setHomeForm({ ...homeForm, founderTitle: e.target.value })}
-                        className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 focus:bg-white"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* B. Mothers Supported & Families Supported Statistics */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6">
-              <div className="flex items-center space-x-2.5 pb-3 border-b border-neutral-100">
-                <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                  <Users className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                    Mothers Supported &amp; Families Supported Statistics
-                  </h3>
-                  <p className="text-xs text-neutral-500">
-                    Live counters displayed in the Our Story and trust sections of the website.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-xs">
-                {/* Stat 1: Mothers Supported */}
-                <div className="p-5 rounded-2xl bg-[#FAF7F2] border border-neutral-200 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Statistic 1</span>
-                    <Heart className="w-4 h-4 text-maroon" />
-                  </div>
-                  <div>
-                    <label className="font-bold text-neutral-700 block mb-1 text-xs">
-                      Mothers Supported Number *
-                    </label>
-                    <input
-                      type="text"
-                      value={homeForm.mothersSupported}
-                      onChange={(e) => setHomeForm({ ...homeForm, mothersSupported: e.target.value })}
-                      placeholder="e.g. 2,400+"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-neutral-300 font-serif font-black text-xl text-maroon focus:outline-none focus:ring-2 focus:ring-maroon"
-                    />
-                  </div>
-                  <p className="text-[11px] text-neutral-500">
-                    Displays on live site as: <strong>{homeForm.mothersSupported} Mothers Supported</strong>
-                  </p>
-                </div>
-
-                {/* Stat 2: Families Supported */}
-                <div className="p-5 rounded-2xl bg-[#FAF7F2] border border-neutral-200 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-extrabold uppercase tracking-widest text-gold-dark">Statistic 2</span>
-                    <ShieldCheck className="w-4 h-4 text-gold-dark" />
-                  </div>
-                  <div>
-                    <label className="font-bold text-neutral-700 block mb-1 text-xs">
-                      Families Supported Number *
-                    </label>
-                    <input
-                      type="text"
-                      value={homeForm.familiesSupported}
-                      onChange={(e) => setHomeForm({ ...homeForm, familiesSupported: e.target.value })}
-                      placeholder="e.g. 1,800+"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-neutral-300 font-serif font-black text-xl text-gold-dark focus:outline-none focus:ring-2 focus:ring-maroon"
-                    />
-                  </div>
-                  <p className="text-[11px] text-neutral-500">
-                    Displays on live site as: <strong>{homeForm.familiesSupported} Families Supported</strong>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* C. Trusted by Families at Every Stage (Multiple Video Management) */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
-                <div className="flex items-center space-x-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-                    <Video className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                      Trusted by Families at Every Stage (Video Management)
-                    </h3>
-                    <p className="text-xs text-neutral-500">
-                      Add, edit, or delete multiple YouTube client video reviews &amp; parent stories shown in the Home Page video carousel.
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingTestimonial(null);
-                    setVideoUrlInput('https://www.youtube.com/watch?v=ScMzIvxBSi4');
-                    setIsTestimonialModalOpen(true);
-                  }}
-                  className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Video Review</span>
-                </button>
-              </div>
-
-              {/* Multiple Video Testimonials Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {testimonials.map((t) => {
-                  const yid = extractYouTubeId(t.youtubeUrl);
-                  return (
-                    <div
-                      key={t.id}
-                      className="bg-[#FAF7F2] rounded-2xl border border-neutral-200 p-4 flex flex-col justify-between space-y-3 hover:shadow-warm-sm transition-all"
-                    >
-                      {/* Video Player Preview / Thumbnail */}
-                      <div className="w-full aspect-video rounded-xl overflow-hidden bg-black relative border border-neutral-300 shadow-xs">
-                        {yid ? (
-                          <iframe
-                            src={`https://www.youtube.com/embed/${yid}`}
-                            title={t.author}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            className="w-full h-full border-0"
-                          />
-                        ) : (
-                          <div className="w-full h-full flex flex-col items-center justify-center text-white/50 text-xs">
-                            <Video className="w-6 h-6 mb-1" />
-                            <span>No video URL</span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Video Story Details */}
-                      <div className="space-y-1.5 flex-1">
-                        <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] font-extrabold text-[9px] uppercase tracking-wider">
-                            {t.stage}
-                          </span>
-                          <div className="flex items-center space-x-0.5">
-                            {Array.from({ length: t.rating || 5 }).map((_, i) => (
-                              <Star key={i} className="w-3 h-3 text-gold fill-gold" />
-                            ))}
-                          </div>
-                        </div>
-
-                        <h4 className="font-serif font-bold text-sm text-[#3a1d1d] truncate">
-                          {t.author}
-                        </h4>
-                        
-                        <p className="text-[11px] text-neutral-600 font-medium line-clamp-1">
-                          {t.serviceOrProduct} {t.location ? `• ${t.location}` : ''}
-                        </p>
-
-                        <p className="text-[11px] text-neutral-500 italic line-clamp-2 pt-0.5">
-                          "{t.quote}"
-                        </p>
-                      </div>
-
-                      {/* Card Action Buttons: Edit / Delete */}
-                      <div className="pt-2 border-t border-neutral-200/80 flex items-center justify-between">
-                        <span className="text-[10px] text-neutral-400 font-medium">
-                          {t.babyAgeOrWeek || 'Verified Parent'}
-                        </span>
-                        
-                        <div className="flex items-center space-x-1.5">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingTestimonial(t);
-                              setVideoUrlInput(t.youtubeUrl || '');
-                              setIsTestimonialModalOpen(true);
-                            }}
-                            className="p-1.5 rounded-lg bg-white hover:bg-amber-50 text-amber-700 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Edit Video Review"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setDeleteConfirmation({
-                                isOpen: true,
-                                type: 'testimonial',
-                                id: t.id,
-                                name: t.author,
-                              });
-                            }}
-                            className="p-1.5 rounded-lg bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Delete Video Review"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Save All Home Changes Button */}
-            <div className="pt-4 flex justify-end">
-              <button
-                type="button"
-                onClick={() => {
-                  updateHomeSettings(homeForm);
-                  showToast('Home page content & statistics updated live successfully!');
-                }}
-                className="px-8 py-3.5 rounded-2xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-sm shadow-warm-md hover:scale-102 transition-all cursor-pointer flex items-center space-x-2"
-              >
-                <Check className="w-4 h-4 text-gold-light" />
-                <span>Save &amp; Update Live Home Page</span>
-              </button>
-            </div>
-
-              </div>
-            )}
-
-            {/* Sub-Tab 2: Services & Packages */}
-            {websiteSubTab === 'services' && (
-              <div className="space-y-8 animate-fadeIn">
-            
-            {/* Header & Add Button */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Care Catalog</span>
-                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
-                  Services Management
-                </h1>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Add, edit, update, or remove SEYOL care services. All updates reflect instantly on live site.
-                </p>
-              </div>
-
-              <button
-                onClick={() => {
-                  setEditingService(null);
-                  setServiceImageFile('');
-                  setIsServiceModalOpen(true);
-                }}
-                className="px-6 py-3 rounded-2xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-warm-md flex items-center space-x-2 cursor-pointer transition-all hover:scale-102 shrink-0"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Service</span>
-              </button>
-            </div>
-
-            {/* Search & Category Filter */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 bg-white p-4 rounded-2xl border border-neutral-200 shadow-xs">
-              <div className="relative flex-1 w-full">
-                <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  placeholder="Search services by title, stage, or summary..."
-                  value={serviceSearch}
-                  onChange={(e) => setServiceSearch(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-maroon"
-                />
-              </div>
-
-              <div className="flex items-center space-x-2 w-full sm:w-auto overflow-x-auto">
-                {['all', 'preconception', 'pregnancy', 'postpartum', 'newborn'].map((stage) => (
-                  <button
-                    key={stage}
-                    onClick={() => setServiceCategoryFilter(stage)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-colors cursor-pointer shrink-0 ${
-                      serviceCategoryFilter === stage
-                        ? 'bg-[#7B1131] text-white'
-                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                    }`}
-                  >
-                    {stage}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Services List Table */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-[#FAF7F2] border-b border-neutral-200 text-[#7B1131] font-bold uppercase tracking-wider text-[10px]">
-                    <tr>
-                      <th className="py-3.5 px-4">Service</th>
-                      <th className="py-3.5 px-4">Category / Stage</th>
-                      <th className="py-3.5 px-4">Duration</th>
-                      <th className="py-3.5 px-4">Price Guide</th>
-                      <th className="py-3.5 px-4 text-center">Status</th>
-                      <th className="py-3.5 px-4 text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-100">
-                    {filteredServices.map((svc) => (
-                      <tr key={svc.id} className="hover:bg-neutral-50/70 transition-colors">
-                        {/* Service Thumbnail & Title */}
-                        <td className="py-3 px-4">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-12 h-12 rounded-xl overflow-hidden bg-neutral-100 border border-neutral-200 shrink-0">
-                              <img src={svc.heroImage} alt={svc.title} className="w-full h-full object-cover" />
-                            </div>
-                            <div className="min-w-0">
-                              <h4 className="font-bold text-neutral-800 text-xs">{svc.title}</h4>
-                              <p className="text-[11px] text-neutral-400 truncate max-w-xs">{svc.tagline || svc.summary}</p>
-                            </div>
-                          </div>
-                        </td>
-
-                        {/* Stage */}
-                        <td className="py-3 px-4">
-                          <span className="px-2.5 py-1 rounded-full bg-[#FAF2F4] text-[#7B1131] font-bold text-[10px] uppercase tracking-wider">
-                            {svc.stages[0] || svc.category}
-                          </span>
-                        </td>
-
-                        {/* Duration */}
-                        <td className="py-3 px-4 font-medium text-neutral-600">
-                          {svc.duration || 'Session Based'}
-                        </td>
-
-                        {/* Price */}
-                        <td className="py-3 px-4 font-bold text-[#7B1131]">
-                          {svc.pricingGuide || 'Custom Tier'}
-                        </td>
-
-                        {/* Status */}
-                        <td className="py-3 px-4 text-center">
-                          <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold text-[10px]">
-                            Active
-                          </span>
-                        </td>
-
-                        {/* Actions */}
-                        <td className="py-3 px-4 text-right">
-                          <div className="flex items-center justify-end space-x-2">
-                            <Link
-                              href={`/services/${svc.slug}`}
-                              target="_blank"
-                              className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition-colors"
-                              title="View Live Page"
-                            >
-                              <Eye className="w-3.5 h-3.5" />
-                            </Link>
-
-                            <button
-                              onClick={() => {
-                                setEditingService(svc);
-                                setServiceImageFile(svc.heroImage);
-                                setIsServiceModalOpen(true);
-                              }}
-                              className="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors cursor-pointer"
-                              title="Edit Service"
-                            >
-                              <Edit3 className="w-3.5 h-3.5" />
-                            </button>
-
-                            <button
-                              onClick={() => {
-                                setDeleteConfirmation({
-                                  isOpen: true,
-                                  type: 'service',
-                                  id: svc.id,
-                                  name: svc.title,
-                                });
-                              }}
-                              className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
-                              title="Delete Service"
-                            >
-                              <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* =================================================================== */}
-            {/* B. COMBINED PACKAGES MANAGEMENT (Package 1 to 6 & Custom Packages) */}
-            {/* =================================================================== */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
-                <div className="flex items-center space-x-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center">
-                    <Package className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                      Combined Mother &amp; Baby Packages (Package 1 – 6)
-                    </h3>
-                    <p className="text-xs text-neutral-500">
-                      Add, update, or remove multi-tier combined confinement care packages. Syncs live to service comparison tables and booking workflows.
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingCombinedPackage(null);
-                    setIsCombinedPackageModalOpen(true);
-                  }}
-                  className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Combined Package</span>
-                </button>
-              </div>
-
-              {/* Combined Packages Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {combinedPackages.map((pkg) => (
-                  <div
-                    key={pkg.id}
-                    className={`rounded-2xl border p-5 flex flex-col justify-between space-y-4 transition-all relative ${
-                      pkg.popular
-                        ? 'bg-gradient-to-b from-[#FFFDF9] to-[#FBF8F2] border-[#7B1131]/40 shadow-warm-sm ring-1 ring-[#7B1131]/20'
-                        : 'bg-[#FAF7F2] border-neutral-200 hover:shadow-warm-xs'
-                    }`}
-                  >
-                    {/* Header: Num + Badge */}
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="w-7 h-7 rounded-lg bg-[#7B1131] text-white font-mono font-black text-xs flex items-center justify-center">
-                          {pkg.num}
-                        </span>
-                        <div className="flex items-center space-x-1.5">
-                          {pkg.popular && (
-                            <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-extrabold text-[9px] uppercase tracking-wider">
-                              Popular
-                            </span>
-                          )}
-                          <span className="px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] font-bold text-[10px]">
-                            {pkg.badge}
-                          </span>
-                        </div>
-                      </div>
-
-                      <h4 className="font-serif font-black text-base text-[#3a1d1d]">
-                        {pkg.name}
-                      </h4>
-
-                      <div className="font-serif font-black text-xl text-[#7B1131] mt-1">
-                        {pkg.priceDisplay || `₹${(pkg.price || 0).toLocaleString('en-IN')}`}
-                      </div>
-                    </div>
-
-                    {/* Session Breakdown Details */}
-                    <div className="space-y-2 text-xs bg-white p-3.5 rounded-xl border border-neutral-200/80">
-                      <div className="flex items-start space-x-2">
-                        <span className="text-[#7B1131] font-bold">👶</span>
-                        <span className="text-neutral-700 font-semibold leading-snug">
-                          {pkg.infantSessions}
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-2">
-                        <span className="text-gold-dark font-bold">🤱</span>
-                        <span className="text-neutral-700 font-semibold leading-snug">
-                          {pkg.postpartumSessions}
-                        </span>
-                      </div>
-                    </div>
-
-                    {pkg.description && (
-                      <p className="text-[11px] text-neutral-500 line-clamp-2 leading-relaxed">
-                        {pkg.description}
-                      </p>
-                    )}
-
-                    {/* Actions: Edit / Delete */}
-                    <div className="pt-3 border-t border-neutral-200 flex items-center justify-between">
-                      <span className="text-[10px] text-neutral-400 font-mono truncate max-w-[120px]">
-                        {pkg.id}
-                      </span>
-
-                      <div className="flex items-center space-x-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingCombinedPackage(pkg);
-                            setIsCombinedPackageModalOpen(true);
-                          }}
-                          className="p-2 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                          title="Edit Package"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setDeleteConfirmation({
-                              isOpen: true,
-                              type: 'combinedPackage',
-                              id: pkg.id,
-                              name: pkg.name,
-                            });
-                          }}
-                          className="p-2 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                          title="Delete Package"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-              </div>
-            )}
-
-            {/* Sub-Tab 3: Hero Banners */}
-            {websiteSubTab === 'banners' && (
-              <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6 animate-fadeIn">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                      <Camera className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                        Website &amp; Product Hero Banner Slides
-                      </h3>
-                      <p className="text-xs text-neutral-500">
-                        Add, update, or remove hero banner images and promotional slides shown on the website.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditingBanner(null);
-                      setBannerImageFile('');
-                      setIsBannerModalOpen(true);
-                    }}
-                    className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
-                  >
-                    <Plus className="w-4 h-4" />
-                    <span>Add Banner Slide</span>
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {productBannerSlides.map((slide, idx) => (
-                    <div
-                      key={slide.id || idx}
-                      className="rounded-2xl border border-neutral-200 bg-[#FAF7F2] p-4 flex flex-col justify-between space-y-4 hover:shadow-warm-xs transition-all relative group"
-                    >
-                      <div className="w-full aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-300/80 relative">
-                        <img
-                          src={slide.image || '/images/products-hero-banner.png'}
-                          alt={slide.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
-                          }}
-                        />
-                        <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[10px] text-white font-mono font-bold">
-                          Slide {idx + 1}
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] font-bold text-[10px] uppercase tracking-wider">
-                          {slide.badge || 'PROMOTIONAL BANNER'}
-                        </div>
-                        <h4 className="font-serif font-black text-base text-[#3a1d1d] line-clamp-1">
-                          {slide.title}
-                        </h4>
-                        <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
-                          {slide.subtitle}
-                        </p>
-                      </div>
-
-                      <div className="pt-3 border-t border-neutral-200 flex items-center justify-between">
-                        <span className="text-[10px] text-neutral-400 font-mono">
-                          Target: {slide.categoryTarget || 'all'}
-                        </span>
-
-                        <div className="flex items-center space-x-2">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingBanner(slide);
-                              setBannerImageFile(slide.image || '');
-                              setIsBannerModalOpen(true);
-                            }}
-                            className="p-2 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Edit / Replace Image"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setDeleteConfirmation({
-                                isOpen: true,
-                                type: 'banner',
-                                id: slide.id,
-                                name: slide.title,
-                              });
-                            }}
-                            className="p-2 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Delete Banner Slide"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Sub-Tab 4: Video Testimonials */}
-            {websiteSubTab === 'testimonials' && (
-              <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6 animate-fadeIn">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-                      <Video className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                        Parent Video Reviews &amp; Client Stories
-                      </h3>
-                      <p className="text-xs text-neutral-500">
-                        Add, edit, or delete YouTube video reviews shown in the website video carousel.
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setEditingTestimonial(null);
-                      setVideoUrlInput('https://www.youtube.com/watch?v=ScMzIvxBSi4');
-                      setIsTestimonialModalOpen(true);
-                    }}
-                    className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
-                  >
-                    <Plus className="w-4 h-4" />
-                    <span>Add Video Review</span>
-                  </button>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {testimonials.map((t) => {
-                    const yid = extractYouTubeId(t.youtubeUrl);
+                  {group.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
                     return (
-                      <div
-                        key={t.id}
-                        className="bg-[#FAF7F2] rounded-2xl border border-neutral-200 p-4 flex flex-col justify-between space-y-3 hover:shadow-warm-sm transition-all"
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => {
+                          setActiveTab(item.id);
+                          setIsMobileNavOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between ${
+                          isActive
+                            ? 'bg-[#7B1131] text-white'
+                            : 'text-stone-600 hover:bg-stone-100'
+                        }`}
                       >
-                        <div className="w-full aspect-video rounded-xl overflow-hidden bg-black relative border border-neutral-300 shadow-xs">
-                          {yid ? (
-                            <iframe
-                              src={`https://www.youtube.com/embed/${yid}`}
-                              title={t.author}
-                              className="w-full h-full"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                              allowFullScreen
-                            />
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs">
-                              No Video URL
-                            </div>
-                          )}
+                        <div className="flex items-center space-x-2.5">
+                          <Icon className="w-4 h-4" />
+                          <span>{item.label}</span>
                         </div>
-
-                        <div>
-                          <div className="flex items-center space-x-1 text-amber-500 mb-1">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-3.5 h-3.5 fill-current" />
-                            ))}
-                          </div>
-                          <h4 className="font-serif font-bold text-sm text-[#3a1d1d]">{t.author}</h4>
-                          <p className="text-[11px] font-semibold text-[#7B1131]">{t.stage}</p>
-                          <p className="text-xs text-neutral-600 mt-1 line-clamp-2 italic">"{t.quote}"</p>
-                        </div>
-
-                        <div className="pt-2 border-t border-neutral-200 flex items-center justify-end space-x-2">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingTestimonial(t);
-                              setVideoUrlInput(t.youtubeUrl || '');
-                              setIsTestimonialModalOpen(true);
-                            }}
-                            className="p-1.5 rounded-lg bg-white hover:bg-amber-50 text-amber-700 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Edit Video Review"
-                          >
-                            <Edit3 className="w-3.5 h-3.5" />
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setDeleteConfirmation({
-                                isOpen: true,
-                                type: 'testimonial',
-                                id: t.id,
-                                name: t.author,
-                              });
-                            }}
-                            className="p-1.5 rounded-lg bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                            title="Delete Video Review"
-                          >
-                            <Trash2 className="w-3.5 h-3.5" />
-                          </button>
-                        </div>
-                      </div>
+                        {item.badge && (
+                          <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
+                            isActive ? 'bg-white/20 text-white' : item.badgeColor
+                          }`}>
+                            {item.badge}
+                          </span>
+                        )}
+                      </button>
                     );
                   })}
                 </div>
-              </div>
-            )}
-          </div>
-        )}
+              ))}
+            </div>
 
-        {/* ======================================================================= */}
-        {/* SECTION 4: PRODUCT MANAGEMENT                                           */}
-        {/* ======================================================================= */}
-        {activeTab === 'products' && (
-          <div className="space-y-8 animate-fadeIn">
-            
-            {/* Header & Add Button */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-neutral-200">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Apothecary Catalog</span>
-                <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
-                  Products Management
-                </h1>
-                <p className="text-xs text-neutral-500 mt-1">
-                  Manage the Product page Hero Banner and catalog items. Updates sync live to the storefront.
-                </p>
-              </div>
-
+            <div className="p-3 border-t border-stone-200">
               <button
-                onClick={() => {
-                  setEditingProduct(null);
-                  setProductImageFile('');
-                  setIsProductModalOpen(true);
-                }}
-                className="px-6 py-3 rounded-2xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-warm-md flex items-center space-x-2 cursor-pointer transition-all hover:scale-102 shrink-0"
+                type="button"
+                onClick={handleSignOut}
+                className="w-full py-2 rounded-xl bg-stone-100 text-stone-700 text-xs font-semibold flex items-center justify-center space-x-2"
               >
-                <Plus className="w-4 h-4" />
-                <span>Add Product</span>
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out</span>
               </button>
             </div>
-
-            {/* A. Product Hero Banner Slides & Images Section */}
-            <div className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-6 sm:p-8 space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-neutral-100">
-                <div className="flex items-center space-x-2.5">
-                  <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                    <Camera className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif font-bold text-lg text-[#3a1d1d]">
-                      Product Hero Banner Slides &amp; Images
-                    </h3>
-                    <p className="text-xs text-neutral-500">
-                      Add, update, replace, or delete hero banner images and promotional slides shown in the `/products` top carousel.
-                    </p>
-                  </div>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => {
-                    setEditingBanner(null);
-                    setBannerImageFile('');
-                    setIsBannerModalOpen(true);
-                  }}
-                  className="px-5 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer transition-all shrink-0 hover:scale-102"
-                >
-                  <Plus className="w-4 h-4" />
-                  <span>Add Banner Image</span>
-                </button>
-              </div>
-
-              {/* Banner Slides Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                {productBannerSlides.map((slide, idx) => (
-                  <div
-                    key={slide.id || idx}
-                    className="rounded-2xl border border-neutral-200 bg-[#FAF7F2] p-4 flex flex-col justify-between space-y-4 hover:shadow-warm-xs transition-all relative group"
-                  >
-                    {/* Banner Image Preview */}
-                    <div className="w-full aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-300/80 relative">
-                      <img
-                        src={slide.image || '/images/products-hero-banner.png'}
-                        alt={slide.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
-                        }}
-                      />
-                      <div className="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-xs text-[10px] text-white font-mono font-bold">
-                        Slide {idx + 1}
-                      </div>
-                    </div>
-
-                    {/* Content Details */}
-                    <div className="space-y-2">
-                      <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] font-bold text-[10px] uppercase tracking-wider">
-                        {slide.badge || 'PROMOTIONAL BANNER'}
-                      </div>
-
-                      <h4 className="font-serif font-black text-base text-[#3a1d1d] line-clamp-1">
-                        {slide.title}
-                      </h4>
-
-                      <p className="text-xs text-neutral-600 line-clamp-2 leading-relaxed">
-                        {slide.subtitle}
-                      </p>
-
-                      {slide.ctaText && (
-                        <div className="text-[11px] font-bold text-[#7B1131] flex items-center space-x-1 pt-1">
-                          <span>Button:</span>
-                          <span className="bg-white px-2 py-0.5 rounded-md border border-neutral-200">{slide.ctaText}</span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Actions: Edit / Delete */}
-                    <div className="pt-3 border-t border-neutral-200 flex items-center justify-between">
-                      <span className="text-[10px] text-neutral-400 font-mono">
-                        Target: {slide.categoryTarget || 'all'}
-                      </span>
-
-                      <div className="flex items-center space-x-2">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingBanner(slide);
-                            setBannerImageFile(slide.image || '');
-                            setIsBannerModalOpen(true);
-                          }}
-                          className="p-2 rounded-xl bg-white hover:bg-amber-50 text-amber-800 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                          title="Edit / Replace Image"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setDeleteConfirmation({
-                              isOpen: true,
-                              type: 'banner',
-                              id: slide.id,
-                              name: slide.title,
-                            });
-                          }}
-                          className="p-2 rounded-xl bg-white hover:bg-red-50 text-red-600 border border-neutral-200 text-xs font-bold transition-colors cursor-pointer"
-                          title="Delete Banner Slide"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* B. Product Catalog CRUD */}
-            <div className="space-y-4">
-              <div className="flex flex-col sm:flex-row items-center gap-3 bg-white p-4 rounded-2xl border border-neutral-200 shadow-xs">
-                <div className="relative flex-1 w-full">
-                  <Search className="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    placeholder="Search products by name, volume, or description..."
-                    value={productSearch}
-                    onChange={(e) => setProductSearch(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-maroon"
-                  />
-                </div>
-
-                <div className="flex items-center space-x-2 w-full sm:w-auto overflow-x-auto">
-                  {[
-                    { id: 'all', label: 'All' },
-                    { id: 'baby-massage', label: 'Baby Massage' },
-                    { id: 'mother-postpartum', label: 'Mother Care' },
-                    { id: 'bath-wellness', label: 'Bath & Ubtan' },
-                    { id: 'digestive-relief', label: 'Colic & Gas' },
-                  ].map((cat) => (
-                    <button
-                      key={cat.id}
-                      onClick={() => setProductCategoryFilter(cat.id)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors cursor-pointer shrink-0 ${
-                        productCategoryFilter === cat.id
-                          ? 'bg-[#7B1131] text-white'
-                          : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                      }`}
-                    >
-                      {cat.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Product Catalog Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {filteredProducts.map((prod) => (
-                  <div
-                    key={prod.id}
-                    className="bg-white rounded-3xl border border-neutral-200 shadow-xs p-5 flex flex-col justify-between space-y-4 hover:border-gold/60 transition-all group"
-                  >
-                    <div className="space-y-3">
-                      {/* Product Thumbnail & Badges */}
-                      <div className="relative h-44 w-full rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200">
-                        <img
-                          src={prod.image || '/images/products-hero-banner.png'}
-                          alt={prod.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          onError={(e) => {
-                            (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
-                          }}
-                        />
-                        <div className="absolute top-2 left-2 px-2.5 py-0.5 rounded-full bg-white/90 backdrop-blur-xs text-[10px] font-bold text-[#7B1131]">
-                          {prod.volume}
-                        </div>
-                        <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-amber-400 text-black text-[10px] font-extrabold flex items-center space-x-1">
-                          <Star className="w-2.5 h-2.5 fill-black" />
-                          <span>{prod.rating || 4.9}</span>
-                        </div>
-                      </div>
-
-                      <div>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-700">
-                          {prod.category.replace(/-/g, ' ')}
-                        </span>
-                        <h4 className="font-serif font-bold text-sm text-[#3a1d1d] mt-0.5">
-                          {prod.title}
-                        </h4>
-                        <p className="text-[11px] text-neutral-500 line-clamp-2 mt-1">
-                          {prod.shortDescription || prod.subtitle}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Pricing & Actions */}
-                    <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
-                      <div>
-                        <span className="text-[10px] text-neutral-400 block font-medium">Price</span>
-                        <span className="font-serif font-extrabold text-base text-[#7B1131]">
-                          ₹{prod.price?.toLocaleString()}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center space-x-2">
-                        <Link
-                          href="/products"
-                          target="_blank"
-                          className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-700 transition-colors"
-                          title="View on Products Page"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                        </Link>
-
-                        <button
-                          onClick={() => {
-                            setEditingProduct(prod);
-                            setProductImageFile(prod.image || '');
-                            setIsProductModalOpen(true);
-                          }}
-                          className="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 transition-colors cursor-pointer"
-                          title="Edit Product"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                        </button>
-
-                        <button
-                          onClick={() => {
-                            setDeleteConfirmation({
-                              isOpen: true,
-                              type: 'product',
-                              id: prod.id,
-                              name: prod.title,
-                            });
-                          }}
-                          className="p-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-600 transition-colors cursor-pointer"
-                          title="Delete Product"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        )}
-
-        {/* ======================================================================= */}
-        {/* SECTION 4: ONLINE ORDER MANAGEMENT (7-STAGE LIFECYCLE)                  */}
-        {/* ======================================================================= */}
-        {activeTab === 'orders' && (
-          <div className="space-y-6 animate-fadeIn">
-            <AdminOrderManager />
-          </div>
-        )}
-
-        {/* ======================================================================= */}
-        {/* SECTION 5: PAYMENT MANAGEMENT                                           */}
-        {/* ======================================================================= */}
-        {activeTab === 'payments' && (
-          <div className="space-y-6 animate-fadeIn">
-            <AdminPaymentManager />
-          </div>
-        )}
-
-        {/* ======================================================================= */}
-        {/* SECTION 6: REPORTS & ANALYTICS                                          */}
-        {/* ======================================================================= */}
-        {activeTab === 'reports' && (
-          <div className="space-y-6 animate-fadeIn">
-            <AdminReportsAnalytics />
-          </div>
-        )}
-
-        {/* ======================================================================= */}
-        {/* SECTION 7: SETTINGS                                                     */}
-        {/* ======================================================================= */}
-        {activeTab === 'settings' && (
-          <div className="space-y-6 animate-fadeIn">
-            <AdminSettingsManager />
-          </div>
-        )}
-
-      </main>
-
-      {/* ========================================================================= */}
-      {/* 3. ADD / EDIT SERVICE MODAL                                               */}
-      {/* ========================================================================= */}
-      {isServiceModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8 max-h-[90vh] overflow-y-auto">
-            
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                  {editingService ? 'Edit Existing Service' : 'Add New Service'}
-                </span>
-                <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                  {editingService ? editingService.title : 'Create New Service'}
-                </h3>
-              </div>
-              <button
-                onClick={() => setIsServiceModalOpen(false)}
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-700 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const title = (formData.get('title') as string) || 'New Service';
-                const slug = editingService?.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-                const updatedData: Service = {
-                  id: editingService?.id || `service-${Date.now()}`,
-                  slug: slug,
-                  title: title,
-                  shortTitle: (formData.get('shortTitle') as string) || title,
-                  tagline: (formData.get('tagline') as string) || '',
-                  summary: (formData.get('summary') as string) || '',
-                  category: (formData.get('category') as any) || 'hands-on-care',
-                  stages: [(formData.get('stage') as JourneyStage) || 'postpartum'],
-                  duration: (formData.get('duration') as string) || '2 Hours',
-                  pricingGuide: (formData.get('pricingGuide') as string) || 'From ₹4,500',
-                  heroImage: serviceImageFile || (formData.get('heroImageUrl') as string) || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-                  processImage: editingService?.processImage || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-                  benefitImages: editingService?.benefitImages || ['https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800'],
-                  benefit: editingService?.benefit || 'Holistic postnatal recuperation and balance.',
-                  bestFor: editingService?.bestFor || 'New mothers and infants.',
-                  recommendedTimeline: (formData.get('recommendedTimeline') as string) || 'From Day 7',
-                  format: editingService?.format || 'In-Home (Chennai / Tamil Nadu)',
-                  depositInfo: editingService?.depositInfo || '20% deposit required upon confirmation.',
-                  features: editingService?.features || [],
-                  inclusions: editingService?.inclusions || [],
-                  preparation: editingService?.preparation || [],
-                  contraindications: editingService?.contraindications || [],
-                  faqIds: editingService?.faqIds || [],
-                  testimonials: editingService?.testimonials || [],
-                };
-
-                if (editingService) {
-                  updateService(editingService.id, updatedData);
-                  showToast(`Updated service: ${updatedData.title}`);
-                } else {
-                  addService(updatedData);
-                  showToast(`Created new service: ${updatedData.title}`);
-                }
-
-                setIsServiceModalOpen(false);
-              }}
-              className="space-y-4 text-xs"
-            >
-              {/* Image Preview & Direct Upload */}
-              <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-neutral-200 space-y-3">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Service Image *</span>
-                <div className="flex items-center space-x-4">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-white border border-neutral-300 shrink-0">
-                    <img
-                      src={serviceImageFile || editingService?.heroImage || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800'}
-                      alt="Service"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="flex-1 space-y-2">
-                    <label className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs cursor-pointer shadow-xs transition-colors space-x-1.5">
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>Upload Image from Device</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleFileUpload(e, (b64) => setServiceImageFile(b64))}
-                      />
-                    </label>
-                    <p className="text-[11px] text-neutral-500">
-                      Upload JPEG, PNG or WebP image. Automatically optimized for web.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Service Name *</label>
-                  <input
-                    name="title"
-                    required
-                    defaultValue={editingService?.title || ''}
-                    placeholder="e.g. Prenatal Massage & Body Alignment"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Short Nav Title</label>
-                  <input
-                    name="shortTitle"
-                    defaultValue={editingService?.shortTitle || ''}
-                    placeholder="e.g. Prenatal Massage"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Milestone Stage *</label>
-                  <select
-                    name="stage"
-                    defaultValue={editingService?.stages[0] || 'postpartum'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  >
-                    <option value="preconception">Preconception</option>
-                    <option value="pregnancy">Pregnancy</option>
-                    <option value="postpartum">Postpartum</option>
-                    <option value="newborn">Newborn</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Category Name</label>
-                  <input
-                    name="category"
-                    defaultValue={editingService?.category || 'Clinical Postnatal Care'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Session Duration</label>
-                  <input
-                    name="duration"
-                    defaultValue={editingService?.duration || '90-120 Mins / Session'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Price Guide *</label>
-                  <input
-                    name="pricingGuide"
-                    required
-                    defaultValue={editingService?.pricingGuide || 'From ₹4,500'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-bold text-[#7B1131]"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Tagline Quote</label>
-                  <input
-                    name="tagline"
-                    defaultValue={editingService?.tagline || ''}
-                    placeholder="Short emotional quote..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 italic"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Full Description / Summary *</label>
-                  <textarea
-                    name="summary"
-                    rows={3}
-                    required
-                    defaultValue={editingService?.summary || ''}
-                    placeholder="Detailed explanation of the care rituals and safety precautions..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-2 pt-2">
-                <input type="checkbox" id="serviceActive" defaultChecked className="rounded border-neutral-300 text-maroon" />
-                <label htmlFor="serviceActive" className="font-bold text-neutral-700 text-xs">Active on live website</label>
-              </div>
-
-              <div className="pt-4 border-t border-neutral-100 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsServiceModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-100 font-bold text-neutral-700 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-8 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold shadow-md cursor-pointer"
-                >
-                  {editingService ? 'Update Service' : 'Add Service'}
-                </button>
-              </div>
-            </form>
-          </div>
+          </aside>
         </div>
       )}
 
-      {/* ========================================================================= */}
-      {/* 4. ADD / EDIT PRODUCT MODAL                                               */}
-      {/* ========================================================================= */}
-      {isProductModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8 max-h-[90vh] overflow-y-auto">
-            
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div>
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                  {editingProduct ? 'Edit Existing Product' : 'Add New Herbal Product'}
-                </span>
-                <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                  {editingProduct ? editingProduct.title : 'Create New Product'}
-                </h3>
-              </div>
+      {/* ─── MAIN CONTENT AREA ─────────────────────────────────────────── */}
+      <main className="flex-1 lg:ml-64 p-4 sm:p-7 lg:p-9 max-w-7xl min-h-screen flex flex-col justify-between">
+        <div>
+          {/* Top Header Bar */}
+          <header className="flex items-center justify-between pb-4 mb-6 border-b border-stone-200 gap-2 sm:gap-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 min-w-0">
               <button
-                onClick={() => setIsProductModalOpen(false)}
-                className="p-2 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-700 cursor-pointer"
+                type="button"
+                onClick={() => setIsMobileNavOpen(true)}
+                className="lg:hidden p-2 rounded-xl bg-white border border-stone-200 text-stone-700 shadow-2xs shrink-0"
+                aria-label="Open Navigation Menu"
               >
-                <X className="w-5 h-5" />
+                <Menu className="w-4 h-4" />
               </button>
+
+              <div className="flex items-center space-x-1.5 sm:space-x-2 text-xs text-stone-500 min-w-0">
+                <span className="font-semibold text-stone-400">Admin</span>
+                <span>/</span>
+                <span className="font-bold text-[#7B1131] tracking-wide uppercase text-[10.5px] sm:text-[11px] truncate">
+                  {currentTabLabel()}
+                </span>
+              </div>
             </div>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const title = (formData.get('title') as string) || 'New Product';
-                const slug = editingProduct?.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-
-                const updatedProd: Product = {
-                  id: editingProduct?.id || `product-${Date.now()}`,
-                  slug: slug,
-                  title: title,
-                  subtitle: (formData.get('subtitle') as string) || '',
-                  category: (formData.get('category') as any) || 'baby-massage',
-                  stages: ['newborn', 'postpartum'],
-                  volume: (formData.get('volume') as string) || '200 ml',
-                  price: Number(formData.get('price')) || 680,
-                  currency: 'INR',
-                  rating: Number(formData.get('rating')) || 4.95,
-                  reviewCount: Number(formData.get('reviewCount')) || 120,
-                  badge: (formData.get('badge') as string) || '100% Botanical',
-                  isBestseller: formData.get('isBestseller') === 'on',
-                  isHerbalHeritage: true,
-                  image: productImageFile || (formData.get('imageUrl') as string) || '/images/products-hero-banner.png',
-                  shortDescription: (formData.get('shortDescription') as string) || '',
-                  fullDescription: (formData.get('fullDescription') as string) || '',
-                  keyBenefits: editingProduct?.keyBenefits || [
-                    'Nourishes delicate skin barrier naturally',
-                    'Promotes deep restful sleep for baby',
-                  ],
-                  heroIngredients: editingProduct?.heroIngredients || [],
-                  usageRitual: editingProduct?.usageRitual || [],
-                  safetyCertifications: ['AYUSH Certified', 'Dermatologically Tested'],
-                  tags: ((formData.get('tags') as string) || 'Bestseller').split(',').map((t) => t.trim()),
-                };
-
-                if (editingProduct) {
-                  updateProduct(editingProduct.id, updatedProd);
-                  showToast(`Updated product: ${updatedProd.title}`);
-                } else {
-                  addProduct(updatedProd);
-                  showToast(`Created new product: ${updatedProd.title}`);
-                }
-
-                setIsProductModalOpen(false);
-              }}
-              className="space-y-4 text-xs"
-            >
-              {/* Product Image Preview & Direct Upload */}
-              <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-neutral-200 space-y-3">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">Product Image *</span>
-                <div className="flex items-center space-x-4">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden bg-white border border-neutral-300 shrink-0">
-                    <img
-                      src={productImageFile || editingProduct?.image || '/images/products-hero-banner.png'}
-                      alt="Product"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
-                      }}
-                    />
-                  </div>
-                  <div className="flex-1 space-y-2">
-                    <label className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold text-xs cursor-pointer shadow-xs transition-colors space-x-1.5">
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>Upload Product Photo from Device</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleFileUpload(e, (b64) => setProductImageFile(b64))}
-                      />
-                    </label>
-                    <p className="text-[11px] text-neutral-500">
-                      Upload JPEG, PNG or WebP image. Automatically optimized for web.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Product Name *</label>
-                  <input
-                    name="title"
-                    required
-                    defaultValue={editingProduct?.title || ''}
-                    placeholder="e.g. Soothing Baby Massage Oil"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Category *</label>
-                  <select
-                    name="category"
-                    defaultValue={editingProduct?.category || 'baby-massage'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  >
-                    <option value="baby-massage">Baby Massage Oil</option>
-                    <option value="mother-postpartum">Mother Postpartum Oil</option>
-                    <option value="bath-wellness">Bath Powders &amp; Ubtans</option>
-                    <option value="digestive-relief">Colic &amp; Digestive Roll-Ons</option>
-                    <option value="curated-bundle">Curated Combo Sets</option>
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Botanical Infusion Subtitle</label>
-                  <input
-                    name="subtitle"
-                    defaultValue={editingProduct?.subtitle || ''}
-                    placeholder="e.g. Cold-Pressed Sweet Almond & Calming Nilgiri Botanicals"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Volume / Pack Size *</label>
-                  <input
-                    name="volume"
-                    required
-                    defaultValue={editingProduct?.volume || '200 ml'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Price (INR ₹) *</label>
-                  <input
-                    name="price"
-                    type="number"
-                    required
-                    defaultValue={editingProduct?.price || 680}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-black text-[#7B1131]"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Promotional Badge</label>
-                  <input
-                    name="badge"
-                    defaultValue={editingProduct?.badge || 'Flagship Bestseller'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Tags (Comma Separated)</label>
-                  <input
-                    name="tags"
-                    defaultValue={editingProduct?.tags?.join(', ') || 'Bestseller, Newborn Safe (0m+)'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Short Description (Cards) *</label>
-                  <textarea
-                    name="shortDescription"
-                    rows={2}
-                    required
-                    defaultValue={editingProduct?.shortDescription || ''}
-                    placeholder="Summary for product card..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Full Heritage Description</label>
-                  <textarea
-                    name="fullDescription"
-                    rows={3}
-                    defaultValue={editingProduct?.fullDescription || ''}
-                    placeholder="Classical formulation and Ayurvedic curing details..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-              </div>
-
-              <div className="flex items-center space-x-4 pt-2">
-                <label className="flex items-center space-x-2 font-bold text-neutral-700 text-xs cursor-pointer">
-                  <input type="checkbox" name="isBestseller" defaultChecked={editingProduct?.isBestseller !== false} className="rounded border-neutral-300 text-maroon" />
-                  <span>Flagship Bestseller</span>
-                </label>
-
-                <label className="flex items-center space-x-2 font-bold text-neutral-700 text-xs cursor-pointer">
-                  <input type="checkbox" defaultChecked className="rounded border-neutral-300 text-maroon" />
-                  <span>In Stock</span>
-                </label>
-
-                <label className="flex items-center space-x-2 font-bold text-neutral-700 text-xs cursor-pointer">
-                  <input type="checkbox" defaultChecked className="rounded border-neutral-300 text-maroon" />
-                  <span>Active on Live Site</span>
-                </label>
-              </div>
-
-              <div className="pt-4 border-t border-neutral-100 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsProductModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-100 font-bold text-neutral-700 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-8 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold shadow-md cursor-pointer"
-                >
-                  {editingProduct ? 'Update Product' : 'Add Product'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 5. ADD / EDIT VIDEO REVIEW MODAL                                          */}
-      {/* ========================================================================= */}
-      {isTestimonialModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-                  <Video className="w-4 h-4" />
-                </div>
-                <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                  {editingTestimonial ? 'Edit Video Review' : 'Add New Video Review'}
-                </h3>
-              </div>
-              <button
-                onClick={() => setIsTestimonialModalOpen(false)}
-                className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const author = (formData.get('author') as string) || 'Client Story';
-                const youtubeUrl = (formData.get('youtubeUrl') as string) || videoUrlInput;
-                const yid = extractYouTubeId(youtubeUrl);
-
-                const updatedTestimonial: Testimonial = {
-                  id: editingTestimonial?.id || `testimonial-${Date.now()}`,
-                  author: author,
-                  location: (formData.get('location') as string) || 'Singapore',
-                  stage: (formData.get('stage') as JourneyStage) || 'postpartum',
-                  serviceOrProduct: (formData.get('serviceOrProduct') as string) || 'Mother & Baby Postpartum Care',
-                  babyAgeOrWeek: (formData.get('babyAgeOrWeek') as string) || 'Baby Advait (Now 4 months)',
-                  quote: (formData.get('quote') as string) || 'SEYOL provided authentic maternal comfort and healing.',
-                  detailedStory: (formData.get('detailedStory') as string) || '',
-                  rating: Number(formData.get('rating')) || 5,
-                  verifiedParent: true,
-                  youtubeUrl: youtubeUrl,
-                  thumbnailImage: yid ? `https://img.youtube.com/vi/${yid}/hqdefault.jpg` : '',
-                  videoDuration: '3:45',
-                };
-
-                if (editingTestimonial) {
-                  updateTestimonial(editingTestimonial.id, updatedTestimonial);
-                  showToast(`Updated video review: ${author}`);
-                } else {
-                  addTestimonial(updatedTestimonial);
-                  showToast(`Added new video review: ${author}`);
-                }
-
-                setIsTestimonialModalOpen(false);
-              }}
-              className="space-y-4 text-xs"
-            >
-              {/* YouTube Video URL with Live Player Preview */}
-              <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-neutral-200 space-y-3">
-                <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                  YouTube Video Link *
-                </span>
-                
-                <div>
-                  <input
-                    name="youtubeUrl"
-                    type="text"
-                    required
-                    value={videoUrlInput}
-                    onChange={(e) => setVideoUrlInput(e.target.value)}
-                    placeholder="https://www.youtube.com/watch?v=..."
-                    className="w-full px-3.5 py-2.5 rounded-xl bg-white border border-neutral-300 font-mono text-[11px] focus:outline-none focus:ring-1 focus:ring-maroon"
-                  />
-                </div>
-
-                {/* Instant Live Player Preview */}
-                <div className="w-full aspect-video rounded-xl overflow-hidden bg-black relative border border-neutral-300 shadow-xs mt-2">
-                  {extractYouTubeId(videoUrlInput) ? (
-                    <iframe
-                      src={`https://www.youtube.com/embed/${extractYouTubeId(videoUrlInput)}`}
-                      title="Live Video Preview"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full border-0"
-                    />
+            {/* Right Clock */}
+            <div className="flex items-center space-x-2 shrink-0">
+              <div className="flex items-center space-x-1.5 sm:space-x-2 px-2.5 sm:px-3 py-1.5 rounded-xl bg-white border border-stone-200/90 shadow-2xs text-xs font-medium text-stone-700">
+                <Calendar className="w-3.5 h-3.5 text-[#7B1131] shrink-0" />
+                <span className="tabular-nums font-mono text-[10.5px] sm:text-[11px] whitespace-nowrap">
+                  {currentDateTime.includes('•') ? (
+                    <>
+                      <span className="hidden sm:inline">{currentDateTime.split('•')[0]}• </span>
+                      <span>{currentDateTime.split('•')[1]?.trim() || currentDateTime}</span>
+                    </>
                   ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center text-white/50 text-xs space-y-1.5">
-                      <Video className="w-6 h-6" />
-                      <span>Paste valid YouTube URL above to preview video</span>
-                    </div>
+                    currentDateTime || 'Loading Time...'
                   )}
-                </div>
+                </span>
               </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Parent / Client Name *</label>
-                  <input
-                    name="author"
-                    required
-                    defaultValue={editingTestimonial?.author || ''}
-                    placeholder="e.g. Deepika & Karthik Sundaram"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Location *</label>
-                  <input
-                    name="location"
-                    required
-                    defaultValue={editingTestimonial?.location || 'Singapore'}
-                    placeholder="e.g. Singapore / Chennai, India"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Service / Product Received *</label>
-                  <input
-                    name="serviceOrProduct"
-                    required
-                    defaultValue={editingTestimonial?.serviceOrProduct || 'Mother & Baby Postpartum Package'}
-                    placeholder="e.g. 28-Day Postpartum Care & Bath"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Baby Milestone / Age</label>
-                  <input
-                    name="babyAgeOrWeek"
-                    defaultValue={editingTestimonial?.babyAgeOrWeek || 'Baby Advait (Now 4 months)'}
-                    placeholder="e.g. Baby Tara (Now 6 months)"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Journey Stage *</label>
-                  <select
-                    name="stage"
-                    defaultValue={editingTestimonial?.stage || 'postpartum'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  >
-                    <option value="preconception">Preconception & Fertility</option>
-                    <option value="pregnancy">Pregnancy & Doula</option>
-                    <option value="postpartum">Postpartum Confinement & Massage</option>
-                    <option value="newborn">Infant Bath & Colic</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Rating *</label>
-                  <select
-                    name="rating"
-                    defaultValue={editingTestimonial?.rating || 5}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-bold text-amber-700"
-                  >
-                    <option value="5">★★★★★ 5 Stars (Exceptional)</option>
-                    <option value="4">★★★★☆ 4 Stars (Very Good)</option>
-                    <option value="3">★★★☆☆ 3 Stars (Good)</option>
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Headline Quote *</label>
-                  <input
-                    name="quote"
-                    required
-                    defaultValue={editingTestimonial?.quote || ''}
-                    placeholder="e.g. SEYOL was like having a loving grandmother and certified nurse in one."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-serif font-bold text-maroon"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Full Detailed Story / Review</label>
-                  <textarea
-                    name="detailedStory"
-                    rows={3}
-                    defaultValue={editingTestimonial?.detailedStory || ''}
-                    placeholder="Share the full experience and recovery details..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 leading-relaxed"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-neutral-100 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsTestimonialModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-100 font-bold text-neutral-700 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-8 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold shadow-md cursor-pointer"
-                >
-                  {editingTestimonial ? 'Update Video Review' : 'Save Video Review'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 6. ADD / EDIT COMBINED PACKAGE MODAL                                      */}
-      {/* ========================================================================= */}
-      {isCombinedPackageModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center">
-                  <Package className="w-4 h-4" />
-                </div>
-                <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                  {editingCombinedPackage ? 'Edit Combined Package' : 'Add New Combined Package'}
-                </h3>
-              </div>
-              <button
-                onClick={() => setIsCombinedPackageModalOpen(false)}
-                className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
             </div>
+          </header>
 
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const name = (formData.get('name') as string) || 'SEYOL Package';
-                const num = (formData.get('num') as string) || '01';
-                const price = Number(formData.get('price')) || 35000;
-                const priceDisplay = (formData.get('priceDisplay') as string) || `₹${price.toLocaleString('en-IN')} / Package`;
-
-                const updatedPackage: CombinedPackageItem = {
-                  id: editingCombinedPackage?.id || `package-${Date.now()}`,
-                  num: num,
-                  name: name,
-                  badge: (formData.get('badge') as string) || 'Essential Postpartum',
-                  popular: formData.get('popular') === 'on',
-                  infantSessions: (formData.get('infantSessions') as string) || '15 Sessions of Infant Massage & Bath',
-                  postpartumSessions: (formData.get('postpartumSessions') as string) || '10 Sessions of Postpartum Massage & Wrap',
-                  price: price,
-                  priceDisplay: priceDisplay,
-                  waLink: (formData.get('waLink') as string) || 'https://wa.link/zi9nsk',
-                  description: (formData.get('description') as string) || '',
-                };
-
-                if (editingCombinedPackage) {
-                  updateCombinedPackage(editingCombinedPackage.id, updatedPackage);
-                  showToast(`Updated package: ${name}`);
-                } else {
-                  addCombinedPackage(updatedPackage);
-                  showToast(`Created new package: ${name}`);
-                }
-
-                setIsCombinedPackageModalOpen(false);
-              }}
-              className="space-y-4 text-xs"
-            >
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Package Number *</label>
-                  <input
-                    name="num"
-                    required
-                    defaultValue={editingCombinedPackage?.num || '01'}
-                    placeholder="e.g. 01, 02, 07"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-mono font-bold"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Package Title *</label>
-                  <input
-                    name="name"
-                    required
-                    defaultValue={editingCombinedPackage?.name || ''}
-                    placeholder="e.g. SEYOL Package 1 or Royal Mandalam"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Package Badge</label>
-                  <input
-                    name="badge"
-                    defaultValue={editingCombinedPackage?.badge || 'Essential Postpartum'}
-                    placeholder="e.g. Sacred Mandalam, Complete Care"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Price in INR (₹) *</label>
-                  <input
-                    name="price"
-                    type="number"
-                    required
-                    defaultValue={editingCombinedPackage?.price || 35000}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-bold text-[#7B1131]"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Display Price Format</label>
-                  <input
-                    name="priceDisplay"
-                    defaultValue={editingCombinedPackage?.priceDisplay || '₹35,000 / Package'}
-                    placeholder="e.g. ₹35,000 / Package"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-mono"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Infant Care Sessions Breakdown *</label>
-                  <input
-                    name="infantSessions"
-                    required
-                    defaultValue={editingCombinedPackage?.infantSessions || '15 Sessions of Infant Massage & Bath'}
-                    placeholder="e.g. 15 Sessions of Infant Massage & Bath"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Postpartum Mother Sessions Breakdown *</label>
-                  <input
-                    name="postpartumSessions"
-                    required
-                    defaultValue={editingCombinedPackage?.postpartumSessions || '10 Sessions of Postpartum Massage & Wrap'}
-                    placeholder="e.g. 10 Sessions of Postpartum Massage & Wrap"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Package Description</label>
-                  <textarea
-                    name="description"
-                    rows={2}
-                    defaultValue={editingCombinedPackage?.description || ''}
-                    placeholder="Care details and included benefits..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">WhatsApp Booking Link</label>
-                  <input
-                    name="waLink"
-                    defaultValue={editingCombinedPackage?.waLink || 'https://wa.link/zi9nsk'}
-                    placeholder="https://wa.link/..."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-mono text-[11px]"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-2">
-                <label className="flex items-center space-x-2 font-bold text-neutral-700 text-xs cursor-pointer">
-                  <input
-                    type="checkbox"
-                    name="popular"
-                    defaultChecked={editingCombinedPackage?.popular}
-                    className="rounded border-neutral-300 text-maroon"
-                  />
-                  <span>Mark as "Most Popular / Recommended" Package</span>
-                </label>
-              </div>
-
-              <div className="pt-4 border-t border-neutral-100 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsCombinedPackageModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-100 font-bold text-neutral-700 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-8 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold shadow-md cursor-pointer"
-                >
-                  {editingCombinedPackage ? 'Update Package' : 'Save Package'}
-                </button>
-              </div>
-            </form>
+          {/* Module Content */}
+          <div className="animate-fadeIn">
+            {activeTab === 'customers' && <AdminClientEditor />}
+            {activeTab === 'orders' && <AdminOrderManager />}
+            {activeTab === 'products' && <AdminProductCatalog onNotify={showToast} />}
+            {activeTab === 'website' && <AdminWebsiteManager onNotify={showToast} />}
+            {activeTab === 'payments' && <AdminPaymentManager />}
+            {activeTab === 'reports' && <AdminReportsAnalytics />}
+            {activeTab === 'settings' && <AdminSettingsManager />}
           </div>
         </div>
-      )}
 
-      {/* ========================================================================= */}
-      {/* 7. ADD / EDIT PRODUCT HERO BANNER MODAL                                   */}
-      {/* ========================================================================= */}
-      {isBannerModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl border border-neutral-200 space-y-6 my-8">
-            <div className="flex items-center justify-between pb-4 border-b border-neutral-100">
-              <div className="flex items-center space-x-2.5">
-                <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center">
-                  <Camera className="w-4 h-4" />
-                </div>
-                <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
-                  {editingBanner ? 'Edit Hero Banner Slide' : 'Add New Hero Banner Slide'}
-                </h3>
-              </div>
-              <button
-                onClick={() => setIsBannerModalOpen(false)}
-                className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-neutral-600 cursor-pointer"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                const formData = new FormData(e.currentTarget);
-                const title = (formData.get('title') as string) || 'Hero Banner';
-
-                const updatedSlide: ProductBannerSlide = {
-                  id: editingBanner?.id || `banner-${Date.now()}`,
-                  image: bannerImageFile || editingBanner?.image || '/images/products-hero-banner.png',
-                  badge: (formData.get('badge') as string) || 'OFFICIAL SEYOL BOTANICAL FORMULATION',
-                  title: title,
-                  subtitle: (formData.get('subtitle') as string) || '',
-                  productNames: (formData.get('productNames') as string) || '',
-                  ctaText: (formData.get('ctaText') as string) || 'Shop Baby Oil >',
-                  categoryTarget: (formData.get('categoryTarget') as string) || 'all',
-                  isLight: formData.get('isLight') === 'on',
-                  bgGradient: 'from-[#EFE7DB]/95 via-[#EFE7DB]/85 md:via-[#EFE7DB]/40 to-transparent',
-                };
-
-                if (editingBanner) {
-                  updateProductBannerSlide(editingBanner.id, updatedSlide);
-                  showToast(`Updated banner: ${title}`);
-                } else {
-                  addProductBannerSlide(updatedSlide);
-                  showToast(`Added new banner: ${title}`);
-                }
-
-                setIsBannerModalOpen(false);
-              }}
-              className="space-y-4 text-xs"
-            >
-              {/* Banner Image Upload & Live Preview */}
-              <div className="space-y-2">
-                <label className="font-bold text-neutral-700 block">Banner Image *</label>
-                
-                <div className="flex flex-col sm:flex-row items-center gap-4 bg-neutral-50 p-4 rounded-2xl border border-neutral-200">
-                  <div className="w-full sm:w-48 aspect-video rounded-xl overflow-hidden bg-neutral-900 border border-neutral-300 relative shrink-0">
-                    <img
-                      src={bannerImageFile || editingBanner?.image || '/images/products-hero-banner.png'}
-                      alt="Banner Preview"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = '/images/products-hero-banner.png';
-                      }}
-                    />
-                  </div>
-
-                  <div className="flex flex-col gap-2 w-full">
-                    <label className="flex items-center justify-center p-3 rounded-xl border border-dashed border-[#7B1131]/40 hover:border-maroon bg-white text-xs font-bold text-neutral-700 cursor-pointer hover:bg-neutral-50 transition-all space-x-2 shadow-2xs">
-                      <Upload className="w-4 h-4 text-[#7B1131]" />
-                      <span>{bannerImageFile ? 'Change / Upload New Image' : 'Upload Banner Image from Device'}</span>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={(e) => handleFileUpload(e, (b64) => setBannerImageFile(b64))}
-                      />
-                    </label>
-
-                    {bannerImageFile && (
-                      <button
-                        type="button"
-                        onClick={() => setBannerImageFile('')}
-                        className="px-3 py-1.5 rounded-lg bg-red-50 text-red-600 font-bold text-[11px] hover:bg-red-100 transition-colors"
-                      >
-                        Reset to original image
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Banner Title / Headline *</label>
-                  <input
-                    name="title"
-                    required
-                    defaultValue={editingBanner?.title || ''}
-                    placeholder="e.g. Soothing Baby Massage Oil"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-serif font-bold text-sm text-[#3a1d1d]"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Badge Tag</label>
-                  <input
-                    name="badge"
-                    defaultValue={editingBanner?.badge || 'OFFICIAL SEYOL BOTANICAL FORMULATION'}
-                    placeholder="e.g. SACRED 40-DAY CONFINEMENT"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Target Category Filter</label>
-                  <select
-                    name="categoryTarget"
-                    defaultValue={editingBanner?.categoryTarget || 'all'}
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-semibold"
-                  >
-                    <option value="all">All Products</option>
-                    <option value="baby-massage">Baby Massage Oils</option>
-                    <option value="mother-postpartum">Mother Postpartum Oils</option>
-                    <option value="bath-wellness">Bath Powders &amp; Ubtan</option>
-                    <option value="digestive-relief">Colic &amp; Gas Relief</option>
-                    <option value="bundles">Curated Combos</option>
-                  </select>
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Subtitle / Highlight Text</label>
-                  <input
-                    name="subtitle"
-                    defaultValue={editingBanner?.subtitle || ''}
-                    placeholder="e.g. Nourishing, gentle, pure care for newborn baby massage & sweet sleep."
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200"
-                  />
-                </div>
-
-                <div className="sm:col-span-2">
-                  <label className="font-bold text-neutral-700 block mb-1">Included Product Names / Key Botanicals</label>
-                  <input
-                    name="productNames"
-                    defaultValue={editingBanner?.productNames || ''}
-                    placeholder="e.g. Cold-Pressed Sweet Almond, Virgin Coconut & Calming Nilgiri Botanicals (200 ml)"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-600"
-                  />
-                </div>
-
-                <div>
-                  <label className="font-bold text-neutral-700 block mb-1">Action Button (CTA) Text</label>
-                  <input
-                    name="ctaText"
-                    defaultValue={editingBanner?.ctaText || 'Shop Baby Oil >'}
-                    placeholder="e.g. Shop Baby Oil >"
-                    className="w-full px-3.5 py-2 rounded-xl bg-neutral-50 border border-neutral-200 font-bold"
-                  />
-                </div>
-
-                <div className="flex items-center pt-5">
-                  <label className="flex items-center space-x-2 font-bold text-neutral-700 text-xs cursor-pointer">
-                    <input
-                      type="checkbox"
-                      name="isLight"
-                      defaultChecked={editingBanner ? editingBanner.isLight : true}
-                      className="rounded border-neutral-300 text-maroon"
-                    />
-                    <span>Light Background Theme</span>
-                  </label>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-neutral-100 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsBannerModalOpen(false)}
-                  className="px-5 py-2.5 rounded-xl bg-neutral-100 font-bold text-neutral-700 cursor-pointer"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-8 py-2.5 rounded-xl bg-[#7B1131] hover:bg-[#5e0c24] text-white font-bold shadow-md cursor-pointer"
-                >
-                  {editingBanner ? 'Update Banner' : 'Save Banner'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-
-
+        {/* Global Content Footer */}
+        <footer className="pt-8 pb-4 text-center text-xs text-stone-400 border-t border-stone-200/60 mt-12">
+          SEYOL Sacred Mother &amp; Baby Care Pvt Ltd • Secure Operations Dashboard
+        </footer>
+      </main>
     </div>
   );
 }

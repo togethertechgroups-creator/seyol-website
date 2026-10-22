@@ -63,10 +63,6 @@ export const ComparisonCards: React.FC = () => {
                 Daily 90-minute in-home maternal bodywork, herbal steam fomentation (Kizhi), and traditional South Indian cotton belly binding.
               </p>
 
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                ₹24,000 <span className="text-xs font-sans font-normal text-brown-muted">/ 10-Day Care</span>
-              </div>
-
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
@@ -118,10 +114,6 @@ export const ComparisonCards: React.FC = () => {
                 Coordinated 2.5-hour daily dual session. Mother receives full recovery bodywork and binding, while baby receives traditional infant massage and soothing bath.
               </p>
 
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                ₹36,000 <span className="text-xs font-sans font-normal text-brown-muted">/ 10-Day Complete Dual Care</span>
-              </div>
-
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
@@ -137,7 +129,7 @@ export const ComparisonCards: React.FC = () => {
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Complimentary SEY Botanical Care Gift Box (Worth ₹2,800)</span>
+                  <span>Complimentary SEY Botanical Care Gift Box</span>
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
@@ -177,10 +169,6 @@ export const ComparisonCards: React.FC = () => {
               <p className="text-xs text-brown-muted leading-relaxed">
                 A background-verified, hospital-trained confinement nanny lives with your family to oversee newborn night feeds, mother’s confinement meals, and nursery sanitation.
               </p>
-
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                ₹85,000 <span className="text-xs font-sans font-normal text-brown-muted">/ 28-Day Stay-In</span>
-              </div>
 
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
@@ -225,10 +213,6 @@ export const ComparisonCards: React.FC = () => {
               <p className="text-xs text-brown-muted leading-relaxed">
                 Targeted daytime or overnight blocks (4 to 8 hours) by certified newborn aides to give parents essential rest or manage specific colic hours.
               </p>
-
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                ₹650 <span className="text-xs font-sans font-normal text-brown-muted">/ hour (Min 4h block)</span>
-              </div>
 
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
@@ -277,10 +261,6 @@ export const ComparisonCards: React.FC = () => {
                 A certified care matron arrives at your doorstep daily to personally perform all massages, baths, Kizhi, and belly wrapping for you.
               </p>
 
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                From ₹15,400 <span className="text-xs font-sans font-normal text-brown-muted">/ Multi-Day Service</span>
-              </div>
-
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
@@ -323,10 +303,6 @@ export const ComparisonCards: React.FC = () => {
               <p className="text-xs text-brown-muted leading-relaxed">
                 Learn directly from certified educators so both mother and father gain lifelong skills in bathing, soothing, massage, and labor coaching.
               </p>
-
-              <div className="font-serif font-bold text-xl text-maroon pt-2">
-                ₹2,999 - ₹4,999 <span className="text-xs font-sans font-normal text-brown-muted">/ Couple Workshop</span>
-              </div>
 
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">

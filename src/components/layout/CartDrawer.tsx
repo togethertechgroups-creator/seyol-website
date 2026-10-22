@@ -284,8 +284,8 @@ export const CartDrawer: React.FC = () => {
         onClick={closeCart}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-cream-light shadow-2xl flex flex-col border-l border-cream-border animate-slideLeft">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen max-w-full sm:max-w-md bg-cream-light shadow-2xl flex flex-col border-l border-cream-border animate-slideLeft">
           {/* Header */}
           <div className="p-5 bg-cream border-b border-cream-border flex items-center justify-between">
             <div className="flex items-center space-x-2">
@@ -475,7 +475,7 @@ export const CartDrawer: React.FC = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <div>
                       <label className="font-bold text-brown block mb-1">City *</label>
                       <input

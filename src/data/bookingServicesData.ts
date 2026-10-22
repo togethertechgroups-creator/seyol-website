@@ -169,7 +169,7 @@ export const bookingServicesConfig: Record<BookingServiceId, BookingServiceConfi
       standard: [
         {
           id: 'ssp-1-session',
-          name: '1 Session Trial Postpartum Massage & Wrap',
+          name: '1 Session',
           sessions: '1 Session (60 Mins)',
           details: 'Full-body herbal oil massage, uterine alignment, and traditional cotton abdominal binding wrap.'
         },
@@ -204,7 +204,7 @@ export const bookingServicesConfig: Record<BookingServiceId, BookingServiceConfi
       premium: [
         {
           id: 'spp-1-session',
-          name: '1 Session Premium Postpartum Massage & Herbal Bath',
+          name: '1 Session',
           sessions: '1 Session (90 Mins)',
           details: 'Full-body massage, customized herbal bath infusion (Nalangu / Thailam), and specialized multi-layer wrap.'
         },
@@ -268,7 +268,7 @@ export const bookingServicesConfig: Record<BookingServiceId, BookingServiceConfi
       flat: [
         {
           id: 'simb-1-session',
-          name: '1 Session Infant Massage & Bath',
+          name: '1 Session',
           sessions: '1 Session (45 Mins)',
           details: 'Traditional baby massage (Thokkanam) with organic virgin cold-pressed oil & soothing herbal bath.'
         },
@@ -557,7 +557,7 @@ export const bookingServicesConfig: Record<BookingServiceId, BookingServiceConfi
     badge: 'Care Roadmap',
     isSingaporeOnly: false,
     supportsInPerson: true,
-    stepCount: 6,
+    stepCount: 7,
     stepTitles: [
       'About You',
       'What Brings You Here?',

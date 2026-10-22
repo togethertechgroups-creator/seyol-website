@@ -18,6 +18,108 @@ const BOOKING_CONFIGS_STORAGE_KEY = 'seyol_admin_booking_configs_v2';
 const TESTIMONIALS_STORAGE_KEY = 'seyol_admin_testimonials_v2';
 const COMBINED_PACKAGES_STORAGE_KEY = 'seyol_admin_combined_packages_v2';
 const ORDERS_STORAGE_KEY = 'seyol_admin_orders_v2';
+const STAGE_RESOURCES_STORAGE_KEY = 'seyol_admin_stage_resources_v2';
+const GUIDE_LEADS_STORAGE_KEY = 'seyol_admin_guide_leads_v2';
+
+export type JourneyStageKey = 'pregnancy' | 'postpartum' | 'newborn' | 'preconception';
+
+export interface StageResourceGuide {
+  id: string;
+  stage: JourneyStageKey;
+  stageLabel: string;
+  badge: string;
+  title: string;
+  subtitle: string;
+  fileName: string;
+  fileUrl?: string;
+  fileSize?: string;
+  pageCount?: string;
+  highlights: string[];
+  updatedAt: string;
+}
+
+export interface GuideLead {
+  id: string;
+  fullName: string;
+  email: string;
+  stage: JourneyStageKey | string;
+  guideTitle: string;
+  downloadedAt: string;
+}
+
+export const defaultStageResourceGuides: Record<JourneyStageKey, StageResourceGuide> = {
+  pregnancy: {
+    id: 'guide-pregnancy',
+    stage: 'pregnancy',
+    stageLabel: 'Currently Pregnant (2nd/3rd Trimester)',
+    badge: 'Complimentary Trimester Guide',
+    title: 'Download "Garbhini: South Indian Pregnancy & Labour Preparation Handbook"',
+    subtitle: 'Evidence-based traditional dietary practices, womb bonding techniques, and labour breathing rituals curated for 2nd and 3rd trimesters.',
+    fileName: 'SEYOL-Garbhini-Pregnancy-Guide.pdf',
+    fileSize: '4.2 MB',
+    pageCount: '28 Pages',
+    highlights: ['Instant PDF Download', 'Prenatal Herbal Diet Chart', 'Hospital Bag Packing List'],
+    updatedAt: new Date().toISOString(),
+  },
+  postpartum: {
+    id: 'guide-postpartum',
+    stage: 'postpartum',
+    stageLabel: 'Newly Postpartum (First 40 Days)',
+    badge: 'Complimentary Fourth Trimester Guide',
+    title: 'Download "The Sacred 40 Days: South Indian Confinement Wisdom"',
+    subtitle: 'Receive our curated 36-page guide on postpartum herbal recovery, maternal nutrition recipes, and infant sleep rituals delivered directly to your inbox.',
+    fileName: 'SEYOL-The-Sacred-40-Days-Confinement-Wisdom.pdf',
+    fileSize: '5.8 MB',
+    pageCount: '36 Pages',
+    highlights: ['Instant PDF Download', '40-Day Meal Planner', '100% Free • No Spam'],
+    updatedAt: new Date().toISOString(),
+  },
+  newborn: {
+    id: 'guide-newborn',
+    stage: 'newborn',
+    stageLabel: 'Parent of a Newborn (0–12 Months)',
+    badge: 'Complimentary Infant Care Blueprint',
+    title: 'Download "Gentle Beginnings: Traditional Baby Bath & Thokkanam Massage"',
+    subtitle: 'A pictorial, step-by-step master handbook for traditional infant massage, colic soothing holds, herbal bath timing, and non-toxic nursery care.',
+    fileName: 'SEYOL-Traditional-Baby-Massage-Handbook.pdf',
+    fileSize: '6.1 MB',
+    pageCount: '32 Pages',
+    highlights: ['Instant PDF Download', 'Baby Colic & Gas Chart', 'Warm Herbal Bath Guide'],
+    updatedAt: new Date().toISOString(),
+  },
+  preconception: {
+    id: 'guide-preconception',
+    stage: 'preconception',
+    stageLabel: 'Trying to Conceive / Planning Ahead',
+    badge: 'Complimentary Womb Wellness Guide',
+    title: 'Download "Garbhadhana: Ancestral Womb Nourishment & Fertility Blueprint"',
+    subtitle: 'Holistic reproductive health protocols, cycle-syncing nutrition, uterine warmth tonics, and partner vitality practices before conception.',
+    fileName: 'SEYOL-Preconception-Womb-Nourishment-Guide.pdf',
+    fileSize: '3.8 MB',
+    pageCount: '24 Pages',
+    highlights: ['Instant PDF Download', 'Cycle Nutrition Checklist', 'Restorative Womb Rituals'],
+    updatedAt: new Date().toISOString(),
+  },
+};
+
+export const defaultGuideLeads: GuideLead[] = [
+  {
+    id: 'lead-1',
+    fullName: 'Priya Sundaram',
+    email: 'priya.sundaram@gmail.com',
+    stage: 'postpartum',
+    guideTitle: 'Download "The Sacred 40 Days: South Indian Confinement Wisdom"',
+    downloadedAt: new Date(Date.now() - 1000 * 60 * 60 * 3).toISOString(),
+  },
+  {
+    id: 'lead-2',
+    fullName: 'Deepika Ramanathan',
+    email: 'deepika.r@outlook.com',
+    stage: 'pregnancy',
+    guideTitle: 'Download "Garbhini: South Indian Pregnancy & Labour Preparation Handbook"',
+    downloadedAt: new Date(Date.now() - 1000 * 60 * 60 * 18).toISOString(),
+  },
+];
 
 export interface HomeSettings {
   founderStoryImage: string;
@@ -358,6 +460,13 @@ export interface AdminDataContextType {
   bookingConfigs: Record<BookingServiceId, BookingServiceConfig>;
   testimonials: Testimonial[];
   combinedPackages: CombinedPackageItem[];
+  // Stage Resource Guides (E-Books)
+  stageResourceGuides: Record<JourneyStageKey, StageResourceGuide>;
+  updateStageResourceGuide: (stage: JourneyStageKey, updates: Partial<StageResourceGuide>) => void;
+  guideLeads: GuideLead[];
+  addGuideLead: (lead: Omit<GuideLead, 'id' | 'downloadedAt'>) => GuideLead;
+  deleteGuideLead: (id: string) => void;
+  clearGuideLeads: () => void;
   // Home Settings
   updateHomeSettings: (updates: Partial<HomeSettings>) => void;
   // Products Settings
@@ -423,6 +532,8 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [bookingConfigs, setBookingConfigs] = useState<Record<BookingServiceId, BookingServiceConfig>>(defaultBookingServicesConfig);
   const [testimonials, setTestimonials] = useState<Testimonial[]>(initialEnrichedTestimonials);
   const [combinedPackages, setCombinedPackages] = useState<CombinedPackageItem[]>(defaultCombinedPackages);
+  const [stageResourceGuides, setStageResourceGuides] = useState<Record<JourneyStageKey, StageResourceGuide>>(defaultStageResourceGuides);
+  const [guideLeads, setGuideLeads] = useState<GuideLead[]>(defaultGuideLeads);
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
 
   // Hydrate from localStorage on client mount
@@ -471,6 +582,16 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const savedOrders = localStorage.getItem(ORDERS_STORAGE_KEY);
       if (savedOrders) {
         setOrders(JSON.parse(savedOrders));
+      }
+
+      const savedStageResources = localStorage.getItem(STAGE_RESOURCES_STORAGE_KEY);
+      if (savedStageResources) {
+        setStageResourceGuides(JSON.parse(savedStageResources));
+      }
+
+      const savedGuideLeads = localStorage.getItem(GUIDE_LEADS_STORAGE_KEY);
+      if (savedGuideLeads) {
+        setGuideLeads(JSON.parse(savedGuideLeads));
       }
     } catch (err) {
       console.warn('Could not load SEYOL admin storage data:', err);
@@ -861,6 +982,59 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     saveOrders((prevOrders) => prevOrders.filter((o) => o.id !== orderId));
   };
 
+  // Stage Resource Guides (E-Books) CRUD
+  const saveStageResourceGuides = (newGuides: Record<JourneyStageKey, StageResourceGuide>) => {
+    setStageResourceGuides(newGuides);
+    try {
+      localStorage.setItem(STAGE_RESOURCES_STORAGE_KEY, JSON.stringify(newGuides));
+    } catch (e) {
+      console.error('Failed to save stage resource guides to localStorage', e);
+    }
+  };
+
+  const updateStageResourceGuide = (stage: JourneyStageKey, updates: Partial<StageResourceGuide>) => {
+    const existing = stageResourceGuides[stage] || defaultStageResourceGuides[stage];
+    const updated = {
+      ...stageResourceGuides,
+      [stage]: {
+        ...existing,
+        ...updates,
+        updatedAt: new Date().toISOString(),
+      },
+    };
+    saveStageResourceGuides(updated);
+  };
+
+  // Guide Leads CRUD
+  const saveGuideLeads = (newLeads: GuideLead[]) => {
+    setGuideLeads(newLeads);
+    try {
+      localStorage.setItem(GUIDE_LEADS_STORAGE_KEY, JSON.stringify(newLeads));
+    } catch (e) {
+      console.error('Failed to save guide leads to localStorage', e);
+    }
+  };
+
+  const addGuideLead = (lead: Omit<GuideLead, 'id' | 'downloadedAt'>): GuideLead => {
+    const newLead: GuideLead = {
+      ...lead,
+      id: `lead-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`,
+      downloadedAt: new Date().toISOString(),
+    };
+    const updated = [newLead, ...guideLeads];
+    saveGuideLeads(updated);
+    return newLead;
+  };
+
+  const deleteGuideLead = (id: string) => {
+    const updated = guideLeads.filter((l) => l.id !== id);
+    saveGuideLeads(updated);
+  };
+
+  const clearGuideLeads = () => {
+    saveGuideLeads([]);
+  };
+
   // Reset
   const resetAllToDefaults = () => {
     try {
@@ -873,6 +1047,8 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       localStorage.removeItem(TESTIMONIALS_STORAGE_KEY);
       localStorage.removeItem(COMBINED_PACKAGES_STORAGE_KEY);
       localStorage.removeItem(ORDERS_STORAGE_KEY);
+      localStorage.removeItem(STAGE_RESOURCES_STORAGE_KEY);
+      localStorage.removeItem(GUIDE_LEADS_STORAGE_KEY);
     } catch (e) {
       console.error('Error clearing admin localStorage', e);
     }
@@ -885,6 +1061,8 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setBookingConfigs(defaultBookingServicesConfig);
     setTestimonials(initialEnrichedTestimonials);
     setCombinedPackages(defaultCombinedPackages);
+    setStageResourceGuides(defaultStageResourceGuides);
+    setGuideLeads(defaultGuideLeads);
   };
 
   return (
@@ -899,6 +1077,12 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         bookingConfigs,
         testimonials,
         combinedPackages,
+        stageResourceGuides,
+        updateStageResourceGuide,
+        guideLeads,
+        addGuideLead,
+        deleteGuideLead,
+        clearGuideLeads,
         updateHomeSettings,
         updateProductsSettings,
         addProductBannerSlide,

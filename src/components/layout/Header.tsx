@@ -139,17 +139,17 @@ export const Header: React.FC = () => {
         isNavbarVisible ? 'translate-y-0' : '-translate-y-28'
       }`}
     >
-      <div className="pointer-events-auto w-full max-w-[1140px]">
+      <div className="pointer-events-auto w-full max-w-[1240px]">
         
-        {/* ── Maven-Style Slim White Floating Navbar Container ── */}
-        <div className="w-full bg-white rounded-xl h-[64px] px-2.5 sm:px-3 shadow-[0_4px_25px_rgba(0,0,0,0.12)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/90">
+        {/* ── Sleek White Floating Pill Navbar Container ── */}
+        <div className="w-full bg-white rounded-full h-[64px] px-4 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
           
           {/* ── Left: SEYOL Wordmark Logo ── */}
           <Link
             href="/"
             className="shrink-0 flex items-center pr-1 cursor-pointer group"
           >
-            <div className="relative w-[76px] sm:w-[86px] h-[21px] sm:h-[24px] shrink-0">
+            <div className="relative w-[72px] xs:w-[80px] sm:w-[90px] h-[22px] sm:h-[26px] shrink-0">
               <Image
                 src={wordmarkMaroonSrc}
                 alt="SEYOL Mother & Baby Care"
@@ -162,7 +162,7 @@ export const Header: React.FC = () => {
           </Link>
 
           {/* ── Center: Desktop Navigation Bar with Dropdowns (64px height centered) ── */}
-          <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink font-sans text-[11.5px] xl:text-[12.5px] font-semibold text-neutral-700 leading-none h-[64px]">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 shrink font-sans text-[12px] xl:text-[13px] font-semibold text-neutral-700 leading-none h-[64px]">
             {navLinks.map((link) => {
               const isCurrentRoute = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
               const isDropdownOpen = link.key && activeDropdown === link.key;
@@ -180,13 +180,13 @@ export const Header: React.FC = () => {
                       href={link.href}
                       prefetch={true}
                       onClick={() => setActiveDropdown(null)}
-                      className={`flex items-center space-x-0.5 px-1.5 xl:px-2 py-1.5 whitespace-nowrap rounded-lg transition-all duration-150 cursor-pointer ${
+                      className={`relative flex items-center space-x-0.5 px-2 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 cursor-pointer ${
                         isHighlighted
                           ? 'text-[#7B1131] font-bold'
-                          : 'text-neutral-700 hover:text-black hover:bg-neutral-50'
+                          : 'text-neutral-700 hover:text-black hover:bg-neutral-50/80'
                       }`}
                     >
-                      <span className="whitespace-nowrap">
+                      <span className="relative whitespace-nowrap">
                         {link.longName ? (
                           <>
                             <span className="hidden xl:inline">{link.longName}</span>
@@ -194,6 +194,9 @@ export const Header: React.FC = () => {
                           </>
                         ) : (
                           link.name
+                        )}
+                        {isCurrentRoute && (
+                          <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#7B1131] rounded-full" />
                         )}
                       </span>
                       <ChevronDown className={`w-2.5 h-2.5 transition-transform duration-200 ml-0.5 shrink-0 ${isDropdownOpen ? 'rotate-180 text-[#7B1131]' : 'opacity-60'}`} />
@@ -210,64 +213,31 @@ export const Header: React.FC = () => {
                       {/* Services Dropdown */}
                       {link.key === 'services' && (
                         <div
-                          className="w-[580px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          className="w-[540px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
-                            <div>
-                              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                                In-Home Continuum
-                              </div>
-                              <div className="font-serif font-bold text-sm text-brown">
-                                All 10 Traditional Care Services
-                              </div>
-                            </div>
-                            <Link
-                              href="/book"
-                              onClick={() => setActiveDropdown(null)}
-                              className="px-3 py-1 rounded-full bg-gold text-[#7B1131] font-bold text-[11px] hover:bg-gold-dark hover:text-white transition-colors shadow-2xs"
-                            >
-                              Book Sanctuary &rarr;
-                            </Link>
-                          </div>
-
                           <div className="grid grid-cols-2 gap-1.5 max-h-[380px] overflow-y-auto pr-1">
                             {[
-                              { name: 'Preconception Support', href: '/services/preconception-support', badge: 'Fertility' },
-                              { name: 'Prenatal Massage', href: '/services/prenatal-massage-therapy', badge: 'Pregnancy' },
-                              { name: 'Birth Doula Support', href: '/services/birth-doula-support', badge: 'Birth' },
-                              { name: 'Postpartum Massage & Wrap', href: '/services/postpartum-massage-and-wrap', badge: '40-Day' },
-                              { name: 'Signature Infant Massage & Bath', href: '/services/infant-massage-and-bath', badge: 'Baby Bath' },
-                              { name: 'Mother & Baby Combo Packages', href: '/services/mother-and-baby-combo-packages', badge: 'Flagship' },
-                              { name: 'Stay-In Confinement Nanny', href: '/services/stay-in-confinement-nanny-support', badge: '24/7 Care' },
-                              { name: 'Hourly Newborn Support', href: '/services/hourly-newborn-support', badge: 'Respite' },
-                              { name: 'Lactation & Feeding Support', href: '/services/lactation-and-breastfeeding-support', badge: 'Gentle' },
-                              { name: 'General Consultation', href: '/services/holistic-care-guidance-consultation', badge: 'Roadmap' },
+                              { name: 'Preconception Support', href: '/services/preconception-support' },
+                              { name: 'Prenatal Massage', href: '/services/prenatal-massage-therapy' },
+                              { name: 'Birth Doula Support', href: '/services/birth-doula-support' },
+                              { name: 'Postpartum Massage & Wrap', href: '/services/postpartum-massage-and-wrap' },
+                              { name: 'Signature Infant Massage & Bath', href: '/services/infant-massage-and-bath' },
+                              { name: 'Mother & Baby Combo Packages', href: '/services/mother-and-baby-combo-packages' },
+                              { name: 'Stay-In Confinement Nanny', href: '/services/stay-in-confinement-nanny-support' },
+                              { name: 'Hourly Newborn Support', href: '/services/hourly-newborn-support' },
+                              { name: 'Lactation & Feeding Support', href: '/services/lactation-and-breastfeeding-support' },
+                              { name: 'General Consultation', href: '/services/holistic-care-guidance-consultation' },
                             ].map((svc) => (
                               <Link
                                 key={svc.name}
                                 href={svc.href}
                                 onClick={() => setActiveDropdown(null)}
-                                className="px-3 py-2 text-xs text-neutral-900 hover:text-[#7B1131] hover:bg-[#FAF6EE] rounded-xl transition-all font-semibold flex items-center justify-between group/item"
+                                className="px-3 py-2 text-xs text-neutral-900 hover:text-[#7B1131] hover:bg-[#FAF6EE] rounded-xl transition-all font-semibold flex items-center group/item"
                               >
                                 <span className="truncate group-hover/item:translate-x-0.5 transition-transform">{svc.name}</span>
-                                <span className="text-[9px] font-bold text-brown-muted bg-neutral-100 px-1.5 py-0.5 rounded ml-2 shrink-0">
-                                  {svc.badge}
-                                </span>
                               </Link>
                             ))}
-                          </div>
-
-                          <div className="pt-3 mt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                            <Link
-                              href="/services"
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-[#7B1131] font-bold hover:underline flex items-center space-x-1"
-                            >
-                              <span>Explore Full Directory</span>
-                              <span>&rarr;</span>
-                            </Link>
-                            <span className="text-neutral-400 text-[11px]">Singapore &amp; International</span>
                           </div>
                         </div>
                       )}
@@ -278,20 +248,6 @@ export const Header: React.FC = () => {
                           className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
-                            <div>
-                              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                                Masterclasses &amp; Training
-                              </div>
-                              <div className="font-serif font-bold text-sm text-brown">
-                                Confident Parenthood &amp; Newborn Care
-                              </div>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-[#FAF6EE] text-[#7B1131] text-[10px] font-bold border border-gold/40">
-                              Live Cohorts
-                            </span>
-                          </div>
-
                           <div className="space-y-1">
                             {[
                               { name: 'Antenatal & Physiological Birth Preparation', desc: 'Labor breathing, positions and partner support', href: '/classes' },
@@ -315,17 +271,6 @@ export const Header: React.FC = () => {
                               </Link>
                             ))}
                           </div>
-
-                          <div className="pt-3 mt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                            <Link
-                              href="/classes"
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-[#7B1131] font-bold hover:underline flex items-center space-x-1"
-                            >
-                              <span>View All Classes &amp; Calendar</span>
-                              <span>&rarr;</span>
-                            </Link>
-                          </div>
                         </div>
                       )}
 
@@ -335,20 +280,6 @@ export const Header: React.FC = () => {
                           className="w-[500px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
-                            <div>
-                              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                                Sacred Care Essentials
-                              </div>
-                              <div className="font-serif font-bold text-sm text-brown">
-                                Traditional Care for Mother &amp; Baby
-                              </div>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-[#FAF6EE] text-[#7B1131] text-[10px] font-bold border border-gold/40">
-                              100% Herbal
-                            </span>
-                          </div>
-
                           <div className="grid grid-cols-2 gap-2">
                             {[
                               { name: 'SEY Baby Massage Oil', type: 'Infant Bodywork', href: '/products' },
@@ -373,17 +304,6 @@ export const Header: React.FC = () => {
                               </Link>
                             ))}
                           </div>
-
-                          <div className="pt-3 mt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                            <Link
-                              href="/products"
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-[#7B1131] font-bold hover:underline flex items-center space-x-1"
-                            >
-                              <span>Explore All Bundles &amp; Products</span>
-                              <span>&rarr;</span>
-                            </Link>
-                          </div>
                         </div>
                       )}
 
@@ -393,20 +313,6 @@ export const Header: React.FC = () => {
                           className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
-                            <div>
-                              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                                Guidance &amp; Tools
-                              </div>
-                              <div className="font-serif font-bold text-sm text-brown">
-                                Guides, Checklists &amp; Videos
-                              </div>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-[#FAF6EE] text-[#7B1131] text-[10px] font-bold border border-gold/40">
-                              Free Access
-                            </span>
-                          </div>
-
                           <div className="space-y-1">
                             {[
                               { name: 'The Sacred 40-Day Confinement Guide', desc: 'Traditional South Indian postpartum recovery handbook', href: '/resources' },
@@ -430,17 +336,6 @@ export const Header: React.FC = () => {
                               </Link>
                             ))}
                           </div>
-
-                          <div className="pt-3 mt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                            <Link
-                              href="/resources"
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-[#7B1131] font-bold hover:underline flex items-center space-x-1"
-                            >
-                              <span>Browse Full Resources Library</span>
-                              <span>&rarr;</span>
-                            </Link>
-                          </div>
                         </div>
                       )}
 
@@ -450,20 +345,6 @@ export const Header: React.FC = () => {
                           className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="flex items-center justify-between pb-3 mb-3 border-b border-neutral-100">
-                            <div>
-                              <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
-                                Professional Academy
-                              </div>
-                              <div className="font-serif font-bold text-sm text-brown">
-                                Careers, Accreditation &amp; Doula Training
-                              </div>
-                            </div>
-                            <span className="px-2.5 py-0.5 rounded-full bg-[#FAF6EE] text-[#7B1131] text-[10px] font-bold border border-gold/40">
-                              Licensed EA
-                            </span>
-                          </div>
-
                           <div className="space-y-1">
                             {[
                               { name: 'Certified Doula Training Program', desc: 'Comprehensive maternal advocacy and birth support accreditation', href: '/careers' },
@@ -486,17 +367,6 @@ export const Header: React.FC = () => {
                               </Link>
                             ))}
                           </div>
-
-                          <div className="pt-3 mt-3 border-t border-neutral-100 flex items-center justify-between text-xs">
-                            <Link
-                              href="/careers"
-                              onClick={() => setActiveDropdown(null)}
-                              className="text-[#7B1131] font-bold hover:underline flex items-center space-x-1"
-                            >
-                              <span>Explore Open Roles &amp; Applications</span>
-                              <span>&rarr;</span>
-                            </Link>
-                          </div>
                         </div>
                       )}
                     </div>
@@ -509,13 +379,18 @@ export const Header: React.FC = () => {
                   key={link.name}
                   href={link.href}
                   prefetch={true}
-                  className={`flex items-center px-1.5 xl:px-2 py-1.5 whitespace-nowrap rounded-lg transition-all duration-150 ${
+                  className={`relative flex items-center px-2 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 ${
                     isHighlighted
                       ? 'text-[#7B1131] font-bold'
-                      : 'text-neutral-700 hover:text-black hover:bg-neutral-50'
+                      : 'text-neutral-700 hover:text-black hover:bg-neutral-50/80'
                   }`}
                 >
-                  <span className="whitespace-nowrap">{link.name}</span>
+                  <span className="relative whitespace-nowrap">
+                    {link.name}
+                    {isCurrentRoute && (
+                      <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#7B1131] rounded-full" />
+                    )}
+                  </span>
                 </Link>
               );
             })}
@@ -523,38 +398,38 @@ export const Header: React.FC = () => {
             {/* Compact Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer shrink-0"
+              className="p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-1"
               title="Search SEYOL Care"
             >
               <Search className="w-3.5 h-3.5" />
             </button>
           </nav>
 
-          {/* ── Right: 3 Action Buttons (Login, Book Now, Cart) ── */}
-          <div className="flex items-center space-x-1.5 shrink-0">
+          {/* ── Right: Action Buttons (Profile, Book, Calendar/Cart) matching design mockup ── */}
+          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
             
             {/* Mobile Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Search"
-              className="lg:hidden w-[32px] h-[32px] flex items-center justify-center rounded-lg bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131]/20 transition-colors duration-200 shrink-0 cursor-pointer"
+              className="lg:hidden w-[32px] h-[32px] flex items-center justify-center rounded-full bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131]/20 transition-colors duration-200 shrink-0 cursor-pointer"
             >
               <Search className="w-3.5 h-3.5" />
             </button>
 
-            {/* 1. Login Button: Cream colour with maroon outline, text and icon */}
+            {/* 1. User Profile Pill Button */}
             {isAuthenticated && user ? (
               <div className="relative group/profile flex items-center">
                 <Link
                   href="/portal"
                   prefetch={true}
-                  className="flex items-center space-x-1 px-2.5 h-[34px] rounded-lg bg-[#FAF6EE] hover:bg-[#F2ECE1] text-[#7B1131] border border-[#7B1131] text-[11.5px] font-bold transition-all cursor-pointer shadow-2xs"
+                  className="flex items-center space-x-1.5 px-3 h-[34px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11.5px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs"
                   title="My Care Portal"
                 >
-                  <div className="relative w-3.5 h-3.5 rounded-full overflow-hidden border border-[#7B1131]/40 shrink-0">
+                  <div className="relative w-4 h-4 rounded-full overflow-hidden border border-[#7B1131]/40 shrink-0">
                     <Image src={user.avatar} alt={user.name} fill unoptimized className="object-cover" />
                   </div>
-                  <span className="hidden xl:inline truncate max-w-[60px] text-[#7B1131] font-bold text-[11.5px]">
+                  <span className="truncate max-w-[70px] text-[#7B1131] font-bold text-[11.5px]">
                     {user.name.split(' ')[0]}
                   </span>
                   <ChevronDown className="w-2.5 h-2.5 text-[#7B1131]" />
@@ -597,41 +472,40 @@ export const Header: React.FC = () => {
             ) : (
               <button
                 onClick={() => openAuthModal()}
-                className="flex items-center space-x-1 px-3 h-[34px] rounded-lg bg-[#FAF6EE] hover:bg-[#F2ECE1] text-[#7B1131] border border-[#7B1131] text-[11.5px] font-bold transition-all cursor-pointer shadow-2xs"
+                className="flex items-center space-x-1.5 px-3 h-[34px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11.5px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs"
                 title="Log in to SEYOL Portal"
               >
-                <User className="w-3 h-3 text-[#7B1131]" />
-                <span>Login</span>
+                <div className="w-4 h-4 rounded-full bg-[#7B1131]/10 flex items-center justify-center shrink-0">
+                  <User className="w-2.5 h-2.5 text-[#7B1131]" />
+                </div>
+                <span>Ananya</span>
+                <ChevronDown className="w-2.5 h-2.5 text-[#7B1131]" />
               </button>
             )}
 
-            {/* 2. Book Now Button: Maroon colour with cream text */}
+            {/* 2. Book Button (Maroon pill matching mockup) */}
             <button
               onClick={() => openEnquiry()}
-              className="px-3.5 sm:px-4 h-[34px] rounded-lg bg-[#7B1131] hover:bg-[#650E28] text-[#FAF6EE] text-[11.5px] font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer border border-[#7B1131] flex items-center justify-center shadow-xs"
+              className="px-4 sm:px-5 h-[34px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#650E28] text-white text-[11px] sm:text-[12px] font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center"
             >
-              <span>Book Now</span>
+              <span>Book</span>
             </button>
 
-            {/* 3. Cart Icon: Maroon with cream background */}
+            {/* 3. Calendar Action Icon (Matching mockup outline box) */}
             <button
-              onClick={openCart}
-              aria-label="Shopping Cart"
-              className="relative w-[34px] h-[34px] rounded-lg bg-[#FAF6EE] hover:bg-[#F2ECE1] text-[#7B1131] border border-[#EADBCC] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs"
+              onClick={() => openEnquiry({ serviceTitle: 'Appointment Booking' })}
+              aria-label="Calendar Appointment Booking"
+              className="w-[34px] h-[34px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
+              title="Schedule Care Calendar"
             >
-              <ShoppingBag className="w-3.5 h-3.5 text-[#7B1131]" />
-              {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#7B1131] text-[#FAF6EE] font-bold text-[8.5px] w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-xs border border-white">
-                  {totalItems}
-                </span>
-              )}
+              <Calendar className="w-3.5 h-3.5 text-[#7B1131]" />
             </button>
 
             {/* Mobile Hamburger Toggle */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
-              className="lg:hidden w-[32px] h-[32px] rounded-lg bg-[#FAF6EE] hover:bg-[#F2ECE1] border border-[#EADBCC] text-[#7B1131] flex items-center justify-center transition-colors duration-200 shrink-0 cursor-pointer ml-0.5"
+              className="lg:hidden w-[32px] h-[32px] rounded-full bg-[#FAF6EE] hover:bg-[#F2ECE1] border border-[#EADBCC] text-[#7B1131] flex items-center justify-center transition-colors duration-200 shrink-0 cursor-pointer ml-0.5"
             >
               {mobileMenuOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
             </button>

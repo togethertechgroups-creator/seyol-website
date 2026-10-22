@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { 
   Heart, 
   GraduationCap, 
@@ -270,12 +269,8 @@ export const SupportModeTabs: React.FC = () => {
       
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-maroon-soft text-maroon text-xs font-bold uppercase tracking-wider">
-          <Heart className="w-3.5 h-3.5" />
-          <span>Flexible Care Modes</span>
-        </div>
         <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-          How Would You Like SEYOL to Support You?
+          How Would You <span className="italic text-[#7B1131]">Like SEYOL</span> to Support You?
         </h2>
         <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
           From hands-on maternal healing and live-in nannies to empowering classes and professional doula training — choose the support format that fits your life.
@@ -340,11 +335,10 @@ export const SupportModeTabs: React.FC = () => {
               className="bg-cream/40 rounded-2xl p-6 border border-cream-border flex flex-col justify-between space-y-4 hover:border-maroon/40 hover:bg-cream/70 transition-all group"
             >
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-extrabold uppercase tracking-wider text-maroon bg-maroon-soft px-2.5 py-1 rounded-full">
+                <div>
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-black">
                     {card.tag}
                   </span>
-                  <span className="font-serif font-bold text-xs text-brown">{card.price}</span>
                 </div>
 
                 <h4 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
@@ -356,20 +350,13 @@ export const SupportModeTabs: React.FC = () => {
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-cream-border/80 flex items-center gap-2">
+              <div className="pt-4 border-t border-cream-border/80">
                 <button
                   onClick={() => openEnquiry({ serviceTitle: card.ctaAction || card.title })}
-                  className="flex-1 py-2.5 px-3 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light text-xs font-bold transition-all text-center cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light text-xs font-bold transition-all text-center cursor-pointer shadow-warm-xs"
                 >
                   Quick Book
                 </button>
-
-                <Link
-                  href={card.linkUrl}
-                  className="py-2.5 px-3 rounded-xl bg-white hover:bg-cream-dark text-brown text-xs font-bold border border-cream-border text-center transition-all"
-                >
-                  Details
-                </Link>
               </div>
             </div>
           ))}

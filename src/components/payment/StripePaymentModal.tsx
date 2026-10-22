@@ -491,8 +491,8 @@ export function StripePaymentModal(props: StripePaymentModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
-      <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-[#E8DCC4] relative max-h-[92vh] overflow-y-auto space-y-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
+      <div className="bg-white rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-[#E8DCC4] relative max-h-[92vh] overflow-y-auto space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[#E8DCC4]">
           <div className="flex items-center space-x-3">

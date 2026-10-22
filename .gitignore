@@ -36,3 +36,4 @@ next-env.d.ts
 *_opt.glb
 20260910-1024-00.3362532.mp4
 .env*
+.agents/

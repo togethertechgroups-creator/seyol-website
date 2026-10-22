@@ -1230,13 +1230,13 @@ export const AdminOrderManager: React.FC = () => {
       {/* ======================================================================= */}
       {shippingOrder && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-neutral-200 space-y-5 my-8">
+          <div className="bg-white rounded-3xl p-4 sm:p-6 sm:p-8 max-w-md w-full shadow-2xl border border-neutral-200 space-y-4 sm:space-y-5 my-4 sm:my-8">
             <div className="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center mx-auto shadow-xs">
               <Truck className="w-6 h-6" />
             </div>
 
             <div className="text-center space-y-1">
-              <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
+              <h3 className="font-serif font-bold text-lg sm:text-xl text-[#3a1d1d]">
                 Dispatch Order #{shippingOrder.orderNumber}
               </h3>
               <p className="text-xs text-neutral-500">
@@ -1282,7 +1282,7 @@ export const AdminOrderManager: React.FC = () => {
                       <Sparkles className="w-3.5 h-3.5 text-purple-600" />
                       <span>Enter New Courier Company</span>
                     </div>
-                    <div className="flex items-center space-x-2">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <input
                         type="text"
                         autoFocus

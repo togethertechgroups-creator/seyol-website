@@ -10,14 +10,14 @@ import {
   Calendar, 
   CheckCircle2, 
   ArrowRight,
-  Flower2
+  Tag
 } from 'lucide-react';
 import { ServiceFinder } from '../../components/interactive/ServiceFinder';
 import { ComparisonCards } from '../../components/interactive/ComparisonCards';
 import { AccordionFAQ } from '../../components/shared/AccordionFAQ';
 import { TrustBadges } from '../../components/shared/TrustBadges';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
-import heroServiceImg from '../../assets4/ChatGPT Image Aug 19, 2026, 09_54_19 PM.png';
+import heroServiceImg from '../../assets4/Tender Motherhood Banner.png';
 
 export default function ServicesPage() {
   const { openEnquiry } = useQuickEnquiry();
@@ -25,67 +25,70 @@ export default function ServicesPage() {
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
       {/* Hero Header with Full-Bleed Mother & Baby Sanctuary Background */}
-      <section className="relative overflow-hidden min-h-[440px] sm:min-h-[500px] lg:min-h-[540px] flex items-center pt-24 sm:pt-28 pb-10 sm:pb-14 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
+      <section className="relative overflow-hidden bg-[#FAF0EB] text-brown border-b border-[#F0DCD5] min-h-[260px] sm:min-h-[290px] md:min-h-[320px] lg:min-h-[340px] flex items-center pt-20 sm:pt-22 lg:pt-24 pb-6 sm:pb-7 px-4 sm:px-6 lg:px-8">
         {/* Full-Bleed Ambient Hero Background Image */}
         <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
           <Image
             src={heroServiceImg}
-            alt="Mother & Baby Sanctuary Background"
+            alt="Tender Motherhood Banner"
             fill
             priority
             unoptimized
-            className="object-cover object-[85%_32%] md:object-[82%_28%] lg:object-[80%_25%]"
+            className="object-cover object-right md:object-center"
           />
-          {/* Subtle soft left gradient scrim strictly behind text to prevent collision with background wall art */}
-          <div className="absolute inset-0 bg-gradient-to-r from-cream/95 via-cream/60 to-transparent max-w-2xl lg:max-w-3xl pointer-events-none" />
+          {/* Subtle mobile-only soft blush tint so text is legible on narrow phone screens, hidden on desktop */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FAF0EB]/95 via-[#FAF0EB]/70 to-transparent/20 lg:hidden pointer-events-none" />
         </div>
 
         {/* Foreground Content */}
         <div className="relative z-10 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
-          <div className="max-w-2xl pl-2 sm:pl-8 md:pl-14 lg:pl-20 space-y-3 sm:space-y-4 text-left">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-maroon-soft/90 backdrop-blur-sm text-maroon text-[11px] font-bold uppercase tracking-wider border border-maroon/20 shadow-xs">
-              <Flower2 className="w-3.5 h-3.5 text-maroon" />
-              <span>Dedicated In-Home &amp; Clinical Care</span>
+          <div className="max-w-xl md:max-w-2xl lg:max-w-[620px] xl:max-w-[680px] pl-2 sm:pl-6 md:pl-10 lg:pl-14 xl:pl-16 space-y-2.5 sm:space-y-3 text-left">
+            
+            {/* Eyebrow Tag: Compassion • Guidance • Care Beyond Birth */}
+            <div className="inline-flex items-center space-x-2 text-[#9E5361] text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em]">
+              <svg className="w-3.5 h-3.5 text-[#9E5361] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
+              <span>Compassion &bull; Guidance &bull; Care Beyond Birth</span>
             </div>
 
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-brown tracking-tight leading-tight">
-              Traditional Postpartum, Doula &amp; Infant Care Services
+            {/* Two-Tone Distinctive H1 Headline */}
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] font-black tracking-tight leading-[1.12]">
+              <span className="block text-[#70152B]">Traditional Postpartum,</span>
+              <span className="block text-[#9E6947]">Doula &amp; Infant Care Services</span>
             </h1>
 
-            <p className="text-xs sm:text-sm md:text-base text-brown max-w-xl leading-relaxed font-medium">
-              From preconception preparation and prenatal massage to sacred 40-day postpartum confinement, 24/7 stay-in nannies, and gentle newborn bathing.
-            </p>
+            {/* Subtitle with Heart Doodle */}
+            <div className="relative max-w-lg">
+              <p className="text-xs sm:text-sm text-[#4A2626] leading-relaxed font-medium">
+                From preconception preparation and prenatal massage to sacred 40-day postpartum confinement, 24/7 stay-in nannies, and gentle newborn bathing.
+              </p>
+              {/* Whimsical Heart Doodle from mockup */}
+              <div className="hidden sm:block absolute -right-10 top-0 pointer-events-none select-none">
+                <svg className="w-7 h-7 text-[#C98B82] opacity-85" viewBox="0 0 40 40" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M19 28 C15 32, 9 30, 7 24 C4 16, 14 11, 19 16 C20 17, 21 17, 22 16 C27 11, 37 16, 34 24 C32 30, 26 32, 22 28" />
+                </svg>
+              </div>
+            </div>
 
-            <div className="pt-1 flex flex-wrap items-center gap-3">
+            {/* Action Buttons */}
+            <div className="pt-1 flex flex-wrap items-center gap-3 sm:gap-3.5">
               <Link
                 href="/book"
-                className="px-6 py-2.5 sm:px-7 sm:py-3 rounded-full bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-md hover:scale-105 transition-all duration-200 cursor-pointer flex items-center space-x-2"
+                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-[#70152B] hover:bg-[#580F21] text-white font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all duration-200 cursor-pointer flex items-center space-x-2"
               >
+                <Calendar className="w-4 h-4 text-white" />
                 <span>Book Care Journey Online</span>
-                <ArrowRight className="w-4 h-4 text-gold-light" />
+                <ArrowRight className="w-4 h-4 text-white/90" />
               </Link>
               <button
                 onClick={() => openEnquiry({ serviceTitle: 'Free Price Quotation' })}
-                className="px-6 py-2.5 sm:px-7 sm:py-3 rounded-full bg-white hover:bg-cream-dark text-brown font-bold text-xs sm:text-sm border border-cream-border shadow-xs transition-all cursor-pointer"
+                className="px-5 py-2.5 sm:px-6 sm:py-3 rounded-full bg-white hover:bg-[#FAF4F2] text-[#70152B] font-bold text-xs sm:text-sm border border-[#D9B8B2] hover:border-[#70152B] shadow-xs transition-all cursor-pointer flex items-center space-x-2"
               >
+                <Tag className="w-4 h-4 text-[#70152B]" />
                 <span>Quick Price Quote</span>
               </button>
-            </div>
-
-            {/* Micro Trust Stats */}
-            <div className="grid grid-cols-3 gap-3 pt-2.5 border-t border-cream-border/90 text-xs max-w-xl">
-              <div>
-                <div className="font-serif font-bold text-maroon text-xs sm:text-sm">100% Verified</div>
-                <div className="text-[10px] sm:text-[11px] text-brown font-medium">Siddha &amp; Ayush Trained</div>
-              </div>
-              <div>
-                <div className="font-serif font-bold text-maroon text-xs sm:text-sm">1-on-1 Sanctuary</div>
-                <div className="text-[10px] sm:text-[11px] text-brown font-medium">At-Home Comfort</div>
-              </div>
-              <div>
-                <div className="font-serif font-bold text-maroon text-xs sm:text-sm">40-Day Rituals</div>
-                <div className="text-[10px] sm:text-[11px] text-brown font-medium">Sacred Postnatal Care</div>
-              </div>
             </div>
           </div>
         </div>
