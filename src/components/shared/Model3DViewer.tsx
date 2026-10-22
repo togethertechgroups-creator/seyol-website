@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { Sparkles, Move3d } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 interface Model3DViewerProps {
   modelUrl?: string;
@@ -20,8 +20,6 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(15);
-  const [showInteractionHint, setShowInteractionHint] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -137,23 +135,9 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
         });
 
         scene.add(loadedModel);
-        setLoadingProgress(100);
-        setTimeout(() => {
-          setLoading(false);
-          setShowInteractionHint(true);
-          setTimeout(() => setShowInteractionHint(false), 4500);
-        }, 150);
+        setLoading(false);
       },
-      (xhr) => {
-        if (xhr.lengthComputable && xhr.total > 0) {
-          const pct = Math.min(Math.round((xhr.loaded / xhr.total) * 100), 99);
-          setLoadingProgress(pct);
-        } else if (xhr.loaded) {
-          // Fallback progress estimate based on ~1.3MB model size
-          const estimated = Math.min(Math.round((xhr.loaded / 1350000) * 100), 95);
-          setLoadingProgress((prev) => Math.max(prev, estimated));
-        }
-      },
+      undefined,
       (error) => {
         console.error('Error loading 3D model:', error);
         setLoading(false);
@@ -200,56 +184,16 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
       className={`relative w-full flex items-center justify-center select-none overflow-visible ${className}`}
       style={{ minHeight: '480px', background: 'transparent' }}
     >
-      {/* Luxury Loading Animation */}
+      {/* Clean 3D Loading Spinner */}
       {loading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 z-10">
-          <div className="relative flex flex-col items-center justify-center p-8 rounded-3xl bg-cream-light/85 backdrop-blur-md border border-gold/40 shadow-warm-lg max-w-xs w-full text-center space-y-4 animate-in fade-in zoom-in-95 duration-300">
-            {/* Spinning Aura Emblem */}
-            <div className="relative w-20 h-20 flex items-center justify-center">
-              {/* Pulsing outer aura ring */}
-              <div className="absolute inset-0 rounded-full bg-gold/15 animate-ping opacity-60" />
-              {/* Outer rotating dashed ring */}
-              <div className="absolute inset-0 rounded-full border-2 border-dashed border-gold animate-[spin_8s_linear_infinite]" />
-              {/* Fast inner spinner ring */}
-              <div className="absolute inset-2 rounded-full border-3 border-cream-border border-t-maroon animate-spin" />
-              {/* Center icon */}
-              <div className="relative z-10 w-10 h-10 rounded-full bg-maroon text-cream-light flex items-center justify-center shadow-xs">
-                <Sparkles className="w-5 h-5 text-gold-light animate-pulse" />
-              </div>
-            </div>
-
-            {/* Title & Status */}
-            <div className="space-y-1">
-              <h4 className="font-serif text-sm font-bold text-maroon tracking-wide">
-                Loading 3D Experience
-              </h4>
-              <p className="font-playfair text-xs text-brown-muted italic">
-                Cradled in Love • Ancestral Care
-              </p>
-            </div>
-
-            {/* Sleek Progress Bar */}
-            <div className="w-full space-y-1.5">
-              <div className="w-full h-2 rounded-full bg-cream-border overflow-hidden p-0.5">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-gold-dark via-gold to-maroon transition-all duration-300 ease-out"
-                  style={{ width: `${Math.max(loadingProgress, 10)}%` }}
-                />
-              </div>
-              <div className="flex justify-between items-center text-[11px] font-semibold text-brown-muted px-0.5">
-                <span>Optimizing</span>
-                <span className="text-maroon font-mono font-bold">{loadingProgress}%</span>
-              </div>
-            </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center space-y-3 pointer-events-none z-10">
+          <div className="relative w-12 h-12 flex items-center justify-center">
+            <div className="absolute inset-0 rounded-full border-3 border-gold/30 border-t-maroon animate-spin" />
+            <Sparkles className="w-4 h-4 text-maroon animate-pulse" />
           </div>
-        </div>
-      )}
-
-      {/* Floating 3D Interaction Hint Badge */}
-      {showInteractionHint && !loading && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-brown/80 backdrop-blur-md text-cream-light text-xs font-medium shadow-warm-md border border-cream-light/20 animate-in fade-in slide-in-from-bottom-2 duration-300 pointer-events-none">
-          <Move3d className="w-3.5 h-3.5 text-gold" />
-          <span>Drag or swipe to rotate 3D view</span>
+          <span className="text-xs font-semibold text-maroon tracking-wider">
+            3D Loading...
+          </span>
         </div>
       )}
     </div>
