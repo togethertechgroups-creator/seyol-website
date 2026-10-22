@@ -236,6 +236,7 @@ export default function HomePage() {
             backgroundColor="#7B1131"
             textColor="#FAF6EE"
             mutedTextColor="rgba(250, 246, 238, 0.85)"
+            imageUrl="/images/sleeping-newborn-heritage.jpg"
           />
         </div>
       </div>

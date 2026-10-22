@@ -178,7 +178,7 @@ export default function Timeline({
   mutedTextColor = "rgba(250, 246, 238, 0.82)",
   activeColor = "#C8A45D",
   backgroundColor = "#7B1131",
-  imageUrl = "https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=1200",
+  imageUrl = "/images/sleeping-newborn-heritage.jpg",
   imageAlt = "SEYOL Traditional Indian Mother & Baby Care",
   topData = defaultTopJourneyData,
   bottomData = defaultBottomJourneyData,
