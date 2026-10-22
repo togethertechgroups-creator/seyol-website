@@ -111,8 +111,6 @@ export const Header: React.FC = () => {
         return 'left-0';
       case 'classes':
         return 'left-0';
-      case 'products':
-        return 'left-1/2 -translate-x-1/2';
       case 'resources':
         return 'left-1/2 -translate-x-1/2';
       case 'careers':
@@ -126,7 +124,7 @@ export const Header: React.FC = () => {
     { name: 'Start Here', href: '/' },
     { name: 'Services', href: '/services', key: 'services' },
     { name: 'Classes', href: '/classes', key: 'classes' },
-    { name: 'Products', href: '/products', key: 'products' },
+    { name: 'Products', href: '/products' },
     { name: 'Resources', href: '/resources', key: 'resources' },
     { name: 'Our Story', href: '/our-story' },
     { name: 'Careers', shortName: 'Careers', longName: 'Careers & Training', href: '/careers', key: 'careers' },
@@ -140,8 +138,8 @@ export const Header: React.FC = () => {
     >
       <div className="pointer-events-auto w-full max-w-[1240px]">
         
-        {/* ── Sleek White Floating Pill Navbar Container ── */}
-        <div className="w-full bg-white rounded-full h-[64px] px-4 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
+        {/* ── Sleek White Floating Navbar Container (Reduced Corner Curve) ── */}
+        <div className="w-full bg-white rounded-xl sm:rounded-2xl h-[64px] px-4 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
           
           {/* ── Left: SEYOL Wordmark Logo ── */}
           <Link
@@ -266,39 +264,6 @@ export const Header: React.FC = () => {
                                 </div>
                                 <div className="text-[11px] text-neutral-500 truncate">
                                   {cls.desc}
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Products Dropdown */}
-                      {link.key === 'products' && (
-                        <div
-                          className="w-[500px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
-                          style={{ backgroundColor: '#ffffff' }}
-                        >
-                          <div className="grid grid-cols-2 gap-2">
-                            {[
-                              { name: 'SEY Baby Massage Oil', type: 'Infant Bodywork', href: '/products' },
-                              { name: 'Nalangu Maavu Herbal Bath', type: 'Soap-Free Cleanser', href: '/products' },
-                              { name: 'Bengkung Belly Binding Wrap', type: 'Cotton Kattu Wrap', href: '/products' },
-                              { name: 'Vethu Kuli Herbal Bath Sachets', type: 'Postpartum Steam', href: '/products' },
-                              { name: 'Restorative Mother Massage Oil', type: 'Pelvic & Uterine', href: '/products' },
-                              { name: 'Confinement Essential Bundle', type: 'Complete 40-Day Kit', href: '/products' },
-                            ].map((prod) => (
-                              <Link
-                                key={prod.name}
-                                href={prod.href}
-                                onClick={() => setActiveDropdown(null)}
-                                className="p-2.5 hover:bg-[#FAF6EE] rounded-xl transition-all block group/item"
-                              >
-                                <div className="text-xs font-bold text-neutral-900 group-hover/item:text-[#7B1131] transition-colors truncate">
-                                  {prod.name}
-                                </div>
-                                <div className="text-[10px] text-neutral-500 font-medium">
-                                  {prod.type}
                                 </div>
                               </Link>
                             ))}

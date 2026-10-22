@@ -495,7 +495,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
   /* ========================================================================= */
   if (isSubmitted) {
     return (
-      <div className="bg-cream-light rounded-3xl p-6 sm:p-10 border border-gold/40 text-center shadow-warm-lg space-y-6 animate-fadeIn max-w-2xl mx-auto">
+      <div className={`bg-cream-light text-center space-y-6 animate-fadeIn ${isModal ? 'min-h-screen w-full flex flex-col justify-center items-center p-6 sm:p-12' : 'rounded-3xl p-6 sm:p-10 border border-gold/40 shadow-warm-lg max-w-2xl mx-auto'}`}>
         <div className="w-16 h-16 rounded-full bg-gold/20 text-maroon flex items-center justify-center mx-auto shadow-inner">
           <CheckCircle2 className="w-10 h-10 text-maroon" />
         </div>
@@ -582,33 +582,30 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
   /* MAIN MULTI-STEP WIZARD RENDERER                                           */
   /* ========================================================================= */
   return (
-    <div className="bg-cream-light rounded-3xl border border-cream-border shadow-warm-lg overflow-hidden font-sans text-brown max-w-4xl mx-auto w-full">
+    <div className={`bg-cream-light font-sans text-brown w-full ${isModal ? 'min-h-screen rounded-none border-0 shadow-none' : 'rounded-3xl border border-cream-border shadow-warm-lg overflow-hidden max-w-4xl mx-auto'}`}>
       
-      {/* 1. Header Bar with Service Title & Badge */}
-      <div className="bg-gradient-to-r from-maroon via-[#6d132c] to-[#4a0b1c] text-white p-5 sm:p-7 relative overflow-hidden">
+      {/* 1. Header Bar with Service Title */}
+      <div className={`bg-gradient-to-r from-maroon via-[#6d132c] to-[#4a0b1c] text-white relative overflow-hidden ${isModal ? 'p-6 sm:p-10 pt-7 sm:pt-9' : 'p-5 sm:p-7'}`}>
         <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="inline-flex items-center space-x-2 px-3 py-0.5 rounded-full bg-white/15 text-gold-light text-[10px] font-extrabold uppercase tracking-wider border border-white/20">
-              <Sparkles className="w-3 h-3 text-gold-light" />
-              <span>{serviceConfig.badge}</span>
+        <div className={`relative z-10 ${isModal ? 'max-w-5xl mx-auto pr-14 sm:pr-16' : ''}`}>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                {serviceConfig.title}
+              </h2>
+              <p className="text-xs sm:text-sm text-cream-light/90 max-w-2xl line-clamp-1">
+                {serviceConfig.subtitle}
+              </p>
             </div>
-            <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              {serviceConfig.title}
-            </h2>
-            <p className="text-xs text-cream-light/90 max-w-xl line-clamp-1">
-              {serviceConfig.subtitle}
-            </p>
-          </div>
 
-          {/* Quick Service Switcher (Dropdown / Badge) */}
-          <div className="flex items-center space-x-2 shrink-0">
-            <span className="text-[10px] uppercase font-bold text-cream-light/70 hidden md:inline">
-              Step {currentStep} of {serviceConfig.stepCount}
-            </span>
+            {/* Quick Service Switcher (Dropdown / Badge) */}
+            <div className="flex items-center space-x-2 shrink-0">
+              <span className="text-[10px] sm:text-xs uppercase font-bold text-cream-light/70 hidden md:inline">
+                Step {currentStep} of {serviceConfig.stepCount}
+              </span>
+            </div>
           </div>
-        </div>
 
         {/* 2. Progress Bar & Step Tabs */}
         <div className="mt-6 pt-4 border-t border-white/15">
@@ -654,9 +651,10 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
           </div>
         </div>
       </div>
+    </div>
 
       {/* 3. Form Content Container with Smooth Animation */}
-      <div className="p-6 sm:p-8 md:p-10 space-y-6">
+      <div className={`space-y-6 ${isModal ? 'max-w-5xl mx-auto w-full p-6 sm:p-10' : 'p-6 sm:p-8 md:p-10'}`}>
         
         {/* Validation Error Banner */}
         {validationError && (
