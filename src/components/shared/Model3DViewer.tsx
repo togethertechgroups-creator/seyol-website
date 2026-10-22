@@ -12,7 +12,7 @@ interface Model3DViewerProps {
 }
 
 export const Model3DViewer: React.FC<Model3DViewerProps> = ({
-  modelUrl = '/models/cradled_in_love.glb',
+  modelUrl = '/models/tiny_wonder.glb',
   className = 'w-full h-[520px] sm:h-[580px]',
   autoRotate = true,
 }) => {
