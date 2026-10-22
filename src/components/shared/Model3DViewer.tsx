@@ -12,7 +12,7 @@ interface Model3DViewerProps {
 }
 
 export const Model3DViewer: React.FC<Model3DViewerProps> = ({
-  modelUrl = '/models/tiny_wonder.glb',
+  modelUrl = '/models/tiny_wonder.glb?v=2',
   className = 'w-full h-[520px] sm:h-[580px]',
   autoRotate = true,
 }) => {

@@ -100,7 +100,7 @@ export default function OurStoryPage() {
 
           <div className="md:col-span-6">
             <Model3DViewer
-              modelUrl="/models/tiny_wonder.glb"
+              modelUrl="/models/tiny_wonder.glb?v=2"
               className="w-full h-[560px] sm:h-[620px]"
             />
           </div>
