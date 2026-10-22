@@ -232,7 +232,7 @@ const SUPPORT_TABS: SupportTabConfig[] = [
         tag: '1-on-1 Consultation',
         desc: 'Design your complete 40-day recovery blueprint, meal planning, and family boundary setup with a Senior Doula.',
         price: '₹1,500 / 45-Min Call',
-        linkUrl: '/contact',
+        linkUrl: '/book',
         linkText: 'Book Strategy Call',
         ctaAction: 'Postpartum Care Planning'
       },
@@ -241,7 +241,7 @@ const SUPPORT_TABS: SupportTabConfig[] = [
         tag: 'Doula Triage',
         desc: 'Review your hospital birth preferences, pain relief options, and discuss labor advocacy strategies with an educator.',
         price: '₹1,500 / 45-Min Call',
-        linkUrl: '/contact',
+        linkUrl: '/book',
         linkText: 'Schedule Review',
         ctaAction: 'Birth Plan Review'
       },
@@ -250,7 +250,7 @@ const SUPPORT_TABS: SupportTabConfig[] = [
         tag: 'Complimentary',
         desc: 'A quick, zero-obligation chat to understand which SEYOL service or package fits your family’s budget and location.',
         price: '₹0 Free Discovery',
-        linkUrl: '/contact',
+        linkUrl: '/book',
         linkText: 'Request Free Call',
         ctaAction: 'Free Discovery Call'
       }

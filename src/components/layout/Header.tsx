@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
 
   // Instant route pre-warming
   useEffect(() => {
-    const routes = ['/', '/services', '/classes', '/products', '/resources', '/our-story', '/careers', '/contact'];
+    const routes = ['/', '/services', '/classes', '/products', '/resources', '/our-story', '/careers'];
     routes.forEach((route) => {
       try {
         router.prefetch(route);
@@ -123,14 +123,13 @@ export const Header: React.FC = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '/' },
+    { name: 'Start Here', href: '/' },
     { name: 'Services', href: '/services', key: 'services' },
     { name: 'Classes', href: '/classes', key: 'classes' },
     { name: 'Products', href: '/products', key: 'products' },
     { name: 'Resources', href: '/resources', key: 'resources' },
     { name: 'Our Story', href: '/our-story' },
     { name: 'Careers', shortName: 'Careers', longName: 'Careers & Training', href: '/careers', key: 'careers' },
-    { name: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -164,7 +163,7 @@ export const Header: React.FC = () => {
           {/* ── Center: Desktop Navigation Bar with Dropdowns (64px height centered) ── */}
           <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 shrink font-sans text-[12px] xl:text-[13px] font-semibold text-neutral-700 leading-none h-[64px]">
             {navLinks.map((link) => {
-              const isCurrentRoute = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+              const isCurrentRoute = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
               const isDropdownOpen = link.key && activeDropdown === link.key;
               const isHighlighted = isDropdownOpen || (isCurrentRoute && !activeDropdown);
 
@@ -522,7 +521,7 @@ export const Header: React.FC = () => {
         <div className="lg:hidden mt-2 bg-white rounded-3xl border border-neutral-200 shadow-warm-xl px-4 pt-4 pb-6 animate-fadeIn">
           <div className="flex flex-col space-y-2 font-sans text-sm">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
+              const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
               return (
                 <Link
                   key={link.name}

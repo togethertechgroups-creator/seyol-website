@@ -350,7 +350,7 @@ export default function OurStoryPage() {
 
                   {/* View Details Button */}
                   <Link
-                    href="/contact"
+                    href="/book"
                     className="mt-4 w-full inline-flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl bg-[#faeee4] hover:bg-[#f5e2d3] text-maroon text-xs font-bold transition-all duration-200"
                   >
                     <span>View Care Details</span>
@@ -413,7 +413,7 @@ export default function OurStoryPage() {
 
                   {/* View Details Button */}
                   <Link
-                    href="/contact"
+                    href="/book"
                     className="mt-4 w-full inline-flex items-center justify-center space-x-2 py-2.5 px-4 rounded-xl bg-[#faeee4] hover:bg-[#f5e2d3] text-maroon text-xs font-bold transition-all duration-200"
                   >
                     <span>View Care Details</span>
@@ -483,7 +483,7 @@ export default function OurStoryPage() {
 
                           <div className="pt-2">
                             <Link
-                              href="/contact"
+                              href="/book"
                               className="inline-flex items-center space-x-2 text-xs font-bold text-maroon hover:text-maroon-dark transition-colors"
                             >
                               <span className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center">
@@ -508,7 +508,7 @@ export default function OurStoryPage() {
 
                           <div className="pt-2">
                             <Link
-                              href="/contact"
+                              href="/book"
                               className="inline-flex items-center space-x-2 text-xs font-bold text-maroon hover:text-maroon-dark transition-colors"
                             >
                               <span className="w-5 h-5 rounded-full bg-gold/20 flex items-center justify-center">
