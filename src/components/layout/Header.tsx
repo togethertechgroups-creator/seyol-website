@@ -101,11 +101,20 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-1.5 sm:pt-2 px-2 sm:px-3 pointer-events-none">
-      <div className="pointer-events-auto w-full max-w-[1240px]">
+    <header className="fixed top-0 left-0 right-0 z-50 flex flex-col items-center pt-1.5 sm:pt-2 px-2 sm:px-3 pointer-events-none">
+      {/* Mobile Backdrop Overlay when menu is open */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-stone-900/40 backdrop-blur-xs lg:hidden pointer-events-auto z-40 animate-fadeIn"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+
+      <div className="pointer-events-auto w-full max-w-[1240px] relative z-50 flex flex-col">
         
-        {/* ── Sleek White Floating Navbar Container (Reduced Corner Curve) ── */}
-        <div className="w-full bg-white rounded-xl sm:rounded-2xl h-[64px] px-4 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
+        {/* ── Sleek White Floating Navbar Container ── */}
+        <div className="w-full bg-white rounded-xl sm:rounded-2xl h-[58px] sm:h-[64px] px-3 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
           
           {/* ── Left: SEYOL Wordmark Logo ── */}
           <Link
@@ -336,30 +345,30 @@ export const Header: React.FC = () => {
           </nav>
 
           {/* ── Right: Action Buttons (Profile, Book, Calendar/Cart) matching design mockup ── */}
-          <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
+          <div className="flex items-center space-x-1 sm:space-x-1.5 shrink-0">
             
             {/* Mobile Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
               aria-label="Search"
-              className="lg:hidden w-[32px] h-[32px] flex items-center justify-center rounded-full bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131]/20 transition-colors duration-200 shrink-0 cursor-pointer"
+              className="lg:hidden w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] flex items-center justify-center rounded-full bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131]/20 transition-colors duration-200 shrink-0 cursor-pointer"
             >
               <Search className="w-3.5 h-3.5" />
             </button>
 
             {/* 1. User Profile Pill Button */}
             {isAuthenticated && user ? (
-              <div className="relative group/profile flex items-center">
+              <div className="relative group/profile flex items-center shrink-0">
                 <Link
                   href="/portal"
                   prefetch={true}
-                  className="flex items-center space-x-1.5 px-3 h-[34px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11.5px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                  className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 h-[32px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs shrink-0"
                   title="My Care Portal"
                 >
                   <div className="relative w-4 h-4 rounded-full overflow-hidden border border-[#7B1131]/40 shrink-0">
                     <Image src={user.avatar} alt={user.name} fill unoptimized className="object-cover" />
                   </div>
-                  <span className="truncate max-w-[70px] text-[#7B1131] font-bold text-[11.5px]">
+                  <span className="truncate max-w-[55px] sm:max-w-[70px] text-[#7B1131] font-bold text-[11px] sm:text-[11.5px]">
                     {user.name.split(' ')[0]}
                   </span>
                   <ChevronDown className="w-2.5 h-2.5 text-[#7B1131]" />
@@ -402,7 +411,7 @@ export const Header: React.FC = () => {
             ) : (
               <button
                 onClick={() => openAuthModal()}
-                className="flex items-center space-x-1.5 px-3 h-[34px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11.5px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                className="flex items-center space-x-1 sm:space-x-1.5 px-2.5 sm:px-3 h-[32px] sm:h-[36px] rounded-full bg-[#FAF5F7] hover:bg-[#F3EBF0] text-[#7B1131] border border-[#E8D7DC] text-[11px] sm:text-xs font-bold transition-all cursor-pointer shadow-2xs shrink-0"
                 title="Log in to SEYOL Portal"
               >
                 <div className="w-4 h-4 rounded-full bg-[#7B1131]/10 flex items-center justify-center shrink-0">
@@ -416,7 +425,7 @@ export const Header: React.FC = () => {
             {/* 2. Book Button (Maroon pill matching mockup) */}
             <button
               onClick={() => openEnquiry()}
-              className="px-4 sm:px-5 h-[34px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#650E28] text-white text-[11px] sm:text-[12px] font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center"
+              className="px-3 sm:px-5 h-[32px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#650E28] text-white text-[10.5px] sm:text-[12px] font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center shrink-0"
             >
               <span>Book</span>
             </button>
@@ -425,7 +434,7 @@ export const Header: React.FC = () => {
             <button
               onClick={() => openEnquiry({ serviceTitle: 'Appointment Booking' })}
               aria-label="Calendar Appointment Booking"
-              className="w-[34px] h-[34px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
+              className="w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
               title="Schedule Care Calendar"
             >
               <Calendar className="w-3.5 h-3.5 text-[#7B1131]" />
@@ -435,63 +444,63 @@ export const Header: React.FC = () => {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
-              className="lg:hidden w-[32px] h-[32px] rounded-full bg-[#FAF6EE] hover:bg-[#F2ECE1] border border-[#EADBCC] text-[#7B1131] flex items-center justify-center transition-colors duration-200 shrink-0 cursor-pointer ml-0.5"
+              className="lg:hidden w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] rounded-full bg-[#FAF6EE] hover:bg-[#F2ECE1] border border-[#EADBCC] text-[#7B1131] flex items-center justify-center transition-colors duration-200 shrink-0 cursor-pointer ml-0.5"
             >
-              {mobileMenuOpen ? <X className="w-3.5 h-3.5" /> : <Menu className="w-3.5 h-3.5" />}
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
 
         </div>
+
+        {/* ── Mobile Drawer Navigation (Centered & perfectly aligned below floating bar) ── */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden w-full mt-2 bg-white rounded-2xl sm:rounded-3xl border border-neutral-200 shadow-[0_16px_40px_rgba(58,29,29,0.14)] p-4 animate-fadeIn max-h-[calc(100dvh-85px)] overflow-y-auto">
+            <div className="flex flex-col space-y-1.5 font-sans text-sm">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3.5 py-2.5 rounded-xl font-semibold transition-colors flex items-center justify-between ${
+                      isActive
+                        ? 'bg-[#7B1131] text-white shadow-xs'
+                        : 'text-neutral-800 hover:bg-[#FAF6EE] hover:text-[#7B1131]'
+                    }`}
+                  >
+                    <span className="text-[13.5px]">{link.name}</span>
+                    <ChevronRight className={`w-4 h-4 ${isActive ? 'text-white/80' : 'text-neutral-400'}`} />
+                  </Link>
+                );
+              })}
+
+              <div className="pt-3 flex flex-col space-y-2 border-t border-neutral-100 mt-1">
+                <Link
+                  href="/portal"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131]/30 hover:border-[#7B1131] font-bold text-center text-xs shadow-xs flex items-center justify-center space-x-2 transition-colors cursor-pointer"
+                >
+                  <FileText className="w-4 h-4 text-[#7B1131]" />
+                  <span>My SEYOL Care Portal</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openEnquiry();
+                  }}
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#7B1131] hover:bg-[#650E28] text-white font-bold text-center text-xs shadow-xs transition-colors cursor-pointer"
+                >
+                  Book Now &amp; Care Consultation
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Global Smart Search Modal */}
       <SmartSearch isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-
-      {/* Mobile Drawer Navigation */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 bg-white rounded-3xl border border-neutral-200 shadow-warm-xl px-4 pt-4 pb-6 animate-fadeIn">
-          <div className="flex flex-col space-y-2 font-sans text-sm">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2 rounded-xl font-semibold transition-colors flex items-center justify-between ${
-                    isActive
-                      ? 'bg-[#7B1131] text-white'
-                      : 'text-neutral-800 hover:bg-[#FAF6EE] hover:text-[#7B1131]'
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  {link.key && <ChevronRight className="w-4 h-4 opacity-50" />}
-                </Link>
-              );
-            })}
-
-            <div className="pt-2 flex flex-col space-y-2">
-              <Link
-                href="/portal"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] text-[#7B1131] border border-[#7B1131] font-bold text-center text-xs shadow-xs flex items-center justify-center space-x-1.5"
-              >
-                <FileText className="w-4 h-4 text-[#7B1131]" />
-                <span>My SEYOL Care Portal</span>
-              </Link>
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  openEnquiry();
-                }}
-                className="w-full py-2.5 px-4 rounded-xl bg-[#7B1131] text-white font-bold text-center text-xs shadow-warm-sm"
-              >
-                Book Now &amp; Care Consultation
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
 };
