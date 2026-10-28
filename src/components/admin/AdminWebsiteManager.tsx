@@ -776,7 +776,226 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
 
       {/* ─── TAB 2: SERVICES CATALOG ──────────────────────────────────────── */}
       {websiteSubTab === 'services' && (
-        <div className="space-y-5">
+        <div className="space-y-6">
+          {/* ── Why Families Trust SEYOL Video Management Card ── */}
+          <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
+            <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#7B1131]/10 text-[#7B1131]">
+                    Services Page Carousel
+                  </span>
+                  <span className="text-xs text-stone-300">•</span>
+                  <span className="text-xs text-stone-500 font-medium">
+                    {whyTrustVideos.length} {whyTrustVideos.length === 1 ? 'Video Story' : 'Video Stories'}
+                  </span>
+                </div>
+                <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">
+                  Why Families Trust SEYOL — Video Carousel
+                </h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Manage, replace, and upload the care journey videos shown in the &ldquo;Why Families Trust SEYOL&rdquo; section on the Services page.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    resetWhyTrustVideos();
+                    notify('Reset video carousel to default 3 care stories');
+                  }}
+                  className="px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-600 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  title="Restore original 3 video stories"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
+                  <span className="hidden sm:inline">Reset Defaults</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditingWhyTrustVideo(null);
+                    setWhyTrustVideoUrlInput('');
+                    setIsWhyTrustModalOpen(true);
+                  }}
+                  className="px-4 py-2 rounded-xl bg-[#7B1131] hover:bg-[#5E0C24] text-white text-xs font-bold transition-colors shadow-xs flex items-center space-x-1.5 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Video Story</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Video Stories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {whyTrustVideos.map((story, idx) => {
+                const ytId = extractYouTubeId(story.youtubeIdOrUrl);
+                const thumbUrl = ytId
+                  ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
+                  : null;
+
+                return (
+                  <div
+                    key={story.id}
+                    className="bg-stone-50/70 border border-stone-200/90 rounded-2xl p-4 flex flex-col justify-between space-y-3.5 shadow-xs hover:border-[#7B1131]/30 transition-all group"
+                  >
+                    <div className="space-y-3">
+                      {/* Header row: Index & Tag badge */}
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-stone-400 font-mono">
+                          Video #{idx + 1}
+                        </span>
+                        <span className="text-[10px] font-bold text-[#7B1131] uppercase tracking-wider bg-[#7B1131]/10 px-2.5 py-0.5 rounded-full border border-[#7B1131]/20">
+                          {story.tag}
+                        </span>
+                      </div>
+
+                      {/* Video Preview Frame */}
+                      <div className="w-full aspect-video rounded-xl overflow-hidden bg-stone-900 border border-stone-200 relative group/video">
+                        {ytId ? (
+                          thumbUrl ? (
+                            <div className="w-full h-full relative">
+                              <img
+                                src={thumbUrl}
+                                alt={story.title}
+                                className="w-full h-full object-cover"
+                              />
+                              <div className="absolute inset-0 bg-stone-900/30 flex items-center justify-center">
+                                <div className="w-10 h-10 rounded-full bg-white/90 text-[#7B1131] flex items-center justify-center shadow-lg group-hover/video:scale-110 transition-transform">
+                                  <Play className="w-5 h-5 ml-0.5 fill-current" />
+                                </div>
+                              </div>
+                              <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono text-white">
+                                YouTube
+                              </span>
+                            </div>
+                          ) : (
+                            <iframe
+                              src={`https://www.youtube-nocookie.com/embed/${ytId}`}
+                              title={story.title}
+                              className="w-full h-full border-0 pointer-events-none"
+                            />
+                          )
+                        ) : (
+                          <div className="w-full h-full relative flex items-center justify-center bg-stone-950">
+                            <video
+                              src={story.youtubeIdOrUrl}
+                              className="w-full h-full object-cover"
+                              preload="metadata"
+                            />
+                            <div className="absolute inset-0 bg-stone-900/40 flex items-center justify-center pointer-events-none">
+                              <div className="w-10 h-10 rounded-full bg-white/90 text-[#7B1131] flex items-center justify-center shadow-lg">
+                                <Play className="w-5 h-5 ml-0.5 fill-current" />
+                              </div>
+                            </div>
+                            <span className="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/80 text-[10px] font-mono text-white">
+                              Uploaded File
+                            </span>
+                          </div>
+                        )}
+
+                        {/* Hover Overlay with Quick Replace & Edit */}
+                        <div className="absolute inset-0 bg-stone-900/60 opacity-0 group-hover/video:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
+                          <label className="px-3 py-1.5 rounded-lg bg-white text-stone-900 font-semibold text-xs cursor-pointer shadow-md flex items-center space-x-1.5 hover:bg-stone-50 transition-colors">
+                            <Upload className="w-3.5 h-3.5 text-[#7B1131]" />
+                            <span>Upload Video File</span>
+                            <input
+                              type="file"
+                              accept="video/*"
+                              className="hidden"
+                              onChange={(e) =>
+                                handleVideoFileUpload(e, (dataUrl) =>
+                                  updateWhyTrustVideo(story.id, { youtubeIdOrUrl: dataUrl })
+                                )
+                              }
+                            />
+                          </label>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setEditingWhyTrustVideo(story);
+                              setWhyTrustVideoUrlInput(story.youtubeIdOrUrl);
+                              setIsWhyTrustModalOpen(true);
+                            }}
+                            className="px-3 py-1 rounded-md bg-stone-800 text-stone-200 text-[11px] font-medium hover:bg-stone-700 transition-colors cursor-pointer"
+                          >
+                            Edit URL / Details
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Video Info */}
+                      <div className="space-y-1">
+                        <h3 className="font-serif font-bold text-sm text-stone-900 leading-snug line-clamp-2">
+                          {story.title}
+                        </h3>
+                        <p className="text-xs text-stone-600 font-medium flex items-center gap-1.5">
+                          <Users className="w-3.5 h-3.5 text-stone-400 shrink-0" />
+                          <span className="truncate">{story.family}</span>
+                        </p>
+                        <p className="text-[11px] text-stone-400 font-mono truncate pt-0.5">
+                          {story.youtubeIdOrUrl.startsWith('data:')
+                            ? 'Uploaded Video File'
+                            : story.youtubeIdOrUrl}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Card Bottom Actions */}
+                    <div className="flex items-center justify-between pt-2 border-t border-stone-200/80">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setEditingWhyTrustVideo(story);
+                          setWhyTrustVideoUrlInput(story.youtubeIdOrUrl);
+                          setIsWhyTrustModalOpen(true);
+                        }}
+                        className="px-2.5 py-1 rounded-lg text-stone-700 hover:text-[#7B1131] hover:bg-stone-200/50 text-xs font-semibold flex items-center space-x-1 transition-colors cursor-pointer"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                        <span>Edit Story</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setDeleteConfirmation({
+                            type: 'whyTrustVideo',
+                            id: story.id,
+                            name: story.title,
+                          })
+                        }
+                        className="p-1.5 rounded-lg text-stone-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                        title="Remove from Carousel"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {whyTrustVideos.length === 0 && (
+              <div className="text-center py-8 bg-stone-50 rounded-xl border border-dashed border-stone-200 p-6 space-y-2">
+                <Video className="w-8 h-8 text-stone-300 mx-auto" />
+                <p className="text-xs font-semibold text-stone-700">No care journey videos currently in carousel</p>
+                <p className="text-[11px] text-stone-400">Click &ldquo;Add Video Story&rdquo; or &ldquo;Reset Defaults&rdquo; to populate the carousel.</p>
+              </div>
+            )}
+          </div>
+
+          {/* Care Services Catalog Sub-Header */}
+          <div className="flex items-center justify-between pt-1">
+            <div>
+              <h3 className="font-serif font-bold text-base text-stone-900">
+                Care Services Catalog
+              </h3>
+              <p className="text-xs text-stone-500">
+                Manage all clinical offerings, pricing, packages, and stage categories.
+              </p>
+            </div>
+          </div>
+
           {/* Controls Bar */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3.5 rounded-2xl border border-stone-200 shadow-xs">
             <div className="flex items-center gap-2 flex-1 max-w-md">
