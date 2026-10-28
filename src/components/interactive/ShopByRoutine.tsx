@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image, { StaticImageData } from 'next/image';
 import { ArrowUpRight } from 'lucide-react';
+import { useAdminData } from '../../context/AdminDataContext';
 
 import babyBathImg from '../../assets4/baby bath.jpg';
 import babyMassageImg from '../../assets4/baby massage.JPG';
@@ -60,6 +61,15 @@ const ROUTINES: RoutineCardItem[] = [
 ];
 
 export const ShopByRoutine: React.FC = () => {
+  const { homeSettings } = useAdminData();
+
+  const routineImageMap: Record<string, string | undefined> = {
+    'bath-time': homeSettings?.routineBathImage,
+    'baby-massage': homeSettings?.routineMassageImage,
+    'bedtime-routine': homeSettings?.routineSleepImage,
+    'mom-self-care': homeSettings?.routineMomCareImage,
+  };
+
   return (
     <section className="w-full bg-[#F8F5EF] text-[#292E29] py-16 sm:py-20 lg:py-24 border-b border-[#EAE1D5]">
       <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,44 +98,51 @@ export const ShopByRoutine: React.FC = () => {
 
         {/* Routine Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {ROUTINES.map((routine) => (
-            <article
-              key={routine.id}
-              className="group bg-white rounded-[14px] overflow-hidden border border-[#EAE5DC] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(123,17,49,0.11)] hover:border-[#7B1131]/30 flex flex-col justify-between"
-            >
-              {/* Routine Image without overlay tag */}
-              <div className="relative h-[270px] sm:h-[285px] w-full overflow-hidden bg-[#E9E5DC]">
-                <Image
-                  src={routine.image}
-                  alt={routine.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  style={{ objectPosition: routine.objectPosition }}
-                  className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
-                />
-              </div>
+          {ROUTINES.map((routine) => {
+            const customImage = routineImageMap[routine.id];
+            const activeImage = customImage || routine.image;
+            const isCustomString = typeof activeImage === 'string';
 
-              {/* Routine Info */}
-              <div className="p-5 sm:p-5.5 flex flex-col flex-1 justify-between">
-                <div>
-                  <h3 className="font-serif text-[21px] sm:text-[22px] font-semibold text-[#292E29] group-hover:text-[#7B1131] transition-colors mb-2 leading-snug">
-                    {routine.title}
-                  </h3>
-                  <p className="text-[#6E5652] text-xs sm:text-[13px] leading-[1.8] min-h-[58px] mb-4">
-                    {routine.description}
-                  </p>
+            return (
+              <article
+                key={routine.id}
+                className="group bg-white rounded-[14px] overflow-hidden border border-[#EAE5DC] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(123,17,49,0.11)] hover:border-[#7B1131]/30 flex flex-col justify-between"
+              >
+                {/* Routine Image without overlay tag */}
+                <div className="relative h-[270px] sm:h-[285px] w-full overflow-hidden bg-[#E9E5DC]">
+                  <Image
+                    src={activeImage}
+                    alt={routine.alt}
+                    fill
+                    unoptimized={isCustomString}
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    style={{ objectPosition: routine.objectPosition }}
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
+                  />
                 </div>
 
-                <Link
-                  href={routine.href}
-                  className="w-full flex items-center justify-between bg-[#7B1131] hover:bg-[#5A0C24] text-white py-3 px-4 rounded-lg font-semibold text-xs sm:text-[13px] tracking-wide transition-all duration-200 shadow-xs group/btn cursor-pointer"
-                >
-                  <span>Shop Now</span>
-                  <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                </Link>
-              </div>
-            </article>
-          ))}
+                {/* Routine Info */}
+                <div className="p-5 sm:p-5.5 flex flex-col flex-1 justify-between">
+                  <div>
+                    <h3 className="font-serif text-[21px] sm:text-[22px] font-semibold text-[#292E29] group-hover:text-[#7B1131] transition-colors mb-2 leading-snug">
+                      {routine.title}
+                    </h3>
+                    <p className="text-[#6E5652] text-xs sm:text-[13px] leading-[1.8] min-h-[58px] mb-4">
+                      {routine.description}
+                    </p>
+                  </div>
+
+                  <Link
+                    href={routine.href}
+                    className="w-full flex items-center justify-between bg-[#7B1131] hover:bg-[#5A0C24] text-white py-3 px-4 rounded-lg font-semibold text-xs sm:text-[13px] tracking-wide transition-all duration-200 shadow-xs group/btn cursor-pointer"
+                  >
+                    <span>Shop Now</span>
+                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                  </Link>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* Routine Note */}

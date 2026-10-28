@@ -131,6 +131,11 @@ export interface HomeSettings {
   homeVideoUrl: string;
   homeVideoTitle?: string;
   homeVideoAuthor?: string;
+  // Shop by Routine Images for Start Here / Homepage
+  routineBathImage?: string;
+  routineMassageImage?: string;
+  routineSleepImage?: string;
+  routineMomCareImage?: string;
 }
 
 export const defaultHomeSettings: HomeSettings = {
@@ -143,6 +148,10 @@ export const defaultHomeSettings: HomeSettings = {
   homeVideoUrl: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
   homeVideoTitle: 'Natural Postpartum Healing & Doula Care',
   homeVideoAuthor: 'Deepika & Karthik',
+  routineBathImage: '',
+  routineMassageImage: '',
+  routineSleepImage: '',
+  routineMomCareImage: '',
 };
 
 export interface ProductBannerSlide {
@@ -551,7 +560,12 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       const savedHomeSettings = localStorage.getItem(HOME_SETTINGS_STORAGE_KEY);
       if (savedHomeSettings) {
-        setHomeSettings(JSON.parse(savedHomeSettings));
+        try {
+          const parsed = JSON.parse(savedHomeSettings);
+          setHomeSettings({ ...defaultHomeSettings, ...parsed });
+        } catch {
+          setHomeSettings(defaultHomeSettings);
+        }
       }
 
       const savedProductsSettings = localStorage.getItem(PRODUCTS_SETTINGS_STORAGE_KEY);

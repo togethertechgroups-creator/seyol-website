@@ -6,7 +6,7 @@ import {
   Globe, Home, Layers, Video, Image as ImageIcon, 
   Sparkles, Check, Plus, Trash2, Edit3, Upload, 
   Search, ExternalLink, Play, Star, AlertTriangle, X, CheckCircle2,
-  BookOpen, FileText, Download, Users, FileCheck
+  BookOpen, FileText, Download, Users, FileCheck, RotateCcw
 } from 'lucide-react';
 import { 
   useAdminData, 
@@ -18,6 +18,10 @@ import {
 } from '../../context/AdminDataContext';
 import { Service, Testimonial, JourneyStage } from '../../types';
 import { downloadGuideFile } from '../../utils/guidePdfGenerator';
+import babyBathImg from '../../assets4/baby bath.jpg';
+import babyMassageImg from '../../assets4/baby massage.JPG';
+import babySleepImg from '../../assets4/baby sleep.JPG';
+import motherCareImg from '../../assets4/mother care.jpg';
 
 interface AdminWebsiteManagerProps {
   onNotify?: (msg: string) => void;
@@ -79,6 +83,10 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
     homeVideoUrl: homeSettings?.homeVideoUrl || 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
     homeVideoTitle: homeSettings?.homeVideoTitle || 'Natural Postpartum Healing & Doula Care',
     homeVideoAuthor: homeSettings?.homeVideoAuthor || 'Deepika & Karthik',
+    routineBathImage: homeSettings?.routineBathImage || '',
+    routineMassageImage: homeSettings?.routineMassageImage || '',
+    routineSleepImage: homeSettings?.routineSleepImage || '',
+    routineMomCareImage: homeSettings?.routineMomCareImage || '',
   });
 
   useEffect(() => {
@@ -93,6 +101,10 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
         homeVideoUrl: homeSettings.homeVideoUrl || 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
         homeVideoTitle: homeSettings.homeVideoTitle || 'Natural Postpartum Healing & Doula Care',
         homeVideoAuthor: homeSettings.homeVideoAuthor || 'Deepika & Karthik',
+        routineBathImage: homeSettings.routineBathImage || '',
+        routineMassageImage: homeSettings.routineMassageImage || '',
+        routineSleepImage: homeSettings.routineSleepImage || '',
+        routineMomCareImage: homeSettings.routineMomCareImage || '',
       });
     }
   }, [homeSettings]);
@@ -501,6 +513,143 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Shop by Routine Images Card */}
+          <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
+            <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div>
+                <h2 className="font-serif text-lg font-bold text-stone-900">
+                  Shop by Routine Images
+                </h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Update the photos displayed in the &ldquo;Shop by Routine&rdquo; section on the Start Here homepage.
+                </p>
+              </div>
+              <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#7B1131]/10 text-[#7B1131] w-fit">
+                4 Routine Cards
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {[
+                {
+                  key: 'routineBathImage' as const,
+                  label: 'Bath Time',
+                  badge: 'Card 1',
+                  description: 'Baby bath & wash ritual',
+                  defaultImg: babyBathImg.src,
+                },
+                {
+                  key: 'routineMassageImage' as const,
+                  label: 'Baby Massage',
+                  badge: 'Card 2',
+                  description: 'Infant massage & oil ritual',
+                  defaultImg: babyMassageImg.src,
+                },
+                {
+                  key: 'routineSleepImage' as const,
+                  label: 'Bedtime Routine',
+                  badge: 'Card 3',
+                  description: 'Calming bedtime & sleep ritual',
+                  defaultImg: babySleepImg.src,
+                },
+                {
+                  key: 'routineMomCareImage' as const,
+                  label: "Mom's Self-Care",
+                  badge: 'Card 4',
+                  description: 'Postpartum mother care & recovery',
+                  defaultImg: motherCareImg.src,
+                },
+              ].map((cfg) => {
+                const currentVal = homeForm[cfg.key];
+                const previewSrc = currentVal || cfg.defaultImg;
+                const isCustom = Boolean(currentVal);
+
+                return (
+                  <div
+                    key={cfg.key}
+                    className="bg-stone-50/70 border border-stone-200/90 rounded-xl p-4 flex flex-col justify-between space-y-3"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500">
+                          {cfg.badge}
+                        </span>
+                        {isCustom ? (
+                          <span className="text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                            Customized
+                          </span>
+                        ) : (
+                          <span className="text-[10px] font-medium text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full border border-stone-200">
+                            Default Photo
+                          </span>
+                        )}
+                      </div>
+                      <h3 className="font-semibold text-stone-900 text-sm">
+                        {cfg.label}
+                      </h3>
+                      <p className="text-[11px] text-stone-500 line-clamp-1">
+                        {cfg.description}
+                      </p>
+                    </div>
+
+                    {/* Photo Preview & Hover Upload */}
+                    <div className="w-full aspect-[4/3] rounded-lg overflow-hidden bg-stone-100 border border-stone-200 relative group">
+                      <img
+                        src={previewSrc}
+                        alt={cfg.label}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-stone-900/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
+                        <label className="px-3 py-1.5 rounded-lg bg-white text-stone-900 font-semibold text-xs cursor-pointer shadow-md flex items-center space-x-1.5 hover:bg-stone-50 transition-colors">
+                          <Upload className="w-3.5 h-3.5 text-[#7B1131]" />
+                          <span>Replace Photo</span>
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            onChange={(e) =>
+                              handleFileUpload(e, (b64) =>
+                                setHomeForm((prev) => ({ ...prev, [cfg.key]: b64 }))
+                              )
+                            }
+                          />
+                        </label>
+                        {isCustom && (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setHomeForm((prev) => ({ ...prev, [cfg.key]: '' }))
+                            }
+                            className="px-2.5 py-1 rounded-md bg-stone-900/90 hover:bg-stone-900 text-stone-200 text-[11px] font-medium flex items-center space-x-1 shadow-xs transition-colors"
+                          >
+                            <RotateCcw className="w-3 h-3 text-stone-300" />
+                            <span>Reset to Default</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* URL Input */}
+                    <div className="space-y-1">
+                      <label className="block text-[10px] font-bold uppercase tracking-wider text-stone-600">
+                        Image URL / Data
+                      </label>
+                      <input
+                        type="text"
+                        value={currentVal || ''}
+                        onChange={(e) =>
+                          setHomeForm((prev) => ({ ...prev, [cfg.key]: e.target.value }))
+                        }
+                        placeholder="Or paste image URL"
+                        className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-white border border-stone-200 focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
