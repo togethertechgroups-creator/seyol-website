@@ -329,7 +329,7 @@ export const NeedHelpChoosingSection: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto min-w-[280px] sm:min-w-[340px] py-3.5 px-8 rounded-full bg-[#111111] hover:bg-[#70152B] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
+                  className="w-full sm:w-auto min-w-[280px] sm:min-w-[340px] py-3.5 px-8 rounded-full bg-[#651F32] hover:bg-[#501625] text-white font-bold text-sm sm:text-base flex items-center justify-center gap-2 shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
