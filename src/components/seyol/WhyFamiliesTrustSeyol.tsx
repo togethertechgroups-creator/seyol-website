@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, ArrowDown } from 'lucide-react';
+import { useAdminData, extractYouTubeId, defaultWhyTrustVideoStories } from '../../context/AdminDataContext';
 
 interface VideoStory {
   id: string;
@@ -51,7 +52,11 @@ const TRUST_PILLARS = [
 ];
 
 export const WhyFamiliesTrustSeyol: React.FC = () => {
+  const { whyTrustVideos } = useAdminData();
+  const videoStories = (whyTrustVideos && whyTrustVideos.length > 0) ? whyTrustVideos : defaultWhyTrustVideoStories;
+
   const [currentVideoIdx, setCurrentVideoIdx] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -73,6 +78,9 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
           } catch {
             // Ignore cross-origin warnings if any
           }
+          if (videoRef.current) {
+            videoRef.current.pause();
+          }
         } else {
           // Play video when scrolled back into view
           try {
@@ -82,6 +90,9 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
             );
           } catch {
             // Ignore cross-origin warnings if any
+          }
+          if (videoRef.current) {
+            videoRef.current.play().catch(() => {});
           }
         }
       },
@@ -96,14 +107,16 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
   }, []);
 
   const handlePrev = () => {
-    setCurrentVideoIdx((prev) => (prev === 0 ? VIDEO_STORIES.length - 1 : prev - 1));
+    setCurrentVideoIdx((prev) => (prev <= 0 ? videoStories.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setCurrentVideoIdx((prev) => (prev === VIDEO_STORIES.length - 1 ? 0 : prev + 1));
+    setCurrentVideoIdx((prev) => (prev >= videoStories.length - 1 ? 0 : prev + 1));
   };
 
-  const activeVideo = VIDEO_STORIES[currentVideoIdx];
+  const safeIdx = currentVideoIdx >= videoStories.length ? 0 : currentVideoIdx;
+  const activeVideo = videoStories[safeIdx] || videoStories[0];
+  const ytId = extractYouTubeId(activeVideo.youtubeIdOrUrl);
 
   return (
     <section 
@@ -142,15 +155,28 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
 
             {/* Main Video Frame */}
             <div className="flex-1 max-w-4xl rounded-2xl sm:rounded-3xl overflow-hidden border border-[#ECE5DD] shadow-[0_6px_28px_rgba(58,29,29,0.06)] aspect-[16/9] bg-[#1A1412]">
-              <iframe
-                ref={iframeRef}
-                key={activeVideo.id}
-                src={`https://www.youtube-nocookie.com/embed/${activeVideo.id}?enablejsapi=1&autoplay=${isInView ? '1' : '0'}&mute=1&playsinline=1&rel=0`}
-                title={activeVideo.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="w-full h-full border-0"
-              />
+              {ytId ? (
+                <iframe
+                  ref={iframeRef}
+                  key={ytId}
+                  src={`https://www.youtube-nocookie.com/embed/${ytId}?enablejsapi=1&autoplay=${isInView ? '1' : '0'}&mute=1&playsinline=1&rel=0`}
+                  title={activeVideo.title}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  className="w-full h-full border-0"
+                />
+              ) : (
+                <video
+                  ref={videoRef}
+                  key={activeVideo.youtubeIdOrUrl}
+                  src={activeVideo.youtubeIdOrUrl}
+                  controls
+                  playsInline
+                  muted
+                  autoPlay={isInView}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
 
             {/* Outer Right Navigation Arrow (Outside the Card) */}
@@ -177,13 +203,13 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
 
             {/* Video Story Dots / Counter */}
             <div className="flex items-center space-x-2">
-              {VIDEO_STORIES.map((story, idx) => (
+              {videoStories.map((story, idx) => (
                 <button
-                  key={story.id}
+                  key={story.id || idx}
                   type="button"
                   onClick={() => setCurrentVideoIdx(idx)}
                   className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                    idx === currentVideoIdx
+                    idx === safeIdx
                       ? 'w-6 sm:w-8 bg-[#70152B]'
                       : 'w-2 sm:w-2.5 bg-[#D8C7B8] hover:bg-[#70152B]/60'
                   }`}
@@ -191,7 +217,7 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
                 />
               ))}
               <span className="text-[11px] font-bold text-[#6E5652] pl-1.5">
-                {currentVideoIdx + 1}/{VIDEO_STORIES.length}
+                {safeIdx + 1}/{videoStories.length}
               </span>
             </div>
           </div>

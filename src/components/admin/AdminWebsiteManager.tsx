@@ -14,7 +14,8 @@ import {
   ProductBannerSlide,
   JourneyStageKey,
   StageResourceGuide,
-  defaultStageResourceGuides
+  defaultStageResourceGuides,
+  WhyTrustVideoStory
 } from '../../context/AdminDataContext';
 import { Service, Testimonial, JourneyStage } from '../../types';
 import { downloadGuideFile } from '../../utils/guidePdfGenerator';
@@ -48,6 +49,11 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
     addProductBannerSlide,
     updateProductBannerSlide,
     deleteProductBannerSlide,
+    whyTrustVideos,
+    addWhyTrustVideo,
+    updateWhyTrustVideo,
+    deleteWhyTrustVideo,
+    resetWhyTrustVideos,
   } = useAdminData();
 
   const [websiteSubTab, setWebsiteSubTab] = useState<'home' | 'services' | 'banners' | 'testimonials' | 'resources'>('home');
@@ -136,11 +142,35 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [videoUrlInput, setVideoUrlInput] = useState('');
 
+  const [isWhyTrustModalOpen, setIsWhyTrustModalOpen] = useState(false);
+  const [editingWhyTrustVideo, setEditingWhyTrustVideo] = useState<WhyTrustVideoStory | null>(null);
+  const [whyTrustVideoUrlInput, setWhyTrustVideoUrlInput] = useState('');
+
   const [deleteConfirmation, setDeleteConfirmation] = useState<{
-    type: 'service' | 'testimonial' | 'banner';
+    type: 'service' | 'testimonial' | 'banner' | 'whyTrustVideo';
     id: string;
     name: string;
   } | null>(null);
+
+  const handleVideoFileUpload = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onResult: (dataUrl: string) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (file.size > 25 * 1024 * 1024) {
+      alert('Video file exceeds 25MB. For high-definition videos, we recommend pasting a YouTube video URL for smoother loading.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      onResult(reader.result as string);
+      notify('Video file loaded successfully');
+    };
+    reader.readAsDataURL(file);
+  };
 
   // ─── Image Upload with Canvas Optimization ────────────────────────────
   const handleFileUpload = (
@@ -1991,6 +2021,204 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   className="px-4 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold shadow-xs"
                 >
                   Save Reflection
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MODAL: ADD / EDIT WHY TRUST VIDEO STORY ────────────────────── */}
+      {isWhyTrustModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
+          <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl border border-stone-200 space-y-4 my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
+                  Services Trust Carousel
+                </span>
+                <h3 className="font-serif font-bold text-base text-stone-900">
+                  {editingWhyTrustVideo ? 'Edit Care Video Story' : 'Add Care Video Story'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsWhyTrustModalOpen(false)}
+                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const title = (formData.get('title') as string) || '';
+                const tag = (formData.get('tag') as string) || 'Care Journey';
+                const family = (formData.get('family') as string) || '';
+                const videoSource = whyTrustVideoUrlInput.trim() || (formData.get('youtubeUrl') as string) || '';
+
+                if (!videoSource) {
+                  alert('Please enter a YouTube video URL/ID or upload a video file.');
+                  return;
+                }
+
+                if (editingWhyTrustVideo) {
+                  updateWhyTrustVideo(editingWhyTrustVideo.id, {
+                    title,
+                    tag,
+                    family,
+                    youtubeIdOrUrl: videoSource,
+                  });
+                  notify('Video story updated successfully');
+                } else {
+                  addWhyTrustVideo({
+                    id: `story-${Date.now()}`,
+                    title,
+                    tag,
+                    family,
+                    youtubeIdOrUrl: videoSource,
+                  });
+                  notify('Video story added to carousel');
+                }
+                setIsWhyTrustModalOpen(false);
+              }}
+              className="space-y-4 text-xs"
+            >
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Story Title *
+                </label>
+                <input
+                  type="text"
+                  name="title"
+                  defaultValue={editingWhyTrustVideo?.title || ''}
+                  placeholder="e.g., 50 Infant Massage & Bath + 35 Postpartum Sessions"
+                  required
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Care Journey Tag / Badge *
+                  </label>
+                  <input
+                    type="text"
+                    name="tag"
+                    defaultValue={editingWhyTrustVideo?.tag || 'Care Journey'}
+                    placeholder="e.g., Care Journey, Repeat Journey"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                  <div className="flex flex-wrap gap-1 mt-1.5">
+                    {['Care Journey', 'Repeat Journey', 'Client Feedback', 'Infant Care'].map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        type="button"
+                        onClick={(e) => {
+                          const input = (e.currentTarget.closest('div')?.querySelector('input') as HTMLInputElement);
+                          if (input) input.value = suggestion;
+                        }}
+                        className="text-[9px] px-1.5 py-0.5 rounded bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium cursor-pointer"
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Family / Location Attribution *
+                  </label>
+                  <input
+                    type="text"
+                    name="family"
+                    defaultValue={editingWhyTrustVideo?.family || ''}
+                    placeholder="e.g., Daisy Lodge Condominium"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+              </div>
+
+              {/* Video Source Selection */}
+              <div className="space-y-2">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700">
+                  Video URL (YouTube or Direct Video) *
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    name="youtubeUrl"
+                    value={whyTrustVideoUrlInput}
+                    onChange={(e) => setWhyTrustVideoUrlInput(e.target.value)}
+                    placeholder="https://www.youtube.com/watch?v=... or 11-char ID"
+                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                  <label className="px-3 py-2 rounded-lg border border-stone-200 hover:bg-stone-50 text-stone-700 font-semibold cursor-pointer shrink-0 flex items-center space-x-1.5 transition-colors">
+                    <Upload className="w-3.5 h-3.5 text-[#7B1131]" />
+                    <span>Upload File</span>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleVideoFileUpload(e, (dataUrl) => setWhyTrustVideoUrlInput(dataUrl))
+                      }
+                    />
+                  </label>
+                </div>
+                <p className="text-[10px] text-stone-400">
+                  Enter a YouTube link or upload an MP4/video file directly.
+                </p>
+              </div>
+
+              {/* Live Preview Frame */}
+              <div className="space-y-1">
+                <span className="block text-[10px] font-bold uppercase tracking-wider text-stone-600">
+                  Video Preview
+                </span>
+                <div className="aspect-video w-full rounded-xl overflow-hidden bg-stone-900 border border-stone-200 shadow-xs flex items-center justify-center">
+                  {extractYouTubeId(whyTrustVideoUrlInput) ? (
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${extractYouTubeId(whyTrustVideoUrlInput)}`}
+                      title="Video preview"
+                      className="w-full h-full border-0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    />
+                  ) : whyTrustVideoUrlInput ? (
+                    <video
+                      src={whyTrustVideoUrlInput}
+                      controls
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="text-center p-4 text-stone-400">
+                      <Play className="w-6 h-6 mx-auto mb-1 text-stone-500" />
+                      <span className="text-[11px]">Enter a YouTube URL or upload a file to preview</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center justify-end space-x-2 pt-2 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={() => setIsWhyTrustModalOpen(false)}
+                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold shadow-xs cursor-pointer flex items-center space-x-1.5"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>{editingWhyTrustVideo ? 'Save Changes' : 'Add to Carousel'}</span>
                 </button>
               </div>
             </form>

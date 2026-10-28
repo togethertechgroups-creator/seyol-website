@@ -20,6 +20,7 @@ const COMBINED_PACKAGES_STORAGE_KEY = 'seyol_admin_combined_packages_v2';
 const ORDERS_STORAGE_KEY = 'seyol_admin_orders_v2';
 const STAGE_RESOURCES_STORAGE_KEY = 'seyol_admin_stage_resources_v2';
 const GUIDE_LEADS_STORAGE_KEY = 'seyol_admin_guide_leads_v2';
+const WHY_TRUST_VIDEOS_STORAGE_KEY = 'seyol_admin_why_trust_videos_v1';
 
 export type JourneyStageKey = 'pregnancy' | 'postpartum' | 'newborn' | 'preconception';
 
@@ -235,6 +236,38 @@ export function extractYouTubeId(url?: string): string | null {
   }
   return null;
 }
+
+export interface WhyTrustVideoStory {
+  id: string;
+  youtubeIdOrUrl: string;
+  title: string;
+  tag: string;
+  family: string;
+}
+
+export const defaultWhyTrustVideoStories: WhyTrustVideoStory[] = [
+  {
+    id: 'story-1',
+    youtubeIdOrUrl: '2CUZML1oP6c',
+    title: '50 Infant Massage & Bath + 35 Postpartum Sessions',
+    tag: 'Care Journey',
+    family: 'Daisy Lodge Condominium',
+  },
+  {
+    id: 'story-2',
+    youtubeIdOrUrl: '2bmZwC4BS8I',
+    title: '30 Infant Massage & Bath + 15 Postpartum Sessions',
+    tag: 'Repeat Journey',
+    family: '2nd-Time Indian Singaporean Mum',
+  },
+  {
+    id: 'story-3',
+    youtubeIdOrUrl: 'yWk4VLjkuUA',
+    title: 'Life-Changing Postnatal & Postpartum Services',
+    tag: 'Client Feedback',
+    family: 'Client Interview',
+  },
+];
 
 export interface CombinedPackageItem {
   id: string;
@@ -517,6 +550,12 @@ export interface AdminDataContextType {
   addTestimonial: (testimonial: Testimonial) => void;
   updateTestimonial: (id: string, updates: Partial<Testimonial>) => void;
   deleteTestimonial: (id: string) => void;
+  // Why Families Trust SEYOL Videos (Services page)
+  whyTrustVideos: WhyTrustVideoStory[];
+  addWhyTrustVideo: (story: WhyTrustVideoStory) => void;
+  updateWhyTrustVideo: (id: string, updates: Partial<WhyTrustVideoStory>) => void;
+  deleteWhyTrustVideo: (id: string) => void;
+  resetWhyTrustVideos: () => void;
   // Reset
   resetAllToDefaults: () => void;
   isHydrated: boolean;
@@ -536,6 +575,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const [combinedPackages, setCombinedPackages] = useState<CombinedPackageItem[]>(defaultCombinedPackages);
   const [stageResourceGuides, setStageResourceGuides] = useState<Record<JourneyStageKey, StageResourceGuide>>(defaultStageResourceGuides);
   const [guideLeads, setGuideLeads] = useState<GuideLead[]>(defaultGuideLeads);
+  const [whyTrustVideos, setWhyTrustVideos] = useState<WhyTrustVideoStory[]>(defaultWhyTrustVideoStories);
   const [isHydrated, setIsHydrated] = useState<boolean>(false);
 
   // Hydrate from localStorage on client mount
@@ -606,6 +646,18 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       const savedGuideLeads = localStorage.getItem(GUIDE_LEADS_STORAGE_KEY);
       if (savedGuideLeads) {
         setGuideLeads(JSON.parse(savedGuideLeads));
+      }
+
+      const savedWhyTrustVideos = localStorage.getItem(WHY_TRUST_VIDEOS_STORAGE_KEY);
+      if (savedWhyTrustVideos) {
+        try {
+          const parsed = JSON.parse(savedWhyTrustVideos);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setWhyTrustVideos(parsed);
+          }
+        } catch {
+          setWhyTrustVideos(defaultWhyTrustVideoStories);
+        }
       }
     } catch (err) {
       console.warn('Could not load SEYOL admin storage data:', err);
@@ -1049,6 +1101,34 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     saveGuideLeads([]);
   };
 
+  // Why Families Trust SEYOL Videos (Services page)
+  const saveWhyTrustVideos = (newVideos: WhyTrustVideoStory[]) => {
+    setWhyTrustVideos(newVideos);
+    try {
+      localStorage.setItem(WHY_TRUST_VIDEOS_STORAGE_KEY, JSON.stringify(newVideos));
+    } catch (e) {
+      console.error('Failed to save Why Trust videos to localStorage', e);
+    }
+  };
+
+  const addWhyTrustVideo = (story: WhyTrustVideoStory) => {
+    const updated = [...whyTrustVideos, story];
+    saveWhyTrustVideos(updated);
+  };
+
+  const updateWhyTrustVideo = (id: string, updates: Partial<WhyTrustVideoStory>) => {
+    const updated = whyTrustVideos.map((v) => (v.id === id ? { ...v, ...updates } : v));
+    saveWhyTrustVideos(updated);
+  };
+
+  const deleteWhyTrustVideo = (id: string) => {
+    const updated = whyTrustVideos.filter((v) => v.id !== id);
+    saveWhyTrustVideos(updated);
+  };
+
+  const resetWhyTrustVideos = () => {
+    saveWhyTrustVideos(defaultWhyTrustVideoStories);
+  };
   // Reset
   const resetAllToDefaults = () => {
     try {
@@ -1063,6 +1143,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       localStorage.removeItem(ORDERS_STORAGE_KEY);
       localStorage.removeItem(STAGE_RESOURCES_STORAGE_KEY);
       localStorage.removeItem(GUIDE_LEADS_STORAGE_KEY);
+      localStorage.removeItem(WHY_TRUST_VIDEOS_STORAGE_KEY);
     } catch (e) {
       console.error('Error clearing admin localStorage', e);
     }
@@ -1077,6 +1158,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     setCombinedPackages(defaultCombinedPackages);
     setStageResourceGuides(defaultStageResourceGuides);
     setGuideLeads(defaultGuideLeads);
+    setWhyTrustVideos(defaultWhyTrustVideoStories);
   };
 
   return (
@@ -1124,6 +1206,11 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         addTestimonial,
         updateTestimonial,
         deleteTestimonial,
+        whyTrustVideos,
+        addWhyTrustVideo,
+        updateWhyTrustVideo,
+        deleteWhyTrustVideo,
+        resetWhyTrustVideos,
         resetAllToDefaults,
         isHydrated,
       }}
