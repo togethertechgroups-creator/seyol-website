@@ -3,136 +3,108 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Clock, 
-  MapPin, 
-  CheckCircle2, 
-  Sparkles,
-  Calendar,
-  Award,
-  ChevronRight
-} from 'lucide-react';
 import { Service } from '../../types';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
+
 export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
   const { openEnquiry } = useQuickEnquiry();
 
-  // Highlight popular flag
-  const isPopular = service.id === 'postpartum-massage-wrap' || service.id === 'mother-baby-combo' || service.id === 'prenatal-massage';
-
   return (
     <motion.div
-      whileHover={{ y: -8, scale: 1.015 }}
-      transition={{ type: 'spring', stiffness: 350, damping: 25 }}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.25, ease: 'easeOut' }}
       className="h-full flex group"
     >
-      <div
-        className={`bg-white rounded-3xl border ${
-          isPopular ? 'border-gold shadow-warm-lg ring-1 ring-gold/40' : 'border-cream-border shadow-warm-md'
-        } overflow-hidden hover:shadow-warm-xl hover:border-gold/60 transition-all duration-300 flex flex-col justify-between h-full font-sans p-0 w-full relative`}
-      >
-        {/* Top Hero Image Section */}
-        <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-cream shrink-0">
+      <div className="bg-white rounded-[26px] sm:rounded-[28px] border border-[#ECE5DD] overflow-hidden shadow-[0_10px_32px_rgba(45,20,25,0.06)] hover:shadow-[0_18px_44px_rgba(45,20,25,0.12)] transition-all duration-300 flex flex-col justify-between h-full font-sans w-full relative">
+        
+        {/* Top Hero Image Header with Vignette & Organic Wave */}
+        <div className="relative h-[240px] sm:h-[260px] w-full overflow-hidden shrink-0 bg-[#FAF0EB]">
           <img
             src={service.heroImage}
             alt={service.title}
-            className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+            style={{ objectPosition: service.imagePosition || 'center center' }}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-maroon-dark/85 via-maroon-dark/30 to-transparent" />
-          
-          {/* Top Stage Badges */}
-          <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10">
-            {service.stages.map((st) => (
-              <span
-                key={st}
-                className="bg-gold/90 backdrop-blur-xs text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm border border-gold-light/40"
-              >
-                {st}
-              </span>
-            ))}
+          {/* Deep Wine / Maroon Vignette Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#2C0711]/90 via-[#2C0711]/35 via-50% to-black/10 pointer-events-none" />
+
+          {/* Format & Title Text Overlay on Image */}
+          <div className="absolute bottom-5 sm:bottom-6 left-5 sm:left-6 right-5 sm:right-6 z-10 space-y-1">
+            <span className="text-[10px] sm:text-[11px] font-bold text-[#F3C49F] uppercase tracking-[0.16em] block">
+              {service.format || 'HOLISTIC CARE'}
+            </span>
+            <h3 className="font-serif text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-[1.18] drop-shadow-xs">
+              {service.shortTitle || service.title}
+            </h3>
           </div>
 
-          {/* Popular Tag */}
-          {isPopular && (
-            <div className="absolute top-3 right-3 z-10">
-              <span className="bg-gradient-to-r from-maroon to-maroon-dark text-gold-light text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border border-gold/40 shadow-warm-sm flex items-center space-x-1">
-                <Sparkles className="w-3 h-3 text-gold" />
-                <span>Most Popular</span>
-              </span>
-            </div>
-          )}
-
-          {/* Title Overlay on Hero Image */}
-          <div className="absolute bottom-3 left-4 right-4 text-cream-light z-10 space-y-0.5">
-            <span className="text-[10px] font-bold text-gold-light uppercase tracking-widest block">
-              {service.format}
-            </span>
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-cream-light leading-tight drop-shadow-sm">
-              {service.shortTitle}
-            </h3>
+          {/* Organic Wave Cut at the Bottom */}
+          <div className="absolute -bottom-px left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+            <svg 
+              viewBox="0 0 1000 100" 
+              preserveAspectRatio="none" 
+              className="w-full h-[26px] sm:h-[32px] block fill-white"
+            >
+              <path d="M 0,35 C 280,95 650,-10 1000,45 L 1000,100 L 0,100 Z" />
+            </svg>
           </div>
         </div>
 
-        {/* Card Body Content */}
-        <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-5">
+        {/* Card Body */}
+        <div className="p-5 sm:p-6 pt-3 sm:pt-4 flex-1 flex flex-col justify-between space-y-4">
           <div className="space-y-3.5">
-            <p className="text-xs text-brown leading-relaxed line-clamp-2">
+            <p className="text-[13px] sm:text-[13.5px] text-[#4A4543] leading-[1.65] font-normal">
               {service.summary}
             </p>
 
             {/* Key Benefit Highlight Box */}
-            <div className="bg-gradient-to-br from-cream via-cream-light to-gold-soft/20 p-3.5 rounded-2xl border border-gold/25 space-y-2 text-xs shadow-xs">
-              <div className="flex items-start space-x-2">
-                <CheckCircle2 className="w-4 h-4 text-maroon shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-maroon font-bold">Key Benefit: </strong>
-                  <span className="text-brown-muted">{service.benefit}</span>
-                </div>
-              </div>
+            <div className="bg-[#FCF4EE] rounded-2xl p-4 border border-[#F4E4DA]/60">
+              <p className="text-[12.5px] sm:text-[13px] leading-[1.6] text-[#524644]">
+                <strong className="font-bold text-[#70152B]">Key Benefit: </strong>
+                <span>{service.benefit}</span>
+              </p>
             </div>
 
-            {/* Micro Inclusions / Duration Badges */}
-            <div className="flex flex-wrap items-center justify-between gap-2 text-[11px] text-brown-muted pt-1">
-              <div className="flex items-center space-x-1.5 bg-cream/80 px-2.5 py-1 rounded-lg border border-cream-border">
-                <Clock className="w-3.5 h-3.5 text-gold-dark" />
-                <span>{service.duration}</span>
-              </div>
-              <div className="flex items-center space-x-1 text-gold-dark font-semibold">
-                <Award className="w-3.5 h-3.5 text-gold" />
-                <span>AYUSH Protocol</span>
-              </div>
-            </div>
+            {/* Duration / Inclusions Text */}
+            {service.duration && (
+              <p className="text-xs text-[#736B66] font-medium leading-relaxed pt-0.5">
+                {service.duration}
+              </p>
+            )}
           </div>
 
-          {/* Pricing & CTA Action Footer */}
-          <div className="pt-4 border-t border-cream-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          {/* Pricing Guide & Action Buttons Footer */}
+          <div className="pt-3 border-t border-[#EFE8DF] space-y-3.5">
             <div>
-              <div className="text-[10px] text-brown-muted uppercase tracking-wider font-medium">Pricing Guide</div>
-              <div className="font-serif font-bold text-xs sm:text-sm text-maroon">{service.pricingGuide}</div>
+              <div className="text-[10px] tracking-[1.5px] uppercase font-bold text-[#9C9289] mb-1">
+                PRICING GUIDE
+              </div>
+              <div className="font-serif text-[15px] sm:text-base font-bold text-[#70152B] leading-snug">
+                {service.pricingGuide}
+              </div>
             </div>
 
-            <div className="flex items-center space-x-2 w-full sm:w-auto shrink-0">
+            <div className="flex items-center justify-end gap-2.5 pt-1">
               <Link
                 href={`/services/${service.slug}`}
-                className="flex-1 sm:flex-initial px-3.5 py-2 rounded-xl bg-cream border border-cream-border text-brown hover:bg-cream-dark text-xs font-semibold text-center transition-colors shadow-xs"
+                className="px-5 sm:px-6 py-2.5 rounded-full bg-[#FAF4ED] hover:bg-[#F2E8DC] text-[#70152B] font-semibold text-xs sm:text-[13px] text-center transition-colors shadow-xs"
               >
                 Details
               </Link>
 
-              <motion.button
-                whileTap={{ scale: 0.95 }}
+              <button
+                type="button"
                 onClick={() => openEnquiry({ serviceTitle: service.title })}
-                className="flex-1 sm:flex-initial px-4 py-2 rounded-xl bg-gradient-to-r from-maroon to-maroon-dark hover:brightness-110 text-cream-light text-xs font-bold text-center transition-all shadow-warm-sm flex items-center justify-center space-x-1.5 cursor-pointer border border-gold/30"
+                className="px-5 sm:px-6 py-2.5 rounded-full bg-[#70152B] hover:bg-[#580F21] text-white font-semibold text-xs sm:text-[13px] transition-all shadow-sm hover:shadow-warm-sm flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Enquire</span>
-                <ArrowRight className="w-3.5 h-3.5 text-gold-light group-hover:translate-x-0.5 transition-transform" />
-              </motion.button>
+                <span className="text-sm font-bold">→</span>
+              </button>
             </div>
           </div>
+
         </div>
       </div>
     </motion.div>
   );
 };
-

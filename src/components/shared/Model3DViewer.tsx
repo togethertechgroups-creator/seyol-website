@@ -18,16 +18,16 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
   className = 'w-full h-[520px] sm:h-[580px]',
   autoRotate = true,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const mountRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const mountNode = mountRef.current;
+    if (!mountNode) return;
 
     const getDims = () => {
-      const w = container.clientWidth || container.offsetWidth || 500;
-      const h = container.clientHeight || container.offsetHeight || 550;
+      const w = Math.max(mountNode.clientWidth || mountNode.offsetWidth || 400, 280);
+      const h = Math.max(mountNode.clientHeight || mountNode.offsetHeight || 480, 360);
       return { w, h };
     };
 
@@ -36,19 +36,33 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
     // 1. Three.js Scene
     const scene = new THREE.Scene();
 
-    // 2. Camera with wider framing so nothing clips
+    // 2. Camera setup
     const camera = new THREE.PerspectiveCamera(40, w / h, 0.1, 100);
     camera.position.set(0, 0, 4.4);
 
-    // 3. Renderer with transparent background
-    const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    });
+    // 3. Renderer with safe power preference and transparent background
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true,
+        powerPreference: 'default',
+      });
+    } catch {
+      try {
+        renderer = new THREE.WebGLRenderer({
+          antialias: false,
+          alpha: true,
+        });
+      } catch (err) {
+        console.error('[Model3D] Error creating WebGL renderer:', err);
+        return;
+      }
+    }
+
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(w, h);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(typeof window !== 'undefined' ? window.devicePixelRatio : 1, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.3;
@@ -59,8 +73,10 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
     renderer.domElement.style.outline = 'none';
     renderer.domElement.style.border = 'none';
     renderer.domElement.style.pointerEvents = 'auto';
+    renderer.domElement.style.cursor = 'grab';
 
-    container.appendChild(renderer.domElement);
+    // Mount canvas into dedicated container
+    mountNode.appendChild(renderer.domElement);
 
     // 4. Orbit Controls (Smooth Auto Rotate)
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -108,7 +124,7 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
       (gltf) => {
         loadedModel = gltf.scene;
 
-        // Auto-scale and perfectly center model with generous padding
+        // Auto-scale and perfectly center model
         const box = new THREE.Box3().setFromObject(loadedModel);
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
@@ -117,7 +133,7 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
         const scale = 2.4 / (maxDim || 1);
         loadedModel.scale.setScalar(scale);
 
-        // Center on (0, 0, 0) and lower slightly for top headroom
+        // Center on (0, 0, 0) and lower slightly for natural perspective
         loadedModel.position.x = -center.x * scale;
         loadedModel.position.y = -center.y * scale - 0.25;
         loadedModel.position.z = -center.z * scale;
@@ -139,7 +155,7 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
       },
       undefined,
       (error) => {
-        console.error('Error loading 3D model:', error);
+        console.error('[Model3D] Error loading 3D model:', error);
         setLoading(false);
       }
     );
@@ -155,7 +171,7 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
 
     // 9. Resize Handler
     const handleResize = () => {
-      if (!container) return;
+      if (!mountNode || !renderer) return;
       const { w: newW, h: newH } = getDims();
       camera.aspect = newW / newH;
       camera.updateProjectionMatrix();
@@ -171,8 +187,8 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
       controls.dispose();
       dracoLoader.dispose();
       renderer.dispose();
-      if (container.contains(renderer.domElement)) {
-        container.removeChild(renderer.domElement);
+      if (mountNode && renderer.domElement && mountNode.contains(renderer.domElement)) {
+        mountNode.removeChild(renderer.domElement);
       }
       scene.clear();
     };
@@ -180,19 +196,21 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
 
   return (
     <div
-      ref={containerRef}
-      className={`relative w-full flex items-center justify-center select-none overflow-visible ${className}`}
-      style={{ minHeight: '480px', background: 'transparent' }}
+      className={`relative w-full flex items-center justify-center select-none overflow-hidden ${className}`}
+      style={{ minHeight: '440px', background: 'transparent' }}
     >
-      {/* Clean 3D Loading Spinner */}
+      {/* Dedicated Three.js canvas container — React never modifies its internal children */}
+      <div ref={mountRef} className="w-full h-full absolute inset-0" />
+
+      {/* Loading state indicator — safely managed by React as a sibling */}
       {loading && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center space-y-3 pointer-events-none z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center space-y-3 pointer-events-none z-10 bg-[#FAF5EE]/40 backdrop-blur-xs rounded-3xl">
           <div className="relative w-12 h-12 flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-3 border-gold/30 border-t-maroon animate-spin" />
-            <Sparkles className="w-4 h-4 text-maroon animate-pulse" />
+            <div className="absolute inset-0 rounded-full border-3 border-[#A87C4F]/30 border-t-[#721832] animate-spin" />
+            <Sparkles className="w-4 h-4 text-[#721832] animate-pulse" />
           </div>
-          <span className="text-xs font-semibold text-maroon tracking-wider">
-            3D Loading...
+          <span className="text-xs font-semibold text-[#721832] tracking-wider">
+            Loading 3D Baby Model...
           </span>
         </div>
       )}
@@ -201,4 +219,3 @@ export const Model3DViewer: React.FC<Model3DViewerProps> = ({
 };
 
 export default Model3DViewer;
-

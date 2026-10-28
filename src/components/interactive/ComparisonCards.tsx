@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Check, X, Sparkles, Shield, Clock, Heart, ArrowRight, GraduationCap, Flower2, Users } from 'lucide-react';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 
-type ComparisonTab = 'postpartum' | 'nanny' | 'education';
+type ComparisonTab = 'postpartum' | 'nanny' | 'infant-hourly';
 
 export const ComparisonCards: React.FC = () => {
   const [activeTab, setActiveTab] = useState<ComparisonTab>('postpartum');
@@ -33,17 +33,17 @@ export const ComparisonCards: React.FC = () => {
                 : 'text-brown hover:text-maroon hover:bg-white/60'
             }`}
           >
-            Stay-In Nanny vs Hourly Respite
+            Nanny vs Hourly Support
           </button>
           <button
-            onClick={() => setActiveTab('education')}
+            onClick={() => setActiveTab('infant-hourly')}
             className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'education'
+              activeTab === 'infant-hourly'
                 ? 'bg-maroon text-cream-light shadow-sm'
                 : 'text-brown hover:text-maroon hover:bg-white/60'
             }`}
           >
-            In-Home Care vs Masterclasses
+            Infant Bath Service vs Hourly Newborn Support
           </button>
         </div>
       </div>
@@ -246,86 +246,106 @@ export const ComparisonCards: React.FC = () => {
         </div>
       )}
 
-      {activeTab === 'education' && (
+      {activeTab === 'infant-hourly' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
-          {/* Card 1: In-Home Hands-On Care */}
+          {/* Card 1: Infant Bath Service & Baby Massage */}
           <div className="bg-cream-light rounded-3xl border border-cream-border p-6 sm:p-8 flex flex-col justify-between shadow-warm-sm hover:border-gold/60 transition-all">
             <div className="space-y-4">
               <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
-                Done-For-You Home Visits
+                Focused Daily Baby Care
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
-                In-Home Hands-On Sanctuary Care
+                Infant Bath Service & Massage
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
-                A certified care matron arrives at your doorstep daily to personally perform all massages, baths, Kizhi, and belly wrapping for you.
+                A specialised 45 to 60-minute daily in-home ritual focusing on traditional Thokkanam infant massage, herbal warm bath, and delicate newborn hygiene.
               </p>
 
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Zero effort required from exhausted parents</span>
+                  <span>Full traditional baby massage (Thokkanam) for bone & muscle tone</span>
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Traditional herbal materials & oils brought to your home</span>
+                  <span>Gentle herbal warm bath (Vethu Kuli) tailored for newborn skin</span>
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Immediate physical relief and structural core recovery</span>
+                  <span>Umbilical cord hygiene, scalp cradle care & colic gas-relief strokes</span>
+                </div>
+                <div className="flex items-center space-x-2 text-brown">
+                  <Check className="w-4 h-4 text-maroon shrink-0" />
+                  <span>Hands-on coaching so parents gain lifelong holding & bathing confidence</span>
+                </div>
+                <div className="flex items-center space-x-2 text-brown-muted">
+                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
+                  <span className="line-through">Mother postpartum bodywork or belly binding</span>
+                </div>
+                <div className="flex items-center space-x-2 text-brown-muted">
+                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
+                  <span className="line-through">Extended day/night respite hours or cooking</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-6 mt-6 border-t border-cream-border">
               <button
-                onClick={() => openEnquiry({ serviceTitle: 'In-Home Care Services' })}
+                onClick={() => openEnquiry({ serviceTitle: 'Infant Bath & Massage Service' })}
                 className="w-full py-3 rounded-xl bg-cream border border-cream-border hover:bg-maroon hover:text-cream-light font-bold text-xs transition-colors cursor-pointer"
               >
-                Book In-Home Visits
+                Enquire for Infant Bath
               </button>
             </div>
           </div>
 
-          {/* Card 2: Live Masterclasses & Education */}
+          {/* Card 2: Hourly Newborn Support */}
           <div className="bg-cream-light rounded-3xl border-2 border-gold p-6 sm:p-8 flex flex-col justify-between shadow-warm-md relative">
             <div className="absolute -top-3 right-6 bg-gold text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Empowerment for Couples
+              Flexible Respite Choice
             </div>
 
             <div className="space-y-4">
               <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
-                Self-Directed Learning
+                On-Demand Day &amp; Night Respite
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
-                Live Interactive Masterclasses
+                Hourly Newborn Support
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
-                Learn directly from certified educators so both mother and father gain lifelong skills in bathing, soothing, massage, and labor coaching.
+                Targeted 4 to 8-hour blocks by certified newborn aides to give exhausted parents restorative sleep, manage fussy colic hours, and assist with feeds.
               </p>
 
               <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Equips partners with hands-on calming and massage confidence</span>
+                  <span>Flexible daytime or overnight shift blocks (4, 6, or 8 hours)</span>
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Includes lifetime replay access and printable guide blueprints</span>
+                  <span>Night-time feeds, paced bottle feeding, soothing & diaper changes</span>
                 </div>
                 <div className="flex items-center space-x-2 text-brown">
                   <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Accessible anywhere in Singapore, India, or globally</span>
+                  <span>Expert evening colic relief, burping & safe sleep settling</span>
+                </div>
+                <div className="flex items-center space-x-2 text-brown">
+                  <Check className="w-4 h-4 text-maroon shrink-0" />
+                  <span>Sterilising pump parts, baby bottles & nursery hygiene maintenance</span>
+                </div>
+                <div className="flex items-center space-x-2 text-brown">
+                  <Check className="w-4 h-4 text-maroon shrink-0" />
+                  <span>Guaranteed uninterrupted rest and recovery for parents</span>
                 </div>
               </div>
             </div>
 
             <div className="pt-6 mt-6 border-t border-cream-border">
               <button
-                onClick={() => openEnquiry({ serviceTitle: 'Masterclass Workshops' })}
+                onClick={() => openEnquiry({ serviceTitle: 'Hourly Newborn Respite Support' })}
                 className="w-full py-3.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs tracking-wide shadow-warm-sm transition-all flex items-center justify-center space-x-2 cursor-pointer shimmer-button"
               >
-                <span>Reserve Masterclass Pass</span>
+                <span>Reserve Hourly Newborn Care</span>
                 <ArrowRight className="w-4 h-4 text-gold-light" />
               </button>
             </div>

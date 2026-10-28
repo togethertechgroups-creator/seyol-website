@@ -113,6 +113,7 @@ export const FlagshipShowcase: React.FC = () => {
                 <img
                   src={mainService.heroImage}
                   alt={mainService.title}
+                  style={{ objectPosition: (mainService as any).imagePosition || 'center center' }}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#150206] via-transparent to-transparent" />
@@ -200,6 +201,7 @@ export const FlagshipShowcase: React.FC = () => {
                         <img
                           src={secService.heroImage}
                           alt={secService.title}
+                          style={{ objectPosition: (secService as any).imagePosition || 'center center' }}
                           className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                         />
                       </div>

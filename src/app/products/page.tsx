@@ -22,6 +22,10 @@ import {
 import { productsData as fallbackProducts, bundlesData } from '../../data/products';
 import { ProductCard } from '../../components/shared/ProductCard';
 import { BundleBuilder } from '../../components/interactive/BundleBuilder';
+import { FindProductsForYourStage } from '../../components/interactive/FindProductsForYourStage';
+import { ShareSeyolPartnerSection } from '../../components/products/ShareSeyolPartnerSection';
+import { ProductQuestionsFAQ } from '../../components/products/ProductQuestionsFAQ';
+import { FirstSeyolResource } from '../../components/products/FirstSeyolResource';
 import { AccordionFAQ } from '../../components/shared/AccordionFAQ';
 import { useCart } from '../../context/CartContext';
 import { useAdminData } from '../../context/AdminDataContext';
@@ -244,7 +248,7 @@ export default function ProductsPage() {
       {/* ========================================================================= */}
       {/* 4. PRODUCTS CATALOGUE GRID                                                */}
       {/* ========================================================================= */}
-      <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-[98%] 2xl:max-w-[1780px] mx-auto w-full">
+      <section id="products-catalog" className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 max-w-[98%] 2xl:max-w-[1780px] mx-auto w-full scroll-mt-20">
         <div className="space-y-8">
           
           {/* Header Row */}
@@ -272,6 +276,11 @@ export default function ProductsPage() {
 
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* 4B. FIND PRODUCTS FOR YOUR STAGE                                          */}
+      {/* ========================================================================= */}
+      <FindProductsForYourStage onSelectCategory={setSelectedCategory} />
 
       {/* ========================================================================= */}
       {/* 5. CURATED GIFT SETS & CONFINEMENT BUNDLES (COMBOS)                       */}
@@ -369,22 +378,19 @@ export default function ProductsPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 7. BOTANICAL QUALITY & FAQ ACCORDION                                      */}
+      {/* 6B. GROW WITH US: SHARE SEY BY SEYOL                                      */}
       {/* ========================================================================= */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-t border-neutral-200">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="text-center space-y-2">
+      <ShareSeyolPartnerSection />
 
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-              Product Safety &amp; Botanical FAQs
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-500">
-              Everything you need to know about our traditional Siddha formulations and infant safety.
-            </p>
-          </div>
-          <AccordionFAQ defaultCategory="products" />
-        </div>
-      </section>
+      {/* ========================================================================= */}
+      {/* 7. PRODUCT QUESTIONS BEFORE YOU BUY (FAQ)                                  */}
+      {/* ========================================================================= */}
+      <ProductQuestionsFAQ />
+
+      {/* ========================================================================= */}
+      {/* 8. A GIFT FOR YOUR JOURNEY: YOUR FIRST SEYOL RESOURCE                       */}
+      {/* ========================================================================= */}
+      <FirstSeyolResource />
 
     </div>
   );

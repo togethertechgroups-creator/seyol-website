@@ -76,9 +76,9 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
 
   // Form State
   const [formData, setFormData] = useState<ResourceAccessFormState>({
-    fullName: user?.name || '',
-    email: user?.email || '',
-    phone: user?.phone || '',
+    fullName: '',
+    email: '',
+    phone: '',
     accountOption: 'portal',
     accessMethod: 'all',
     intendedUser: 'expecting-mother',
@@ -314,7 +314,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
                     <User className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
                     <input
                       type="text"
-                      placeholder="e.g. Ananya Ramachandran"
+                      placeholder="Enter your full name"
                       value={formData.fullName}
                       onChange={(e) => handleInputChange('fullName', e.target.value)}
                       className={`w-full pl-10 pr-4 py-3 rounded-xl bg-cream border text-sm font-medium text-brown focus:outline-none focus:ring-2 focus:ring-gold transition-all ${
@@ -339,7 +339,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
                     <Mail className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
                     <input
                       type="email"
-                      placeholder="e.g. ananya@example.com"
+                      placeholder="name@example.com"
                       value={formData.email}
                       onChange={(e) => handleInputChange('email', e.target.value)}
                       className={`w-full pl-10 pr-4 py-3 rounded-xl bg-cream border text-sm font-medium text-brown focus:outline-none focus:ring-2 focus:ring-gold transition-all ${
@@ -364,7 +364,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
                     <Phone className="w-4 h-4 absolute left-3.5 top-3.5 text-brown-muted" />
                     <input
                       type="tel"
-                      placeholder="e.g. +91 98400 12345"
+                      placeholder="e.g. +91 98400 00000"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}
                       className={`w-full pl-10 pr-4 py-3 rounded-xl bg-cream border text-sm font-medium text-brown focus:outline-none focus:ring-2 focus:ring-gold transition-all ${

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Award, 
@@ -25,11 +25,35 @@ import {
 import { caregiverPathwaysList, inTrainingCoursesData } from '../../data/careers';
 import { SeyolCareerPathwayId } from '../../types';
 import { CaregiverApplicationWizard } from '../../components/interactive/CaregiverApplicationWizard';
+import CareerGrowthExpectations from '../../components/interactive/CareerGrowthExpectations';
+import WhatSEYOLLooksFor from '../../components/interactive/WhatSEYOLLooksFor';
+import StayConnectedResources from '../../components/interactive/StayConnectedResources';
 
 export default function CareersPage() {
   const [selectedPathwayId, setSelectedPathwayId] = useState<SeyolCareerPathwayId>('pathway-1-foundation');
   const [expandedCourseId, setExpandedCourseId] = useState<string>('course-foundation');
   const applySectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const pathway = params.get('pathway');
+      if (pathway === 'practical-confinement-care' || pathway === 'pathway-2-practical') {
+        setSelectedPathwayId('pathway-2-practical');
+        if (window.location.hash === '#apply-wizard' && applySectionRef.current) {
+          setTimeout(() => {
+            applySectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+          }, 100);
+        }
+      } else if (pathway === 'foundation' || pathway === 'pathway-1-foundation') {
+        setSelectedPathwayId('pathway-1-foundation');
+      } else if (pathway === 'experienced' || pathway === 'pathway-3-experienced') {
+        setSelectedPathwayId('pathway-3-experienced');
+      } else if (pathway === 'certified' || pathway === 'pathway-4-certified') {
+        setSelectedPathwayId('pathway-4-professional');
+      }
+    }
+  }, []);
 
   const handleSelectPathway = (pathwayId: SeyolCareerPathwayId) => {
     setSelectedPathwayId(pathwayId);
@@ -40,62 +64,115 @@ export default function CareersPage() {
 
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
-      {/* 1. Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream-light to-cream py-14 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
-        {/* Subtle decorative blurs */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/15 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-maroon/5 blur-3xl pointer-events-none" />
+      {/* 1. Hero Header - Learn with SEYOL. Grow with SEYOL. */}
+      <section className="relative overflow-hidden bg-[#5A1224] text-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 border-b border-[#3D0A17]">
+        {/* Subtle decorative glow */}
+        <div className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[#8A253D]/30 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-32 -left-32 w-96 h-96 rounded-full bg-[#3D0A17]/50 blur-3xl pointer-events-none" />
 
-        <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+        <div className="max-w-[96%] xl:max-w-[94%] 2xl:max-w-[1700px] mx-auto relative z-10 space-y-12 sm:space-y-14">
+          
+          {/* Main 2-Column Hero: Content on Left, Training Photo on Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
+              <span className="inline-block text-[11px] sm:text-xs font-medium uppercase tracking-[2.5px] text-[#ECCEC6]">
+                CAREERS &amp; TRAINING AT SEYOL
+              </span>
 
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-normal text-white tracking-tight leading-[1.18]">
+                Learn with SEYOL. Grow with SEYOL.
+              </h1>
 
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-extrabold text-brown tracking-tight leading-tight">
-            Elevate Your Vocation in <br />
-            <span className="text-maroon">Traditional & Modern Confinement Care</span>
-          </h1>
+              <p className="text-sm sm:text-base md:text-lg text-[#F2E2DD] leading-relaxed max-w-xl font-light">
+                Learn the art of traditional Indian mother and baby care. Build practical skills, grow your confidence, and discover opportunities to build a meaningful career with SEYOL.
+              </p>
 
-          <p className="text-sm sm:text-base md:text-lg text-brown-muted max-w-3xl mx-auto leading-relaxed">
-            Whether you are stepping into infant care for the first time, have course credentials, or bring decades of rich practical wisdom, SEYOL provides tailored pathways, accredited in-training courses, and placements across Singapore, Malaysia, and India.
-          </p>
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3.5 sm:gap-4">
+                <a
+                  href="#training-courses"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-[#FAF0EB] hover:bg-white text-[#5A1224] font-semibold text-xs sm:text-sm shadow-md hover:scale-[1.02] transition-all flex items-center space-x-2 cursor-pointer"
+                >
+                  <span>Explore Training</span>
+                  <ArrowRight className="w-4 h-4 text-[#5A1224]" />
+                </a>
 
-          {/* Quick Pillars */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 max-w-4xl mx-auto text-left">
-            {[
-              { title: '4 Flexible Pathways', desc: 'From complete beginners to certified pros', icon: <Briefcase className="w-4 h-4 text-maroon" /> },
-              { title: 'Accredited In-Training', desc: 'Foundation & Practical hands-on tracks', icon: <Award className="w-4 h-4 text-gold-dark" /> },
-              { title: 'Cross-Border Placements', desc: 'Singapore, Malaysia & India assignments', icon: <Globe className="w-4 h-4 text-maroon" /> },
-              { title: 'Respect & Fair Wages', desc: 'High earning potential & welfare coverage', icon: <ShieldCheck className="w-4 h-4 text-gold-dark" /> }
-            ].map((pillar, idx) => (
-              <div key={idx} className="bg-cream-light/90 p-3.5 rounded-2xl border border-cream-border shadow-warm-sm flex items-start space-x-2.5">
-                <div className="p-2 rounded-xl bg-cream border border-cream-border shrink-0 mt-0.5">
-                  {pillar.icon}
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xs text-brown">{pillar.title}</div>
-                  <div className="text-[11px] text-brown-muted leading-tight mt-0.5">{pillar.desc}</div>
-                </div>
+                <a
+                  href="#choose-path"
+                  className="px-6 sm:px-7 py-3 sm:py-3.5 rounded-full bg-transparent hover:bg-white/10 text-white font-medium text-xs sm:text-sm border border-white/60 hover:border-white transition-all flex items-center space-x-2 cursor-pointer"
+                >
+                  <span>Explore Careers</span>
+                </a>
               </div>
-            ))}
+            </div>
+
+            {/* Right Column: Training Session Photo */}
+            <div className="lg:col-span-5 relative w-full max-w-sm sm:max-w-md lg:max-w-[420px] mx-auto">
+              <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border-2 border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.4)] aspect-[4/3.6] sm:aspect-[4/3.8] lg:aspect-[4/3.7] max-h-[400px] bg-[#3D0A17]">
+                <img
+                  src="/assets4/career_hero_section.jpg"
+                  alt="SEYOL practical mother and newborn care hands-on assessment training"
+                  className="w-full h-full object-cover object-[center_35%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#5A1224]/30 via-transparent to-transparent pointer-events-none" />
+              </div>
+            </div>
+
           </div>
 
-          {/* CTA Buttons */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href="#choose-path"
-              className="px-7 py-3.5 rounded-2xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center space-x-2"
-            >
-              <span>Explore the 4 Pathways</span>
-              <ArrowRight className="w-4 h-4 text-gold-light" />
-            </a>
+          {/* Quick Pillars Strip - Continuous Infinite Scrolling */}
+          <div className="relative w-full overflow-hidden pt-4 border-t border-white/15 select-none">
+            {/* Edge fade gradients */}
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-[#5A1224] to-transparent z-10" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-[#5A1224] to-transparent z-10" />
 
-            <a
-              href="#training-courses"
-              className="px-7 py-3.5 rounded-2xl bg-gold hover:bg-gold-light text-maroon-dark font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center space-x-2"
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>View In-Training Courses</span>
-            </a>
+            <div className="flex w-max group">
+              {[0, 1].map((setIdx) => (
+                <div
+                  key={setIdx}
+                  aria-hidden={setIdx === 1 ? true : undefined}
+                  className="flex shrink-0 gap-3.5 pr-3.5 animate-pillars-scroll group-hover:[animation-play-state:paused]"
+                >
+                  {[
+                    { title: '4 Flexible Pathways', desc: 'From complete beginners to certified pros', icon: <Briefcase className="w-4 h-4 text-[#FAF0EB]" /> },
+                    { title: 'Accredited In-Training', desc: 'Foundation & Practical hands-on tracks', icon: <Award className="w-4 h-4 text-[#E8C07A]" /> },
+                    { title: 'Cross-Border Placements', desc: 'Singapore, Malaysia & India assignments', icon: <Globe className="w-4 h-4 text-[#FAF0EB]" /> },
+                    { title: 'Respect & Fair Wages', desc: 'High earning potential & welfare coverage', icon: <ShieldCheck className="w-4 h-4 text-[#E8C07A]" /> },
+                    { title: '4 Flexible Pathways', desc: 'From complete beginners to certified pros', icon: <Briefcase className="w-4 h-4 text-[#FAF0EB]" /> },
+                    { title: 'Accredited In-Training', desc: 'Foundation & Practical hands-on tracks', icon: <Award className="w-4 h-4 text-[#E8C07A]" /> },
+                    { title: 'Cross-Border Placements', desc: 'Singapore, Malaysia & India assignments', icon: <Globe className="w-4 h-4 text-[#FAF0EB]" /> },
+                    { title: 'Respect & Fair Wages', desc: 'High earning potential & welfare coverage', icon: <ShieldCheck className="w-4 h-4 text-[#E8C07A]" /> },
+                  ].map((pillar, idx) => (
+                    <div
+                      key={idx}
+                      className="w-[280px] sm:w-[310px] shrink-0 bg-white/10 backdrop-blur-xs p-3.5 rounded-2xl border border-white/10 shadow-xs flex items-start space-x-3 text-left transition-colors hover:bg-white/15"
+                    >
+                      <div className="p-2 rounded-xl bg-white/15 border border-white/10 shrink-0 mt-0.5">
+                        {pillar.icon}
+                      </div>
+                      <div>
+                        <div className="font-serif font-bold text-xs text-white">{pillar.title}</div>
+                        <div className="text-[11px] text-[#EAD7D0] leading-snug mt-0.5 whitespace-normal">{pillar.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <style>{`
+              @keyframes pillarsScroll {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-100%); }
+              }
+              .animate-pillars-scroll {
+                animation: pillarsScroll 28s linear infinite;
+              }
+            `}</style>
           </div>
+
         </div>
       </section>
 
@@ -178,16 +255,18 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 3. SEYOL In-Training Courses Showcase (Pathway 1 & Pathway 2) */}
+      {/* 3. LEARN WITH SEYOL - Explore SEYOL In-House Training (Pathway 1 & Pathway 2) */}
       <section id="training-courses" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-y border-cream-border">
         <div className="max-w-7xl mx-auto space-y-10">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-maroon">
+              LEARN WITH SEYOL
+            </span>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
-              SEYOL In-Training Courses
+              Explore SEYOL In-House Training
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
-              Explore our structured academy programs designed to build safe clinical habits and authentic South Indian maternal wellness expertise.
+              Build your knowledge, strengthen your practical skills and discover the right learning pathway for your journey in confinement care
             </p>
           </div>
 
@@ -233,43 +312,33 @@ export default function CareersPage() {
                       </div>
                     </div>
 
-                    {/* Curriculum Modules */}
-                    <div className="space-y-3 pt-2">
-                      <div className="font-serif font-bold text-sm text-brown flex items-center space-x-1.5">
-                        <BookOpen className="w-4 h-4 text-gold-dark" />
-                        <span>Curriculum Modules:</span>
-                      </div>
-
-                      <div className="space-y-2.5">
-                        {course.curriculum.map((mod, idx) => (
-                          <div key={idx} className="bg-cream p-3 rounded-xl border border-cream-border text-xs space-y-1">
-                            <div className="font-bold text-maroon">{mod.title}</div>
-                            <div className="space-y-0.5 text-brown-muted text-[11px]">
-                              {mod.topics.map((top, tIdx) => (
-                                <div key={tIdx} className="flex items-start space-x-1.5">
-                                  <span className="text-gold-dark font-bold">•</span>
-                                  <span>{top}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
                   </div>
 
-                  {/* Apply Button */}
-                  <div className="pt-4 border-t border-cream-border flex items-center justify-between">
-                    <div className="text-xs text-brown-muted">
-                      <strong>Prerequisite:</strong> {course.prerequisites}
+                  {/* Prerequisite & Action Button */}
+                  <div className="pt-4 border-t border-cream-border space-y-3.5">
+                    <div className="text-xs text-brown-muted leading-relaxed">
+                      <strong className="text-brown font-semibold">Prerequisite:</strong> {course.prerequisites}
                     </div>
 
-                    <button
-                      onClick={() => handleSelectPathway(course.pathwayId)}
-                      className="px-5 py-2.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs shrink-0 shadow-sm transition-all"
-                    >
-                      Apply for {isFoundation ? 'Pathway 1' : 'Pathway 2'}
-                    </button>
+                    <div>
+                      {isFoundation ? (
+                        <Link
+                          href="/careers/foundation-confinement-care"
+                          className="w-full py-3 px-6 rounded-2xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-sm transition-all flex items-center justify-center space-x-2 text-center group cursor-pointer"
+                        >
+                          <span>View Foundation Training</span>
+                          <ArrowRight className="w-4 h-4 text-cream-light group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      ) : (
+                        <Link
+                          href="/careers/practical-confinement-care"
+                          className="w-full py-3 px-6 rounded-2xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-sm transition-all flex items-center justify-center space-x-2 text-center group cursor-pointer"
+                        >
+                          <span>View Practical Course</span>
+                          <ArrowRight className="w-4 h-4 text-cream-light group-hover:translate-x-0.5 transition-transform" />
+                        </Link>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
@@ -278,7 +347,37 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 4. Interactive Caregiver Application Wizard Section */}
+      {/* 4. Not Sure Where to Start? Callout Section */}
+      <section className="py-8 md:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+        <div className="bg-[#651F32] text-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 shadow-warm-md space-y-5">
+          <div className="space-y-2">
+            <h2 className="font-sans text-xl sm:text-2xl md:text-3xl font-bold text-white tracking-tight">
+              Not sure where to start?
+            </h2>
+            <p className="text-xs sm:text-sm md:text-base text-[#EAD7D0] leading-relaxed max-w-3xl">
+              Choose a pathway based on your existing certification and hands-on experience. SEYOL can review your background and guide you towards a suitable next step.
+            </p>
+          </div>
+
+          <div>
+            <a
+              href="#choose-path"
+              className="w-full py-3.5 sm:py-4 px-6 rounded-full bg-[#ECECEC] hover:bg-white text-[#333333] font-medium text-xs sm:text-sm md:text-base flex items-center justify-center space-x-2 transition-all shadow-xs hover:shadow-md cursor-pointer"
+            >
+              <span>Find Your Pathway</span>
+              <ArrowRight className="w-4 h-4 text-[#333333]" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Career Growth & Expectations Section */}
+      <CareerGrowthExpectations />
+
+      {/* 6. What SEYOL Looks For Section */}
+      <WhatSEYOLLooksFor />
+
+      {/* 6. Interactive Caregiver Application Wizard Section */}
       <section ref={applySectionRef} id="apply-wizard" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
         <div className="text-center space-y-2">
 
@@ -295,7 +394,7 @@ export default function CareersPage() {
         />
       </section>
 
-      {/* 5. Caregiver Benefits & Remuneration */}
+      {/* 7. Caregiver Benefits & Remuneration */}
       <section className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-t border-cream-border">
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
@@ -343,7 +442,7 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* 6. Frequently Asked Questions for Caregivers */}
+      {/* 8. Frequently Asked Questions for Caregivers */}
       <section className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-2">
@@ -372,7 +471,7 @@ export default function CareersPage() {
               },
               {
                 q: 'How soon will I be placed with families after completing training?',
-                a: 'Graduates of SEYOL In-Training Courses with passing evaluations are immediately added to our active roster and typically receive their first client assignment match within 2 to 4 weeks.'
+                a: 'Graduates of SEYOL In-House Training with passing evaluations are immediately added to our active roster and typically receive their first client assignment match within 2 to 4 weeks.'
               }
             ].map((faq, idx) => (
               <div key={idx} className="bg-cream-light rounded-2xl p-5 border border-cream-border space-y-2 shadow-warm-sm">
@@ -383,6 +482,9 @@ export default function CareersPage() {
           </div>
         </div>
       </section>
+
+      {/* 9. Stay Connected with SEYOL & Resources */}
+      <StayConnectedResources />
     </div>
   );
 }

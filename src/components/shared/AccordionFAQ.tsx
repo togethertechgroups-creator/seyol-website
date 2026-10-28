@@ -9,12 +9,15 @@ export const AccordionFAQ: React.FC<{ defaultCategory?: string }> = ({
   defaultCategory = 'all',
 }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>(defaultCategory);
-  const [openIds, setOpenIds] = useState<string[]>([faqsData[0].id]);
+  const [openIds, setOpenIds] = useState<string[]>([]);
 
   const toggleFAQ = (id: string) => {
-    setOpenIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
-    );
+    setOpenIds((prev) => (prev.includes(id) ? [] : [id]));
+  };
+
+  const handleCategoryChange = (catId: string) => {
+    setSelectedCategory(catId);
+    setOpenIds([]);
   };
 
   const filteredFaqs = faqsData.filter(
@@ -34,7 +37,7 @@ export const AccordionFAQ: React.FC<{ defaultCategory?: string }> = ({
         ].map((cat) => (
           <button
             key={cat.id}
-            onClick={() => setSelectedCategory(cat.id)}
+            onClick={() => handleCategoryChange(cat.id)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold transition-colors border ${
               selectedCategory === cat.id
                 ? 'bg-maroon text-cream-light border-maroon shadow-sm'

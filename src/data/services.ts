@@ -17,7 +17,8 @@ export const servicesData: Service[] = [
     format: 'Virtual & Hybrid',
     pricingGuide: 'From ₹4,500 for Comprehensive Consultation & Protocol',
     depositInfo: '₹1,500 advance booking confirmation.',
-    heroImage: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/preconception-support.jpeg',
+    imagePosition: 'center 35%',
     features: [
       'Comprehensive reproductive vitality assessment',
       'Traditional uterine warming herbal recommendations',
@@ -61,7 +62,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: '₹2,800 per session | Package options available',
     depositInfo: 'Full payment upon booking confirmation.',
-    heroImage: 'https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/prenatal-massage.jpg',
+    imagePosition: 'center 35%',
     features: [
       'Alleviating Pregnancy Stress - Amidst hormonal shifts, morning discomforts, and bodily strains, our massages provide a serene relief, addressing both mind and body stress',
       'Boosted Circulation - Prenatal massage eases blood flow, aiding the removal of pooled blood and lactic acid build-up, enhancing muscle oxygenation during pregnancy',
@@ -105,7 +107,8 @@ export const servicesData: Service[] = [
     format: 'In-Clinic / In-Home',
     pricingGuide: 'Comprehensive Doula Package: ₹35,000',
     depositInfo: '50% retainer upon contract signing; balance due at 37 weeks.',
-    heroImage: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/birth-doula-support.jpg',
+    imagePosition: 'center 30%',
     features: [
       '2 detailed in-home prenatal birth mapping and comfort sessions',
       'Dedicated on-call availability 24/7 starting from 37 weeks of pregnancy',
@@ -147,7 +150,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: 'Available in 10, 15, 20, 30, 40, and 60 session packages',
     depositInfo: '20% advance booking deposit.',
-    heroImage: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/postpartum-massage-wrap.jpg',
+    imagePosition: 'center 40%',
     features: [
       'Alleviate Swelling - Postpartum massage aids in redistributing body fluids, promoting drainage, and enhancing circulation, effectively reducing post-labor swelling.',
       'Enhanced Milk Supply - Massage boosts circulation and hormone production, aiding nursing mothers in achieving increased breast milk production.',
@@ -192,7 +196,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: '15-Day Package: ₹12,000 | 30-Day Package: ₹22,000',
     depositInfo: '₹3,000 reservation deposit.',
-    heroImage: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/newborn-baby-care.jpg',
+    imagePosition: 'center 35%',
     features: [
       'Slow, rhythmic therapeutic strokes that calm the nervous system',
       "Gentle abdominal 'I Love U' and bicycle strokes for colic and gas release",
@@ -236,7 +241,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: '21-Day Complete Dual Care: ₹58,000 | 30-Day Royal Care: ₹78,000',
     depositInfo: '₹8,000 advance booking fee to lock preferred care matrons.',
-    heroImage: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/mother-and-baby.jpg',
+    imagePosition: 'center 20%',
     features: [
       'Two dedicated care specialists or one senior dual-certified SEYOL matron',
       'Simultaneous or sequential mother and baby traditional routines',
@@ -278,7 +284,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: '28-Day Stay-In: ₹75,000 | 40-Day Traditional Mandalam: ₹105,000',
     depositInfo: '20% deposit required upon confirmation.',
-    heroImage: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/stay-in-confinement-nanny.jpg',
+    imagePosition: 'center 25%',
     features: [
       'Strictly vetted, police-verified, and health-screened SEYOL trained nannies',
       'Night-time baby burping, soothing, and diapering to ensure mother sleeps',
@@ -319,7 +326,8 @@ export const servicesData: Service[] = [
     format: 'In-Home (Chennai / Tamil Nadu)',
     pricingGuide: '₹550 / hour (minimum 4-hour booking) | 50-Hour Flexi Pass: ₹24,500',
     depositInfo: 'Advance booking of 48 hours required.',
-    heroImage: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/hourly-newborn-support.jpg',
+    imagePosition: 'center 20%',
     features: [
       'Gentle soothing, burping, swaddling, and wake window management',
       'Expressed milk or formula feeding according to parent guidelines',
@@ -358,7 +366,8 @@ export const servicesData: Service[] = [
     format: 'In-Clinic / In-Home',
     pricingGuide: 'Initial Comprehensive Consultation: ₹3,200 | Follow-up: ₹1,800',
     depositInfo: '₹1,000 deposit upon booking.',
-    heroImage: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/lactation-support.jpeg',
+    imagePosition: 'center 25%',
     features: [
       'Comprehensive pre- and post-feed weighted assessment where appropriate',
       'Deep assessment of latch asymmetry, positioning, and suck rhythm',
@@ -399,7 +408,8 @@ export const servicesData: Service[] = [
     format: 'Virtual & Hybrid',
     pricingGuide: '₹950 (100% credited towards any service package booked within 14 days)',
     depositInfo: 'Full payment upon booking.',
-    heroImage: 'https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&q=80&w=1200',
+    heroImage: '/assets4/care-guidance-consultation.jpg',
+    imagePosition: 'center 25%',
     features: [
       'Review of your family expectations, confinement traditions, and practical needs',
       'Custom budget and timeline breakdown across services, classes, and products',

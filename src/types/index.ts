@@ -17,6 +17,7 @@ export interface Service {
   pricingGuide: string;
   depositInfo: string;
   heroImage: string;
+  imagePosition?: string;
   benefitImages?: string[];
   processImage?: string;
   features: string[];

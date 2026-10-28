@@ -37,3 +37,6 @@ next-env.d.ts
 20260910-1024-00.3362532.mp4
 .env*
 .agents/
+
+*.bak
+src/assets4 copy/

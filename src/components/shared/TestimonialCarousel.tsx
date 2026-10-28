@@ -193,6 +193,52 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
 
           </div>
         )}
+
+        {/* Video Story Selector Thumbnails */}
+        {activeTestimonials.length > 1 && (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5 mt-6">
+            {activeTestimonials.map((t, idx) => {
+              const vidId = extractYouTubeId(t.youtubeUrl);
+              const isSelected = idx === currentIndex % activeTestimonials.length;
+              return (
+                <button
+                  key={t.id || idx}
+                  onClick={() => {
+                    setCurrentIndex(idx);
+                    setIsPlayingVideo(false);
+                  }}
+                  className={`relative rounded-xl overflow-hidden border-2 text-left transition-all p-1.5 flex flex-col items-center bg-cream hover:bg-cream-light cursor-pointer group ${
+                    isSelected
+                      ? 'border-maroon shadow-warm-md ring-2 ring-maroon/30 scale-[1.02]'
+                      : 'border-cream-border hover:border-gold/60 opacity-80 hover:opacity-100'
+                  }`}
+                >
+                  <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black mb-1.5">
+                    <img
+                      src={t.thumbnailImage || (vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : '')}
+                      alt={t.author}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                      <Play className={`w-3.5 h-3.5 ${isSelected ? 'fill-gold text-gold' : 'fill-white text-white'}`} />
+                    </div>
+                    {t.videoDuration && (
+                      <span className="absolute bottom-1 right-1 bg-black/75 text-[9px] text-white px-1 rounded font-mono">
+                        {t.videoDuration}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-[10px] font-bold text-brown line-clamp-1 w-full text-center group-hover:text-maroon">
+                    {t.author}
+                  </span>
+                  <span className="text-[9px] text-brown-muted line-clamp-1 w-full text-center">
+                    {t.serviceOrProduct}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
     </section>
   );

@@ -9,13 +9,13 @@ import { bookingServicesConfig as defaultBookingServicesConfig } from '../data/b
 import { BookingServiceConfig, BookingServiceId, BookingServicePackage } from '../types/booking';
 export type { BookingServiceConfig, BookingServiceId, BookingServicePackage };
 
-const SERVICES_STORAGE_KEY = 'seyol_admin_services_v2';
+const SERVICES_STORAGE_KEY = 'seyol_admin_services_v3';
 const PRODUCTS_STORAGE_KEY = 'seyol_admin_products_v2';
 const HOME_SETTINGS_STORAGE_KEY = 'seyol_admin_home_settings_v2';
 const PRODUCTS_SETTINGS_STORAGE_KEY = 'seyol_admin_products_settings_v2';
 const PRODUCT_BANNERS_STORAGE_KEY = 'seyol_admin_product_banners_v2';
 const BOOKING_CONFIGS_STORAGE_KEY = 'seyol_admin_booking_configs_v2';
-const TESTIMONIALS_STORAGE_KEY = 'seyol_admin_testimonials_v2';
+const TESTIMONIALS_STORAGE_KEY = 'seyol_admin_testimonials_v3';
 const COMBINED_PACKAGES_STORAGE_KEY = 'seyol_admin_combined_packages_v2';
 const ORDERS_STORAGE_KEY = 'seyol_admin_orders_v2';
 const STAGE_RESOURCES_STORAGE_KEY = 'seyol_admin_stage_resources_v2';
@@ -134,7 +134,7 @@ export interface HomeSettings {
 }
 
 export const defaultHomeSettings: HomeSettings = {
-  founderStoryImage: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800',
+  founderStoryImage: '/images/founder-jemma-francis.jpg',
   founderName: 'Mrs. Jemma Francis',
   founderTitle: 'Founder & Childbirth Educator',
   founderSubtitle: 'Certified Birth & Postpartum Doula • Singapore & India',
@@ -317,21 +317,14 @@ export const defaultCombinedPackages: CombinedPackageItem[] = [
   },
 ];
 
-// Initial enriched testimonials with authentic postpartum care YouTube demo videos
-const initialEnrichedTestimonials: Testimonial[] = defaultTestimonialsData.map((t, idx) => {
-  const sampleVideos = [
-    'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-    'https://www.youtube.com/watch?v=ysz5S6PUM-U',
-    'https://www.youtube.com/watch?v=jNQXAC9IVRw',
-    'https://www.youtube.com/watch?v=ScMzIvxBSi4',
-    'https://www.youtube.com/watch?v=ysz5S6PUM-U',
-    'https://www.youtube.com/watch?v=jNQXAC9IVRw',
-  ];
+// Initial enriched testimonials with authentic client video stories
+const initialEnrichedTestimonials: Testimonial[] = defaultTestimonialsData.map((t) => {
+  const vidId = extractYouTubeId(t.youtubeUrl || '');
   return {
     ...t,
-    youtubeUrl: t.youtubeUrl || sampleVideos[idx % sampleVideos.length],
-    thumbnailImage: t.thumbnailImage || `https://img.youtube.com/vi/${extractYouTubeId(sampleVideos[idx % sampleVideos.length])}/hqdefault.jpg`,
-    videoDuration: t.videoDuration || '3:45',
+    youtubeUrl: t.youtubeUrl,
+    thumbnailImage: t.thumbnailImage || (vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : undefined),
+    videoDuration: t.videoDuration || '6:30',
   };
 });
 
@@ -541,7 +534,14 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     try {
       const savedServices = localStorage.getItem(SERVICES_STORAGE_KEY);
       if (savedServices) {
-        setServices(JSON.parse(savedServices));
+        const parsed = JSON.parse(savedServices) as Service[];
+        const merged = defaultServicesData.map((def) => {
+          const found = parsed.find((s) => s.id === def.id);
+          if (!found) return def;
+          const heroImage = (found.heroImage && !found.heroImage.includes('unsplash.com')) ? found.heroImage : def.heroImage;
+          return { ...def, ...found, heroImage, imagePosition: def.imagePosition || found.imagePosition };
+        });
+        setServices(merged);
       }
 
       const savedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);

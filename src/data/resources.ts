@@ -623,77 +623,77 @@ export const resourcesData: ResourceItem[] = [
 export const gatedVideosData: GatedVideo[] = [
   {
     id: 'video-1',
-    title: 'Module 1: The Foundations of Traditional Infant Massage (Thokkanam)',
-    duration: '14:20',
-    category: 'Infant Massage',
-    instructor: 'Ms Jemma Francis',
-    thumbnail: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&q=80&w=800',
-    youtubeId: 'dQw4w9WgXcQ',
-    description: 'Learn the optimal room temperature, warming cold-pressed SEY oil, establishing eye contact, and beginning gentle introductory strokes on baby’s chest.',
+    title: "SEYOL Prenatal Massage With SEYOL's Own Prenatal Massage Oil Blend | Benefits",
+    duration: '04:12',
+    category: 'Prenatal Care',
+    instructor: 'SEYOL Care Specialist',
+    thumbnail: 'https://i.ytimg.com/vi/3OWCgq-gkIg/hqdefault.jpg',
+    youtubeId: '3OWCgq-gkIg',
+    description: "Learn how SEYOL's prenatal massage with our custom botanical oil blend helps relieve pregnancy aches, lower back stress, and promotes deep relaxation for expectant mothers.",
     keyTakeaways: [
-      'Never massage a crying or overtired infant',
-      'Warm oil between your palms first to avoid cold contact shock',
-      'Observe baby’s cues: soft open hands signal calm reception'
+      'Gentle, targeted pressure techniques for back and hip relief',
+      'Safe, comforting body positioning throughout second and third trimesters',
+      'Nourishing natural oils formulated specifically for maternal skin elasticity'
     ]
   },
   {
     id: 'video-2',
-    title: "Module 2: Colic & Gas Relief — The 'I Love U' Stroke and Bicycle Sequences",
-    duration: '18:45',
-    category: 'Digestive Comfort',
-    instructor: 'Ms Jemma Francis',
-    thumbnail: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&q=80&w=800',
-    youtubeId: 'dQw4w9WgXcQ',
-    description: 'Watch step-by-step techniques to release trapped air in the ascending, transverse, and descending colon using gentle clockwise circular strokes.',
+    title: 'SEYOL Birth Doula Packages | Virtual Birth Support, Physical Birth Support & Pre-Birth Home Support',
+    duration: '05:48',
+    category: 'Birth Preparation',
+    instructor: 'SEYOL Doula Team',
+    thumbnail: 'https://i.ytimg.com/vi/jiZ1Tfuxklg/hqdefault.jpg',
+    youtubeId: 'jiZ1Tfuxklg',
+    description: 'Explore SEYOL birth doula services including prenatal birth planning, continuous non-medical labor comfort support, partner coaching, and early postpartum settling.',
     keyTakeaways: [
-      'Always stroke in clockwise motion following the natural digestive path',
-      'Combine tummy massage with gentle knee-to-chest holds for 10 seconds',
-      'Apply SEY Colic Roll-On around navel prior to massage'
+      'Continuous emotional and physical comfort during labor and delivery',
+      'Partner coaching with hands-on counterpressure and breathing cues',
+      'Pre-birth home preparation and postpartum settling assistance'
     ]
   },
   {
     id: 'video-3',
-    title: 'Module 3: Strengthening Baby’s Back, Spine & Neck Tone',
-    duration: '12:10',
-    category: 'Muscular Development',
-    instructor: 'Ms Jemma Francis',
-    thumbnail: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800',
-    youtubeId: 'dQw4w9WgXcQ',
-    description: 'Safe tummy time bodywork techniques that encourage neck holding, thoracic spine extension, and shoulder stability without straining baby.',
+    title: 'Newborn Changing Station: Safe for Babies, Convenient for Parents (How to Set Up: Tips & Hacks)',
+    duration: '06:30',
+    category: 'Newborn Care',
+    instructor: 'SEYOL Infant Educator',
+    thumbnail: 'https://i.ytimg.com/vi/n6x8UOYQ5_k/hqdefault.jpg',
+    youtubeId: 'n6x8UOYQ5_k',
+    description: 'Practical tips and safety hacks for setting up an ergonomic, hygienic newborn diaper changing and grooming station at home.',
     keyTakeaways: [
-      'Gentle sweeping strokes from nape of neck down towards buttocks',
-      'Avoid direct pressure on the spinal vertebrae',
-      'Use small rolled towel under baby’s chest during early tummy time'
+      'Ergonomic setup preventing parental back strain during frequent changes',
+      'Keep one hand on baby at all times with accessible organization',
+      'Essential supplies layout for wipes, diapers, cord care, and balms'
     ]
   },
   {
     id: 'video-4',
-    title: 'Module 4: Traditional Indian Newborn Bath (Kuli Ritual & Nalangu Maavu)',
-    duration: '16:30',
-    category: 'Bathing Rituals',
-    instructor: 'Ms Janet Francis',
-    thumbnail: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=800',
-    youtubeId: 'dQw4w9WgXcQ',
-    description: 'Demonstrating the traditional seated leg-stretch bath hold, testing water warmth, washing with SEY Nalangu Maavu paste, and safe face rinsing.',
+    title: '2nd-Time Indian Singaporean Mum: 30 Infant Massage & Bath + 15 Postpartum Massage & Wrap Sessions',
+    duration: '07:15',
+    category: 'Client Story',
+    instructor: 'Real SEYOL Family',
+    thumbnail: 'https://i.ytimg.com/vi/2bmZwC4BS8I/hqdefault.jpg',
+    youtubeId: '2bmZwC4BS8I',
+    description: 'A second-time mother in Singapore shares her journey with 30 daily traditional baby massages & baths paired with 15 intensive postpartum recovery and herbal wrap sessions.',
     keyTakeaways: [
-      'How to support baby’s neck securely on your outstretched legs or forearm',
-      'Washing sensitive skin folds under neck, armpits, and thighs without irritation',
-      'Towel-drying and keeping baby warm immediately after bath'
+      'Immediate colic soothing and peaceful infant sleep rhythms',
+      'Traditional belly binding and herbal wraps aiding pelvic recovery',
+      'Confidence gained through skilled, caring educator guidance'
     ]
   },
   {
     id: 'video-5',
-    title: 'Module 5: Postpartum Belly Binding (Traditional Cotton Kattu Tutorial)',
-    duration: '15:10',
-    category: 'Mother Recovery',
-    instructor: 'Ms Jemma Francis',
-    thumbnail: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
-    youtubeId: 'dQw4w9WgXcQ',
-    description: 'Learn the correct technique for applying traditional breathable cotton belly wraps from pelvic bone up to lower ribs to support diastasis recti recovery.',
+    title: "I Didn't Expect Something So Traditional In Singapore | Client Interview & Confinement Experience",
+    duration: '08:20',
+    category: 'Client Story',
+    instructor: 'Real SEYOL Family',
+    thumbnail: 'https://i.ytimg.com/vi/NHM6fNE1Kvg/hqdefault.jpg',
+    youtubeId: 'NHM6fNE1Kvg',
+    description: 'An insightful client interview reflecting on the sacred heritage of traditional Indian confinement care, herbal baths, and holistic mother recovery in Singapore.',
     keyTakeaways: [
-      'Wrap from bottom to top to encourage upwards pelvic organ support',
-      'Binding should feel supportive like a gentle hug, never constrictive',
-      'When to begin: 7 days post vaginal birth or 2–3 weeks post C-section'
+      'Authentic traditional postpartum practices preserved in modern homes',
+      'Daily herbal bath rituals promoting physical and emotional rejuvenation',
+      'Dedicated care that lets new mothers truly rest and bond with baby'
     ]
   }
 ];

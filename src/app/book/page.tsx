@@ -39,11 +39,19 @@ function BookPageContent() {
   const packageParam = searchParams.get('package');
 
   const [selectedService, setSelectedService] = useState<BookingServiceId>('postpartum-massage-wrap');
+  const [showAllServices, setShowAllServices] = useState<boolean>(false);
 
   useEffect(() => {
     if (serviceParam) {
+      const paramLower = serviceParam.toLowerCase();
       const match = serviceList.find(
-        (s) => s.id === serviceParam || s.id.includes(serviceParam) || serviceParam.includes(s.id)
+        (s) =>
+          s.id.toLowerCase() === paramLower ||
+          s.id.toLowerCase().includes(paramLower) ||
+          paramLower.includes(s.id.toLowerCase()) ||
+          s.category.toLowerCase() === paramLower ||
+          s.category.toLowerCase().includes(paramLower) ||
+          s.title.toLowerCase().includes(paramLower)
       );
       if (match) {
         setSelectedService(match.id);
@@ -51,73 +59,118 @@ function BookPageContent() {
     }
   }, [serviceParam]);
 
+  const activeSvc = serviceList.find((s) => s.id === selectedService) || serviceList[0];
+  const config = bookingServicesConfig[selectedService];
+
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown min-h-screen">
       
       {/* Header Banner */}
-      <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-maroon via-[#6d132c] to-[#4a0b1c] text-white border-b border-cream-border relative overflow-hidden">
+      <section className="py-6 sm:py-8 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-maroon via-[#6d132c] to-[#4a0b1c] text-white border-b border-cream-border relative overflow-hidden">
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="max-w-5xl mx-auto text-center space-y-3 relative z-10">
-
-
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+        <div className="max-w-4xl mx-auto text-center space-y-2 relative z-10">
+          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             Book Your SEYOL Care Journey
           </h1>
 
-          <p className="text-xs sm:text-sm md:text-base text-cream-light max-w-2xl mx-auto leading-relaxed">
-            Select your desired traditional Indian care service below to personalize your multi-step schedule, care preferences, and matron consultations.
+          <p className="text-xs sm:text-sm text-cream-light max-w-xl mx-auto leading-relaxed">
+            Personalize your multi-step schedule, care preferences, and matron consultations.
           </p>
         </div>
       </section>
 
-      {/* Service Selector Tabs Grid */}
-      <section className="py-6 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
-        <div className="text-center pb-3">
-          <span className="text-[11px] font-bold uppercase tracking-wider text-brown-muted">
-            Choose One of Our 10 Dedicated Care Services
-          </span>
-        </div>
+      {/* Prominent Selected Service Header (Hides other 9 services, aligned with wizard) */}
+      {!showAllServices ? (
+        <section className="pt-4 pb-1 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full animate-fadeIn">
+          <div className="bg-white border border-[#EAE1D5] rounded-2xl py-4 px-6 sm:py-5 sm:px-8 shadow-warm-xs text-center relative overflow-hidden">
+            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#70152B] tracking-tight leading-tight mb-1.5">
+              {activeSvc.title}
+            </h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
-          {serviceList.map((svc) => {
-            const Icon = svc.icon;
-            const isSelected = selectedService === svc.id;
+            {config?.subtitle && (
+              <p className="text-xs sm:text-sm text-[#6E5652] max-w-xl mx-auto leading-relaxed mb-2.5">
+                {config.subtitle}
+              </p>
+            )}
 
-            return (
-              <button
-                key={svc.id}
-                onClick={() => setSelectedService(svc.id)}
-                className={`p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all duration-200 cursor-pointer ${
-                  isSelected
-                    ? 'bg-maroon text-cream-light border-maroon shadow-warm-md scale-[1.02] ring-2 ring-gold/40'
-                    : 'bg-white text-brown border-cream-border hover:border-maroon/40 hover:bg-cream-light shadow-xs'
-                }`}
+            <div className="flex items-center justify-center gap-3 text-xs font-semibold">
+              <Link
+                href="/services"
+                className="text-[#6E5652] hover:text-[#70152B] transition-colors"
               >
-                <div className="flex items-center justify-between">
-                  <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
-                    isSelected ? 'bg-white/20 text-gold-light' : 'bg-maroon-soft text-maroon'
-                  }`}>
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                    isSelected ? 'bg-gold text-maroon' : 'bg-cream text-brown-muted'
-                  }`}>
-                    {svc.category}
-                  </span>
-                </div>
-
-                <div className="font-serif font-bold text-xs sm:text-sm line-clamp-2">
-                  {svc.title}
-                </div>
+                ← Back to Services
+              </Link>
+              <span className="text-[#D9B8B2]">•</span>
+              <button
+                type="button"
+                onClick={() => setShowAllServices(true)}
+                className="text-[#70152B] hover:text-[#580F21] underline cursor-pointer"
+              >
+                Choose another service
               </button>
-            );
-          })}
-        </div>
-      </section>
+            </div>
+          </div>
+        </section>
+      ) : (
+        /* Optional Expanded Service Selector Tabs Grid */
+        <section className="py-5 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full animate-fadeIn">
+          <div className="flex items-center justify-between pb-3 px-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-brown-muted">
+              Choose One of Our 10 Dedicated Care Services
+            </span>
+            <button
+              type="button"
+              onClick={() => setShowAllServices(false)}
+              className="text-xs font-bold text-[#70152B] hover:underline cursor-pointer"
+            >
+              Hide other services ↑
+            </button>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2.5">
+            {serviceList.map((svc) => {
+              const Icon = svc.icon;
+              const isSelected = selectedService === svc.id;
+
+              return (
+                <button
+                  key={svc.id}
+                  onClick={() => {
+                    setSelectedService(svc.id);
+                    setShowAllServices(false);
+                  }}
+                  className={`p-3.5 rounded-2xl border text-left flex flex-col justify-between space-y-2 transition-all duration-200 cursor-pointer ${
+                    isSelected
+                      ? 'bg-maroon text-cream-light border-maroon shadow-warm-md scale-[1.02] ring-2 ring-gold/40'
+                      : 'bg-white text-brown border-cream-border hover:border-maroon/40 hover:bg-cream-light shadow-xs'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className={`w-8 h-8 rounded-xl flex items-center justify-center ${
+                      isSelected ? 'bg-white/20 text-gold-light' : 'bg-maroon-soft text-maroon'
+                    }`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                      isSelected ? 'bg-gold text-maroon' : 'bg-cream text-brown-muted'
+                    }`}>
+                      {svc.category}
+                    </span>
+                  </div>
+
+                  <div className="font-serif font-bold text-xs sm:text-sm line-clamp-2">
+                    {svc.title}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {/* Main Multi-Step Booking Form */}
-      <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full">
+      <section className="pt-2 pb-10 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
         <ServiceBookingWizard
           key={selectedService}
           initialServiceId={selectedService}

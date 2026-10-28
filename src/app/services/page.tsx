@@ -13,8 +13,13 @@ import {
   Tag
 } from 'lucide-react';
 import { ServiceFinder } from '../../components/interactive/ServiceFinder';
+import { FindYourCare } from '../../components/interactive/FindYourCare';
+import { HowToStartWithSeyol } from '../../components/interactive/HowToStartWithSeyol';
+import { SeyolDifferenceSection } from '../../components/seyol/SeyolDifferenceSection';
+import { WhyFamiliesTrustSeyol } from '../../components/seyol/WhyFamiliesTrustSeyol';
 import { ComparisonCards } from '../../components/interactive/ComparisonCards';
 import { AccordionFAQ } from '../../components/shared/AccordionFAQ';
+import { NeedHelpChoosingSection } from '../../components/seyol/NeedHelpChoosingSection';
 import { TrustBadges } from '../../components/shared/TrustBadges';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 import heroServiceImg from '../../assets4/Tender Motherhood Banner.png';
@@ -87,21 +92,33 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      {/* Find Your Care: Choose by Stage & Interactive Service Finder */}
+      <FindYourCare />
+
       {/* Interactive Service Finder Section */}
       <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
         <ServiceFinder />
       </section>
 
+      {/* How to Start with SEYOL Section */}
+      <HowToStartWithSeyol />
+
+      {/* What Makes SEYOL Support Different (The SEYOL Difference) */}
+      <SeyolDifferenceSection />
+
+      {/* Why Families Trust SEYOL (Promise & Client Video Stories) */}
+      <WhyFamiliesTrustSeyol />
+
       {/* Package Comparison Section */}
-      <section className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border max-w-full">
+      <section id="packages" className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border max-w-full scroll-mt-20">
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
 
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
-              Compare Our Care Packages
+              Not Sure Which Support Fits?
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
-              Review inclusions, daily hours, and pricing to find the right match for your family.
+              Review inclusions, daily hours, and care scope to find the right match for your family.
             </p>
           </div>
 
@@ -116,7 +133,7 @@ export default function ServicesPage() {
       <section className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto w-full space-y-8">
         <div className="text-center space-y-2">
           <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
-            Frequently Asked Questions on SEYOL Services
+            Quick Answers Before You Begin
           </h2>
           <p className="text-xs sm:text-sm text-brown-muted">
             Got questions about care start dates, caesarean healing, or caregiver vetting?
@@ -125,6 +142,9 @@ export default function ServicesPage() {
 
         <AccordionFAQ defaultCategory="services" />
       </section>
+
+      {/* Need Help Choosing? SEYOL Will Guide You Section */}
+      <NeedHelpChoosingSection />
     </div>
   );
 }

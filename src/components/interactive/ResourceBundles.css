@@ -1,0 +1,128 @@
+.resource-bundles {
+  padding: 48px 20px 44px;
+  background: #faf5ed;
+  color: #651f32;
+  border-top: 1px solid #e7d9cd;
+  font-family: inherit;
+}
+
+.resource-bundles-container {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.resource-bundles-heading {
+  margin-bottom: 24px;
+}
+
+.resource-bundles-heading h2 {
+  margin: 0 0 10px;
+  color: #651f32;
+  font-family: Georgia, serif;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.resource-bundles-heading p {
+  margin: 0;
+  color: #806e68;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.complete-bundle-card {
+  padding: 28px;
+  border-radius: 18px;
+  background: #651f32;
+  color: #fffaf5;
+  box-shadow: 0 10px 25px rgba(101, 31, 50, 0.12);
+}
+
+.complete-bundle-label {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 5px 12px;
+  border-radius: 18px;
+  background: #f0e5d9;
+  color: #651f32;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.complete-bundle-card h3 {
+  margin: 0 0 12px;
+  color: #fffaf5;
+  font-family: Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.complete-bundle-description {
+  margin: 0 0 14px;
+  color: #f2e5e5;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 800px;
+}
+
+.complete-bundle-price {
+  margin: 0 0 16px;
+  color: #fffaf5;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.complete-bundle-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 11px 22px;
+  border: 1px solid #e4d8d1;
+  border-radius: 28px;
+  background: #fffdfa;
+  color: #68615e;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.complete-bundle-button:hover {
+  background: #f0e5d9;
+  color: #651f32;
+}
+
+.complete-bundle-button.bundle-added {
+  border-color: #d6e3d0;
+  background: #e5efdf;
+  color: #385b34;
+}
+
+@media (max-width: 600px) {
+  .resource-bundles {
+    padding: 32px 16px;
+  }
+
+  .complete-bundle-card {
+    padding: 20px 18px;
+  }
+
+  .complete-bundle-card h3 {
+    font-size: 19px;
+  }
+
+  .complete-bundle-description {
+    font-size: 13.5px;
+  }
+
+  .complete-bundle-button {
+    width: 100%;
+  }
+}
+

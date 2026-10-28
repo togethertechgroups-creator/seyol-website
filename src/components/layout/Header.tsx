@@ -52,36 +52,6 @@ export const Header: React.FC = () => {
     });
   }, [router]);
 
-  // Smart Hide on Scroll Down, Show on Scroll Up (Maven Behavior)
-  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (mobileMenuOpen) {
-        setIsNavbarVisible(true);
-        return;
-      }
-
-      if (currentScrollY <= 40) {
-        setIsNavbarVisible(true);
-      } else if (currentScrollY > lastScrollY && currentScrollY > 70) {
-        // Scrolling down -> hide navbar
-        setIsNavbarVisible(false);
-        setActiveDropdown(null);
-      } else if (currentScrollY < lastScrollY) {
-        // Scrolling back up -> show navbar
-        setIsNavbarVisible(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, mobileMenuOpen]);
-
   // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -131,11 +101,7 @@ export const Header: React.FC = () => {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 flex justify-center pt-1.5 sm:pt-2 px-2 sm:px-3 pointer-events-none transition-transform duration-300 ease-in-out ${
-        isNavbarVisible ? 'translate-y-0' : '-translate-y-28'
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-1.5 sm:pt-2 px-2 sm:px-3 pointer-events-none">
       <div className="pointer-events-auto w-full max-w-[1240px]">
         
         {/* ── Sleek White Floating Navbar Container (Reduced Corner Curve) ── */}

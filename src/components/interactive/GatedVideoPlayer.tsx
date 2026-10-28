@@ -38,10 +38,10 @@ export const GatedVideoPlayer: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-cream-border mb-6">
         <div>
           <h3 className="font-serif text-2xl font-bold text-brown">
-            Traditional Infant Massage & Bath Video Library
+            Free Bite-Sized Learning
           </h3>
           <p className="text-xs text-brown-muted mt-1">
-            Filmed in 4K with senior SEYOL educators demonstrating real-time stroke techniques and colic relief.
+            Filmed in HD with SEYOL educators and real families demonstrating real-time techniques, setup hacks, and care routines.
           </p>
         </div>
 
@@ -89,15 +89,24 @@ export const GatedVideoPlayer: React.FC = () => {
                     {activeVideo.title}
                   </h4>
                   <p className="text-xs text-cream-light/80 max-w-sm">
-                    Enter your name and email once to unlock all 6 HD instructional masterclass modules free of charge.
+                    Watch our free video guide instantly or unlock the complete learning library with your email.
                   </p>
-                  <button
-                    onClick={() => setShowGateModal(true)}
-                    className="px-6 py-3 rounded-xl bg-gold text-maroon-dark font-bold text-xs hover:bg-gold-light transition-all shadow-md flex items-center space-x-2"
-                  >
-                    <span>Instant Free Email Unlock</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
+                  <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+                    <button
+                      onClick={() => unlockLibrary('Valued Parent', 'parent@seyol.com')}
+                      className="px-6 py-2.5 rounded-xl bg-gold text-maroon-dark font-bold text-xs hover:bg-gold-light transition-all shadow-md flex items-center space-x-1.5 cursor-pointer"
+                    >
+                      <Play className="w-3.5 h-3.5 fill-maroon-dark" />
+                      <span>Watch Free Video</span>
+                    </button>
+                    <button
+                      onClick={() => setShowGateModal(true)}
+                      className="px-5 py-2.5 rounded-xl bg-cream-light/20 hover:bg-cream-light/30 text-cream-light font-bold text-xs transition-all border border-white/30 flex items-center space-x-1.5 cursor-pointer"
+                    >
+                      <span>Unlock with Email</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -139,7 +148,7 @@ export const GatedVideoPlayer: React.FC = () => {
         {/* Playlist Selector Sidebar */}
         <div className="lg:col-span-4 space-y-3">
           <div className="text-xs font-bold uppercase tracking-wider text-brown px-1">
-            Masterclass Modules ({gatedVideosData.length})
+            Free Video Guides ({gatedVideosData.length})
           </div>
 
           <div className="space-y-2 max-h-[500px] overflow-y-auto pr-1">
@@ -150,7 +159,7 @@ export const GatedVideoPlayer: React.FC = () => {
                   key={vid.id}
                   onClick={() => {
                     setActiveVideoId(vid.id);
-                    if (!isUnlocked) setShowGateModal(true);
+                    if (!isUnlocked) unlockLibrary('Valued Parent', 'parent@seyol.com');
                   }}
                   className={`p-3 rounded-xl border cursor-pointer transition-all duration-200 flex space-x-3 items-center group ${
                     isActive
@@ -175,7 +184,7 @@ export const GatedVideoPlayer: React.FC = () => {
 
                   <div className="flex-1 min-w-0">
                     <div className="text-[10px] text-maroon font-bold uppercase">
-                      Module {idx + 1} • {vid.duration}
+                      Video {idx + 1} • {vid.duration}
                     </div>
                     <div className="font-serif font-bold text-xs text-brown line-clamp-1 group-hover:text-maroon">
                       {vid.title}
@@ -202,10 +211,10 @@ export const GatedVideoPlayer: React.FC = () => {
                   <Sparkles className="w-6 h-6" />
                 </div>
                 <h3 className="font-serif text-2xl font-bold text-brown">
-                  Unlock the Video Masterclass Library
+                  Unlock Free Bite-Sized Learning
                 </h3>
                 <p className="text-xs text-brown-muted leading-relaxed">
-                  Join 4,500+ parents who master traditional Indian infant bodywork and soothing routines with our free 6-part video curriculum.
+                  Join 4,500+ parents who watch practical SEYOL video guides covering newborn routines, prenatal massage, and traditional postpartum care.
                 </p>
               </div>
 

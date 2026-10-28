@@ -31,31 +31,17 @@ import { ResourceBundle, JourneyStage } from '../../types';
 import { ResourceAccessWizard } from '../../components/interactive/ResourceAccessWizard';
 import { GatedVideoPlayer } from '../../components/interactive/GatedVideoPlayer';
 import { EmailCapture } from '../../components/shared/EmailCapture';
+import ChooseByStage from '../../components/interactive/ChooseByStage';
+import FindWhatYouNeed from '../../components/interactive/FindWhatYouNeed';
+import MostPopularResources from '../../components/interactive/MostPopularResources';
+import ShopSEYOLResources from '../../components/interactive/ShopSEYOLResources';
+import ResourceBundles from '../../components/interactive/ResourceBundles';
 
 export default function ResourcesPage() {
   const [selectedStage, setSelectedStage] = useState<JourneyStage>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activeModalBundleId, setActiveModalBundleId] = useState<string | null>(null);
-  const [expandedBundleIds, setExpandedBundleIds] = useState<Record<string, boolean>>({});
   const wizardAnchorRef = useRef<HTMLDivElement>(null);
-
-  // Filter bundles based on stage and search query
-  const filteredBundles = resourceBundlesData.filter((bundle) => {
-    const matchesStage =
-      selectedStage === 'all' ||
-      (bundle.stage as string) === (selectedStage as string) ||
-      Boolean(bundle.isCompleteBundle);
-    const matchesSearch =
-      searchQuery.trim() === '' ||
-      bundle.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      bundle.tagline.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      bundle.inclusions.some((inc) => inc.title.toLowerCase().includes(searchQuery.toLowerCase()));
-    return matchesStage && matchesSearch;
-  });
-
-  const toggleBundleExpand = (id: string) => {
-    setExpandedBundleIds((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
 
   const handleOpenWizard = (bundleId: string) => {
     setActiveModalBundleId(bundleId);
@@ -66,66 +52,194 @@ export default function ResourcesPage() {
 
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
-      {/* 1. Hero Header */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-cream-dark/60 via-cream-light to-cream pt-24 sm:pt-28 pb-14 md:pb-20 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
-        {/* Subtle Background Elements */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-gold/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 rounded-full bg-maroon/5 blur-3xl pointer-events-none" />
+      {/* 1. Hero Header - The SEYOL Parent Resource Hub */}
+      <section className="relative overflow-hidden bg-cream pt-20 sm:pt-24 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-cream-border">
+        <div className="max-w-4xl mx-auto space-y-6 text-left">
+          {/* Eyebrow, Heading, and Description */}
+          <div className="space-y-2.5">
+            <span className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.18em] text-[#8C4A5A] block">
+              YOUR PARENTHOOD JOURNEY, SUPPORTED
+            </span>
 
-        <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-[#651F32] tracking-tight leading-tight">
+              The SEYOL Parent Resource Hub
+            </h1>
 
-
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-6xl font-extrabold text-brown tracking-tight leading-tight">
-            Curated Mother & Baby <br />
-            <span className="text-maroon">Digital Resource Toolkits</span>
-          </h1>
-
-          <p className="text-sm sm:text-base md:text-lg text-brown-muted max-w-3xl mx-auto leading-relaxed">
-            From the first positive test to the sacred 40 days of postpartum confinement and newborn routines. Access high-resolution printable checklists, traditional recipe workbooks, massage step sheets, and fillable trackers.
-          </p>
-
-          {/* Quick Value Pillars */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 max-w-4xl mx-auto text-left">
-            {[
-              { title: '37+ Printable Tools', desc: 'Checklists, logs & recipe sheets', icon: <FileText className="w-4 h-4 text-maroon" /> },
-              { title: '100% Free Starter Kit', desc: 'Zero-cost essential downloads', icon: <Gift className="w-4 h-4 text-gold-dark" /> },
-              { title: 'WhatsApp & Email Dispatch', desc: 'Instant access across all devices', icon: <Smartphone className="w-4 h-4 text-maroon" /> },
-              { title: 'Permanent Care Portal', desc: 'Lifetime re-downloads & updates', icon: <ShieldCheck className="w-4 h-4 text-gold-dark" /> }
-            ].map((pillar, idx) => (
-              <div key={idx} className="bg-cream-light/90 p-3.5 rounded-2xl border border-cream-border shadow-warm-sm flex items-start space-x-2.5">
-                <div className="p-2 rounded-xl bg-cream border border-cream-border shrink-0 mt-0.5">
-                  {pillar.icon}
-                </div>
-                <div>
-                  <div className="font-serif font-bold text-xs text-brown">{pillar.title}</div>
-                  <div className="text-[11px] text-brown-muted leading-tight mt-0.5">{pillar.desc}</div>
-                </div>
-              </div>
-            ))}
+            <p className="text-sm sm:text-base text-[#6E5D61] max-w-2xl leading-relaxed">
+              Trusted learning resources for pregnancy, birth preparation, newborn care and postpartum recovery — all in one place.
+            </p>
           </div>
 
-          {/* Primary Action Buttons */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
+          {/* Hero Banner Image */}
+          <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-warm-sm border border-[#E8DCD3] bg-cream-light aspect-[16/9] max-h-[460px]">
+            <img
+              src="/images/resources/parent-resource-hub.jpg"
+              alt="The SEYOL Parent Resource Hub"
+              className="w-full h-full object-cover object-center"
+            />
+            {/* Bookmark button in top right */}
             <button
-              onClick={() => handleOpenWizard('bundle-free-starter-pack')}
-              className="px-7 py-3.5 rounded-2xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center space-x-2"
+              type="button"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 w-9 h-9 rounded-full bg-black/40 hover:bg-maroon text-white flex items-center justify-center transition-all cursor-pointer backdrop-blur-sm"
+              aria-label="Bookmark this page"
             >
-              <Download className="w-4 h-4 text-gold-light" />
-              <span>Get Free Starter Pack (₹0)</span>
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+              </svg>
             </button>
+          </div>
 
-            <button
-              onClick={() => handleOpenWizard('bundle-seyol-complete-master')}
-              className="px-7 py-3.5 rounded-2xl bg-gold hover:bg-gold-light text-maroon-dark font-bold text-xs sm:text-sm shadow-warm-md hover:scale-[1.02] transition-all flex items-center space-x-2"
+          {/* Action Buttons Row */}
+          <div className="flex flex-wrap items-center gap-3 pt-1">
+            <a
+              href="#explore-resources"
+              className="px-5 sm:px-6 py-2.5 rounded-full border-2 border-[#651F32] hover:bg-[#651F32] text-[#651F32] hover:text-white font-medium text-xs sm:text-sm flex items-center space-x-2 transition-all shadow-xs"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Unlock Master Bundle (All 6 Paid)</span>
-            </button>
+              <span>Explore Resources</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+
+            <a
+              href="#video-library"
+              className="px-5 sm:px-6 py-2.5 rounded-full border border-gray-300 hover:border-maroon/60 bg-white/70 hover:bg-white text-[#374151] hover:text-maroon font-medium text-xs sm:text-sm transition-all shadow-xs"
+            >
+              <span>Free Bite-Sized Learning</span>
+            </a>
+
+            <a
+              href="#explore-resources"
+              className="w-9 h-9 rounded-full bg-[#1A1A1A] hover:bg-maroon text-white flex items-center justify-center transition-all shadow-xs shrink-0 cursor-pointer"
+              aria-label="Scroll to resources"
+            >
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+              </svg>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* 2. Featured Spotlight: Free New Parent Starter Pack Banner */}
+      {/* 2. Choose by Stage Section */}
+      <ChooseByStage
+        onBrowseResources={(stage) => {
+          if (stage === 'pregnancy' || stage === 'birth' || stage === 'newborn' || stage === 'postpartum') {
+            setSelectedStage(stage as JourneyStage);
+          } else if (stage === 'feeding') {
+            setSelectedStage('newborn');
+            setSearchQuery('feeding');
+          } else if (stage === 'massage') {
+            setSelectedStage('newborn');
+            setSearchQuery('massage');
+          }
+          const el = document.getElementById('explore-resources');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
+
+      {/* 3. Find What You Need Section */}
+      <FindWhatYouNeed
+        onSelectResource={(title) => {
+          setSearchQuery(title);
+          const el = document.getElementById('explore-resources');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
+
+      {/* 4. Most Popular Resources Section */}
+      <MostPopularResources
+        onCheckout={() => handleOpenWizard('bundle-seyol-complete-master')}
+        onExploreComplete={() => {
+          const el = document.getElementById('shop-resources') || document.getElementById('explore-resources');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }}
+      />
+
+      {/* Complete Master Bundle Spotlight */}
+      <section className="pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+          <div className="bg-gradient-to-br from-brown via-maroon-dark to-brown rounded-3xl p-6 sm:p-8 text-cream-light relative overflow-hidden shadow-warm-lg">
+            {/* Glow effects */}
+            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-gold/15 blur-3xl" />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
+              <div className="lg:col-span-8 space-y-4">
+                <div>
+                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-cream-light">
+                    {masterBundle.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-cream-muted mt-2 leading-relaxed max-w-2xl">
+                    {masterBundle.description}
+                  </p>
+                </div>
+
+                {/* 6 Paid Bundles Included Sub-grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2">
+                  {[
+                    'Newborn Care Starter Bundle',
+                    'Baby Massage & Bath Bundle',
+                    'Breastfeeding & Bottle Feeding Bundle',
+                    'Birth Preparation Toolkit',
+                    'Pregnancy Comfort & Movement Bundle',
+                    'Postpartum Recovery & Confinement Bundle'
+                  ].map((name, i) => (
+                    <div key={i} className="flex items-center space-x-2 text-[11px] text-cream-light bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/10">
+                      <Check className="w-3.5 h-3.5 text-gold-light shrink-0" />
+                      <span className="truncate">{name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Action Box */}
+              <div className="lg:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-gold/30 text-center space-y-4">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light">
+                    Complete Library Price
+                  </span>
+                  <div className="flex items-baseline justify-center space-x-2 my-1">
+                    <span className="font-serif text-4xl font-extrabold text-gold-light">₹1,299</span>
+                    <span className="text-sm text-cream-muted line-through">₹5,694</span>
+                  </div>
+                  <span className="text-xs font-bold text-gold bg-gold/20 px-2.5 py-0.5 rounded-full inline-block">
+                    Save ₹4,395 (77% Discount)
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => handleOpenWizard('bundle-seyol-complete-master')}
+                  className="w-full py-3.5 px-4 rounded-xl bg-gold hover:bg-gold-light text-maroon-dark font-extrabold text-xs shadow-warm-md transition-all flex items-center justify-center space-x-2"
+                >
+                  <span>Get Complete Master Bundle</span>
+                </button>
+
+                <p className="text-[10px] text-cream-muted">
+                  Includes lifetime Care Portal locker updates & instant ZIP download
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      {/* 5. Shop SEYOL Resources Section */}
+      <div id="explore-resources">
+        <div id="shop-resources">
+          <ShopSEYOLResources
+            onCheckout={() => handleOpenWizard('bundle-seyol-complete-master')}
+          />
+        </div>
+      </div>
+
+      {/* 6. Resource Bundles Section */}
+      <ResourceBundles
+        onAddToCart={() => handleOpenWizard('bundle-seyol-complete-master')}
+      />
+
+      {/* 4. Featured Spotlight: Free New Parent Starter Pack Banner */}
       <section className="py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full -mt-6">
         <div className="bg-gradient-to-r from-maroon-soft via-cream-light to-gold-soft rounded-3xl border-2 border-gold/40 p-6 sm:p-8 shadow-warm-md relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -183,260 +297,9 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* 3. Search & Stage Filter Bar */}
-      <section className="py-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 bg-cream-light p-4 rounded-2xl border border-cream-border shadow-warm-sm">
-          {/* Stage Filter Chips */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-brown-muted mr-1">
-              Stage:
-            </span>
-            {[
-              { id: 'all', label: 'All Bundles (8)' },
-              { id: 'pregnancy', label: 'Pregnancy & Birth' },
-              { id: 'postpartum', label: 'Confinement & Recovery' },
-              { id: 'newborn', label: 'Newborn Care' },
-            ].map((st) => (
-              <button
-                key={st.id}
-                onClick={() => setSelectedStage(st.id as JourneyStage)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold transition-all border ${
-                  selectedStage === st.id
-                    ? 'bg-maroon text-cream-light border-maroon shadow-sm'
-                    : 'bg-cream text-brown border-cream-border hover:bg-cream-dark'
-                }`}
-              >
-                {st.label}
-              </button>
-            ))}
-          </div>
+      
 
-          {/* Search Box */}
-          <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-3 text-brown-muted" />
-            <input
-              type="text"
-              placeholder="Search guides, swaddles, logs..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-cream border border-cream-border text-xs text-brown focus:outline-none focus:ring-2 focus:ring-gold"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Complete Master Bundle Spotlight Banner (if viewing All or Pregnancy/Postpartum) */}
-      {(selectedStage === 'all' || selectedStage === 'pregnancy' || selectedStage === 'postpartum') && (
-        <section className="pb-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-          <div className="bg-gradient-to-br from-brown via-maroon-dark to-brown rounded-3xl p-6 sm:p-8 text-cream-light relative overflow-hidden shadow-warm-lg">
-            {/* Glow effects */}
-            <div className="absolute top-0 right-0 w-80 h-80 rounded-full bg-gold/15 blur-3xl" />
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
-              <div className="lg:col-span-8 space-y-4">
-                <div>
-                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-cream-light">
-                    {masterBundle.title}
-                  </h2>
-                  <p className="text-xs sm:text-sm text-cream-muted mt-2 leading-relaxed max-w-2xl">
-                    {masterBundle.description}
-                  </p>
-                </div>
-
-                {/* 6 Paid Bundles Included Sub-grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 pt-2">
-                  {[
-                    'Newborn Care Starter Bundle',
-                    'Baby Massage & Bath Bundle',
-                    'Breastfeeding & Bottle Feeding Bundle',
-                    'Birth Preparation Toolkit',
-                    'Pregnancy Comfort & Movement Bundle',
-                    'Postpartum Recovery & Confinement Bundle'
-                  ].map((name, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-[11px] text-cream-light bg-white/10 px-2.5 py-1.5 rounded-lg border border-white/10">
-                      <Check className="w-3.5 h-3.5 text-gold-light shrink-0" />
-                      <span className="truncate">{name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Action Box */}
-              <div className="lg:col-span-4 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-gold/30 text-center space-y-4">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light">
-                    Complete Library Price
-                  </span>
-                  <div className="flex items-baseline justify-center space-x-2 my-1">
-                    <span className="font-serif text-4xl font-extrabold text-gold-light">₹1,299</span>
-                    <span className="text-sm text-cream-muted line-through">₹5,694</span>
-                  </div>
-                  <span className="text-xs font-bold text-gold bg-gold/20 px-2.5 py-0.5 rounded-full inline-block">
-                    Save ₹4,395 (77% Discount)
-                  </span>
-                </div>
-
-                <button
-                  onClick={() => handleOpenWizard('bundle-seyol-complete-master')}
-                  className="w-full py-3.5 px-4 rounded-xl bg-gold hover:bg-gold-light text-maroon-dark font-extrabold text-xs shadow-warm-md transition-all flex items-center justify-center space-x-2"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Get Complete Master Bundle</span>
-                </button>
-
-                <p className="text-[10px] text-cream-muted">
-                  Includes lifetime Care Portal locker updates & instant ZIP download
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 5. All Resource Bundles Grid */}
-      <section className="pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
-        <div className="space-y-2 mb-6">
-          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
-            Specialized Care Bundles & Toolkits
-          </h2>
-          <p className="text-xs sm:text-sm text-brown-muted">
-            Explore focused guide collections or unlock full step-by-step master kits.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBundles.map((bundle) => {
-            const isExpanded = !!expandedBundleIds[bundle.id];
-            const isMaster = bundle.isCompleteBundle;
-
-            return (
-              <div
-                key={bundle.id}
-                className={`bg-cream-light rounded-3xl border overflow-hidden p-6 shadow-warm-sm flex flex-col justify-between hover:border-gold/80 transition-all space-y-4 ${
-                  isMaster ? 'border-gold bg-gradient-to-b from-cream-light to-gold-soft/30 ring-1 ring-gold/40' : 'border-cream-border'
-                }`}
-              >
-                <div className="space-y-3.5">
-                  {/* Image & Badges */}
-                  <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-brown">
-                    <img
-                      src={bundle.coverImage}
-                      alt={bundle.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-                      <span className="bg-maroon text-cream-light text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                        {bundle.stage.toUpperCase()}
-                      </span>
-                      <span className="bg-brown/80 text-cream-light text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full backdrop-blur-sm">
-                        {bundle.totalGuides} Guides
-                      </span>
-                    </div>
-
-                    {bundle.isFree ? (
-                      <span className="absolute top-3 right-3 bg-gold text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                        Free Download
-                      </span>
-                    ) : bundle.badge ? (
-                      <span className="absolute top-3 right-3 bg-maroon-soft border border-maroon/20 text-maroon text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm">
-                        {bundle.badge}
-                      </span>
-                    ) : null}
-                  </div>
-
-                  {/* Title & Tagline */}
-                  <div>
-                    <h3 className="font-serif text-lg font-bold text-brown leading-tight">
-                      {bundle.title}
-                    </h3>
-                    <p className="text-xs text-brown-muted mt-1 leading-relaxed">
-                      {bundle.description}
-                    </p>
-                  </div>
-
-                  {/* Key Highlights */}
-                  <div className="space-y-1 pt-2 border-t border-cream-border text-xs text-brown">
-                    {bundle.highlights.slice(0, 3).map((hl, idx) => (
-                      <div key={idx} className="flex items-start space-x-1.5 text-brown-muted">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-gold-dark shrink-0 mt-0.5" />
-                        <span className="line-clamp-1">{hl}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Expandable Inclusions Checklist */}
-                  <div className="pt-2 border-t border-cream-border">
-                    <button
-                      type="button"
-                      onClick={() => toggleBundleExpand(bundle.id)}
-                      className="w-full flex items-center justify-between text-xs font-bold text-maroon hover:text-maroon-dark transition-colors"
-                    >
-                      <span>Included Guides ({bundle.inclusions.length})</span>
-                      {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                    </button>
-
-                    {isExpanded && (
-                      <div className="mt-2.5 space-y-1.5 max-h-48 overflow-y-auto pr-1">
-                        {bundle.inclusions.map((inc, i) => (
-                          <div key={i} className="bg-cream p-2 rounded-xl border border-cream-border text-[11px]">
-                            <div className="font-bold text-brown flex justify-between items-center">
-                              <span className="truncate">{inc.title}</span>
-                              {inc.pages && <span className="text-[10px] text-brown-muted font-normal shrink-0 ml-1">{inc.pages}</span>}
-                            </div>
-                            {inc.description && (
-                              <p className="text-[10px] text-brown-muted mt-0.5 line-clamp-1">{inc.description}</p>
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Pricing & CTA Button */}
-                <div className="pt-4 border-t border-cream-border flex items-center justify-between gap-3">
-                  <div>
-                    <div className="text-[10px] text-brown-muted uppercase tracking-wider">Price</div>
-                    <div className="flex items-baseline space-x-1.5">
-                      {bundle.isFree ? (
-                        <span className="font-serif font-extrabold text-base text-maroon">FREE</span>
-                      ) : (
-                        <>
-                          <span className="font-serif font-extrabold text-base text-maroon">₹{bundle.price}</span>
-                          {bundle.originalPrice && (
-                            <span className="text-xs text-brown-muted line-through">₹{bundle.originalPrice}</span>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => handleOpenWizard(bundle.id)}
-                    className={`px-4 py-2.5 rounded-xl font-bold text-xs shadow-sm transition-all flex items-center space-x-1.5 hover:scale-[1.02] ${
-                      bundle.isFree
-                        ? 'bg-maroon hover:bg-maroon-dark text-cream-light'
-                        : 'bg-gold hover:bg-gold-light text-maroon-dark'
-                    }`}
-                  >
-                    {bundle.isFree ? (
-                      <>
-                        <Download className="w-3.5 h-3.5 text-gold-light" />
-                        <span>Download (₹0)</span>
-                      </>
-                    ) : (
-                      <>
-                        <Lock className="w-3.5 h-3.5" />
-                        <span>Get Bundle (₹{bundle.price})</span>
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+      
 
       {/* 6. Inline Interactive 4-Step Access & Checkout Wizard Section */}
       <section ref={wizardAnchorRef} id="access-wizard" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream-dark/20 border-t border-cream-border">
@@ -460,8 +323,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      {/* 7. Gated Video Masterclass Library */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border">
+      {/* 7. Free Bite-Sized Learning Video Library */}
+      <section id="video-library" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <GatedVideoPlayer />
         </div>

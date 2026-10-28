@@ -38,8 +38,8 @@ import Timeline from '../components/interactive/Timeline';
 import { StageNextStepCalculator } from '../components/interactive/StageNextStepCalculator';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
+import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
 import { ComparisonCards } from '../components/interactive/ComparisonCards';
-import HorizontalServicesScroll from '../components/interactive/HorizontalServicesScroll';
 import { TrustBadges } from '../components/shared/TrustBadges';
 import { TestimonialCarousel } from '../components/shared/TestimonialCarousel';
 import { EmailCapture } from '../components/shared/EmailCapture';
@@ -242,6 +242,11 @@ export default function HomePage() {
       </div>
 
       {/* ========================================================================= */}
+      {/* SECTION: MOST PARENTS START HERE (Your Journey, Our Care)                 */}
+      {/* ========================================================================= */}
+      <MostParentsStartHere />
+
+      {/* ========================================================================= */}
       {/* SECTION 4: YOUR STAGE, YOUR NEXT STEP (Interactive EDD / Age Tool)         */}
       {/* ========================================================================= */}
       <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
@@ -292,12 +297,14 @@ export default function HomePage() {
         <SupportModeTabs />
       </section>
 
+      {/* ========================================================================= */}
+      {/* SECTION: SHOP BY ROUTINE (Everyday Rituals by SEYOL)                       */}
+      {/* ========================================================================= */}
+      <ShopByRoutine />
 
 
-      {/* ========================================================================= */}
-      {/* ALL 10 SEYOL SERVICES HORIZONTAL SCROLL SANCTUARY                         */}
-      {/* ========================================================================= */}
-      <HorizontalServicesScroll />
+
+
 
       {/* ========================================================================= */}
       {/* KINETIC TYPOGRAPHY: HORIZONTAL PINNED SCROLL WORDS SECTION                 */}
@@ -351,7 +358,6 @@ export default function HomePage() {
             {[
               {
                 stepNum: '01',
-                stepLabel: 'PILLAR ONE',
                 title: 'Traditional Postpartum Heritage',
                 desc: 'Honouring the sacred 40-day Mandalam, uterine involution strokes, Vethu Kuli herbal baths, and gentle cotton belly binding.',
                 icon: Flower2,
@@ -359,7 +365,6 @@ export default function HomePage() {
               },
               {
                 stepNum: '02',
-                stepLabel: 'PILLAR TWO',
                 title: 'Evidence-Based Clinical Safety',
                 desc: 'Every technique aligns with modern obstetric and paediatric guidelines. Regular scar checks, safe sleep, and hygienic infection barriers.',
                 icon: ShieldCheck,
@@ -367,7 +372,6 @@ export default function HomePage() {
               },
               {
                 stepNum: '03',
-                stepLabel: 'PILLAR THREE',
                 title: 'Certified & Vetted Care Matrons',
                 desc: 'Trained through our intensive in-house academy, background-verified, and supported by senior clinical lactation supervisors.',
                 icon: Award,
@@ -375,7 +379,6 @@ export default function HomePage() {
               },
               {
                 stepNum: '04',
-                stepLabel: 'PILLAR FOUR',
                 title: 'Continuity & Village Support',
                 desc: 'We replace postpartum isolation with compassionate continuity, providing a dedicated care team from second trimester through baby’s first year.',
                 icon: Users,
@@ -406,12 +409,6 @@ export default function HomePage() {
 
                   {/* Body Content */}
                   <div className="space-y-2 pt-2 flex-1 flex flex-col justify-start">
-                    {/* Pillar label badge */}
-                    <div className="flex items-center space-x-1.5 text-[11px] font-bold text-[#7B1131] uppercase tracking-wider">
-                      <Sparkles className="w-3.5 h-3.5 text-gold-dark shrink-0" />
-                      <span>{pillar.stepLabel}</span>
-                    </div>
-
                     {/* Pillar Title */}
                     <h3 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors tracking-tight leading-snug">
                       {pillar.title}
@@ -525,9 +522,13 @@ export default function HomePage() {
             <div className="lg:col-span-5">
               <div className="relative rounded-3xl overflow-hidden shadow-warm-lg border-2 border-cream-border/80 aspect-[4/5] bg-brown hover-card-lift">
                 <img
-                  src={homeSettings?.founderStoryImage || 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800'}
-                  alt="SEYOL Our Story - Traditional Indian Mother & Baby Care"
-                  className="parallax w-full h-full object-cover object-center"
+                  src={
+                    homeSettings?.founderStoryImage && !homeSettings.founderStoryImage.includes('unsplash')
+                      ? homeSettings.founderStoryImage
+                      : '/images/founder-jemma-francis.jpg'
+                  }
+                  alt={homeSettings?.founderName || 'Mrs. Jemma Francis - Founder of SEYOL'}
+                  className="parallax w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#2a0c16]/90 via-[#2a0c16]/30 to-transparent" />
                 <div className="absolute bottom-6 left-6 right-6 text-cream-light space-y-1.5">
