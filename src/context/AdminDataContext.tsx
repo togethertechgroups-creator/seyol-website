@@ -369,7 +369,7 @@ export const defaultCombinedPackages: CombinedPackageItem[] = [
 ];
 
 // Initial enriched testimonials with authentic client video stories
-const initialEnrichedTestimonials: Testimonial[] = defaultTestimonialsData.map((t) => {
+export const initialEnrichedTestimonials: Testimonial[] = defaultTestimonialsData.map((t) => {
   const vidId = extractYouTubeId(t.youtubeUrl || '');
   return {
     ...t,
@@ -559,6 +559,7 @@ export interface AdminDataContextType {
   addTestimonial: (testimonial: Testimonial) => void;
   updateTestimonial: (id: string, updates: Partial<Testimonial>) => void;
   deleteTestimonial: (id: string) => void;
+  resetTestimonials: () => void;
   // Why Families Trust SEYOL Videos (Services page)
   whyTrustVideos: WhyTrustVideoStory[];
   addWhyTrustVideo: (story: WhyTrustVideoStory) => void;
@@ -957,6 +958,10 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     saveTestimonials(updated);
   };
 
+  const resetTestimonials = () => {
+    saveTestimonials(initialEnrichedTestimonials);
+  };
+
   // Product Banner Slides CRUD
   const saveProductBannerSlides = (newSlides: ProductBannerSlide[]) => {
     setProductBannerSlides(newSlides);
@@ -1215,6 +1220,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         addTestimonial,
         updateTestimonial,
         deleteTestimonial,
+        resetTestimonials,
         whyTrustVideos,
         addWhyTrustVideo,
         updateWhyTrustVideo,

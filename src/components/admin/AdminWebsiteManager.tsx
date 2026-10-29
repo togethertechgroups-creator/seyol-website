@@ -49,6 +49,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
     addTestimonial,
     updateTestimonial,
     deleteTestimonial,
+    resetTestimonials,
     addProductBannerSlide,
     updateProductBannerSlide,
     deleteProductBannerSlide,
@@ -152,6 +153,24 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
   const [isTestimonialModalOpen, setIsTestimonialModalOpen] = useState(false);
   const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [videoUrlInput, setVideoUrlInput] = useState('');
+
+  const [isRealStoryModalOpen, setIsRealStoryModalOpen] = useState(false);
+  const [editingRealStory, setEditingRealStory] = useState<Testimonial | null>(null);
+  const [realStoryVideoUrlInput, setRealStoryVideoUrlInput] = useState('');
+  const [realStoryThumbnailInput, setRealStoryThumbnailInput] = useState('');
+
+  const handleOpenRealStoryModal = (story?: Testimonial) => {
+    if (story) {
+      setEditingRealStory(story);
+      setRealStoryVideoUrlInput(story.youtubeUrl || '');
+      setRealStoryThumbnailInput(story.thumbnailImage || '');
+    } else {
+      setEditingRealStory(null);
+      setRealStoryVideoUrlInput('');
+      setRealStoryThumbnailInput('');
+    }
+    setIsRealStoryModalOpen(true);
+  };
 
   const [isWhyTrustModalOpen, setIsWhyTrustModalOpen] = useState(false);
   const [editingWhyTrustVideo, setEditingWhyTrustVideo] = useState<WhyTrustVideoStory | null>(null);
@@ -833,6 +852,184 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                         placeholder="Or paste image URL"
                         className="w-full px-2.5 py-1.5 text-xs rounded-lg bg-white border border-stone-200 focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                       />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Real Stories, Healing Touch & Video Journeys Card */}
+          <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
+            <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="inline-flex items-center space-x-1.5 px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131] text-[10px] font-bold uppercase tracking-wider mb-1">
+                  <Video className="w-3 h-3" />
+                  <span>Start Here Homepage Carousel</span>
+                </div>
+                <h2 className="font-serif text-lg font-bold text-stone-900">
+                  Real Stories, Healing Touch &amp; Video Journeys
+                </h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Manage the authentic client video stories and reflections displayed in the video carousel on the Start Here homepage.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-[#7B1131]/10 text-[#7B1131]">
+                  {testimonials.length} Video Stories
+                </span>
+                <button
+                  type="button"
+                  onClick={() => handleOpenRealStoryModal()}
+                  className="px-3 py-1.5 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white text-xs font-semibold flex items-center space-x-1.5 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Add Video Story</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm('Reset all video stories in the carousel to the default authentic client videos?')) {
+                      resetTestimonials();
+                      notify('Restored default client video stories');
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  title="Reset to original 6 client video stories"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Reset to Default</span>
+                </button>
+                <Link
+                  href="/"
+                  target="_blank"
+                  className="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 hover:text-[#7B1131] transition-colors ml-1"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  <span>Preview Page</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Video Stories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {testimonials.map((story, idx) => {
+                const vId = extractYouTubeId(story.youtubeUrl);
+                const thumb =
+                  story.thumbnailImage ||
+                  (vId
+                    ? `https://img.youtube.com/vi/${vId}/hqdefault.jpg`
+                    : 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800');
+
+                // Map stage to clean badge colors & labels
+                const stageConfig: Record<string, { label: string; cls: string }> = {
+                  newborn: { label: 'Infant Bath & Colic', cls: 'bg-sky-50 text-sky-700 border-sky-200' },
+                  postpartum: { label: 'Confinement & Massage', cls: 'bg-[#7B1131]/10 text-[#7B1131] border-[#7B1131]/20' },
+                  pregnancy: { label: 'Pregnancy & Doula', cls: 'bg-amber-50 text-amber-700 border-amber-200' },
+                  preconception: { label: 'Preconception', cls: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+                };
+                const stg = stageConfig[story.stage || 'postpartum'] || {
+                  label: story.stage || 'Care Story',
+                  cls: 'bg-stone-100 text-stone-700 border-stone-200',
+                };
+
+                return (
+                  <div
+                    key={story.id || idx}
+                    className="bg-stone-50/70 border border-stone-200/90 rounded-2xl p-4 flex flex-col justify-between space-y-3.5 hover:shadow-xs transition-shadow"
+                  >
+                    <div className="space-y-3">
+                      {/* Video Thumbnail Preview */}
+                      <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-stone-200 group">
+                        <img
+                          src={thumb}
+                          alt={story.author}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-md pl-0.5 group-hover:scale-110 transition-transform">
+                            <Play className="w-5 h-5 fill-white" />
+                          </div>
+                        </div>
+
+                        {/* Top Badges */}
+                        <div className="absolute top-2 left-2 right-2 flex items-center justify-between">
+                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border shadow-2xs backdrop-blur-xs ${stg.cls}`}>
+                            {stg.label}
+                          </span>
+                          <span className="text-[10px] font-mono font-bold bg-black/70 text-white px-1.5 py-0.5 rounded backdrop-blur-xs">
+                            {story.videoDuration || 'Video'}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Author & Info */}
+                      <div>
+                        <div className="flex items-center justify-between gap-1">
+                          <h3 className="font-serif font-bold text-stone-900 text-sm leading-tight">
+                            {story.author}
+                          </h3>
+                          <div className="flex items-center text-amber-500 shrink-0">
+                            {[...Array(story.rating || 5)].map((_, i) => (
+                              <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
+                            ))}
+                          </div>
+                        </div>
+                        <p className="text-[11px] text-stone-500 mt-0.5">
+                          {story.location || 'Singapore'} • <span className="font-medium text-[#7B1131]">{story.serviceOrProduct}</span>
+                        </p>
+                      </div>
+
+                      {/* Quote */}
+                      <p className="text-xs text-stone-600 italic line-clamp-2 leading-relaxed">
+                        &ldquo;{story.quote}&rdquo;
+                      </p>
+
+                      {/* YouTube Link */}
+                      {story.youtubeUrl && (
+                        <div className="pt-1">
+                          <a
+                            href={story.youtubeUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 text-[11px] text-[#7B1131] hover:underline font-medium truncate max-w-full"
+                          >
+                            <Play className="w-3 h-3 fill-[#7B1131] shrink-0" />
+                            <span className="truncate">{story.youtubeUrl}</span>
+                            <ExternalLink className="w-2.5 h-2.5 shrink-0" />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Card Actions */}
+                    <div className="pt-2 border-t border-stone-200/70 flex items-center justify-between gap-2">
+                      <span className="text-[10px] text-stone-400 font-mono">
+                        #{idx + 1} Carousel Slide
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleOpenRealStoryModal(story)}
+                          className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-[#7B1131] hover:border-[#7B1131]/30 text-xs font-semibold flex items-center space-x-1 transition-colors cursor-pointer"
+                        >
+                          <Edit3 className="w-3 h-3" />
+                          <span>Edit Video</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setDeleteConfirmation({
+                            type: 'testimonial',
+                            id: story.id,
+                            name: story.author,
+                          })}
+                          className="p-1 rounded-lg text-stone-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                          title="Delete Story"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 );
@@ -2397,6 +2594,315 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   className="px-4 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold shadow-xs"
                 >
                   Save Reflection
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ─── MODAL: ADD / EDIT REAL STORY VIDEO (START HERE CAROUSEL) ────── */}
+      {isRealStoryModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
+          <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-xl w-full shadow-2xl border border-stone-200 space-y-4 my-8">
+            <div className="flex items-center justify-between pb-3 border-b border-stone-100">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
+                  Start Here • Real Stories &amp; Video Journeys
+                </span>
+                <h3 className="font-serif font-bold text-base text-stone-900">
+                  {editingRealStory ? 'Edit Client Video Story' : 'Add New Client Video Story'}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsRealStoryModalOpen(false)}
+                className="p-1 rounded-lg text-stone-400 hover:text-stone-700 cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const author = (formData.get('author') as string) || 'Verified SEYOL Family';
+                const location = (formData.get('location') as string) || 'Singapore';
+                const stage = (formData.get('stage') as JourneyStage) || 'postpartum';
+                const serviceOrProduct = (formData.get('serviceOrProduct') as string) || 'Postpartum Doula Care';
+                const babyAgeOrWeek = (formData.get('babyAgeOrWeek') as string) || 'Care Journey';
+                const quote = (formData.get('quote') as string) || '';
+                const detailedStory = (formData.get('detailedStory') as string) || quote;
+                const rating = Number(formData.get('rating')) || 5;
+                const videoDuration = (formData.get('videoDuration') as string) || '06:30';
+                const youtubeUrl = realStoryVideoUrlInput.trim();
+                const vId = extractYouTubeId(youtubeUrl);
+                const thumbnailImage =
+                  realStoryThumbnailInput.trim() ||
+                  (vId ? `https://img.youtube.com/vi/${vId}/hqdefault.jpg` : undefined);
+
+                const updatedStory: Testimonial = {
+                  id: editingRealStory?.id || `testimonial-video-${Date.now()}`,
+                  author,
+                  location,
+                  stage,
+                  serviceOrProduct,
+                  babyAgeOrWeek,
+                  quote,
+                  detailedStory,
+                  rating,
+                  verifiedParent: true,
+                  youtubeUrl,
+                  thumbnailImage,
+                  videoDuration,
+                };
+
+                if (editingRealStory) {
+                  updateTestimonial(editingRealStory.id, updatedStory);
+                  notify('Video story updated successfully');
+                } else {
+                  addTestimonial(updatedStory);
+                  notify('New video story added to Start Here carousel');
+                }
+                setIsRealStoryModalOpen(false);
+              }}
+              className="space-y-4 text-xs"
+            >
+              {/* YouTube Video URL with Live Preview */}
+              <div className="space-y-2">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700">
+                  YouTube Video URL or Direct Video *
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={realStoryVideoUrlInput}
+                    onChange={(e) => setRealStoryVideoUrlInput(e.target.value)}
+                    placeholder="https://www.youtube.com/watch?v=... or youtu.be/..."
+                    required
+                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                  <label className="px-3 py-2 rounded-lg border border-stone-200 hover:bg-stone-50 text-stone-700 font-semibold cursor-pointer shrink-0 flex items-center space-x-1.5 transition-colors">
+                    <Upload className="w-3.5 h-3.5 text-[#7B1131]" />
+                    <span>Video File</span>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleVideoFileUpload(e, (dataUrl) => setRealStoryVideoUrlInput(dataUrl))
+                      }
+                    />
+                  </label>
+                </div>
+
+                {/* Instant Video / Thumbnail Preview */}
+                {realStoryVideoUrlInput && (
+                  <div className="mt-2 aspect-video w-full rounded-xl overflow-hidden bg-stone-900 border border-stone-200 shadow-xs flex items-center justify-center">
+                    {extractYouTubeId(realStoryVideoUrlInput) ? (
+                      <iframe
+                        src={`https://www.youtube-nocookie.com/embed/${extractYouTubeId(realStoryVideoUrlInput)}`}
+                        title="Video preview"
+                        className="w-full h-full border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      />
+                    ) : realStoryVideoUrlInput.startsWith('data:video') || realStoryVideoUrlInput.includes('.mp4') ? (
+                      <video
+                        src={realStoryVideoUrlInput}
+                        controls
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center p-3 text-stone-400">
+                        <Play className="w-6 h-6 mx-auto mb-1 text-stone-500" />
+                        <span className="text-[11px]">Preview will appear once valid video URL is entered</span>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+
+              {/* Author & Location */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Family / Client Name *
+                  </label>
+                  <input
+                    type="text"
+                    name="author"
+                    defaultValue={editingRealStory?.author || ''}
+                    placeholder="e.g., First-Time Parents, Deepika & Karthik"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Location / Condominium *
+                  </label>
+                  <input
+                    type="text"
+                    name="location"
+                    defaultValue={editingRealStory?.location || 'Singapore'}
+                    placeholder="e.g., Singapore, Spring Grove, Chennai"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+              </div>
+
+              {/* Stage & Service Attribution */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Care Journey Stage *
+                  </label>
+                  <select
+                    name="stage"
+                    defaultValue={editingRealStory?.stage || 'postpartum'}
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  >
+                    <option value="newborn">Infant Bath &amp; Colic (Newborn)</option>
+                    <option value="postpartum">Confinement &amp; Massage (Postpartum)</option>
+                    <option value="pregnancy">Pregnancy &amp; Doula (Pregnancy)</option>
+                    <option value="preconception">Preconception</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Care Service / Program *
+                  </label>
+                  <input
+                    type="text"
+                    name="serviceOrProduct"
+                    defaultValue={editingRealStory?.serviceOrProduct || 'Newborn Babysitting & Care Support'}
+                    placeholder="e.g., 90 Infant Massage & Bath Sessions"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+              </div>
+
+              {/* Journey Tag, Video Duration & Rating */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Journey Tag
+                  </label>
+                  <input
+                    type="text"
+                    name="babyAgeOrWeek"
+                    defaultValue={editingRealStory?.babyAgeOrWeek || 'Care Journey'}
+                    placeholder="e.g., 90-Day Infant Care Journey"
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Video Duration
+                  </label>
+                  <input
+                    type="text"
+                    name="videoDuration"
+                    defaultValue={editingRealStory?.videoDuration || '06:40'}
+                    placeholder="e.g., 06:40"
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Star Rating
+                  </label>
+                  <select
+                    name="rating"
+                    defaultValue={editingRealStory?.rating || 5}
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  >
+                    <option value={5}>5 Stars (★★★★★)</option>
+                    <option value={4}>4 Stars (★★★★☆)</option>
+                    <option value={3}>3 Stars (★★★☆☆)</option>
+                  </select>
+                </div>
+              </div>
+
+              {/* Featured Quote */}
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Featured Client Quote (Prominent Headline) *
+                </label>
+                <textarea
+                  name="quote"
+                  rows={2}
+                  defaultValue={editingRealStory?.quote || ''}
+                  placeholder="e.g., We originally considered daycare, but SEYOL's dedicated in-home newborn care gave our baby the gentlest start in life."
+                  required
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                />
+              </div>
+
+              {/* Detailed Story Reflection */}
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Full Story Reflection (Detailed Experience)
+                </label>
+                <textarea
+                  name="detailedStory"
+                  rows={3}
+                  defaultValue={editingRealStory?.detailedStory || ''}
+                  placeholder="Detailed reflections on the healing touch, doula presence, hygiene, or traditional postnatal care..."
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                />
+              </div>
+
+              {/* Custom Thumbnail (Optional) */}
+              <div className="space-y-1.5">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700">
+                  Custom Video Thumbnail (Optional – defaults to YouTube preview)
+                </label>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={realStoryThumbnailInput}
+                    onChange={(e) => setRealStoryThumbnailInput(e.target.value)}
+                    placeholder="https://... image URL (or leave blank for YouTube HQ thumb)"
+                    className="flex-1 px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                  <label className="px-3 py-2 rounded-lg border border-stone-200 hover:bg-stone-50 text-stone-700 font-semibold cursor-pointer shrink-0 flex items-center space-x-1.5 transition-colors">
+                    <Upload className="w-3.5 h-3.5 text-[#7B1131]" />
+                    <span>Upload Image</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) =>
+                        handleFileUpload(e, (b64) => setRealStoryThumbnailInput(b64))
+                      }
+                    />
+                  </label>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="flex items-center justify-end space-x-2 pt-3 border-t border-stone-100">
+                <button
+                  type="button"
+                  onClick={() => setIsRealStoryModalOpen(false)}
+                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold shadow-xs flex items-center space-x-1.5 cursor-pointer"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  <span>{editingRealStory ? 'Save Changes' : 'Add Video Story'}</span>
                 </button>
               </div>
             </form>

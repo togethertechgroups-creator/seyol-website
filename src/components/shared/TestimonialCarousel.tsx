@@ -31,6 +31,12 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
 
   const current = activeTestimonials[currentIndex % activeTestimonials.length];
   const videoId = extractYouTubeId(current?.youtubeUrl);
+  const isDirectVideo = Boolean(
+    current?.youtubeUrl?.startsWith('data:video') ||
+    current?.youtubeUrl?.includes('.mp4') ||
+    current?.youtubeUrl?.includes('.webm')
+  );
+  const hasVideo = Boolean(videoId || isDirectVideo);
 
   return (
     <section className="bg-cream-light py-12 px-4 sm:px-6 lg:px-8 rounded-3xl border border-cream-border shadow-warm-sm font-sans">
@@ -77,23 +83,34 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
         {current && (
           <div className="relative bg-cream rounded-3xl border border-cream-border p-6 sm:p-8 shadow-warm-md overflow-hidden space-y-6">
             
-            {/* Playable YouTube Video Player Section (If Video Exists) */}
-            {videoId && (
+            {/* Playable YouTube / Direct Video Player Section (If Video Exists) */}
+            {hasVideo && (
               <div className="w-full rounded-2xl overflow-hidden shadow-xl border-2 border-gold/40 bg-black aspect-video relative group">
                 {isPlayingVideo ? (
-                  <iframe
-                    src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-                    title={current.author}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-full border-0"
-                  />
+                  isDirectVideo ? (
+                    <video
+                      src={current.youtubeUrl}
+                      controls
+                      autoPlay
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <iframe
+                      src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                      title={current.author}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full border-0"
+                    />
+                  )
                 ) : (
                   <div className="relative w-full h-full">
                     <img
                       src={
                         current.thumbnailImage ||
-                        `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+                        (videoId
+                          ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+                          : 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800')
                       }
                       alt={current.author}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -128,7 +145,7 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
                     <Star key={i} className="w-4 h-4 text-gold fill-gold" />
                   ))}
                 </div>
-                {videoId && (
+                {hasVideo && (
                   <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-red-100 text-red-700 text-[11px] font-bold">
                     <Video className="w-3.5 h-3.5" />
                     <span>Watch Video Testimonial</span>
@@ -215,7 +232,7 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
                 >
                   <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black mb-1.5">
                     <img
-                      src={t.thumbnailImage || (vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : '')}
+                      src={t.thumbnailImage || (vidId ? `https://img.youtube.com/vi/${vidId}/hqdefault.jpg` : 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=400')}
                       alt={t.author}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
