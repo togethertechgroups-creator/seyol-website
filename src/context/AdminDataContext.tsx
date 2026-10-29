@@ -10,6 +10,7 @@ import { BookingServiceConfig, BookingServiceId, BookingServicePackage } from '.
 export type { BookingServiceConfig, BookingServiceId, BookingServicePackage };
 
 const SERVICES_STORAGE_KEY = 'seyol_admin_services_v3';
+const SERVICES_SETTINGS_STORAGE_KEY = 'seyol_admin_services_settings_v1';
 const PRODUCTS_STORAGE_KEY = 'seyol_admin_products_v2';
 const HOME_SETTINGS_STORAGE_KEY = 'seyol_admin_home_settings_v2';
 const PRODUCTS_SETTINGS_STORAGE_KEY = 'seyol_admin_products_settings_v2';
@@ -215,6 +216,20 @@ export const defaultProductBannerSlides: ProductBannerSlide[] = [
     image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&q=80&w=1200',
   },
 ];
+
+export interface ServicesSettings {
+  sectionBadge: string;
+  sectionTitle: string;
+  sectionSubtitle: string;
+  searchPlaceholder: string;
+}
+
+export const defaultServicesSettings: ServicesSettings = {
+  sectionBadge: 'EXPLORE OUR CARE SERVICES',
+  sectionTitle: 'Tell Us What You Need Help With',
+  sectionSubtitle: 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+  searchPlaceholder: 'Search by need: massage, belly binding, nanny, doula...',
+};
 
 export interface ProductsSettings {
   heroImage: string;
@@ -533,7 +548,11 @@ export interface AdminDataContextType {
   ) => void;
   updatePaymentStatus: (orderId: string, status: PaymentStatus) => void;
   deleteOrder: (orderId: string) => void;
-  // Service CRUD
+  // Service CRUD & Settings
+  servicesSettings: ServicesSettings;
+  updateServicesSettings: (updates: Partial<ServicesSettings>) => void;
+  resetServicesSettings: () => void;
+  resetServicesToDefault: () => void;
   getService: (idOrSlug: string) => Service | undefined;
   addService: (service: Service) => void;
   updateService: (id: string, updates: Partial<Service>) => void;
@@ -575,6 +594,7 @@ const AdminDataContext = createContext<AdminDataContextType | undefined>(undefin
 
 export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [services, setServices] = useState<Service[]>(defaultServicesData);
+  const [servicesSettings, setServicesSettings] = useState<ServicesSettings>(defaultServicesSettings);
   const [products, setProducts] = useState<Product[]>(defaultProductsData);
   const [orders, setOrders] = useState<ProductOrder[]>(defaultProductOrders);
   const [homeSettings, setHomeSettings] = useState<HomeSettings>(defaultHomeSettings);
@@ -591,16 +611,32 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   // Hydrate from localStorage on client mount
   useEffect(() => {
     try {
+      const savedServicesSettings = localStorage.getItem(SERVICES_SETTINGS_STORAGE_KEY);
+      if (savedServicesSettings) {
+        try {
+          const parsed = JSON.parse(savedServicesSettings);
+          setServicesSettings({ ...defaultServicesSettings, ...parsed });
+        } catch {
+          setServicesSettings(defaultServicesSettings);
+        }
+      }
+
       const savedServices = localStorage.getItem(SERVICES_STORAGE_KEY);
       if (savedServices) {
-        const parsed = JSON.parse(savedServices) as Service[];
-        const merged = defaultServicesData.map((def) => {
-          const found = parsed.find((s) => s.id === def.id);
-          if (!found) return def;
-          const heroImage = (found.heroImage && !found.heroImage.includes('unsplash.com')) ? found.heroImage : def.heroImage;
-          return { ...def, ...found, heroImage, imagePosition: def.imagePosition || found.imagePosition };
-        });
-        setServices(merged);
+        try {
+          const parsed = JSON.parse(savedServices) as Service[];
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const merged = defaultServicesData.map((def) => {
+              const found = parsed.find((s) => s.id === def.id);
+              if (!found) return def;
+              return { ...def, ...found };
+            });
+            const customServices = parsed.filter((p) => !defaultServicesData.some((def) => def.id === p.id));
+            setServices([...merged, ...customServices]);
+          }
+        } catch (e) {
+          console.error('Error hydrating services', e);
+        }
       }
 
       const savedProducts = localStorage.getItem(PRODUCTS_STORAGE_KEY);
@@ -677,6 +713,28 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, []);
 
   // Sync to localStorage
+  const saveServicesSettings = (newSettings: ServicesSettings) => {
+    setServicesSettings(newSettings);
+    try {
+      localStorage.setItem(SERVICES_SETTINGS_STORAGE_KEY, JSON.stringify(newSettings));
+    } catch (e) {
+      console.error('Failed to save services settings to localStorage', e);
+    }
+  };
+
+  const updateServicesSettings = (updates: Partial<ServicesSettings>) => {
+    const next = { ...servicesSettings, ...updates };
+    saveServicesSettings(next);
+  };
+
+  const resetServicesSettings = () => {
+    saveServicesSettings(defaultServicesSettings);
+  };
+
+  const resetServicesToDefault = () => {
+    saveServices(defaultServicesData);
+  };
+
   const saveServices = (newServices: Service[]) => {
     setServices(newServices);
     try {
@@ -1147,6 +1205,7 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const resetAllToDefaults = () => {
     try {
       localStorage.removeItem(SERVICES_STORAGE_KEY);
+      localStorage.removeItem(SERVICES_SETTINGS_STORAGE_KEY);
       localStorage.removeItem(PRODUCTS_STORAGE_KEY);
       localStorage.removeItem(HOME_SETTINGS_STORAGE_KEY);
       localStorage.removeItem(PRODUCTS_SETTINGS_STORAGE_KEY);
@@ -1179,6 +1238,10 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     <AdminDataContext.Provider
       value={{
         services,
+        servicesSettings,
+        updateServicesSettings,
+        resetServicesSettings,
+        resetServicesToDefault,
         products,
         orders,
         homeSettings,

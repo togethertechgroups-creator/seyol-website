@@ -10,7 +10,7 @@ import { Service } from '../../types';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 
 export const ServiceFinder: React.FC = () => {
-  const { services } = useAdminData();
+  const { services, servicesSettings } = useAdminData();
   const { openEnquiry } = useQuickEnquiry();
   const allServices: Service[] = (services && services.length > 0) ? services : servicesData;
 
@@ -31,13 +31,13 @@ export const ServiceFinder: React.FC = () => {
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2.5">
         <div className="text-[#70152B] text-xs font-bold tracking-[2.5px] uppercase">
-          EXPLORE OUR CARE SERVICES
+          {servicesSettings?.sectionBadge || 'EXPLORE OUR CARE SERVICES'}
         </div>
         <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3A1D1D] tracking-tight">
-          Tell Us What You Need Help With
+          {servicesSettings?.sectionTitle || 'Tell Us What You Need Help With'}
         </h2>
         <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">
-          Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.
+          {servicesSettings?.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.'}
         </p>
       </div>
 
@@ -47,7 +47,7 @@ export const ServiceFinder: React.FC = () => {
           <Search className="w-4 h-4 text-brown-muted absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
           <input
             type="text"
-            placeholder="Search by need: massage, belly binding, nanny, doula..."
+            placeholder={servicesSettings?.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...'}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-11 pr-14 py-3.5 rounded-2xl bg-white border border-cream-border text-sm text-brown focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon placeholder-brown-muted/70 shadow-warm-xs transition-all font-medium"

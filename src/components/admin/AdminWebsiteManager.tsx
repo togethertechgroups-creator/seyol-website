@@ -34,6 +34,10 @@ interface AdminWebsiteManagerProps {
 export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNotify }) => {
   const {
     services,
+    servicesSettings,
+    updateServicesSettings,
+    resetServicesSettings,
+    resetServicesToDefault,
     testimonials,
     productBannerSlides,
     homeSettings,
@@ -80,6 +84,31 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
     if (onNotify) onNotify(msg);
     setToastMsg(msg);
     setTimeout(() => setToastMsg(null), 3000);
+  };
+
+  // ─── Services Header Settings Form State ───────────────────────────────
+  const [servicesHeaderForm, setServicesHeaderForm] = useState({
+    sectionBadge: servicesSettings?.sectionBadge || 'EXPLORE OUR CARE SERVICES',
+    sectionTitle: servicesSettings?.sectionTitle || 'Tell Us What You Need Help With',
+    sectionSubtitle: servicesSettings?.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+    searchPlaceholder: servicesSettings?.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
+  });
+
+  useEffect(() => {
+    if (servicesSettings) {
+      setServicesHeaderForm({
+        sectionBadge: servicesSettings.sectionBadge || 'EXPLORE OUR CARE SERVICES',
+        sectionTitle: servicesSettings.sectionTitle || 'Tell Us What You Need Help With',
+        sectionSubtitle: servicesSettings.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+        searchPlaceholder: servicesSettings.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
+      });
+    }
+  }, [servicesSettings]);
+
+  const handleSaveServicesSettings = (e: React.FormEvent) => {
+    e.preventDefault();
+    updateServicesSettings(servicesHeaderForm);
+    notify('Services section header updated successfully');
   };
 
   // ─── Home Settings Form State ──────────────────────────────────────────
@@ -145,6 +174,26 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [serviceImageFile, setServiceImageFile] = useState('');
+  const [serviceFormatInput, setServiceFormatInput] = useState('');
+  const [serviceStagesInput, setServiceStagesInput] = useState<JourneyStage[]>(['postpartum']);
+  const [serviceImagePositionInput, setServiceImagePositionInput] = useState('center 35%');
+
+  const handleOpenServiceModal = (service?: Service) => {
+    if (service) {
+      setEditingService(service);
+      setServiceImageFile(service.heroImage || '');
+      setServiceFormatInput(service.format || 'In-Home (Chennai / Tamil Nadu)');
+      setServiceStagesInput(service.stages && service.stages.length > 0 ? service.stages : ['postpartum']);
+      setServiceImagePositionInput(service.imagePosition || 'center 35%');
+    } else {
+      setEditingService(null);
+      setServiceImageFile('');
+      setServiceFormatInput('In-Home (Chennai / Tamil Nadu)');
+      setServiceStagesInput(['postpartum']);
+      setServiceImagePositionInput('center 35%');
+    }
+    setIsServiceModalOpen(true);
+  };
 
   const [isBannerModalOpen, setIsBannerModalOpen] = useState(false);
   const [editingBanner, setEditingBanner] = useState<ProductBannerSlide | null>(null);
@@ -1260,15 +1309,152 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
             )}
           </div>
 
+          {/* ── Section Header Settings Card for "Tell Us What You Need Help With" ── */}
+          <form onSubmit={handleSaveServicesSettings} className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-5">
+            <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-[#7B1131]/10 text-[#7B1131]">
+                    Services Page Section
+                  </span>
+                  <span className="text-xs text-stone-300">•</span>
+                  <span className="text-xs text-stone-500 font-medium">Header &amp; Search Content</span>
+                </div>
+                <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">
+                  &ldquo;Tell Us What You Need Help With&rdquo; Section Settings
+                </h2>
+                <p className="text-xs text-stone-500 mt-0.5">
+                  Customize the section eyebrow badge, main headline title, descriptive subtitle, and search placeholder displayed on the Services page.
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (window.confirm('Reset the section headline and copy back to defaults?')) {
+                      resetServicesSettings();
+                      notify('Reset section header to defaults');
+                    }
+                  }}
+                  className="px-3 py-1.5 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-600 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
+                  title="Restore original text"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
+                  <span>Reset Copy</span>
+                </button>
+                <Link
+                  href="/services"
+                  target="_blank"
+                  className="inline-flex items-center gap-1 text-[11px] font-medium text-stone-600 hover:text-[#7B1131] transition-colors ml-1"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>View on Website</span>
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Eyebrow / Badge Text
+                </label>
+                <input
+                  type="text"
+                  value={servicesHeaderForm.sectionBadge}
+                  onChange={(e) => setServicesHeaderForm({ ...servicesHeaderForm, sectionBadge: e.target.value })}
+                  placeholder="e.g., EXPLORE OUR CARE SERVICES"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  required
+                />
+              </div>
+
+              <div className="sm:col-span-1 lg:col-span-2">
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Main Section Heading *
+                </label>
+                <input
+                  type="text"
+                  value={servicesHeaderForm.sectionTitle}
+                  onChange={(e) => setServicesHeaderForm({ ...servicesHeaderForm, sectionTitle: e.target.value })}
+                  placeholder="e.g., Tell Us What You Need Help With"
+                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Search Placeholder Text
+                </label>
+                <input
+                  type="text"
+                  value={servicesHeaderForm.searchPlaceholder}
+                  onChange={(e) => setServicesHeaderForm({ ...servicesHeaderForm, searchPlaceholder: e.target.value })}
+                  placeholder="e.g., Search by need: massage, belly binding..."
+                  className="w-full px-3.5 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                Subtitle Description
+              </label>
+              <textarea
+                rows={2}
+                value={servicesHeaderForm.sectionSubtitle}
+                onChange={(e) => setServicesHeaderForm({ ...servicesHeaderForm, sectionSubtitle: e.target.value })}
+                placeholder="Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care."
+                className="w-full px-3.5 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+              />
+            </div>
+
+            <div className="flex items-center justify-end pt-1">
+              <button
+                type="submit"
+                className="px-4 py-2 rounded-xl bg-[#7B1131] hover:bg-[#5E0C24] text-white text-xs font-bold transition-all shadow-xs flex items-center space-x-1.5 cursor-pointer"
+              >
+                <Check className="w-3.5 h-3.5" />
+                <span>Save Section Header</span>
+              </button>
+            </div>
+          </form>
+
           {/* Care Services Catalog Sub-Header */}
-          <div className="flex items-center justify-between pt-1">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2">
             <div>
               <h3 className="font-serif font-bold text-base text-stone-900">
-                Care Services Catalog
+                Care Services Catalog &amp; Pricing Details
               </h3>
               <p className="text-xs text-stone-500">
-                Manage all clinical offerings, pricing, packages, and stage categories.
+                Manage all clinical offerings, delivery formats, images, key benefits, and pricing guides displayed in this section.
               </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                type="button"
+                onClick={() => {
+                  if (window.confirm('Reset all care services to the default 10 authentic SEYOL clinical programs?')) {
+                    resetServicesToDefault();
+                    notify('Reset services catalog to defaults');
+                  }
+                }}
+                className="px-3 py-1.5 rounded-xl border border-stone-200 hover:bg-stone-50 text-stone-600 text-xs font-semibold flex items-center space-x-1.5 transition-colors cursor-pointer"
+                title="Restore 10 default services"
+              >
+                <RotateCcw className="w-3.5 h-3.5 text-stone-400" />
+                <span>Reset All Services</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleOpenServiceModal()}
+                className="px-4 py-2 rounded-xl bg-[#7B1131] hover:bg-[#5E0C24] text-white text-xs font-bold transition-colors shadow-xs flex items-center space-x-1.5 cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add New Service</span>
+              </button>
             </div>
           </div>
 
@@ -1292,41 +1478,36 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 className="px-3 py-1.5 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131] text-stone-700 font-medium"
               >
                 <option value="all">All Stages</option>
-                <option value="postpartum">Postpartum</option>
+                <option value="preconception">Preconception</option>
                 <option value="pregnancy">Pregnancy</option>
-                <option value="newborn">Newborn</option>
                 <option value="birth">Labor &amp; Birth</option>
+                <option value="postpartum">Postpartum</option>
+                <option value="newborn">Newborn</option>
               </select>
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                setEditingService(null);
-                setServiceImageFile('');
-                setIsServiceModalOpen(true);
-              }}
-              className="px-4 py-2 rounded-xl bg-[#7B1131] hover:bg-[#5E0C24] text-white text-xs font-bold transition-colors shadow-xs flex items-center justify-center space-x-1.5 shrink-0"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Add New Service</span>
-            </button>
+            <span className="text-xs text-stone-500 font-medium self-center">
+              Showing {filteredServices.length} of {services.length} services
+            </span>
           </div>
 
           {/* Services Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredServices.map((service) => (
               <div
                 key={service.id}
                 className="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-xs hover:border-[#7B1131]/30 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="h-44 w-full relative bg-stone-100 overflow-hidden">
+                  <div className="h-48 w-full relative bg-stone-100 overflow-hidden group">
                     <img
                       src={service.heroImage}
                       alt={service.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      style={{ objectPosition: service.imagePosition || 'center 35%' }}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+
                     <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1">
                       {service.stages.map((stage) => (
                         <span
@@ -1337,46 +1518,60 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                         </span>
                       ))}
                     </div>
+
+                    <div className="absolute bottom-2.5 left-3 right-3 text-white space-y-0.5">
+                      <span className="text-[10px] font-bold text-[#F3C49F] uppercase tracking-wider block">
+                        {service.format || 'HOLISTIC CARE'}
+                      </span>
+                      <h4 className="font-serif font-bold text-base text-white leading-tight drop-shadow-xs">
+                        {service.shortTitle || service.title}
+                      </h4>
+                    </div>
                   </div>
 
-                  <div className="p-4 space-y-2">
+                  <div className="p-4 space-y-3">
                     <div className="flex items-start justify-between gap-2">
-                      <h3 className="font-serif font-bold text-sm text-stone-900 leading-snug">
-                        {service.title}
-                      </h3>
-                      <span className="text-xs font-bold text-[#7B1131] shrink-0">
+                      <span className="text-xs font-bold text-[#70152B] bg-[#70152B]/10 px-2.5 py-1 rounded-md">
                         {service.pricingGuide}
+                      </span>
+                      <span className="text-[11px] text-stone-500 font-medium">
+                        {service.duration}
                       </span>
                     </div>
 
-                    <p className="text-xs text-stone-500 line-clamp-2 leading-relaxed">
+                    <p className="text-xs text-stone-600 line-clamp-2 leading-relaxed">
                       {service.summary}
                     </p>
 
-                    <div className="flex items-center gap-3 text-[11px] text-stone-400 pt-1">
-                      <span>Duration: <strong className="text-stone-700">{service.duration}</strong></span>
-                      <span>•</span>
-                      <span>{service.recommendedTimeline}</span>
+                    {/* Key Benefit Highlight Box matching Website */}
+                    {service.benefit && (
+                      <div className="bg-[#FCF4EE] rounded-xl p-2.5 border border-[#F4E4DA]/60">
+                        <p className="text-[11px] text-[#524644] leading-relaxed line-clamp-2">
+                          <strong className="font-bold text-[#70152B]">Key Benefit: </strong>
+                          <span>{service.benefit}</span>
+                        </p>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between text-[11px] text-stone-400 pt-0.5">
+                      <span className="truncate max-w-[150px]">{service.recommendedTimeline}</span>
+                      <span className="font-mono text-[10px] text-stone-400">/{service.slug}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="p-3 bg-stone-50 border-t border-stone-100 flex items-center justify-between gap-2">
-                  <span className="text-[10px] font-mono text-stone-400 truncate">
-                    /{service.slug}
+                  <span className="text-[10px] font-medium text-stone-500 truncate max-w-[180px]">
+                    {service.format || 'In-Home Care'}
                   </span>
-                  <div className="flex items-center space-x-1 shrink-0">
+                  <div className="flex items-center space-x-1.5 shrink-0">
                     <button
                       type="button"
-                      onClick={() => {
-                        setEditingService(service);
-                        setServiceImageFile(service.heroImage);
-                        setIsServiceModalOpen(true);
-                      }}
-                      className="p-1.5 rounded-lg text-stone-600 hover:text-[#7B1131] hover:bg-white transition-colors"
-                      title="Edit Service"
+                      onClick={() => handleOpenServiceModal(service)}
+                      className="px-2.5 py-1 rounded-lg bg-white border border-stone-200 text-stone-700 hover:text-[#7B1131] hover:border-[#7B1131]/30 text-xs font-semibold flex items-center space-x-1 transition-colors cursor-pointer"
                     >
-                      <Edit3 className="w-3.5 h-3.5" />
+                      <Edit3 className="w-3 h-3" />
+                      <span>Edit Details</span>
                     </button>
                     <button
                       type="button"
@@ -1385,7 +1580,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                         id: service.id,
                         name: service.title,
                       })}
-                      className="p-1.5 rounded-lg text-stone-400 hover:text-red-600 hover:bg-white transition-colors"
+                      className="p-1 rounded-lg text-stone-400 hover:text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
                       title="Delete Service"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -2048,20 +2243,20 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
       {/* ─── MODAL: ADD / EDIT SERVICE ───────────────────────────────────── */}
       {isServiceModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
-          <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-2xl w-full shadow-2xl border border-stone-200 space-y-5 my-8 max-h-[90vh] overflow-y-auto">
+          <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-3xl w-full shadow-2xl border border-stone-200 space-y-5 my-8 max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
-                  {editingService ? 'Edit Service' : 'Add New Service'}
+                  Services Catalog • &ldquo;Tell Us What You Need Help With&rdquo;
                 </span>
                 <h3 className="font-serif font-bold text-lg text-stone-900">
-                  {editingService ? editingService.title : 'Create Clinical Service'}
+                  {editingService ? `Edit Service: ${editingService.shortTitle || editingService.title}` : 'Create New Clinical Care Service'}
                 </h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsServiceModalOpen(false)}
-                className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-400 hover:text-stone-700"
+                className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-400 hover:text-stone-700 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -2072,29 +2267,44 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
                 const title = (formData.get('title') as string) || 'New Service';
-                const slug = editingService?.slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                const shortTitle = (formData.get('shortTitle') as string) || title;
+                const slug = editingService?.slug || (formData.get('slug') as string) || title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                const format = (formData.get('format') as string) || serviceFormatInput || 'In-Home (Chennai / Tamil Nadu)';
+                const pricingGuide = (formData.get('pricingGuide') as string) || 'From ₹4,500';
+                const duration = (formData.get('duration') as string) || '2 Hours';
+                const benefit = (formData.get('benefit') as string) || 'Holistic postnatal recuperation and balance.';
+                const summary = (formData.get('summary') as string) || '';
+                const tagline = (formData.get('tagline') as string) || '';
+                const bestFor = (formData.get('bestFor') as string) || 'New mothers and infants.';
+                const recommendedTimeline = (formData.get('recommendedTimeline') as string) || 'From Day 7';
+                const depositInfo = (formData.get('depositInfo') as string) || '20% deposit required upon confirmation.';
+                const category = (formData.get('category') as any) || 'hands-on-care';
+                const heroImageUrl = (formData.get('heroImageUrl') as string) || '';
+                const heroImage = serviceImageFile || heroImageUrl || editingService?.heroImage || '/assets4/preconception-support.jpeg';
+                const imagePosition = (formData.get('imagePosition') as string) || serviceImagePositionInput || 'center 35%';
 
                 const updatedData: Service = {
                   id: editingService?.id || `service-${Date.now()}`,
-                  slug: slug,
-                  title: title,
-                  shortTitle: (formData.get('shortTitle') as string) || title,
-                  tagline: (formData.get('tagline') as string) || '',
-                  summary: (formData.get('summary') as string) || '',
-                  category: (formData.get('category') as any) || 'hands-on-care',
-                  stages: [(formData.get('stage') as JourneyStage) || 'postpartum'],
-                  duration: (formData.get('duration') as string) || '2 Hours',
-                  pricingGuide: (formData.get('pricingGuide') as string) || 'From ₹4,500',
-                  heroImage: serviceImageFile || (formData.get('heroImageUrl') as string) || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-                  processImage: editingService?.processImage || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800',
-                  benefitImages: editingService?.benefitImages || ['https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800'],
-                  benefit: editingService?.benefit || 'Holistic postnatal recuperation and balance.',
-                  bestFor: editingService?.bestFor || 'New mothers and infants.',
-                  recommendedTimeline: (formData.get('recommendedTimeline') as string) || 'From Day 7',
-                  format: editingService?.format || 'In-Home (Chennai / Tamil Nadu)',
-                  depositInfo: editingService?.depositInfo || '20% deposit required upon confirmation.',
-                  features: editingService?.features || [],
-                  inclusions: editingService?.inclusions || [],
+                  slug,
+                  title,
+                  shortTitle,
+                  tagline,
+                  summary,
+                  category,
+                  stages: serviceStagesInput.length > 0 ? serviceStagesInput : ['postpartum'],
+                  duration,
+                  pricingGuide,
+                  heroImage,
+                  imagePosition,
+                  processImage: editingService?.processImage || heroImage,
+                  benefitImages: editingService?.benefitImages || [heroImage],
+                  benefit,
+                  bestFor,
+                  recommendedTimeline,
+                  format,
+                  depositInfo,
+                  features: editingService?.features || [benefit],
+                  inclusions: editingService?.inclusions || [duration],
                   preparation: editingService?.preparation || [],
                   contraindications: editingService?.contraindications || [],
                   faqIds: editingService?.faqIds || [],
@@ -2112,30 +2322,61 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
               }}
               className="space-y-4 text-xs"
             >
-              {/* Photo Upload Row */}
-              <div className="p-3.5 rounded-xl bg-stone-50 border border-stone-200 flex items-center space-x-3.5">
-                <div className="w-16 h-16 rounded-lg overflow-hidden bg-white border border-stone-200 shrink-0">
-                  <img
-                    src={serviceImageFile || editingService?.heroImage || 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800'}
-                    alt="Service preview"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex-1 space-y-1">
-                  <label className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold text-[11px] cursor-pointer shadow-xs space-x-1">
-                    <Upload className="w-3 h-3" />
-                    <span>Upload Image</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={(e) => handleFileUpload(e, (b64) => setServiceImageFile(b64))}
+              {/* Photo Upload & Preview */}
+              <div className="p-4 rounded-xl bg-stone-50 border border-stone-200 space-y-3">
+                <span className="block text-[11px] font-bold uppercase tracking-wider text-stone-700">
+                  Service Card Hero Image *
+                </span>
+                <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
+                  <div className="w-28 h-20 rounded-xl overflow-hidden bg-white border border-stone-200 shrink-0 relative group">
+                    <img
+                      src={serviceImageFile || editingService?.heroImage || '/assets4/preconception-support.jpeg'}
+                      alt="Service preview"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: serviceImagePositionInput }}
                     />
-                  </label>
-                  <p className="text-[10px] text-stone-400">Square or 4:3 high-resolution landscape</p>
+                  </div>
+                  <div className="flex-1 space-y-2 w-full">
+                    <div className="flex items-center gap-2">
+                      <label className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold text-[11px] cursor-pointer shadow-xs space-x-1.5 transition-colors">
+                        <Upload className="w-3.5 h-3.5" />
+                        <span>Upload Photo</span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={(e) => handleFileUpload(e, (b64) => setServiceImageFile(b64))}
+                        />
+                      </label>
+                      <input
+                        type="text"
+                        name="heroImageUrl"
+                        value={serviceImageFile}
+                        onChange={(e) => setServiceImageFile(e.target.value)}
+                        placeholder="Or paste public image URL / path (e.g. /assets4/...)"
+                        className="flex-1 px-3 py-1.5 text-xs rounded-lg bg-white border border-stone-200 focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                      />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <label className="text-[10px] font-bold text-stone-500 uppercase">Focal Position:</label>
+                      <select
+                        name="imagePosition"
+                        value={serviceImagePositionInput}
+                        onChange={(e) => setServiceImagePositionInput(e.target.value)}
+                        className="px-2 py-1 text-xs rounded-md bg-white border border-stone-200 text-stone-700"
+                      >
+                        <option value="center 35%">center 35% (Optimal for Portraits)</option>
+                        <option value="center center">center center</option>
+                        <option value="center top">center top</option>
+                        <option value="center bottom">center bottom</option>
+                        <option value="85% bottom">85% bottom</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              {/* Title & Short Title */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
@@ -2145,6 +2386,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                     type="text"
                     name="title"
                     defaultValue={editingService?.title}
+                    placeholder="e.g., Preconception Nurturing &amp; Preparation"
                     required
                     className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                   />
@@ -2152,97 +2394,238 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
 
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    Short Menu Title
+                    Short Title (Header on Card Image) *
                   </label>
                   <input
                     type="text"
                     name="shortTitle"
-                    defaultValue={editingService?.shortTitle}
+                    defaultValue={editingService?.shortTitle || editingService?.title}
+                    placeholder="e.g., Preconception Support"
+                    required
                     className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    Care Stage
-                  </label>
-                  <select
-                    name="stage"
-                    defaultValue={editingService?.stages[0] || 'postpartum'}
-                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
-                  >
-                    <option value="postpartum">Postpartum</option>
-                    <option value="pregnancy">Pregnancy</option>
-                    <option value="newborn">Newborn</option>
-                    <option value="birth">Labor &amp; Birth</option>
-                  </select>
+              {/* Delivery Format Badge */}
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                  Delivery Format / Mode Badge (Card Top Header) *
+                </label>
+                <input
+                  type="text"
+                  name="format"
+                  value={serviceFormatInput}
+                  onChange={(e) => setServiceFormatInput(e.target.value)}
+                  placeholder="e.g., Virtual &amp; Hybrid, In-Home (Chennai / Tamil Nadu), In-Clinic / In-Home"
+                  required
+                  className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                />
+                <div className="flex flex-wrap gap-1.5 mt-1.5">
+                  <span className="text-[10px] text-stone-400 self-center">Quick Presets:</span>
+                  {['Virtual & Hybrid', 'In-Home (Chennai / Tamil Nadu)', 'In-Clinic / In-Home', 'In-Home (Singapore & Chennai)'].map((fmt) => (
+                    <button
+                      key={fmt}
+                      type="button"
+                      onClick={() => setServiceFormatInput(fmt)}
+                      className="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 font-medium cursor-pointer"
+                    >
+                      {fmt}
+                    </button>
+                  ))}
                 </div>
+              </div>
 
+              {/* Pricing Guide & Duration */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    Duration
-                  </label>
-                  <input
-                    type="text"
-                    name="duration"
-                    defaultValue={editingService?.duration || '2 Hours'}
-                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                    Pricing Guide
+                    Pricing Guide * (Displayed in Bold Maroon)
                   </label>
                   <input
                     type="text"
                     name="pricingGuide"
                     defaultValue={editingService?.pricingGuide || 'From ₹4,500'}
+                    placeholder="e.g., From ₹4,500 for Comprehensive Consultation &amp; Protocol"
+                    required
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Duration / Inclusions *
+                  </label>
+                  <input
+                    type="text"
+                    name="duration"
+                    defaultValue={editingService?.duration || '1 Hour per session'}
+                    placeholder="e.g., 60-minute Initial Consultation + 4-Week Custom Protocol"
+                    required
                     className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                   />
                 </div>
               </div>
 
+              {/* Key Benefit (Highlight Box on Card) */}
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                  Tagline / Essence
+                  Key Benefit * (Displayed in Peach Highlight Box on Service Card)
                 </label>
-                <input
-                  type="text"
-                  name="tagline"
-                  defaultValue={editingService?.tagline}
-                  placeholder="E.g., Sacred Traditional Confinement &amp; Belly Binding"
+                <textarea
+                  name="benefit"
+                  rows={2}
+                  defaultValue={editingService?.benefit}
+                  placeholder="e.g., Prepares the pelvic basin, balances vital doshas, and nurtures vitality prior to conception."
+                  required
                   className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                 />
               </div>
 
+              {/* Service Summary */}
               <div>
                 <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
-                  Clinical Summary &amp; Overview
+                  Clinical Overview &amp; Summary Paragraph *
                 </label>
                 <textarea
                   name="summary"
                   rows={3}
                   defaultValue={editingService?.summary}
+                  placeholder="A holistic preconception programme blending traditional Siddha and Ayurvedic..."
+                  required
                   className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                 />
               </div>
 
-              <div className="flex items-center justify-end space-x-2 pt-2 border-t border-stone-100">
+              {/* Stages Selection */}
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1.5">
+                  Associated Care Stage(s)
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { id: 'preconception' as JourneyStage, label: 'Preconception' },
+                    { id: 'pregnancy' as JourneyStage, label: 'Pregnancy' },
+                    { id: 'birth' as JourneyStage, label: 'Labor & Birth' },
+                    { id: 'postpartum' as JourneyStage, label: 'Postpartum' },
+                    { id: 'newborn' as JourneyStage, label: 'Newborn' },
+                  ].map((stg) => {
+                    const isChecked = serviceStagesInput.includes(stg.id);
+                    return (
+                      <button
+                        key={stg.id}
+                        type="button"
+                        onClick={() => {
+                          if (isChecked) {
+                            if (serviceStagesInput.length > 1) {
+                              setServiceStagesInput(serviceStagesInput.filter((s) => s !== stg.id));
+                            }
+                          } else {
+                            setServiceStagesInput([...serviceStagesInput, stg.id]);
+                          }
+                        }}
+                        className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
+                          isChecked
+                            ? 'bg-[#7B1131] border-[#7B1131] text-white shadow-xs'
+                            : 'bg-stone-50 border-stone-200 text-stone-600 hover:bg-stone-100'
+                        }`}
+                      >
+                        {isChecked ? '✓ ' : ''}{stg.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Extra Clinical Details */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Care Category
+                  </label>
+                  <select
+                    name="category"
+                    defaultValue={editingService?.category || 'hands-on-care'}
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  >
+                    <option value="hands-on-care">Hands-On Care</option>
+                    <option value="clinical-tradition">Clinical Tradition</option>
+                    <option value="specialist-support">Specialist Support</option>
+                    <option value="nanny-confinement">Nanny Confinement</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Recommended Timeline
+                  </label>
+                  <input
+                    type="text"
+                    name="recommendedTimeline"
+                    defaultValue={editingService?.recommendedTimeline || '3 to 6 months prior'}
+                    placeholder="e.g., 3 to 6 months prior to planned conception"
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Target Audience / Best For
+                  </label>
+                  <input
+                    type="text"
+                    name="bestFor"
+                    defaultValue={editingService?.bestFor || 'Couples & expectant mothers'}
+                    placeholder="e.g., Couples planning conception..."
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+              </div>
+
+              {/* Tagline & Slug */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    Tagline / Sub-Headline
+                  </label>
+                  <input
+                    type="text"
+                    name="tagline"
+                    defaultValue={editingService?.tagline}
+                    placeholder="E.g., Cultivating bodily harmony and uterine readiness"
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[11px] font-bold uppercase tracking-wider text-stone-700 mb-1">
+                    URL Slug
+                  </label>
+                  <input
+                    type="text"
+                    name="slug"
+                    defaultValue={editingService?.slug}
+                    placeholder="e.g., preconception-support"
+                    className="w-full px-3 py-2 rounded-lg bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
+                  />
+                </div>
+              </div>
+
+              {/* Actions Footer */}
+              <div className="flex items-center justify-end space-x-2 pt-3 border-t border-stone-100">
                 <button
                   type="button"
                   onClick={() => setIsServiceModalOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-xs"
+                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-xs cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold text-xs shadow-xs"
+                  className="px-5 py-2 rounded-lg bg-[#7B1131] hover:bg-[#5E0C24] text-white font-semibold text-xs shadow-xs flex items-center space-x-1.5 cursor-pointer"
                 >
-                  {editingService ? 'Save Changes' : 'Create Service'}
+                  <Check className="w-3.5 h-3.5" />
+                  <span>{editingService ? 'Save Service Changes' : 'Create Care Service'}</span>
                 </button>
               </div>
             </form>
