@@ -132,6 +132,11 @@ export interface HomeSettings {
   homeVideoUrl: string;
   homeVideoTitle?: string;
   homeVideoAuthor?: string;
+  // Hero Carousel Images for Start Here / Homepage
+  heroSlide1Image?: string;
+  heroSlide2Image?: string;
+  heroSlide3Image?: string;
+  heroSlide4Image?: string;
   // Shop by Routine Images for Start Here / Homepage
   routineBathImage?: string;
   routineMassageImage?: string;
@@ -149,6 +154,10 @@ export const defaultHomeSettings: HomeSettings = {
   homeVideoUrl: 'https://www.youtube.com/watch?v=ScMzIvxBSi4',
   homeVideoTitle: 'Natural Postpartum Healing & Doula Care',
   homeVideoAuthor: 'Deepika & Karthik',
+  heroSlide1Image: '',
+  heroSlide2Image: '',
+  heroSlide3Image: '',
+  heroSlide4Image: '',
   routineBathImage: '',
   routineMassageImage: '',
   routineSleepImage: '',

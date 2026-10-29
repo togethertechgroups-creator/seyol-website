@@ -69,7 +69,7 @@ export default function HomePage() {
       ctaPrimaryAction: () => openEnquiry({ serviceTitle: 'Start Your Care Journey' }),
       ctaSecondaryText: 'Explore Services',
       ctaSecondaryAction: () => router.push('/services'),
-      image: heroBg3,
+      image: homeSettings?.heroSlide1Image || heroBg3,
     },
     {
       id: 'classes',
@@ -81,7 +81,7 @@ export default function HomePage() {
       ctaPrimaryAction: () => router.push('/classes'),
       ctaSecondaryText: 'Explore Classes',
       ctaSecondaryAction: () => router.push('/classes'),
-      image: heroBg1,
+      image: homeSettings?.heroSlide2Image || heroBg1,
       imagePosition: 'object-center sm:object-[center_bottom] lg:object-[85%_bottom]',
     },
     {
@@ -94,7 +94,7 @@ export default function HomePage() {
       ctaPrimaryAction: () => router.push('/products'),
       ctaSecondaryText: 'Shop products',
       ctaSecondaryAction: () => router.push('/products'),
-      image: heroBg2,
+      image: homeSettings?.heroSlide3Image || heroBg2,
     },
     {
       id: 'resources',
@@ -106,7 +106,7 @@ export default function HomePage() {
       ctaPrimaryAction: () => router.push('/resources'),
       ctaSecondaryText: 'Browse Resources',
       ctaSecondaryAction: () => router.push('/resources'),
-      image: heroBg3,
+      image: homeSettings?.heroSlide4Image || heroBg3,
     },
   ];
 
