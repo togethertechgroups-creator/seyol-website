@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./SeyolProductTrust.css";
 
@@ -45,25 +45,28 @@ const productDetails = [
 
 const reviews = [
   {
-    name: "SEYOL Family",
-    product: "Product Review",
+    name: "Deepika & Karthik",
     rating: 5,
-    quote: "A lovely addition to our everyday routine.",
+    quote: "A lovely addition to our everyday routine. The traditional baby massage oil has given our newborn calm nights and deep, restful sleep.",
     image: "/images/customer-review-1.jpg",
   },
   {
-    name: "SEYOL Family",
-    product: "Family Experience",
+    name: "Ananya & Raghav",
     rating: 5,
-    quote: "We appreciate having clear product information.",
+    quote: "We appreciate having authentic traditional care backed by clinical safety. The botanical bath powder and soothing oils feel like pure comfort.",
     image: "/images/customer-review-2.jpg",
   },
   {
-    name: "SEYOL Family",
-    product: "Product Feedback",
+    name: "Meera & Arvind",
     rating: 5,
-    quote: "Thoughtful care for our family's daily routine.",
+    quote: "Thoughtful care for our family's daily routine. Gentle on newborn skin, beautifully aromatic, and deeply reassuring throughout postpartum.",
     image: "/images/customer-review-3.jpg",
+  },
+  {
+    name: "Pooja & Senthil",
+    rating: 5,
+    quote: "Pure, calming and made with genuine purpose. Our family looks forward to every evening bath and bonding massage ritual.",
+    image: "/images/customer-review-4.jpg",
   },
 ];
 
@@ -211,12 +214,20 @@ export function CreatedFromPractice() {
 
 export function LovedByFamilies() {
   const [current, setCurrent] = useState<number>(0);
+  const [isFading, setIsFading] = useState<boolean>(false);
 
-  const next = () =>
-    setCurrent((prev) => (prev + 1) % reviews.length);
+  // Automatically rotate customer reviews continuously without requiring user clicks
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrent((prev) => (prev + 1) % reviews.length);
+        setIsFading(false);
+      }, 350);
+    }, 4500);
 
-  const previous = () =>
-    setCurrent((prev) => (prev - 1 + reviews.length) % reviews.length);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section className="sey-reviews-section" id="loved-by-families">
@@ -229,57 +240,45 @@ export function LovedByFamilies() {
           </p>
         </div>
 
+        {/* Compact, smoothly transitioning review card */}
         <div className="sey-review-layout">
+          {/* Distinct image per review with reduced compact height & smooth fade */}
           <div className="sey-review-featured-image">
             <img
-              src="/images/sey-family-review.jpg"
-              alt="SEYOL family experience"
+              key={reviews[current].image}
+              src={reviews[current].image}
+              alt={reviews[current].name}
+              className={`sey-review-img ${isFading ? 'fade-out' : 'fade-in'}`}
             />
-            <div className="sey-review-image-overlay">
-              <span>SHARED WITH LOVE</span>
-              <h3>Every family&apos;s journey is unique.</h3>
-            </div>
           </div>
 
-          <div className="sey-review-content">
+          {/* Clean review content with all tags, labels, and category badges removed */}
+          <div className={`sey-review-content ${isFading ? 'fade-out' : 'fade-in'}`}>
             <div className="sey-review-stars">
               {"★".repeat(reviews[current].rating)}
             </div>
 
-            <h3>“{reviews[current].quote}”</h3>
-
-            <p>
-              {reviews[current].product}
-            </p>
+            <blockquote className="sey-review-quote">
+              “{reviews[current].quote}”
+            </blockquote>
 
             <div className="sey-review-author">
-              <div className="sey-review-avatar">S</div>
-              <div>
+              <div className="sey-review-avatar">
+                {reviews[current].name.charAt(0)}
+              </div>
+              <div className="sey-review-author-info">
                 <strong>{reviews[current].name}</strong>
-                <small>Customer experience</small>
               </div>
             </div>
 
-            <div className="sey-review-controls">
-              <button
-                type="button"
-                onClick={previous}
-                aria-label="Previous review"
-              >
-                ←
-              </button>
-
-              <span>
-                {current + 1} / {reviews.length}
-              </span>
-
-              <button
-                type="button"
-                onClick={next}
-                aria-label="Next review"
-              >
-                →
-              </button>
+            {/* Seamless indicator dots (no arrow buttons) */}
+            <div className="sey-review-dots">
+              {reviews.map((_, idx) => (
+                <span
+                  key={idx}
+                  className={`sey-review-dot ${idx === current ? 'active' : ''}`}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -333,4 +332,3 @@ export function SeyolProductTrust() {
 }
 
 export default SeyolProductTrust;
-
