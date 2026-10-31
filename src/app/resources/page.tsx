@@ -336,7 +336,7 @@ export default function ResourcesPage() {
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">Resource FAQs</span>
             <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
-              Frequently Asked Questions
+              Questions Before You Purchase or Sign Up?
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
               Everything you need to know about our digital downloads, printing guidelines, and Care Portal access.
