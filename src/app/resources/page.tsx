@@ -245,6 +245,51 @@ export default function ResourcesPage() {
       {/* Free Bite-Sized Learning (Social & Video Guides) */}
       <FreeBiteSizedLearning />
 
+      {/* Questions Before You Purchase or Sign Up? (Resource FAQs) */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-t border-cream-border">
+        <div className="max-w-4xl mx-auto space-y-8">
+          <div className="text-center space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-maroon">Resource FAQs</span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+              Questions Before You Purchase or Sign Up?
+            </h2>
+            <p className="text-xs sm:text-sm text-brown-muted">
+              Everything you need to know about our digital downloads, printing guidelines, and Care Portal access.
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {[
+              {
+                q: 'What format do the resources come in?',
+                a: 'All SEYOL resources are formatted as high-resolution printable PDFs designed for standard A4 and US Letter printers. Certain trackers and templates also include fillable digital PDF forms that can be edited on iPad, phone, or laptop.'
+              },
+              {
+                q: 'How will I receive my downloads after completing the wizard?',
+                a: 'Immediately upon completing Step 4, an instant download locker opens on your screen with 1-click links. You also instantly receive direct download links sent to your verified email address and WhatsApp number.'
+              },
+              {
+                q: 'Can I gift a resource bundle to an expecting friend or family member?',
+                a: 'Yes! In Step 2 (Access Details), select "Buying as a Gift". You can enter the recipient’s name, email, WhatsApp, and a personalized gift message. We will dispatch the bundle directly to them with your note.'
+              },
+              {
+                q: 'What is the SEYOL Care Portal account option in Step 1?',
+                a: 'Creating a SEYOL Care Portal account is completely free. It securely stores all your purchased and free digital guides in one permanent cloud locker so you can re-download anytime without searching through old emails.'
+              },
+              {
+                q: 'Are the recipes and postpartum routines safe for C-section births?',
+                a: 'Yes. Our guides specifically delineate timelines and safety adjustments for both spontaneous vaginal deliveries and Caesarean births, including C-section scar hygiene and delayed abdominal binding protocols.'
+              }
+            ].map((faq, idx) => (
+              <div key={idx} className="bg-cream-light rounded-2xl p-5 border border-cream-border space-y-2 shadow-warm-sm">
+                <h4 className="font-serif font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
+                <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* 6. Resource Bundles Section */}
       <ResourceBundles
         onAddToCart={() => handleOpenWizard('bundle-seyol-complete-master')}
@@ -308,10 +353,6 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      
-
-      
-
       {/* 6. Inline Interactive 4-Step Access & Checkout Wizard Section */}
       <section ref={wizardAnchorRef} id="access-wizard" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream-dark/20 border-t border-cream-border">
         <div className="max-w-4xl mx-auto space-y-6">
@@ -331,51 +372,6 @@ export default function ResourcesPage() {
             initialBundleId="bundle-free-starter-pack"
             isModal={false}
           />
-        </div>
-      </section>
-
-      {/* 8. Frequently Asked Questions (FAQ) on Digital Resources */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-cream-dark/30 border-t border-cream-border">
-        <div className="max-w-4xl mx-auto space-y-8">
-          <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-maroon">Resource FAQs</span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
-              Questions Before You Purchase or Sign Up?
-            </h2>
-            <p className="text-xs sm:text-sm text-brown-muted">
-              Everything you need to know about our digital downloads, printing guidelines, and Care Portal access.
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {[
-              {
-                q: 'What format do the resources come in?',
-                a: 'All SEYOL resources are formatted as high-resolution printable PDFs designed for standard A4 and US Letter printers. Certain trackers and templates also include fillable digital PDF forms that can be edited on iPad, phone, or laptop.'
-              },
-              {
-                q: 'How will I receive my downloads after completing the wizard?',
-                a: 'Immediately upon completing Step 4, an instant download locker opens on your screen with 1-click links. You also instantly receive direct download links sent to your verified email address and WhatsApp number.'
-              },
-              {
-                q: 'Can I gift a resource bundle to an expecting friend or family member?',
-                a: 'Yes! In Step 2 (Access Details), select "Buying as a Gift". You can enter the recipient’s name, email, WhatsApp, and a personalized gift message. We will dispatch the bundle directly to them with your note.'
-              },
-              {
-                q: 'What is the SEYOL Care Portal account option in Step 1?',
-                a: 'Creating a SEYOL Care Portal account is completely free. It securely stores all your purchased and free digital guides in one permanent cloud locker so you can re-download anytime without searching through old emails.'
-              },
-              {
-                q: 'Are the recipes and postpartum routines safe for C-section births?',
-                a: 'Yes. Our guides specifically delineate timelines and safety adjustments for both spontaneous vaginal deliveries and Caesarean births, including C-section scar hygiene and delayed abdominal binding protocols.'
-              }
-            ].map((faq, idx) => (
-              <div key={idx} className="bg-cream-light rounded-2xl p-5 border border-cream-border space-y-2 shadow-warm-sm">
-                <h4 className="font-serif font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
-                <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">{faq.a}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
