@@ -503,36 +503,38 @@
 .sey-review-layout {
   display: grid;
   grid-template-columns: 1fr;
-  align-items: center;
+  align-items: stretch;
   background-color: #FFFFFF;
-  border-radius: 1.5rem;
+  border-radius: 1.75rem;
   border: 1.5px solid #EAE1D5;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(123, 17, 49, 0.04);
+  box-shadow: 0 12px 36px rgba(123, 17, 49, 0.05);
 }
 
 @media (min-width: 1024px) {
   .sey-review-layout {
-    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-columns: 1fr 1.08fr;
+    min-height: 480px;
   }
 }
 
 .sey-review-featured-image {
   position: relative;
-  height: 270px;
+  height: 340px;
   overflow: hidden;
   background-color: #FAF2EC;
 }
 
 @media (min-width: 640px) {
   .sey-review-featured-image {
-    height: 300px;
+    height: 400px;
   }
 }
 
 @media (min-width: 1024px) {
   .sey-review-featured-image {
-    height: 320px;
+    height: 100%;
+    min-height: 480px;
   }
 }
 
@@ -554,18 +556,25 @@
 }
 
 .sey-review-content {
-  padding: 1.75rem 1.5rem;
+  padding: 2rem 1.75rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 0.85rem;
+  gap: 1.15rem;
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 @media (min-width: 640px) {
   .sey-review-content {
-    padding: 2.25rem 2.5rem;
-    gap: 1rem;
+    padding: 2.75rem 2.5rem;
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-review-content {
+    padding: 3.25rem 3.25rem;
+    gap: 1.35rem;
   }
 }
 
@@ -581,14 +590,14 @@
 
 .sey-review-stars {
   color: #C8A45D;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   letter-spacing: 0.18em;
 }
 
 .sey-review-quote {
   font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
-  font-size: 1.35rem;
-  line-height: 1.4;
+  font-size: 1.4rem;
+  line-height: 1.45;
   font-weight: 700;
   color: #3A1D1D;
   margin: 0;
@@ -597,25 +606,26 @@
 
 @media (min-width: 640px) {
   .sey-review-quote {
-    font-size: 1.55rem;
+    font-size: 1.6rem;
+    line-height: 1.48;
   }
 }
 
 .sey-review-author {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  margin-top: 0.25rem;
+  gap: 0.95rem;
+  margin-top: 0.35rem;
 }
 
 .sey-review-avatar {
-  width: 2.35rem;
-  height: 2.35rem;
+  width: 2.6rem;
+  height: 2.6rem;
   border-radius: 50%;
   background-color: #7B1131;
   color: #FFFFFF;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -626,7 +636,7 @@
 .sey-review-author-info strong {
   display: block;
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 0.98rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: #3A1D1D;
 }
@@ -636,8 +646,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem;
-  padding-top: 1rem;
+  margin-top: 0.75rem;
+  padding-top: 1.25rem;
   border-top: 1px solid #F0E8DF;
 }
 
