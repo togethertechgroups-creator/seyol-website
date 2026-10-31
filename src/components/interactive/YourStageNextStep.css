@@ -1,0 +1,519 @@
+/* YourStageNextStep.css - SEYOL Personalized Care Finder */
+
+.seyol-stage-section {
+  width: 100%;
+  background-color: #FAF6EE;
+  color: #3A1D1D;
+  padding: 4.5rem 1.25rem;
+  border-top: 1px solid #EAE1D5;
+  border-bottom: 1px solid #EAE1D5;
+  font-family: 'Garet', var(--font-garet), system-ui, -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .seyol-stage-section {
+    padding: 5.5rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .seyol-stage-section {
+    padding: 6.5rem 2rem;
+  }
+}
+
+.seyol-stage-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.75rem;
+}
+
+/* Section Heading */
+.seyol-stage-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.seyol-eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1131;
+  background-color: #F8EBEF;
+  border: 1px solid #EAC8D2;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+}
+
+.seyol-stage-heading h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .seyol-stage-heading h2 {
+    font-size: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .seyol-stage-heading h2 {
+    font-size: 3.25rem;
+  }
+}
+
+.seyol-stage-heading p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #6E5652;
+  margin: 0;
+  max-width: 580px;
+}
+
+@media (min-width: 640px) {
+  .seyol-stage-heading p {
+    font-size: 1.05rem;
+  }
+}
+
+/* Two-column Layout */
+.seyol-stage-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (min-width: 960px) {
+  .seyol-stage-layout {
+    grid-template-columns: 1fr 1.15fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Left Image Card */
+.seyol-stage-image {
+  position: relative;
+  border-radius: 26px;
+  overflow: hidden;
+  background-color: #ECE3D7;
+  border: 1px solid #E2D7C9;
+  box-shadow: 0 14px 38px rgba(45, 20, 25, 0.08);
+  min-height: 380px;
+  display: flex;
+}
+
+@media (min-width: 960px) {
+  .seyol-stage-image {
+    min-height: 480px;
+  }
+}
+
+.seyol-stage-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.seyol-stage-image:hover img {
+  transform: scale(1.03);
+}
+
+.seyol-image-caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 2rem 1.75rem 1.75rem;
+  background: linear-gradient(to top, rgba(38, 7, 16, 0.92) 0%, rgba(38, 7, 16, 0.6) 60%, transparent 100%);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.seyol-image-caption span {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F3C49F;
+}
+
+.seyol-image-caption h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+/* Right Interactive Form Card */
+.seyol-stage-form {
+  background: #FFFFFF;
+  border-radius: 26px;
+  border: 1px solid #ECE3D7;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 12px 36px rgba(45, 20, 25, 0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .seyol-stage-form {
+    padding: 2.5rem 2.25rem;
+  }
+}
+
+.seyol-stage-form h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+/* Options Grid */
+.seyol-stage-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 520px) {
+  .seyol-stage-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.seyol-stage-option {
+  appearance: none;
+  border: 1.5px solid #EAE1D5;
+  background: #FAF6EE;
+  color: #4A3530;
+  border-radius: 16px;
+  padding: 0.85rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.seyol-stage-option:hover {
+  border-color: #C799A6;
+  background: #FDF9F3;
+  transform: translateY(-1px);
+}
+
+.stage-icon {
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #7B1131;
+  transition: transform 0.2s ease;
+}
+
+.seyol-stage-option.active {
+  background: #7B1131;
+  border-color: #7B1131;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(123, 17, 49, 0.25);
+  transform: translateY(-1px);
+}
+
+.seyol-stage-option.active .stage-icon {
+  color: #F8D8B0;
+  transform: scale(1.15);
+}
+
+/* Form Fields */
+.seyol-stage-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  background: #FCFAF6;
+  border: 1px solid #EFE6DA;
+  border-radius: 18px;
+  padding: 1.25rem 1.15rem;
+}
+
+.seyol-stage-fields label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #5C433C;
+}
+
+.seyol-stage-fields input,
+.seyol-stage-fields select {
+  width: 100%;
+  appearance: none;
+  background: #FFFFFF;
+  border: 1.5px solid #EAE1D5;
+  border-radius: 12px;
+  padding: 0.75rem 0.95rem;
+  font-size: 0.9rem;
+  color: #3A1D1D;
+  font-family: inherit;
+  font-weight: 600;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seyol-stage-fields input:focus,
+.seyol-stage-fields select:focus {
+  border-color: #7B1131;
+  box-shadow: 0 0 0 3px rgba(123, 17, 49, 0.12);
+}
+
+.seyol-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.4rem 0;
+  position: relative;
+}
+
+.seyol-or::before,
+.seyol-or::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #E5D9CB;
+}
+
+.seyol-or span {
+  padding: 0 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #9C857E;
+  letter-spacing: 0.12em;
+}
+
+.seyol-parenting-note {
+  background: #FCF4EE;
+  border: 1px solid #F4E2D5;
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+}
+
+.seyol-parenting-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #5B443F;
+}
+
+/* Find Button */
+.seyol-find-button {
+  appearance: none;
+  border: none;
+  background: #7B1131;
+  color: #FFFFFF;
+  padding: 1rem 1.75rem;
+  border-radius: 9999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(123, 17, 49, 0.28);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 0.5rem;
+}
+
+.seyol-find-button:hover {
+  background: #5E0C24;
+  box-shadow: 0 12px 30px rgba(123, 17, 49, 0.36);
+  transform: translateY(-2px);
+}
+
+.seyol-find-button span {
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.seyol-find-button:hover span {
+  transform: translateX(4px);
+}
+
+/* Results Area */
+.seyol-results {
+  margin-top: 1rem;
+  padding-top: 2.75rem;
+  border-top: 1.5px dashed #E2D7C8;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: seyolFadeIn 0.4s ease-out;
+}
+
+@keyframes seyolFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.seyol-results-heading {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.seyol-results-heading span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.seyol-results-heading h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.seyol-results-heading p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #7B1131;
+  margin: 0;
+  background: #F8EBEF;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  border: 1px solid #EAC8D2;
+}
+
+/* Recommendation Grid */
+.seyol-recommendation-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .seyol-recommendation-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.seyol-recommendation-card {
+  background: #FFFFFF;
+  border: 1.5px solid #ECE3D7;
+  border-radius: 20px;
+  padding: 1.65rem 1.45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(45, 20, 25, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.seyol-recommendation-card:hover {
+  border-color: #7B1131;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(123, 17, 49, 0.14);
+}
+
+.seyol-card-type {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7B1131;
+  background: #F8EBEF;
+  padding: 0.25rem 0.65rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.seyol-recommendation-card h4 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0 0 0.5rem;
+  line-height: 1.35;
+}
+
+.seyol-recommendation-card p {
+  font-size: 0.85rem;
+  color: #6E5652;
+  line-height: 1.55;
+  margin: 0 0 1.25rem;
+}
+
+.seyol-card-link {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #7B1131;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: gap 0.2s ease;
+}
+
+.seyol-recommendation-card:hover .seyol-card-link {
+  gap: 0.55rem;
+  color: #5E0C24;
+}
+
+/* Footer note */
+.seyol-stage-footer {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #8C7770;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding-top: 1rem;
+}
+
+.seyol-stage-footer span {
+  color: #7B1131;
+  font-size: 1rem;
+}

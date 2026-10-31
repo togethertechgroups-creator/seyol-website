@@ -35,7 +35,7 @@ import {
 } from 'lucide-react';
 import { StageSelector } from '../components/interactive/StageSelector';
 import Timeline from '../components/interactive/Timeline';
-import { StageNextStepCalculator } from '../components/interactive/StageNextStepCalculator';
+import { YourStageNextStep } from '../components/interactive/YourStageNextStep';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
@@ -242,6 +242,11 @@ export default function HomePage() {
       </div>
 
       {/* ========================================================================= */}
+      {/* SECTION: YOUR STAGE, YOUR NEXT STEP (Personalized Care Finder)            */}
+      {/* ========================================================================= */}
+      <YourStageNextStep />
+
+      {/* ========================================================================= */}
       {/* SECTION: MOST PARENTS START HERE (Your Journey, Our Care)                 */}
       {/* ========================================================================= */}
       <MostParentsStartHere />
@@ -251,13 +256,6 @@ export default function HomePage() {
       {/* ========================================================================= */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <SupportModeTabs />
-      </section>
-
-      {/* ========================================================================= */}
-      {/* SECTION 4: YOUR STAGE, YOUR NEXT STEP (Interactive EDD / Age Tool)         */}
-      {/* ========================================================================= */}
-      <section className="py-10 sm:py-14 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <StageNextStepCalculator />
       </section>
 
 
