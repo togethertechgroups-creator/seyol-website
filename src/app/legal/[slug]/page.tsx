@@ -109,7 +109,7 @@ export default function LegalPolicyPage() {
                   <h2 className="font-serif text-lg sm:text-xl font-bold text-maroon">
                     {section.heading}
                   </h2>
-                  <p className="text-brown-muted leading-relaxed">
+                  <p className="text-brown-muted leading-relaxed whitespace-pre-line">
                     {section.content}
                   </p>
                 </div>
