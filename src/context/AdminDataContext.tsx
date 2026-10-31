@@ -225,9 +225,9 @@ export interface ServicesSettings {
 }
 
 export const defaultServicesSettings: ServicesSettings = {
-  sectionBadge: 'EXPLORE OUR CARE SERVICES',
+  sectionBadge: 'YOUR JOURNEY, YOUR WAY',
   sectionTitle: 'Tell Us What You Need Help With',
-  sectionSubtitle: 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+  sectionSubtitle: "Choose what feels right for you. We'll help you find the right care.",
   searchPlaceholder: 'Search by need: massage, belly binding, nanny, doula...',
 };
 

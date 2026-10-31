@@ -88,18 +88,18 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
 
   // ─── Services Header Settings Form State ───────────────────────────────
   const [servicesHeaderForm, setServicesHeaderForm] = useState({
-    sectionBadge: servicesSettings?.sectionBadge || 'EXPLORE OUR CARE SERVICES',
+    sectionBadge: servicesSettings?.sectionBadge || 'YOUR JOURNEY, YOUR WAY',
     sectionTitle: servicesSettings?.sectionTitle || 'Tell Us What You Need Help With',
-    sectionSubtitle: servicesSettings?.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+    sectionSubtitle: servicesSettings?.sectionSubtitle || "Choose what feels right for you. We'll help you find the right care.",
     searchPlaceholder: servicesSettings?.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
   });
 
   useEffect(() => {
     if (servicesSettings) {
       setServicesHeaderForm({
-        sectionBadge: servicesSettings.sectionBadge || 'EXPLORE OUR CARE SERVICES',
+        sectionBadge: servicesSettings.sectionBadge || 'YOUR JOURNEY, YOUR WAY',
         sectionTitle: servicesSettings.sectionTitle || 'Tell Us What You Need Help With',
-        sectionSubtitle: servicesSettings.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.',
+        sectionSubtitle: servicesSettings.sectionSubtitle || "Choose what feels right for you. We'll help you find the right care.",
         searchPlaceholder: servicesSettings.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
       });
     }

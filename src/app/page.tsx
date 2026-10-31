@@ -242,7 +242,7 @@ export default function HomePage() {
       </div>
 
       {/* ========================================================================= */}
-      {/* SECTION: YOUR STAGE, YOUR NEXT STEP (Personalized Care Finder)            */}
+      {/* SECTION: TELL US WHAT YOU NEED HELP WITH (Your Journey, Your Way)         */}
       {/* ========================================================================= */}
       <YourStageNextStep />
 

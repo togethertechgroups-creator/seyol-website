@@ -145,14 +145,13 @@ export function YourStageNextStep() {
         {/* Section Heading */}
         <div className="seyol-stage-heading">
           <span className="seyol-eyebrow">
-            PERSONALIZED CARE FINDER
+            YOUR JOURNEY, YOUR WAY
           </span>
 
-          <h2>Your Stage, Your Next Step</h2>
+          <h2>Tell Us What You Need Help With</h2>
 
           <p>
-            Every journey is different. Tell us where you are,
-            and discover the right support for your family.
+            Choose what feels right for you. We&apos;ll help you find the right care.
           </p>
         </div>
 
@@ -307,3 +306,4 @@ export function YourStageNextStep() {
 }
 
 export default YourStageNextStep;
+

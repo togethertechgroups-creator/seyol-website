@@ -196,7 +196,7 @@ export const FindYourCare: React.FC = () => {
         </div>
       </section>
 
-      {/* SECTION 2: WHAT KIND OF SUPPORT DO YOU NEED? (USER MOCKUP DESIGN) */}
+      {/* SECTION 2: TELL US WHAT YOU NEED HELP WITH (USER MOCKUP DESIGN) */}
       <section className="w-full bg-[#FAF7F2] text-[#70152B] py-16 sm:py-20 lg:py-24 border-t border-[#ECE5DD]" id="service-finder">
         <div className="max-w-4xl lg:max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 sm:space-y-10">
           
@@ -206,7 +206,7 @@ export const FindYourCare: React.FC = () => {
               YOUR JOURNEY, YOUR WAY
             </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-[40px] font-semibold text-[#70152B] tracking-tight leading-[1.2]">
-              What kind of support do you need?
+              Tell Us What You Need Help With
             </h2>
             <p className="text-[#6E5652] text-xs sm:text-sm md:text-base leading-relaxed">
               Choose what feels right for you. We&apos;ll help you find the right care.
