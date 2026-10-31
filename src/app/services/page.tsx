@@ -104,16 +104,7 @@ export default function ServicesPage() {
         <ServiceFinder />
       </section>
 
-      {/* How to Start with SEYOL Section */}
-      <HowToStartWithSeyol />
-
-      {/* What Makes SEYOL Support Different (The SEYOL Difference) */}
-      <SeyolDifferenceSection />
-
-      {/* Why Families Trust SEYOL (Promise & Client Video Stories) */}
-      <WhyFamiliesTrustSeyol />
-
-      {/* Package Comparison Section */}
+      {/* Package Comparison Section: Not Sure Which Support Fits? */}
       <section id="packages" className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border max-w-full scroll-mt-20">
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-2">
@@ -129,6 +120,15 @@ export default function ServicesPage() {
           <ComparisonCards />
         </div>
       </section>
+
+      {/* How to Start with SEYOL Section */}
+      <HowToStartWithSeyol />
+
+      {/* What Makes SEYOL Support Different (The SEYOL Difference) */}
+      <SeyolDifferenceSection />
+
+      {/* Why Families Trust SEYOL (Promise & Client Video Stories) */}
+      <WhyFamiliesTrustSeyol />
 
       {/* Caregiver Assurance & Credentials */}
       <TrustBadges variant="compact" />
