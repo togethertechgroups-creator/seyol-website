@@ -1,396 +1,251 @@
 'use client';
 
 import React, { useState } from "react";
-import {
-  ShoppingBag,
-  Check,
-  ArrowRight,
-  BookOpen,
-  X,
-} from "lucide-react";
 import "./MostPopularResources.css";
 
-type Bundle = {
-  id: string;
+interface ResourceItem {
+  id: number;
+  category: string;
+  label: string;
   title: string;
-  count: number;
-  image: string;
   description: string;
-  price: number | null;
-  items: string[];
-};
+  image: string;
+  action: string;
+  link: string;
+  type: string;
+  objectPosition?: string;
+}
 
-const bundles: Bundle[] = [
+const resources: ResourceItem[] = [
   {
-    id: "newborn",
-    title: "Newborn Care Starter Bundle",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800",
-    description: "Essential resources for everyday newborn care.",
-    price: null,
-    items: [
-      "Newborn Care Guide: The First 30 Days",
-      "Diaper Changing & Umbilical Cord Care Guide",
-      "Safe Swaddling Step-by-Step Sheet",
-      "Baby Cry & Soothing Techniques Chart",
-      "Newborn Feeding & Sleep Log",
-    ],
+    id: 1,
+    category: "Bestsellers",
+    label: "POPULAR PRODUCTS",
+    title: "Everyday Baby Care Essentials",
+    description:
+      "Thoughtful essentials for your baby's everyday care routine.",
+    image: "/images/baby-care-essentials.jpg",
+    action: "Shop Now",
+    link: "/shop/baby-care",
+    type: "product",
   },
   {
-    id: "birth",
-    title: "Birth Preparation Toolkit",
-    count: 6,
-    image: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&q=80&w=800",
-    description: "Prepare for birth with practical guides and checklists.",
-    price: null,
-    items: [
-      "Hospital Bag Checklist",
-      "Birth Plan Template",
-      "Stages of Labour Explained Guide",
-      "Birthing Positions Illustrated Sheet",
-      "Partner’s Guide to Labour Support",
-      "Acupressure Points for Labour Comfort Chart",
-    ],
+    id: 2,
+    category: "Most Downloaded",
+    label: "FREE DOWNLOAD",
+    title: "Newborn Care Checklist",
+    description:
+      "A practical checklist to help prepare for your baby's first days.",
+    image: "/images/newborn-checklist.jpg",
+    action: "Download Guide",
+    link: "/resources/newborn-checklist.pdf",
+    type: "download",
   },
   {
-    id: "massage",
-    title: "Baby Massage & Bath Bundle",
-    count: 6,
-    image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=800",
-    description: "Massage routines, bathing guides and safety resources.",
-    price: null,
-    items: [
-      "Traditional Indian Baby Massage Step-by-Step Guide",
-      "Daily Baby Massage Routine Chart",
-      "Baby Massage Oils: What’s Safe for Baby Guide",
-      "Safe Baby Bathing Step-by-Step Guide",
-      "Water Temperature & Bath Safety Quick Reference",
-      "Bath Time Essentials Checklist",
-    ],
+    id: 3,
+    category: "Most Watched",
+    label: "LEARNING VIDEO",
+    title: "Baby Massage Basics",
+    description:
+      "Explore gentle baby massage techniques and everyday care tips.",
+    image: "/images/baby-massage-video.jpg",
+    action: "Watch Now",
+    link: "/learning/baby-massage",
+    type: "video",
   },
   {
-    id: "feeding",
-    title: "Breastfeeding & Bottle Feeding Bundle",
-    count: 5,
-    image: "https://images.unsplash.com/photo-1555252333-9f8e92e65df9?auto=format&fit=crop&q=80&w=800",
-    description: "Practical feeding and milk-storage resources.",
-    price: null,
-    items: [
-      "Latching Techniques Illustrated Guide",
-      "Breastfeeding Positions Poster",
-      "Bottle Feeding & Sterilisation Checklist",
-      "Pumping & Milk Storage Guide",
-      "Breastfeeding Troubleshooting Guide",
-    ],
+    id: 4,
+    category: "Recommended",
+    label: "RECOMMENDED GUIDE",
+    title: "Pregnancy Preparation Guide",
+    description:
+      "Helpful information and practical guidance for your next chapter.",
+    image: "/images/pregnancy-guide.jpg",
+    action: "Explore Guide",
+    link: "/resources/pregnancy-guide",
+    type: "guide",
   },
   {
-    id: "pregnancy",
-    title: "Pregnancy Comfort & Movement Bundle",
-    count: 7,
-    image: "https://images.unsplash.com/photo-1537655780520-1e392ead81f2?auto=format&fit=crop&q=80&w=800",
-    description: "Comfort, movement and relaxation resources for pregnancy.",
-    price: null,
-    items: [
-      "Prenatal Massage Safety Guide",
-      "Partner Massage Techniques for Pregnancy Discomfort",
-      "Pressure Points to Avoid During Pregnancy Chart",
-      "Pregnancy-Safe Exercise Guide by Trimester",
-      "Breathing & Relaxation Techniques for Birth",
-      "Birth Ball Exercises Guide",
-      "Pelvic Floor Exercise Routine",
-    ],
+    id: 5,
+    category: "Most Downloaded",
+    label: "FREE DOWNLOAD",
+    title: "Postpartum Self-Care Guide",
+    description:
+      "A helpful resource for building a gentle postpartum care routine.",
+    image: "/images/postpartum-guide.jpg",
+    action: "Download Guide",
+    link: "/resources/postpartum-guide.pdf",
+    type: "download",
   },
   {
-    id: "postpartum",
-    title: "Postpartum Recovery & Confinement Bundle",
-    count: 8,
-    image: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&q=80&w=800",
-    description: "Recovery, confinement meals and maternal nutrition.",
-    price: null,
-    items: [
-      "Postpartum Recovery Timeline",
-      "Benefits of Postpartum Massage e-Booklet",
-      "Self-Massage Techniques for Back, Neck & Shoulders",
-      "Abdominal Binding Guide",
-      "Confinement Meal Planner",
-      "Traditional Confinement Recipes e-Book",
-      "Foods to Eat & Avoid During Confinement Chart",
-      "Nutrition Guide for Breastfeeding Mothers",
-    ],
-  },
-  {
-    id: "complete",
-    title: "SEYOL Complete Pregnancy to Newborn Resource Bundle",
-    count: 37,
-    image: "https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800",
-    description: "The complete collection of all six specialist bundles.",
-    price: null,
-    items: [
-      "Everything in the Newborn Care Starter Bundle",
-      "Everything in the Baby Massage & Bath Bundle",
-      "Everything in the Breastfeeding & Bottle Feeding Bundle",
-      "Everything in the Birth Preparation Toolkit",
-      "Everything in the Pregnancy Comfort & Movement Bundle",
-      "Everything in the Postpartum Recovery & Confinement Bundle",
-    ],
+    id: 6,
+    category: "Most Watched",
+    label: "LEARNING VIDEO",
+    title: "Newborn Handling Essentials",
+    description:
+      "Learn basic newborn handling and everyday care practices.",
+    image: "/images/newborn-handling.jpg",
+    action: "Watch Now",
+    link: "/learning/newborn-handling",
+    type: "video",
   },
 ];
 
-type Props = {
-  onCheckout?: (items: Bundle[]) => void;
+const filters = [
+  "All",
+  "Bestsellers",
+  "Most Downloaded",
+  "Most Watched",
+  "Recommended",
+];
+
+function ResourceCard({ resource }: { resource: ResourceItem }) {
+  const handleAction = () => {
+    if (resource.type === "download") {
+      const link = document.createElement("a");
+      link.href = resource.link;
+      link.download = "";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } else {
+      window.location.href = resource.link;
+    }
+  };
+
+  return (
+    <article className="sey-popular-card">
+      <div className="sey-popular-image">
+        <img
+          src={resource.image}
+          alt={resource.title}
+          style={{ objectPosition: resource.objectPosition || "center top" }}
+        />
+
+        {resource.type === "video" && (
+          <span className="sey-video-icon">▶</span>
+        )}
+      </div>
+
+      <div className="sey-popular-card-content">
+        <span className="sey-popular-label">
+          {resource.label}
+        </span>
+
+        <h3>{resource.title}</h3>
+
+        <p>{resource.description}</p>
+
+        <div className="sey-popular-card-footer">
+          <button
+            type="button"
+            onClick={handleAction}
+            className="sey-resource-action"
+          >
+            {resource.action}
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+interface MostPopularResourcesProps {
+  onCheckout?: () => void;
   onExploreComplete?: () => void;
-};
+}
 
 export default function MostPopularResources({
   onCheckout,
   onExploreComplete,
-}: Props) {
-  const [cart, setCart] = useState<string[]>([]);
-  const [selected, setSelected] = useState<Bundle | null>(null);
-  const [showCart, setShowCart] = useState(false);
+}: MostPopularResourcesProps = {}) {
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const addToCart = (id: string) => {
-    setCart((previous) =>
-      previous.includes(id)
-        ? previous.filter((item) => item !== id)
-        : [...previous, id]
-    );
-  };
-
-  const removeFromCart = (id: string) => {
-    setCart((previous) => previous.filter((item) => item !== id));
-  };
-
-  const cartBundles = bundles.filter((bundle) =>
-    cart.includes(bundle.id)
-  );
-
-  const formatPrice = (price: number | null) =>
-    price === null
-      ? "Price to be confirmed"
-      : new Intl.NumberFormat("en-IN", {
-          style: "currency",
-          currency: "INR",
-          maximumFractionDigits: 0,
-        }).format(price);
+  const filteredResources =
+    activeFilter === "All"
+      ? resources
+      : resources.filter(
+          (item) => item.category === activeFilter
+        );
 
   return (
-    <section className="popular-resources">
-      <div className="popular-container">
-        <div className="popular-header">
+    <section className="sey-popular-section" id="most-popular-resources">
+      <div className="sey-popular-container">
+
+        {/* Heading */}
+        <div className="sey-popular-heading">
+          <span className="sey-popular-eyebrow">
+            EXPLORE WHAT FAMILIES LOVE
+          </span>
+
+          <h2>
+            Most Popular <span>Resources</span>
+          </h2>
+
+          <p>
+            Helpful products, practical guides and learning
+            resources for every stage of your journey.
+          </p>
+        </div>
+
+        {/* Filters */}
+        <div className="sey-popular-filters">
+          {filters.map((filter) => (
+            <button
+              key={filter}
+              type="button"
+              onClick={() => setActiveFilter(filter)}
+              className={
+                activeFilter === filter ? "active" : ""
+              }
+            >
+              {filter}
+            </button>
+          ))}
+        </div>
+
+        {/* Resource Cards */}
+        <div className="sey-popular-grid">
+          {filteredResources.map((resource) => (
+            <ResourceCard
+              key={resource.id}
+              resource={resource}
+            />
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="sey-popular-cta">
           <div>
-            <h2>Most Popular Resources</h2>
+            <span>YOUR JOURNEY, YOUR RESOURCES</span>
+
+            <h3>
+              Find the right resource for your journey.
+            </h3>
+
             <p>
-              Featured resources to help you get started.
-              Popularity labels should be updated using actual
-              sales and usage data.
+              Explore helpful resources for mothers, babies
+              and growing families.
             </p>
           </div>
 
-          <button
-            className="cart-button"
-            type="button"
-            onClick={() => setShowCart(true)}
-            aria-label={`Open cart with ${cart.length} bundles`}
-          >
-            <ShoppingBag size={18} />
-            <span>Cart ({cart.length})</span>
-          </button>
-        </div>
-
-        <div className="popular-grid">
-          {bundles.slice(0, 2).map((bundle) => {
-            const inCart = cart.includes(bundle.id);
-
-            return (
-              <article className="popular-card" key={bundle.id}>
-                <button
-                  className="product-image-button"
-                  type="button"
-                  onClick={() => setSelected(bundle)}
-                  aria-label={`View ${bundle.title} details`}
-                >
-                  <img
-                    src={bundle.image}
-                    alt={`${bundle.title} digital resources`}
-                    className="product-image"
-                    loading="lazy"
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="product-title"
-                  onClick={() => setSelected(bundle)}
-                >
-                  {bundle.title}
-                </button>
-
-                <p className="resource-count">
-                  {bundle.count} learning resources
-                </p>
-
-                <p className="product-price">
-                  {formatPrice(bundle.price)}
-                </p>
-
-                <button
-                  type="button"
-                  className={`add-cart-button ${
-                    inCart ? "added" : ""
-                  }`}
-                  onClick={() => addToCart(bundle.id)}
-                >
-                  {inCart ? (
-                    <>
-                      <Check size={15} /> Added to Cart
-                    </>
-                  ) : (
-                    "Add to Cart"
-                  )}
-                </button>
-              </article>
-            );
-          })}
-        </div>
-
-        <button
-          type="button"
-          className="view-all-button"
-          onClick={() => {
-            if (onExploreComplete) {
-              onExploreComplete();
-            } else {
-              const el =
-                document.getElementById("shop-resources") ||
-                document.getElementById("explore-resources");
-              if (el) {
-                el.scrollIntoView({ behavior: "smooth" });
+          <a
+            href="/resources"
+            className="sey-popular-cta-button"
+            onClick={(e) => {
+              if (onExploreComplete) {
+                e.preventDefault();
+                onExploreComplete();
               }
-            }
-          }}
-        >
-          Explore Complete Bundle <ArrowRight size={16} />
-        </button>
+            }}
+          >
+            Explore All Resources
+            <span>→</span>
+          </a>
+        </div>
+
       </div>
-
-      {selected && (
-        <div
-          className="modal-backdrop"
-          onClick={() => setSelected(null)}
-        >
-          <section
-            className="product-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="product-modal-title"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="modal-close"
-              onClick={() => setSelected(null)}
-              aria-label="Close"
-            >
-              ✕
-            </button>
-
-            <h2 id="product-modal-title">{selected.title}</h2>
-            <p>{selected.description}</p>
-
-            <h3>What&apos;s included</h3>
-            <ul>
-              {selected.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              className={`add-cart-button modal-add ${
-                cart.includes(selected.id) ? "added" : ""
-              }`}
-              onClick={() => {
-                addToCart(selected.id);
-                setSelected(null);
-              }}
-            >
-              {cart.includes(selected.id) ? (
-                <>
-                  <Check size={15} /> Added to Cart
-                </>
-              ) : (
-                "Add to Cart"
-              )}
-            </button>
-          </section>
-        </div>
-      )}
-
-      {showCart && (
-        <div
-          className="modal-backdrop"
-          onClick={() => setShowCart(false)}
-        >
-          <section
-            className="product-modal cart-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="cart-title"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              type="button"
-              className="modal-close"
-              onClick={() => setShowCart(false)}
-              aria-label="Close cart"
-            >
-              <X size={20} />
-            </button>
-
-            <h3 id="cart-title">Your SEYOL Cart</h3>
-
-            {cartBundles.length === 0 ? (
-              <p>Your cart is empty. Add a bundle to get started.</p>
-            ) : (
-              <>
-                {cartBundles.map((bundle) => (
-                  <div className="cart-item" key={bundle.id}>
-                    <div>
-                      <strong>{bundle.title}</strong>
-                      <p>{formatPrice(bundle.price)}</p>
-                    </div>
-                    <button
-                      type="button"
-                      className="remove-button"
-                      onClick={() => removeFromCart(bundle.id)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                ))}
-
-                <p className="cart-note">
-                  Final total will be available when product prices
-                  are configured.
-                </p>
-
-                <button
-                  type="button"
-                  className="add-cart-button modal-add"
-                  onClick={() => {
-                    setShowCart(false);
-                    onCheckout?.(cartBundles);
-                  }}
-                >
-                  Continue to Checkout
-                </button>
-              </>
-            )}
-          </section>
-        </div>
-      )}
     </section>
   );
 }
-
