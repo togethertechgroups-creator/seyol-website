@@ -38,7 +38,7 @@ export const GatedVideoPlayer: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-cream-border mb-6">
         <div>
           <h3 className="font-serif text-2xl font-bold text-brown">
-            Free Bite-Sized Learning
+            Access the SEYOL Video Library
           </h3>
           <p className="text-xs text-brown-muted mt-1">
             Filmed in HD with SEYOL educators and real families demonstrating real-time techniques, setup hacks, and care routines.

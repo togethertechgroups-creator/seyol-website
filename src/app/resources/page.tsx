@@ -103,7 +103,7 @@ export default function ResourcesPage() {
               href="#video-library"
               className="px-5 sm:px-6 py-2.5 rounded-full border border-gray-300 hover:border-maroon/60 bg-white/70 hover:bg-white text-[#374151] hover:text-maroon font-medium text-xs sm:text-sm transition-all shadow-xs"
             >
-              <span>Free Bite-Sized Learning</span>
+              <span>Access Video Library</span>
             </a>
 
             <a
@@ -234,6 +234,13 @@ export default function ResourcesPage() {
         </div>
       </div>
 
+      {/* Access the SEYOL Video Library */}
+      <section id="video-library" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto">
+          <GatedVideoPlayer />
+        </div>
+      </section>
+
       {/* 6. Resource Bundles Section */}
       <ResourceBundles
         onAddToCart={() => handleOpenWizard('bundle-seyol-complete-master')}
@@ -320,13 +327,6 @@ export default function ResourcesPage() {
             initialBundleId="bundle-free-starter-pack"
             isModal={false}
           />
-        </div>
-      </section>
-
-      {/* 7. Free Bite-Sized Learning Video Library */}
-      <section id="video-library" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border scroll-mt-20">
-        <div className="max-w-7xl mx-auto">
-          <GatedVideoPlayer />
         </div>
       </section>
 
