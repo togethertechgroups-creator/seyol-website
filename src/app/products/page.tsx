@@ -284,16 +284,13 @@ export default function ProductsPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-neutral-200">
         <div className="max-w-[98%] 2xl:max-w-[1780px] mx-auto space-y-10">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-2 border-b border-neutral-200">
-            <div>
-
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-                SEYOL Favourites
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-500 mt-1">
-                Complete sets thoughtfully packaged in our signature keepsake boxes with tiered savings.
-              </p>
-            </div>
+          <div className="text-center max-w-3xl mx-auto space-y-2 pb-4 border-b border-neutral-200">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
+              SEYOL Favourites
+            </h2>
+            <p className="text-xs sm:text-sm text-neutral-500">
+              Complete sets thoughtfully packaged in our signature keepsake boxes with tiered savings.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
