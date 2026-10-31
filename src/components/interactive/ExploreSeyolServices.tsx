@@ -6,8 +6,8 @@ import "./ExploreSeyolServices.css";
 
 interface SeyolServiceItem {
   id: number;
-  number: string;
-  icon: string;
+  number?: string;
+  icon?: string;
   title: string;
   description: string;
   bestFor: string;
@@ -103,16 +103,6 @@ export const ExploreSeyolServices: React.FC = () => {
               className="seyol-service-card"
               key={service.id}
             >
-              <div className="seyol-service-top">
-                <span className="seyol-service-icon">
-                  {service.icon}
-                </span>
-
-                <span className="seyol-service-number">
-                  {service.number}
-                </span>
-              </div>
-
               <div className="seyol-service-content">
                 <h3>{service.title}</h3>
 
