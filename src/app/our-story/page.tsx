@@ -20,6 +20,7 @@ import {
   Heart, 
   Leaf, 
   Users, 
+  BookOpen,
   ShieldCheck, 
   Sparkles, 
   CheckCircle2, 
@@ -193,9 +194,9 @@ export default function OurStoryPage() {
     <div className="flex flex-col w-full min-h-screen bg-[#FAF6F0] text-[#3A1D1D] antialiased selection:bg-[#721832] selection:text-white">
 
       {/* ========================================================================= */}
-      {/* HERO SECTION — WITH INTERACTIVE 3D BABY MODEL */}
+      {/* HERO SECTION — THE STORY BEHIND SEYOL */}
       {/* ========================================================================= */}
-      <section className="relative overflow-hidden bg-[#FAF5EE] text-[#3A1D1D] min-h-[540px] sm:min-h-[580px] lg:min-h-[620px] flex items-center pt-24 pb-12 sm:pt-26 sm:pb-14 lg:pt-28 lg:pb-16 border-b border-[#EAE1D5]">
+      <section className="relative overflow-hidden bg-[#FAF5EE] text-[#3A1D1D] pt-24 pb-12 sm:pt-28 sm:pb-14 lg:pt-30 lg:pb-16 border-b border-[#EAE1D5]">
         
         {/* Soft Ambient Background Elements */}
         <div className="absolute inset-0 pointer-events-none select-none z-0">
@@ -205,43 +206,60 @@ export default function OurStoryPage() {
 
         {/* Foreground Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
-            {/* Left Column: Heading & Text */}
+            {/* Left Column: Heading, Subheading, Narrative, Quote & CTAs */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5 text-left max-w-xl">
-              {/* Badge / Kicker */}
-              <div className="inline-flex items-center space-x-3">
-                <span className="text-xs sm:text-[13px] font-bold tracking-[0.22em] text-[#8C6D4F] uppercase">
-                  OUR STORY
-                </span>
-                <span className="w-14 sm:w-20 h-[1.5px] bg-[#A87C4F]/60" />
+              {/* Eyebrow */}
+              <div className="text-xs sm:text-[13px] font-bold tracking-[0.2em] text-[#8C6D4F] uppercase">
+                OUR STORY · OUR PURPOSE · OUR HEART
               </div>
 
-              {/* Two-Tone Distinctive Headline */}
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-bold tracking-tight leading-[1.12]">
-                <span className="block text-[#721832]">Rooted in Tradition.</span>
-                <span className="block font-serif italic text-[#A87C4F] font-normal mt-1">
-                  Designed for Today&apos;s
-                </span>
-                <span className="block font-serif italic text-[#A87C4F] font-normal">
-                  Families.
-                </span>
+              {/* Main Heading */}
+              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3A1D1D] tracking-tight leading-[1.15]">
+                The Story Behind SEYOL
               </h1>
 
-              {/* Description */}
-              <p className="font-sans text-xs sm:text-sm md:text-[15px] text-[#5C4541] leading-relaxed max-w-md pt-1">
-                SEYOL was born from a simple belief — every mother and child deserves gentle, informed and consistent care. We bring together traditional wisdom and modern support to help families through every stage of their journey.
+              {/* Subheading in italic maroon */}
+              <div className="font-serif italic text-lg sm:text-xl md:text-2xl font-bold text-[#721832] leading-snug">
+                Born from care. Built around families.
+              </div>
+
+              {/* Paragraphs */}
+              <p className="font-sans text-xs sm:text-sm md:text-[15px] text-[#5C4541] leading-relaxed">
+                Every family deserves thoughtful care, gentle guidance and support through life&apos;s most meaningful beginnings.
               </p>
 
-              {/* Action Button */}
-              <div className="pt-3">
+              <p className="font-sans text-xs sm:text-sm md:text-[15px] text-[#5C4541] leading-relaxed">
+                SEYOL was envisioned around a simple purpose: bringing care, knowledge and meaningful support closer to mothers, babies and families.
+              </p>
+
+              {/* Quote Card */}
+              <div className="bg-[#F4ECE3] rounded-2xl p-5 sm:p-6 border border-[#EAE0D4] space-y-1.5 shadow-sm">
+                <blockquote className="font-serif italic text-base sm:text-lg font-bold text-[#721832] leading-snug">
+                  “Care is more than a service. It&apos;s a feeling every family deserves.”
+                </blockquote>
+                <div className="text-xs sm:text-[13px] text-[#6E5652] font-medium">
+                  The heart behind SEYOL
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-4 sm:gap-6">
                 <a
                   href="#meet-jemma"
-                  className="inline-flex items-center space-x-2.5 px-7 py-3.5 rounded-full bg-[#721832] hover:bg-[#5a0c24] text-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5 group"
+                  className="inline-flex items-center space-x-2 px-7 py-3.5 rounded-full bg-[#721832] hover:bg-[#5a0c24] text-white text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 shadow-md hover:shadow-lg active:scale-95 group"
                 >
-                  <span>Discover Our Story</span>
+                  <span>Discover Our Journey</span>
                   <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform duration-200" />
                 </a>
+
+                <Link
+                  href="/services"
+                  className="inline-flex items-center text-xs sm:text-sm font-bold text-[#721832] hover:text-[#5a0c24] hover:underline transition-colors"
+                >
+                  Explore What We Do
+                </Link>
               </div>
             </div>
 
@@ -255,6 +273,45 @@ export default function OurStoryPage() {
             </div>
 
           </div>
+
+          {/* Bottom 3 Feature Highlights (Care · Knowledge · Community) */}
+          <div className="mt-12 pt-8 sm:mt-14 sm:pt-10 border-t border-[#EAE1D5] grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center">
+            
+            {/* 1. Care */}
+            <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
+              <Heart className="w-6 h-6 text-[#721832] stroke-[1.75]" />
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+                Care
+              </h3>
+              <p className="text-xs sm:text-sm text-[#6E5652]">
+                At the heart of everything
+              </p>
+            </div>
+
+            {/* 2. Knowledge */}
+            <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
+              <BookOpen className="w-6 h-6 text-[#721832] stroke-[1.75]" />
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+                Knowledge
+              </h3>
+              <p className="text-xs sm:text-sm text-[#6E5652]">
+                Guidance that empowers
+              </p>
+            </div>
+
+            {/* 3. Community */}
+            <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
+              <Users className="w-6 h-6 text-[#721832] stroke-[1.75]" />
+              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+                Community
+              </h3>
+              <p className="text-xs sm:text-sm text-[#6E5652]">
+                Growing together
+              </p>
+            </div>
+
+          </div>
+
         </div>
 
       </section>
