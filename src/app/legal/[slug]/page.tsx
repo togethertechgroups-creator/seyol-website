@@ -31,7 +31,9 @@ export default function LegalPolicyPage() {
     );
   }
 
-  const allPolicies = Object.values(legalPoliciesData);
+  const allPolicies = Array.from(
+    new Map(Object.values(legalPoliciesData).map((p) => [p.title, p])).values()
+  );
 
   return (
     <div className="flex flex-col w-full font-sans bg-cream text-brown">
@@ -65,7 +67,7 @@ export default function LegalPolicyPage() {
 
               <div className="space-y-1.5 text-xs">
                 {allPolicies.map((pol) => {
-                  const isActive = pol.slug === slug;
+                  const isActive = pol.slug === slug || (policy && policy.title === pol.title);
                   return (
                     <Link
                       key={pol.slug}

@@ -162,11 +162,11 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
-        <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-cream-light/60 gap-4">
-          <div>
+        <div className="pt-8 flex flex-col xl:flex-row justify-between items-center text-xs text-cream-light/60 gap-4">
+          <div className="text-center xl:text-left">
             &copy; {new Date().getFullYear()} SEYOL Mother & Baby Care. All rights reserved. Registered trademark.
           </div>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-2 text-center leading-relaxed">
             <Link href="/legal/privacy-policy" className="hover:text-gold-light transition-colors">
               Privacy Policy
             </Link>
@@ -175,12 +175,32 @@ export const Footer: React.FC = () => {
               Terms & Conditions
             </Link>
             <span>•</span>
-            <Link href="/legal/service-booking-cancellation-policy" className="hover:text-gold-light transition-colors">
-              Booking Policy
+            <Link href="/legal/cookie-policy" className="hover:text-gold-light transition-colors">
+              Cookie Policy
             </Link>
             <span>•</span>
-            <Link href="/legal/product-safety-disclaimer" className="hover:text-gold-light transition-colors">
-              Herbal Safety Disclaimer
+            <Link href="/legal/product-disclaimer" className="hover:text-gold-light transition-colors">
+              Product Disclaimer
+            </Link>
+            <span>•</span>
+            <Link href="/legal/service-booking-terms" className="hover:text-gold-light transition-colors">
+              Service Booking Terms
+            </Link>
+            <span>•</span>
+            <Link href="/legal/class-terms" className="hover:text-gold-light transition-colors">
+              Class Terms
+            </Link>
+            <span>•</span>
+            <Link href="/legal/digital-resource-terms" className="hover:text-gold-light transition-colors">
+              Digital Resource Terms
+            </Link>
+            <span>•</span>
+            <Link href="/legal/employment-agency-terms" className="hover:text-gold-light transition-colors">
+              Employment Agency Terms
+            </Link>
+            <span>•</span>
+            <Link href="/legal/careers-and-training-disclaimer" className="hover:text-gold-light transition-colors">
+              Careers & Training Disclaimer
             </Link>
             <span>•</span>
             <Link href="/legal/caregiver-code-of-conduct" className="hover:text-gold-light transition-colors">
