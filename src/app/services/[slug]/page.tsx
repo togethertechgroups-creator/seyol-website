@@ -200,6 +200,11 @@ export default function ServiceDetailPage() {
       cleanSlug.includes(s.slug) ||
       s.title.toLowerCase().includes(cleanSlug.replace(/-/g, ' ')) ||
       (cleanSlug.includes('preconception') && s.id === 'preconception-care') ||
+      (cleanSlug.includes('pregnancy') && s.id === 'prenatal-massage') ||
+      (cleanSlug.includes('newborn') && s.id === 'hourly-newborn-support') ||
+      ((cleanSlug.includes('infant') || cleanSlug.includes('baby-massage')) && s.id === 'infant-massage-bath') ||
+      ((cleanSlug.includes('combo') || cleanSlug.includes('wellness')) && s.id === 'mother-baby-combo') ||
+      ((cleanSlug.includes('consultation') || cleanSlug.includes('parenting')) && s.id === 'general-consultation') ||
       (cleanSlug.includes('prenatal') && s.id === 'prenatal-massage') ||
       (cleanSlug.includes('postnatal') && s.id === 'postpartum-massage-wrap') ||
       (cleanSlug.includes('postpartum') && s.id === 'postpartum-massage-wrap') ||

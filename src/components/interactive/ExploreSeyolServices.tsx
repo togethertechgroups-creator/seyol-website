@@ -23,7 +23,7 @@ const services: SeyolServiceItem[] = [
     description:
       "Thoughtful guidance to help you prepare for your baby's arrival.",
     bestFor: "Expecting mothers",
-    link: "/services/pregnancy-care",
+    link: "/services/prenatal-massage-therapy",
   },
   {
     id: 2,
@@ -33,7 +33,7 @@ const services: SeyolServiceItem[] = [
     description:
       "Gentle support for feeding, bathing and everyday baby care.",
     bestFor: "New parents",
-    link: "/services/newborn-care",
+    link: "/services/hourly-newborn-support",
   },
   {
     id: 3,
@@ -43,7 +43,7 @@ const services: SeyolServiceItem[] = [
     description:
       "Explore care and guidance for your recovery after childbirth.",
     bestFor: "New mothers",
-    link: "/services/postpartum-care",
+    link: "/services/postpartum-massage-and-wrap",
   },
   {
     id: 4,
@@ -53,7 +53,7 @@ const services: SeyolServiceItem[] = [
     description:
       "Discover gentle massage practices and bonding routines.",
     bestFor: "Parents and babies",
-    link: "/services/baby-massage",
+    link: "/services/infant-massage-and-bath",
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ const services: SeyolServiceItem[] = [
     description:
       "Practical guidance to build confidence in everyday parenting.",
     bestFor: "Growing families",
-    link: "/services/parenting-guidance",
+    link: "/services/holistic-care-guidance-consultation",
   },
   {
     id: 6,
@@ -73,13 +73,13 @@ const services: SeyolServiceItem[] = [
     description:
       "Make time for your wellbeing and everyday self-care.",
     bestFor: "Mothers at every stage",
-    link: "/services/mothers-wellness",
+    link: "/services/mother-and-baby-combo-packages",
   },
 ];
 
 export const ExploreSeyolServices: React.FC = () => {
   return (
-    <section className="seyol-services-section">
+    <section className="seyol-services-section" id="explore-seyol-services">
       <div className="seyol-services-container">
 
         {/* Heading */}
@@ -142,7 +142,7 @@ export const ExploreSeyolServices: React.FC = () => {
             that feels right for yours.
           </p>
 
-          <Link href="/services/find-care">
+          <Link href="/services#service-finder">
             Help Me Choose <span>→</span>
           </Link>
         </div>

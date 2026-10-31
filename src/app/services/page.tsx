@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { ServiceFinder } from '../../components/interactive/ServiceFinder';
 import { FindYourCare } from '../../components/interactive/FindYourCare';
+import { ExploreSeyolServices } from '../../components/interactive/ExploreSeyolServices';
 import { HowToStartWithSeyol } from '../../components/interactive/HowToStartWithSeyol';
 import { SeyolDifferenceSection } from '../../components/seyol/SeyolDifferenceSection';
 import { WhyFamiliesTrustSeyol } from '../../components/seyol/WhyFamiliesTrustSeyol';
@@ -94,6 +95,9 @@ export default function ServicesPage() {
 
       {/* Find Your Care: Choose by Stage & Interactive Service Finder */}
       <FindYourCare />
+
+      {/* Explore SEYOL Services Section */}
+      <ExploreSeyolServices />
 
       {/* Interactive Service Finder Section */}
       <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto w-full">
