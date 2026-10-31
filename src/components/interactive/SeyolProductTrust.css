@@ -1,0 +1,798 @@
+/* SeyolProductTrust.css - SEYOL Product Trust, Ingredients, Practice & Family Reviews */
+
+/* ─── Common Trust Elements ─── */
+.sey-trust-section {
+  width: 100%;
+  background-color: #FAF6EE;
+  color: #3A1D1D;
+  padding: 5rem 1.25rem;
+  border-top: 1px solid #EAE1D5;
+  border-bottom: 1px solid #EAE1D5;
+  font-family: 'Garet', var(--font-garet), system-ui, -apple-system, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .sey-trust-section {
+    padding: 6rem 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-trust-section {
+    padding: 7rem 2.5rem;
+  }
+}
+
+.sey-trust-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.sey-trust-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sey-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1131;
+  background-color: #F8EBEF;
+  border: 1px solid #EAC8D2;
+  padding: 0.35rem 1.1rem;
+  border-radius: 9999px;
+}
+
+.sey-trust-heading h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0.25rem 0 0 0;
+  letter-spacing: -0.02em;
+}
+
+.sey-trust-heading h2 span {
+  color: #7B1131;
+  font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .sey-trust-heading h2 {
+    font-size: 2.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-trust-heading h2 {
+    font-size: 3.25rem;
+  }
+}
+
+.sey-trust-heading p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #6E5652;
+  margin: 0;
+  max-width: 580px;
+}
+
+@media (min-width: 640px) {
+  .sey-trust-heading p {
+    font-size: 1.05rem;
+  }
+}
+
+/* ─── SECTION 1: What Goes Into SEY Products ─── */
+.sey-ingredients-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .sey-ingredients-layout {
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3.5rem;
+  }
+}
+
+.sey-ingredient-image {
+  position: relative;
+  border-radius: 1.75rem;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(123, 17, 49, 0.08);
+  border: 1px solid #EAE1D5;
+  aspect-ratio: 4 / 5;
+}
+
+.sey-ingredient-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.sey-ingredient-image:hover img {
+  transform: scale(1.03);
+}
+
+.sey-image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.75rem;
+  background: linear-gradient(to top, rgba(30, 10, 15, 0.88), transparent);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sey-image-caption span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F0D5BE;
+}
+
+.sey-image-caption h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.sey-ingredient-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sey-ingredient-content h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.sey-ingredient-intro {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #6E5652;
+  margin: 0 0 1.25rem 0;
+}
+
+.sey-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.sey-accordion-item {
+  background-color: #FFFFFF;
+  border: 1.5px solid #EAE1D5;
+  border-radius: 1.15rem;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sey-accordion-item.active {
+  border-color: #7B1131;
+  box-shadow: 0 8px 24px rgba(123, 17, 49, 0.06);
+}
+
+.sey-accordion-button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem 1.35rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.sey-accordion-button:hover {
+  background-color: #FAF4F0;
+}
+
+.sey-accordion-icon {
+  font-size: 1.25rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: #FAF2EC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #EAE1D5;
+}
+
+.sey-accordion-button strong {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3A1D1D;
+}
+
+.sey-accordion-toggle {
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #7B1131;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAF2EC;
+}
+
+.sey-accordion-description {
+  padding: 0 1.35rem 1.25rem 4.5rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #6E5652;
+  border-top: 1px dashed #F0E8DF;
+  padding-top: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .sey-accordion-description {
+    padding-left: 1.35rem;
+  }
+}
+
+/* ─── SECTION 2: Created From Practice, Not Trends ─── */
+.sey-practice-section {
+  width: 100%;
+  background-color: #FFFFFF;
+  color: #3A1D1D;
+  padding: 5.5rem 1.25rem;
+  border-bottom: 1px solid #EAE1D5;
+  font-family: 'Garet', var(--font-garet), system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .sey-practice-section {
+    padding: 6.5rem 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-practice-section {
+    padding: 7.5rem 2.5rem;
+  }
+}
+
+.sey-practice-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .sey-practice-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 4.5rem;
+  }
+}
+
+.sey-practice-images {
+  position: relative;
+}
+
+.sey-practice-main-image {
+  width: 82%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 1.75rem;
+  box-shadow: 0 16px 40px rgba(123, 17, 49, 0.08);
+  border: 1px solid #EAE1D5;
+}
+
+.sey-practice-small-image {
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+  width: 48%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 1.25rem;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0 14px 36px rgba(123, 17, 49, 0.14);
+}
+
+.sey-practice-image-note {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background-color: #FAF6EE;
+  border: 1px solid #EAE1D5;
+  padding: 0.85rem 1.25rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.sey-practice-image-note span {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  color: #7B1131;
+  text-transform: uppercase;
+}
+
+.sey-practice-image-note strong {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 0.95rem;
+  color: #3A1D1D;
+}
+
+.sey-practice-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sey-practice-content h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.sey-practice-content h2 span {
+  color: #7B1131;
+  font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .sey-practice-content h2 {
+    font-size: 2.75rem;
+  }
+}
+
+.sey-practice-content h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #7B1131;
+  margin: 0;
+}
+
+.sey-practice-content p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #6E5652;
+  margin: 0;
+}
+
+.sey-practice-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.sey-practice-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 0.85rem 1.15rem;
+  background-color: #FAF6EE;
+  border-radius: 1rem;
+  border: 1px solid #EAE1D5;
+}
+
+.sey-practice-point span {
+  font-size: 1.1rem;
+  color: #7B1131;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #EAC8D2;
+  flex-shrink: 0;
+}
+
+.sey-practice-point strong {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin-bottom: 0.15rem;
+}
+
+.sey-practice-point p {
+  font-size: 0.82rem;
+  color: #6E5652;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.sey-practice-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: #7B1131;
+  text-decoration: none;
+  padding: 0.85rem 1.65rem;
+  border-radius: 9999px;
+  background-color: #FAF2EC;
+  border: 1.5px solid #7B1131;
+  transition: all 0.25s ease;
+  width: fit-content;
+  margin-top: 0.5rem;
+}
+
+.sey-practice-link:hover {
+  background-color: #7B1131;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.sey-practice-link span {
+  transition: transform 0.2s ease;
+}
+
+.sey-practice-link:hover span {
+  transform: translateX(4px);
+}
+
+/* ─── SECTION 3: Loved by SEYOL Families ─── */
+.sey-reviews-section {
+  width: 100%;
+  background-color: #FAF6EE;
+  color: #3A1D1D;
+  padding: 5.5rem 1.25rem;
+  border-bottom: 1px solid #EAE1D5;
+  font-family: 'Garet', var(--font-garet), system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .sey-reviews-section {
+    padding: 6.5rem 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-reviews-section {
+    padding: 7.5rem 2.5rem;
+  }
+}
+
+.sey-review-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  background-color: #FFFFFF;
+  border-radius: 1.75rem;
+  border: 1.5px solid #EAE1D5;
+  overflow: hidden;
+  box-shadow: 0 14px 40px rgba(123, 17, 49, 0.05);
+}
+
+@media (min-width: 1024px) {
+  .sey-review-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+}
+
+.sey-review-featured-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+@media (min-width: 1024px) {
+  .sey-review-featured-image {
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 420px;
+  }
+}
+
+.sey-review-featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sey-review-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 1.75rem;
+  background: linear-gradient(to top, rgba(30, 10, 15, 0.85), transparent);
+  color: #FFFFFF;
+}
+
+.sey-review-image-overlay span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #F0D5BE;
+}
+
+.sey-review-image-overlay h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0.25rem 0 0 0;
+}
+
+.sey-review-content {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .sey-review-content {
+    padding: 3.5rem 3rem;
+  }
+}
+
+.sey-review-stars {
+  color: #C8A45D;
+  font-size: 1.35rem;
+  letter-spacing: 0.15em;
+}
+
+.sey-review-content h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.65rem;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+  font-style: italic;
+}
+
+.sey-review-content p {
+  font-size: 0.92rem;
+  color: #6E5652;
+  margin: 0;
+}
+
+.sey-review-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.sey-review-avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: #7B1131;
+  color: #FFFFFF;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sey-review-author strong {
+  display: block;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1rem;
+  color: #3A1D1D;
+}
+
+.sey-review-author small {
+  font-size: 0.75rem;
+  color: #8C7D73;
+}
+
+.sey-review-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-top: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #EAE1D5;
+}
+
+.sey-review-controls button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  border: 1.5px solid #7B1131;
+  background-color: transparent;
+  color: #7B1131;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.sey-review-controls button:hover {
+  background-color: #7B1131;
+  color: #FFFFFF;
+}
+
+.sey-review-controls span {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #6E5652;
+}
+
+/* Family Moments Gallery */
+.sey-family-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.sey-gallery-heading {
+  text-align: center;
+}
+
+.sey-gallery-heading h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.sey-gallery-heading p {
+  font-size: 0.88rem;
+  color: #6E5652;
+  margin: 0.25rem 0 0 0;
+}
+
+.sey-gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .sey-gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sey-gallery-grid img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 1.25rem;
+  border: 1px solid #EAE1D5;
+  box-shadow: 0 4px 16px rgba(123, 17, 49, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sey-gallery-grid img:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.1);
+}
+
+/* Review CTA Strip */
+.sey-review-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 2.25rem;
+  background-color: #FFFFFF;
+  border: 1.5px solid #EAE1D5;
+  border-radius: 1.25rem;
+  gap: 1.25rem;
+  text-align: center;
+  box-shadow: 0 4px 18px rgba(123, 17, 49, 0.03);
+}
+
+@media (min-width: 640px) {
+  .sey-review-cta {
+    flex-direction: row;
+    text-align: left;
+    padding: 2.25rem 3rem;
+  }
+}
+
+.sey-review-cta span {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-review-cta h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0.2rem 0;
+}
+
+.sey-review-cta p {
+  font-size: 0.88rem;
+  color: #6E5652;
+  margin: 0;
+}
+
+.sey-review-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: #7B1131;
+  text-decoration: none;
+  padding: 0.75rem 1.65rem;
+  border-radius: 9999px;
+  background-color: #FAF2EC;
+  border: 1.5px solid #7B1131;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sey-review-cta a:hover {
+  background-color: #7B1131;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.sey-review-cta a span {
+  font-size: 1rem;
+  color: inherit;
+  transition: transform 0.2s ease;
+}
+
+.sey-review-cta a:hover span {
+  transform: translateX(4px);
+}

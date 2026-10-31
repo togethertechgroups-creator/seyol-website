@@ -22,6 +22,7 @@ import {
 import { productsData as fallbackProducts, bundlesData } from '../../data/products';
 import { ProductCard } from '../../components/shared/ProductCard';
 import { BundleBuilder } from '../../components/interactive/BundleBuilder';
+import { SeyolProductTrust } from '../../components/interactive/SeyolProductTrust';
 import { FindProductsForYourStage } from '../../components/interactive/FindProductsForYourStage';
 import { ShareSeyolPartnerSection } from '../../components/products/ShareSeyolPartnerSection';
 import { ProductQuestionsFAQ } from '../../components/products/ProductQuestionsFAQ';
@@ -370,6 +371,11 @@ export default function ProductsPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-[98%] 2xl:max-w-[1780px] mx-auto w-full">
         <BundleBuilder />
       </section>
+
+      {/* ========================================================================= */}
+      {/* SEYOL PRODUCT TRUST (What Goes Into SEY, Created from Practice, Loved by Families) */}
+      {/* ========================================================================= */}
+      <SeyolProductTrust />
 
       {/* ========================================================================= */}
       {/* 6B. GROW WITH US: SHARE SEY BY SEYOL                                      */}
