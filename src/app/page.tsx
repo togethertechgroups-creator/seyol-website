@@ -36,6 +36,7 @@ import {
 import { StageSelector } from '../components/interactive/StageSelector';
 import Timeline from '../components/interactive/Timeline';
 import { YourStageNextStep } from '../components/interactive/YourStageNextStep';
+import { ExploreSeyolServices } from '../components/interactive/ExploreSeyolServices';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
@@ -245,6 +246,11 @@ export default function HomePage() {
       {/* SECTION: TELL US WHAT YOU NEED HELP WITH (Your Journey, Your Way)         */}
       {/* ========================================================================= */}
       <YourStageNextStep />
+
+      {/* ========================================================================= */}
+      {/* SECTION: EXPLORE SEYOL SERVICES (Thoughtful Care For Every Journey)       */}
+      {/* ========================================================================= */}
+      <ExploreSeyolServices />
 
       {/* ========================================================================= */}
       {/* SECTION: MOST PARENTS START HERE (Your Journey, Our Care)                 */}
