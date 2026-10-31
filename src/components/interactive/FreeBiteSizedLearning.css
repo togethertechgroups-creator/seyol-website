@@ -1,0 +1,507 @@
+/* ========================================================================= */
+/* SEYOL FREE BITE-SIZED LEARNING                                           */
+/* ========================================================================= */
+
+.sey-learning-section {
+  padding: 5rem 1rem;
+  background-color: #FAF5EE;
+  color: #3A1D1D;
+  border-top: 1px solid #EAE1D5;
+  border-bottom: 1px solid #EAE1D5;
+}
+
+@media (min-width: 640px) {
+  .sey-learning-section {
+    padding: 6rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-learning-section {
+    padding: 7rem 2rem;
+  }
+}
+
+.sey-learning-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* Heading */
+.sey-learning-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sey-learning-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-learning-heading h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sey-learning-heading h2 span {
+  color: #7B1131;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.sey-learning-heading p {
+  font-size: 0.95rem;
+  color: #6E5652;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .sey-learning-heading p {
+    font-size: 1.05rem;
+  }
+}
+
+/* Intro Banner */
+.sey-learning-banner {
+  background: linear-gradient(135deg, #FAF0F2 0%, #FFFDF9 50%, #FBF6EC 100%);
+  border: 1.5px solid #EAE1D5;
+  border-radius: 28px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+  box-shadow: 0 10px 30px -10px rgba(58, 29, 29, 0.08);
+}
+
+@media (min-width: 900px) {
+  .sey-learning-banner {
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+  }
+}
+
+.sey-learning-banner-content {
+  padding: 2.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .sey-learning-banner-content {
+    padding: 3.5rem 3rem;
+  }
+}
+
+.sey-learning-banner-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1131;
+  background-color: #F5E8EB;
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  align-self: flex-start;
+  border: 1px solid #E9D2D7;
+}
+
+.sey-learning-banner-content h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.sey-learning-banner-content p {
+  font-size: 0.95rem;
+  color: #6E5652;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 480px;
+}
+
+.sey-learning-banner-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #7B1131;
+  color: #FAF5EE;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(123, 17, 49, 0.22);
+}
+
+.sey-learning-banner-btn:hover {
+  background-color: #5A0D23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(123, 17, 49, 0.3);
+}
+
+.sey-learning-banner-image {
+  height: 260px;
+  width: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .sey-learning-banner-image {
+    height: 100%;
+    min-height: 340px;
+  }
+}
+
+.sey-learning-banner-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 0.6s ease;
+}
+
+.sey-learning-banner:hover .sey-learning-banner-image img {
+  transform: scale(1.03);
+}
+
+/* Platform Filter Section */
+.sey-learning-filter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  scroll-margin-top: 100px;
+}
+
+.sey-learning-filter-heading {
+  text-align: center;
+}
+
+.sey-learning-filter-heading h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0.25rem 0 0 0;
+}
+
+.sey-learning-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.sey-learning-filters button {
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  border: 1.5px solid #E0D4C7;
+  background-color: #FFFFFF;
+  color: #5C4541;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.sey-learning-filters button:hover {
+  border-color: #7B1131;
+  color: #7B1131;
+  background-color: #FAF0F2;
+}
+
+.sey-learning-filters button.active {
+  background-color: #7B1131;
+  border-color: #7B1131;
+  color: #FAF5EE;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(123, 17, 49, 0.25);
+}
+
+/* Video Grid */
+.sey-learning-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .sey-learning-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-learning-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Video Card */
+.sey-learning-card {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(58, 29, 29, 0.04);
+}
+
+.sey-learning-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px -10px rgba(58, 29, 29, 0.12);
+  border-color: #C8A45D;
+}
+
+.sey-learning-image-link {
+  display: block;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.sey-learning-image {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  background-color: #EFE8DE;
+}
+
+.sey-learning-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+}
+
+.sey-learning-card:hover .sey-learning-image img {
+  transform: scale(1.05);
+}
+
+.sey-learning-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(123, 17, 49, 0.88);
+  backdrop-filter: blur(4px);
+  color: #FAF5EE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding-left: 3px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+
+.sey-learning-card:hover .sey-learning-play {
+  background-color: #7B1131;
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 6px 20px rgba(123, 17, 49, 0.45);
+}
+
+.sey-learning-duration {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background-color: rgba(58, 29, 29, 0.85);
+  backdrop-filter: blur(4px);
+  color: #FAF5EE;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+.sey-learning-card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.75rem;
+}
+
+.sey-learning-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #7B1131;
+}
+
+.sey-platform-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background-color: #FAF0F2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.sey-learning-card-content h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.sey-learning-card-content p {
+  font-size: 0.88rem;
+  color: #6E5652;
+  line-height: 1.55;
+  margin: 0;
+  flex: 1;
+}
+
+.sey-learning-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #7B1131;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.sey-learning-watch span {
+  transition: transform 0.2s ease;
+}
+
+.sey-learning-card:hover .sey-learning-watch {
+  color: #5A0D23;
+}
+
+.sey-learning-card:hover .sey-learning-watch span {
+  transform: translate(3px, -3px);
+}
+
+/* Bottom CTA */
+.sey-learning-cta {
+  background: linear-gradient(135deg, #FAF0F2 0%, #FFFFFF 100%);
+  border: 1.5px solid #EAE1D5;
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 4px 16px rgba(58, 29, 29, 0.05);
+}
+
+@media (min-width: 768px) {
+  .sey-learning-cta {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+  }
+}
+
+.sey-learning-cta-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-learning-cta h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0.35rem 0 0.5rem 0;
+  line-height: 1.25;
+}
+
+.sey-learning-cta p {
+  font-size: 0.92rem;
+  color: #6E5652;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sey-learning-social-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.sey-social-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.sey-social-instagram {
+  background-color: #7B1131;
+  color: #FAF5EE;
+  box-shadow: 0 4px 12px rgba(123, 17, 49, 0.2);
+}
+
+.sey-social-instagram:hover {
+  background-color: #5A0D23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(123, 17, 49, 0.3);
+}
+
+.sey-social-youtube {
+  background-color: #FFFFFF;
+  color: #3A1D1D;
+  border: 1.5px solid #E0D4C7;
+}
+
+.sey-social-youtube:hover {
+  background-color: #FAF5EE;
+  border-color: #7B1131;
+  color: #7B1131;
+  transform: translateY(-2px);
+}

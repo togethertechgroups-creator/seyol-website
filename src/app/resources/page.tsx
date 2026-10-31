@@ -36,6 +36,7 @@ import FindWhatYouNeed from '../../components/interactive/FindWhatYouNeed';
 import MostPopularResources from '../../components/interactive/MostPopularResources';
 import ShopSEYOLResources from '../../components/interactive/ShopSEYOLResources';
 import ResourceBundles from '../../components/interactive/ResourceBundles';
+import FreeBiteSizedLearning from '../../components/interactive/FreeBiteSizedLearning';
 
 export default function ResourcesPage() {
   const [selectedStage, setSelectedStage] = useState<JourneyStage>('all');
@@ -240,6 +241,9 @@ export default function ResourcesPage() {
           <GatedVideoPlayer />
         </div>
       </section>
+
+      {/* Free Bite-Sized Learning (Social & Video Guides) */}
+      <FreeBiteSizedLearning />
 
       {/* 6. Resource Bundles Section */}
       <ResourceBundles
