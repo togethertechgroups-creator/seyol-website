@@ -252,19 +252,13 @@ export default function ProductsPage() {
         <div className="space-y-8">
           
           {/* Header Row */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-3 border-b border-neutral-200">
-            <div>
-              <div className="text-[11px] font-extrabold uppercase tracking-widest text-[#7B1131] mb-1">
-                Handcrafted Apothecary Formulations
-              </div>
-              <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-                {selectedCategory === 'all' ? 'Shop by Routine' : categoryPills.find(c => c.id === selectedCategory)?.label}
-              </h2>
+          <div className="text-center max-w-2xl mx-auto space-y-1 pb-4 border-b border-neutral-200">
+            <div className="text-[11px] font-extrabold uppercase tracking-widest text-[#7B1131]">
+              Handcrafted Apothecary Formulations
             </div>
-
-            <div className="text-xs font-bold text-neutral-500">
-              Showing {filteredProducts.length} certified items
-            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
+              {selectedCategory === 'all' ? 'Shop by Routine' : categoryPills.find(c => c.id === selectedCategory)?.label}
+            </h2>
           </div>
 
           {/* Product Cards Grid (4 Columns for standard compact card width) */}
