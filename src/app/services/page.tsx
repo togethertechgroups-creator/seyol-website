@@ -21,6 +21,7 @@ import { WhyFamiliesTrustSeyol } from '../../components/seyol/WhyFamiliesTrustSe
 import { ComparisonCards } from '../../components/interactive/ComparisonCards';
 import { AccordionFAQ } from '../../components/shared/AccordionFAQ';
 import { NeedHelpChoosingSection } from '../../components/seyol/NeedHelpChoosingSection';
+import { YourFirstSeyolResource } from '../../components/interactive/YourFirstSeyolResource';
 import { TrustBadges } from '../../components/shared/TrustBadges';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 import heroServiceImg from '../../assets4/Tender Motherhood Banner.png';
@@ -149,6 +150,9 @@ export default function ServicesPage() {
 
       {/* Need Help Choosing? SEYOL Will Guide You Section */}
       <NeedHelpChoosingSection />
+
+      {/* Your First SEYOL Resource Section */}
+      <YourFirstSeyolResource />
     </div>
   );
 }
