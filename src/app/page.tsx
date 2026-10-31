@@ -35,7 +35,6 @@ import {
 } from 'lucide-react';
 import { StageSelector } from '../components/interactive/StageSelector';
 import Timeline from '../components/interactive/Timeline';
-import { ExploreSeyolServices } from '../components/interactive/ExploreSeyolServices';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
@@ -240,11 +239,6 @@ export default function HomePage() {
           />
         </div>
       </div>
-
-      {/* ========================================================================= */}
-      {/* SECTION: EXPLORE SEYOL SERVICES (Thoughtful Care For Every Journey)       */}
-      {/* ========================================================================= */}
-      <ExploreSeyolServices />
 
       {/* ========================================================================= */}
       {/* SECTION: MOST PARENTS START HERE (Your Journey, Our Care)                 */}
