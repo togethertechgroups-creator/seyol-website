@@ -361,7 +361,7 @@ export default function ResourcesPage() {
               Interactive 4-Step Access Gateway
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
-              Complete Your Digital Access Setup
+              Stay Connected with SEYOL
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted max-w-xl mx-auto">
               Follow the 4 simple steps below to configure your recipient details, accept terms, and instantly unlock your guides.
