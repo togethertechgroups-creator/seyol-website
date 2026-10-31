@@ -49,24 +49,28 @@ const reviews = [
     rating: 5,
     quote: "A lovely addition to our everyday routine. The traditional baby massage oil has given our newborn calm nights and deep, restful sleep.",
     image: "/images/customer-review-1.jpg",
+    objectPosition: "center 6%",
   },
   {
     name: "Ananya & Raghav",
     rating: 5,
     quote: "We appreciate having authentic traditional care backed by clinical safety. The botanical bath powder and soothing oils feel like pure comfort.",
     image: "/images/customer-review-2.jpg",
+    objectPosition: "center 15%",
   },
   {
     name: "Meera & Arvind",
     rating: 5,
     quote: "Thoughtful care for our family's daily routine. Gentle on newborn skin, beautifully aromatic, and deeply reassuring throughout postpartum.",
     image: "/images/customer-review-3.jpg",
+    objectPosition: "center center",
   },
   {
     name: "Pooja & Senthil",
     rating: 5,
     quote: "Pure, calming and made with genuine purpose. Our family looks forward to every evening bath and bonding massage ritual.",
     image: "/images/customer-review-4.jpg",
+    objectPosition: "center 18%",
   },
 ];
 
@@ -214,20 +218,51 @@ export function CreatedFromPractice() {
 
 export function LovedByFamilies() {
   const [current, setCurrent] = useState<number>(0);
-  const [isFading, setIsFading] = useState<boolean>(false);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
+  const [slideKey, setSlideKey] = useState<number>(0);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
 
-  // Automatically rotate customer reviews continuously without requiring user clicks
+  const goTo = (index: number) => {
+    setCurrent(index);
+    setSlideKey((k) => k + 1);
+  };
+
+  const next = () => {
+    setCurrent((prev) => (prev + 1) % reviews.length);
+    setSlideKey((k) => k + 1);
+  };
+
+  const prev = () => {
+    setCurrent((prev) => (prev - 1 + reviews.length) % reviews.length);
+    setSlideKey((k) => k + 1);
+  };
+
+  // Continuous auto-rotation with hover pause
   useEffect(() => {
+    if (isPaused) return;
+
     const timer = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
-        setCurrent((prev) => (prev + 1) % reviews.length);
-        setIsFading(false);
-      }, 350);
-    }, 4500);
+      setCurrent((prev) => (prev + 1) % reviews.length);
+      setSlideKey((k) => k + 1);
+    }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isPaused, current]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart === null) return;
+    const touchEnd = e.changedTouches[0].clientX;
+    const diff = touchStart - touchEnd;
+    if (diff > 50) next();
+    if (diff < -50) prev();
+    setTouchStart(null);
+  };
+
+  const activeReview = reviews[current];
 
   return (
     <section className="sey-reviews-section" id="loved-by-families">
@@ -240,45 +275,84 @@ export function LovedByFamilies() {
           </p>
         </div>
 
-        {/* Compact, smoothly transitioning review card */}
-        <div className="sey-review-layout">
-          {/* Distinct image per review with reduced compact height & smooth fade */}
+        {/* Dynamic, interactive review showcase card */}
+        <div
+          className="sey-review-layout"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Framed Image that fits subjects with generous headroom */}
           <div className="sey-review-featured-image">
             <img
-              key={reviews[current].image}
-              src={reviews[current].image}
-              alt={reviews[current].name}
-              className={`sey-review-img ${isFading ? 'fade-out' : 'fade-in'}`}
+              key={`img-${current}-${slideKey}`}
+              src={activeReview.image}
+              alt={activeReview.name}
+              className="sey-review-img"
+              style={{ objectPosition: activeReview.objectPosition || 'center 6%' }}
             />
           </div>
 
-          {/* Clean review content with all tags, labels, and category badges removed */}
-          <div className={`sey-review-content ${isFading ? 'fade-out' : 'fade-in'}`}>
-            <div className="sey-review-stars">
-              {"★".repeat(reviews[current].rating)}
+          {/* Review content with smooth animation & interactive controls */}
+          <div className="sey-review-content">
+            <div key={`content-${current}-${slideKey}`} className="sey-review-content-inner">
+              <div className="sey-review-stars">
+                {"★".repeat(activeReview.rating)}
+              </div>
+
+              <blockquote className="sey-review-quote">
+                “{activeReview.quote}”
+              </blockquote>
+
+              <div className="sey-review-author">
+                <div className="sey-review-avatar">
+                  {activeReview.name.charAt(0)}
+                </div>
+                <div className="sey-review-author-info">
+                  <strong>{activeReview.name}</strong>
+                </div>
+              </div>
             </div>
 
-            <blockquote className="sey-review-quote">
-              “{reviews[current].quote}”
-            </blockquote>
+            {/* Dynamic Controls Bar: Prev, Interactive Indicators with Progress Fill, Next */}
+            <div className="sey-review-controls-bar">
+              <button
+                type="button"
+                onClick={prev}
+                className="sey-review-nav-btn"
+                aria-label="Previous review"
+              >
+                ‹
+              </button>
 
-            <div className="sey-review-author">
-              <div className="sey-review-avatar">
-                {reviews[current].name.charAt(0)}
+              <div className="sey-review-dots" role="tablist" aria-label="Review indicators">
+                {reviews.map((r, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => goTo(idx)}
+                    className={`sey-review-dot-btn ${idx === current ? 'active' : ''}`}
+                    aria-label={`View review from ${r.name}`}
+                  >
+                    <span className="sey-review-dot-track">
+                      <span
+                        key={idx === current ? `fill-${current}-${slideKey}` : 'idle'}
+                        className={`sey-review-dot-fill ${idx === current && !isPaused ? 'animating' : ''}`}
+                      />
+                    </span>
+                  </button>
+                ))}
               </div>
-              <div className="sey-review-author-info">
-                <strong>{reviews[current].name}</strong>
-              </div>
-            </div>
 
-            {/* Seamless indicator dots (no arrow buttons) */}
-            <div className="sey-review-dots">
-              {reviews.map((_, idx) => (
-                <span
-                  key={idx}
-                  className={`sey-review-dot ${idx === current ? 'active' : ''}`}
-                />
-              ))}
+              <button
+                type="button"
+                onClick={next}
+                className="sey-review-nav-btn"
+                aria-label="Next review"
+              >
+                ›
+              </button>
             </div>
           </div>
         </div>
