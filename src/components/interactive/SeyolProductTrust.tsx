@@ -49,14 +49,14 @@ const reviews = [
     rating: 5,
     quote: "A lovely addition to our everyday routine. The traditional baby massage oil has given our newborn calm nights and deep, restful sleep.",
     image: "/images/customer-review-1.jpg",
-    objectPosition: "center 6%",
+    objectPosition: "center top",
   },
   {
     name: "Ananya & Raghav",
     rating: 5,
     quote: "We appreciate having authentic traditional care backed by clinical safety. The botanical bath powder and soothing oils feel like pure comfort.",
     image: "/images/customer-review-2.jpg",
-    objectPosition: "center 15%",
+    objectPosition: "center top",
   },
   {
     name: "Meera & Arvind",
@@ -70,7 +70,7 @@ const reviews = [
     rating: 5,
     quote: "Pure, calming and made with genuine purpose. Our family looks forward to every evening bath and bonding massage ritual.",
     image: "/images/customer-review-4.jpg",
-    objectPosition: "center 18%",
+    objectPosition: "center top",
   },
 ];
 
@@ -290,7 +290,7 @@ export function LovedByFamilies() {
               src={activeReview.image}
               alt={activeReview.name}
               className="sey-review-img"
-              style={{ objectPosition: activeReview.objectPosition || 'center 6%' }}
+              style={{ objectPosition: activeReview.objectPosition || 'center top' }}
             />
           </div>
 
