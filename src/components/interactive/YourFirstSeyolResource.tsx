@@ -227,3 +227,4 @@ export function YourFirstSeyolResource() {
 }
 
 export default YourFirstSeyolResource;
+

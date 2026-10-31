@@ -258,7 +258,7 @@ export default function ProductsPage() {
                 Handcrafted Apothecary Formulations
               </div>
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-                {selectedCategory === 'all' ? 'All Traditional Herbal Formulations' : categoryPills.find(c => c.id === selectedCategory)?.label}
+                {selectedCategory === 'all' ? 'Shop by Routine' : categoryPills.find(c => c.id === selectedCategory)?.label}
               </h2>
             </div>
 
