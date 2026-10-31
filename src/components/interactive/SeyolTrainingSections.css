@@ -1,0 +1,501 @@
+/* ========================================================================= */
+/* SEYOL TRAINING SECTIONS: PATHWAY & WHAT YOU CAN LEARN                     */
+/* ========================================================================= */
+
+.sey-training-pathway,
+.sey-learn-skills {
+  padding: 5rem 1rem;
+  background-color: #FAF5EE;
+  color: #3A1D1D;
+  border-top: 1px solid #EAE1D5;
+}
+
+@media (min-width: 640px) {
+  .sey-training-pathway,
+  .sey-learn-skills {
+    padding: 6rem 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-training-pathway,
+  .sey-learn-skills {
+    padding: 7rem 2rem;
+  }
+}
+
+.sey-training-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* Headings */
+.sey-training-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sey-training-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-training-heading h2 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.sey-training-heading h2 span {
+  color: #7B1131;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.sey-training-heading p {
+  font-size: 0.95rem;
+  color: #6E5652;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .sey-training-heading p {
+    font-size: 1.05rem;
+  }
+}
+
+/* Pathway 2-Column Layout */
+.sey-pathway-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .sey-pathway-layout {
+    grid-template-columns: 1fr 1.15fr;
+    gap: 3rem;
+  }
+}
+
+/* Left Visual with Overlay */
+.sey-pathway-visual {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 380px;
+  box-shadow: 0 12px 32px -10px rgba(58, 29, 29, 0.15);
+  border: 1px solid #EAE1D5;
+  background-color: #3A1D1D;
+}
+
+.sey-pathway-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.85);
+  transition: transform 0.6s ease;
+}
+
+.sey-pathway-visual:hover img {
+  transform: scale(1.04);
+}
+
+.sey-pathway-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(58, 29, 29, 0.15) 0%, rgba(58, 29, 29, 0.85) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2.25rem 2rem;
+  color: #FAF5EE;
+}
+
+.sey-pathway-image-overlay span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #C8A45D;
+  margin-bottom: 0.5rem;
+}
+
+.sey-pathway-image-overlay h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: #FAF5EE;
+}
+
+/* Right Pathway Content */
+.sey-pathway-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  justify-content: center;
+}
+
+.sey-pathway-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sey-pathway-step {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.1rem 1.4rem;
+  border-radius: 18px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #EAE1D5;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s ease;
+  width: 100%;
+}
+
+.sey-pathway-step:hover {
+  border-color: #7B1131;
+  background-color: #FAF0F2;
+  transform: translateX(4px);
+}
+
+.sey-pathway-step.active {
+  background-color: #7B1131;
+  border-color: #7B1131;
+  color: #FAF5EE;
+  box-shadow: 0 8px 20px -6px rgba(123, 17, 49, 0.35);
+  transform: translateX(6px);
+}
+
+.sey-pathway-number {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #C8A45D;
+  min-width: 28px;
+}
+
+.sey-pathway-step.active .sey-pathway-number {
+  color: #C8A45D;
+}
+
+.sey-pathway-step-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.sey-pathway-step-text small {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-pathway-step.active .sey-pathway-step-text small {
+  color: #F8D7DF;
+}
+
+.sey-pathway-step-text strong {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.05rem;
+  color: #3A1D1D;
+  margin-top: 0.15rem;
+}
+
+.sey-pathway-step.active .sey-pathway-step-text strong {
+  color: #FAF5EE;
+}
+
+.sey-pathway-arrow {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #8C7D73;
+}
+
+.sey-pathway-step.active .sey-pathway-arrow {
+  color: #C8A45D;
+}
+
+/* Detail Card for Active Step */
+.sey-pathway-detail {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAF0F2 100%);
+  border: 1.5px solid #EAE1D5;
+  border-radius: 20px;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  box-shadow: 0 4px 16px rgba(58, 29, 29, 0.05);
+}
+
+.sey-pathway-detail-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background-color: #7B1131;
+  color: #C8A45D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(123, 17, 49, 0.2);
+}
+
+.sey-pathway-detail-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7B1131;
+  display: block;
+}
+
+.sey-pathway-detail h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0.25rem 0 0.5rem 0;
+}
+
+.sey-pathway-detail p {
+  font-size: 0.9rem;
+  color: #6E5652;
+  line-height: 1.55;
+  margin: 0 0 0.5rem 0;
+}
+
+.sey-pathway-detail small {
+  font-size: 0.8rem;
+  color: #8C7D73;
+  font-style: italic;
+  display: block;
+}
+
+/* Pathway Bottom CTA */
+.sey-pathway-cta,
+.sey-skills-bottom {
+  background: linear-gradient(135deg, #FAF0F2 0%, #FFFFFF 100%);
+  border: 1.5px solid #EAE1D5;
+  border-radius: 24px;
+  padding: 2.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 4px 16px rgba(58, 29, 29, 0.05);
+}
+
+@media (min-width: 768px) {
+  .sey-pathway-cta,
+  .sey-skills-bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+  }
+}
+
+.sey-pathway-cta span,
+.sey-skills-bottom span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7B1131;
+}
+
+.sey-pathway-cta h3,
+.sey-skills-bottom h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0.35rem 0 0.5rem 0;
+  line-height: 1.25;
+}
+
+.sey-pathway-cta p,
+.sey-skills-bottom p {
+  font-size: 0.92rem;
+  color: #6E5652;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.sey-pathway-cta a,
+.sey-skills-bottom a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #7B1131;
+  color: #FAF5EE;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  align-self: flex-start;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 14px rgba(123, 17, 49, 0.22);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .sey-pathway-cta a,
+  .sey-skills-bottom a {
+    align-self: auto;
+  }
+}
+
+.sey-pathway-cta a:hover,
+.sey-skills-bottom a:hover {
+  background-color: #5A0D23;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(123, 17, 49, 0.3);
+}
+
+/* What You Can Learn: Skills Grid */
+.sey-skills-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .sey-skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .sey-skills-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.sey-skill-card {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 12px rgba(58, 29, 29, 0.04);
+}
+
+.sey-skill-card:hover,
+.sey-skill-card.selected {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 30px -10px rgba(58, 29, 29, 0.12);
+  border-color: #C8A45D;
+}
+
+.sey-skill-image {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  overflow: hidden;
+  background-color: #EFE8DE;
+}
+
+.sey-skill-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+}
+
+.sey-skill-card:hover .sey-skill-image img,
+.sey-skill-card.selected .sey-skill-image img {
+  transform: scale(1.05);
+}
+
+.sey-skill-number {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(123, 17, 49, 0.88);
+  backdrop-filter: blur(4px);
+  color: #FAF5EE;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.3rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.08em;
+}
+
+.sey-skill-image-arrow {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #7B1131;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 900;
+  transition: all 0.25s ease;
+}
+
+.sey-skill-card:hover .sey-skill-image-arrow,
+.sey-skill-card.selected .sey-skill-image-arrow {
+  background-color: #7B1131;
+  color: #FAF5EE;
+  transform: translate(2px, -2px);
+}
+
+.sey-skill-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.sey-skill-content h3 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.sey-skill-content p {
+  font-size: 0.88rem;
+  color: #6E5652;
+  line-height: 1.55;
+  margin: 0;
+}
