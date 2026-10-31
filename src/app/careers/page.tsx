@@ -181,7 +181,7 @@ export default function CareersPage() {
         <div className="text-center max-w-3xl mx-auto space-y-3">
 
           <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
-            Find the Pathway Matched to Your Experience
+            Choose Your Path
           </h2>
           <p className="text-xs sm:text-sm text-brown-muted">
             Select your starting point below to view training curricula, requirements, and apply directly.
