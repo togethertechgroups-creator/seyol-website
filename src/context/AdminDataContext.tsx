@@ -226,7 +226,7 @@ export interface ServicesSettings {
 
 export const defaultServicesSettings: ServicesSettings = {
   sectionBadge: 'YOUR JOURNEY, YOUR WAY',
-  sectionTitle: 'Tell Us What You Need Help With',
+  sectionTitle: 'Popular Ways Families Begin',
   sectionSubtitle: "Choose what feels right for you. We'll help you find the right care.",
   searchPlaceholder: 'Search by need: massage, belly binding, nanny, doula...',
 };
@@ -615,6 +615,10 @@ export const AdminDataProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       if (savedServicesSettings) {
         try {
           const parsed = JSON.parse(savedServicesSettings);
+          // If title was still the previous default "Tell Us What You Need Help With", update to "Popular Ways Families Begin"
+          if (parsed && (parsed.sectionTitle === 'Tell Us What You Need Help With' || !parsed.sectionTitle)) {
+            parsed.sectionTitle = 'Popular Ways Families Begin';
+          }
           setServicesSettings({ ...defaultServicesSettings, ...parsed });
         } catch {
           setServicesSettings(defaultServicesSettings);

@@ -31,13 +31,13 @@ export const ServiceFinder: React.FC = () => {
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2.5">
         <div className="text-[#70152B] text-xs font-bold tracking-[2.5px] uppercase">
-          {servicesSettings?.sectionBadge || 'EXPLORE OUR CARE SERVICES'}
+          {servicesSettings?.sectionBadge || 'YOUR JOURNEY, YOUR WAY'}
         </div>
         <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3A1D1D] tracking-tight">
-          {servicesSettings?.sectionTitle || 'Tell Us What You Need Help With'}
+          {servicesSettings?.sectionTitle || 'Popular Ways Families Begin'}
         </h2>
         <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">
-          {servicesSettings?.sectionSubtitle || 'Search or explore our complete catalog of certified in-home maternal, newborn, and postpartum care.'}
+          {servicesSettings?.sectionSubtitle || "Choose what feels right for you. We'll help you find the right care."}
         </p>
       </div>
 

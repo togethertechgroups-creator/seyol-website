@@ -89,7 +89,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
   // ─── Services Header Settings Form State ───────────────────────────────
   const [servicesHeaderForm, setServicesHeaderForm] = useState({
     sectionBadge: servicesSettings?.sectionBadge || 'YOUR JOURNEY, YOUR WAY',
-    sectionTitle: servicesSettings?.sectionTitle || 'Tell Us What You Need Help With',
+    sectionTitle: servicesSettings?.sectionTitle || 'Popular Ways Families Begin',
     sectionSubtitle: servicesSettings?.sectionSubtitle || "Choose what feels right for you. We'll help you find the right care.",
     searchPlaceholder: servicesSettings?.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
   });
@@ -98,7 +98,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
     if (servicesSettings) {
       setServicesHeaderForm({
         sectionBadge: servicesSettings.sectionBadge || 'YOUR JOURNEY, YOUR WAY',
-        sectionTitle: servicesSettings.sectionTitle || 'Tell Us What You Need Help With',
+        sectionTitle: servicesSettings.sectionTitle || 'Popular Ways Families Begin',
         sectionSubtitle: servicesSettings.sectionSubtitle || "Choose what feels right for you. We'll help you find the right care.",
         searchPlaceholder: servicesSettings.searchPlaceholder || 'Search by need: massage, belly binding, nanny, doula...',
       });
@@ -1309,7 +1309,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
             )}
           </div>
 
-          {/* ── Section Header Settings Card for "Tell Us What You Need Help With" ── */}
+          {/* ── Section Header Settings Card for "Popular Ways Families Begin" ── */}
           <form onSubmit={handleSaveServicesSettings} className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-5">
             <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
@@ -1321,7 +1321,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   <span className="text-xs text-stone-500 font-medium">Header &amp; Search Content</span>
                 </div>
                 <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">
-                  &ldquo;Tell Us What You Need Help With&rdquo; Section Settings
+                  &ldquo;Popular Ways Families Begin&rdquo; Section Settings
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
                   Customize the section eyebrow badge, main headline title, descriptive subtitle, and search placeholder displayed on the Services page.
@@ -1377,7 +1377,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   type="text"
                   value={servicesHeaderForm.sectionTitle}
                   onChange={(e) => setServicesHeaderForm({ ...servicesHeaderForm, sectionTitle: e.target.value })}
-                  placeholder="e.g., Tell Us What You Need Help With"
+                  placeholder="e.g., Popular Ways Families Begin"
                   className="w-full px-3.5 py-2 text-xs rounded-xl bg-stone-50 border border-stone-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#7B1131]"
                   required
                 />
@@ -2247,7 +2247,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
-                  Services Catalog • &ldquo;Tell Us What You Need Help With&rdquo;
+                  Services Catalog • &ldquo;Popular Ways Families Begin&rdquo;
                 </span>
                 <h3 className="font-serif font-bold text-lg text-stone-900">
                   {editingService ? `Edit Service: ${editingService.shortTitle || editingService.title}` : 'Create New Clinical Care Service'}
