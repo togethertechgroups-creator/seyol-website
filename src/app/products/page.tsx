@@ -278,12 +278,8 @@ export default function ProductsPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 4B. FIND PRODUCTS FOR YOUR STAGE                                          */}
       {/* ========================================================================= */}
-      <FindProductsForYourStage onSelectCategory={setSelectedCategory} />
-
-      {/* ========================================================================= */}
-      {/* 5. CURATED GIFT SETS & CONFINEMENT BUNDLES (COMBOS)                       */}
+      {/* SEYOL FAVOURITES (CURATED COMBOS)                       */}
       {/* ========================================================================= */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white border-y border-neutral-200">
         <div className="max-w-[98%] 2xl:max-w-[1780px] mx-auto space-y-10">
@@ -292,7 +288,7 @@ export default function ProductsPage() {
             <div>
 
               <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-                Curated Gift Sets &amp; Confinement Combos
+                SEYOL Favourites
               </h2>
               <p className="text-xs sm:text-sm text-neutral-500 mt-1">
                 Complete sets thoughtfully packaged in our signature keepsake boxes with tiered savings.
@@ -369,6 +365,13 @@ export default function ProductsPage() {
 
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* 4B. FIND PRODUCTS FOR YOUR STAGE                                          */}
+      {/* ========================================================================= */}
+      <FindProductsForYourStage onSelectCategory={setSelectedCategory} />
+
+      
 
       {/* ========================================================================= */}
       {/* 6. INTERACTIVE BUNDLE BUILDER                                             */}
