@@ -74,7 +74,6 @@ export function WhatGoesIntoSeyProducts() {
     <section className="sey-trust-section sey-ingredients" id="what-goes-into-sey">
       <div className="sey-trust-container">
         <div className="sey-trust-heading">
-          <span className="sey-eyebrow">CARE BEHIND EVERY PRODUCT</span>
           <h2>What Goes Into <span>SEY Products?</span></h2>
           <p>
             Thoughtful details matter. Understand what&apos;s inside,
@@ -161,8 +160,6 @@ export function CreatedFromPractice() {
         </div>
 
         <div className="sey-practice-content">
-          <span className="sey-eyebrow">THE STORY BEHIND SEY</span>
-
           <h2>
             Created from Practice,
             <span> Not Trends.</span>
@@ -225,7 +222,6 @@ export function LovedByFamilies() {
     <section className="sey-reviews-section" id="loved-by-families">
       <div className="sey-trust-container">
         <div className="sey-trust-heading">
-          <span className="sey-eyebrow">REAL EXPERIENCES, REAL FAMILIES</span>
           <h2>Loved by <span>SEYOL Families</span></h2>
           <p>
             Discover the experiences and stories shared by families
@@ -249,8 +245,6 @@ export function LovedByFamilies() {
             <div className="sey-review-stars">
               {"★".repeat(reviews[current].rating)}
             </div>
-
-            <span className="sey-eyebrow">FAMILY FEEDBACK</span>
 
             <h3>“{reviews[current].quote}”</h3>
 
@@ -339,3 +333,4 @@ export function SeyolProductTrust() {
 }
 
 export default SeyolProductTrust;
+
