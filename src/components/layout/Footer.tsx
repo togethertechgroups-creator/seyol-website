@@ -171,10 +171,6 @@ export const Footer: React.FC = () => {
               Privacy Policy
             </Link>
             <span>•</span>
-            <Link href="/legal/terms-and-conditions" className="hover:text-gold-light transition-colors">
-              Terms & Conditions
-            </Link>
-            <span>•</span>
             <Link href="/legal/cookie-policy" className="hover:text-gold-light transition-colors">
               Cookie Policy
             </Link>

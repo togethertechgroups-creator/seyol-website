@@ -69,54 +69,6 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
       }
     ]
   },
-  'terms-and-conditions': {
-    slug: 'terms-and-conditions',
-    title: 'Terms & Conditions',
-    lastUpdated: '1 November 2026',
-    summary: 'The terms and conditions governing access to and use of the SEYOL website, service enquiries, care bookings, classes, digital assets, and botanical products.',
-    sections: [
-      {
-        id: 'acceptance',
-        heading: '1. Acceptance of Terms',
-        content: 'By accessing or utilizing the SEYOL digital platform (seyolpregnancycare.com) and associated mobile services, you agree to be bound by these Terms and Conditions and our associated policies.'
-      },
-      {
-        id: 'services-products',
-        heading: '2. Services and Products',
-        content: 'SEYOL provides non-clinical maternal support, infant massage instruction, newborn care education, postnatal wellness therapies, and mother and baby care products.\n\nAll services and products are subject to availability, registration, and confirmation.'
-      },
-      {
-        id: 'intellectual-property',
-        heading: '3. Intellectual Property & Copyright',
-        content: 'All educational masterclass materials, downloadable guides, custom stroke sequences, visual diagrams, and written editorial content are the exclusive intellectual property of SEYOL Mother & Baby Care. Unauthorised reproduction, commercial distribution, or resale is strictly prohibited.'
-      },
-      {
-        id: 'service-modifications',
-        heading: '4. Service Pricing & Availability',
-        content: 'SEYOL reserves the right to modify service fees, workshop schedules, and product availability with prior notice. Confirmed bookings with deposits paid will be honoured at the agreed tariff.'
-      },
-      {
-        id: 'user-conduct',
-        heading: '5. User Conduct and Responsibilities',
-        content: 'Users must provide accurate, complete, and current information when booking services, registering for classes, or ordering products.\n\nMisuse of website services, fraudulent transactions, or disruptive behavior may result in immediate termination of access.'
-      },
-      {
-        id: 'limitation-liability',
-        heading: '6. Limitation of Liability',
-        content: 'SEYOL provides wellness care, practical instruction, and educational resources. SEYOL services do not constitute medical advice, medical diagnosis, or medical treatment.\n\nTo the fullest extent permitted by applicable law, SEYOL shall not be liable for indirect, incidental, or consequential damages resulting from website use or reliance on general information.'
-      },
-      {
-        id: 'governing-law',
-        heading: '7. Governing Law & Jurisdiction',
-        content: 'These terms are governed by the applicable laws of Singapore and India respectively for regional operations. Any disputes arising shall be subject to the exclusive jurisdiction of the competent courts.'
-      },
-      {
-        id: 'contact-us',
-        heading: '8. Contact Us',
-        content: 'For queries regarding these Terms & Conditions, please contact SEYOL through our official website or at hello@seyolpregnancycare.com.'
-      }
-    ]
-  },
   'cookie-policy': {
     slug: 'cookie-policy',
     title: 'Cookie Policy',
