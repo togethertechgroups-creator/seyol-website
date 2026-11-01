@@ -205,137 +205,117 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   },
   'service-booking-terms': {
     slug: 'service-booking-terms',
-    title: 'Service Booking Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These Service Booking Terms apply to customers booking SEYOL services, including mother care, newborn care, infant massage, baby bathing and other home-based support services offered by SEYOL. By submitting a booking request or confirming a service appointment, you agree to these terms.',
+    title: 'Service Booking Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Customers may book SEYOL services through our website or other official booking channels. All bookings are subject to availability, confirmation, and our standard care and safety terms.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'These Service Booking Terms apply to customers booking SEYOL services, including mother care, newborn care, infant massage, baby bathing and other home-based support services offered by SEYOL.\n\nBy submitting a booking request or confirming a service appointment, you agree to these terms.'
+        id: 'booking-services',
+        heading: '1. Booking Services',
+        content: 'Customers may book SEYOL services through our website or other official booking channels.\n\nAll bookings are subject to availability and confirmation by SEYOL.'
       },
       {
-        id: 'booking-requests',
-        heading: '2. Booking Requests',
-        content: 'Customers may submit service booking requests through the SEYOL website or other approved booking channels.\n\nA booking request does not automatically guarantee an appointment.\n\nBookings are confirmed only after SEYOL has reviewed the request and provided confirmation.'
-      },
-      {
-        id: 'customer-information',
-        heading: '3. Customer Information',
-        content: 'Customers must provide accurate information when making a booking, including:\n- Customer name and contact details.\n- Preferred service and appointment date.\n- Service location.\n- Relevant information about the mother or baby.\n- Any important allergies, sensitivities or care requirements.\n\nSEYOL may request additional information where reasonably necessary to arrange the service safely and appropriately.'
-      },
-      {
-        id: 'service-availability',
-        heading: '4. Service Availability',
-        content: 'All bookings are subject to practitioner availability, service location, scheduling requirements and operational capacity.\n\nSEYOL reserves the right to propose alternative appointment dates or times where necessary.'
+        id: 'booking-confirmation',
+        heading: '2. Booking Confirmation',
+        content: 'A booking is considered confirmed only after SEYOL provides confirmation through an official communication channel.\n\nCustomers must provide accurate contact details and relevant information when making a booking.'
       },
       {
         id: 'payments',
-        heading: '5. Payments',
-        content: 'Applicable service charges, deposits and payment requirements will be communicated before booking confirmation.\n\nCustomers must complete payment according to the payment instructions provided by SEYOL.\n\nAny additional charges must be communicated before they are incurred.'
+        heading: '3. Payments',
+        content: 'Service fees, deposits and payment methods will be communicated during the booking process.\n\nAny applicable payment requirements must be completed within the stated timeframe to secure the booking.'
       },
       {
         id: 'rescheduling-cancellation',
-        heading: '6. Rescheduling and Cancellation',
-        content: 'Customers who wish to reschedule or cancel an appointment should notify SEYOL through the designated communication channels.\n\nThe applicable cancellation notice period, rescheduling conditions, deposits and refund arrangements will be communicated during the booking process.\n\nWhere a practitioner is unavailable or SEYOL must cancel a confirmed appointment, SEYOL will contact the customer to discuss an alternative arrangement or applicable refund.'
+        heading: '4. Rescheduling and Cancellation',
+        content: 'Customers who wish to cancel or reschedule a booking must contact SEYOL as early as possible.\n\nApplicable cancellation charges, refund conditions and rescheduling arrangements will be communicated before booking or during the booking process.'
+      },
+      {
+        id: 'home-service-arrangements',
+        heading: '5. Home Service Arrangements',
+        content: 'Customers must provide a safe and suitable environment for the scheduled home service.\n\nCustomers should ensure that the service location and access details are accurate.'
       },
       {
         id: 'customer-responsibilities',
-        heading: '7. Customer Responsibilities',
-        content: 'Customers are expected to:\n- Provide a suitable and reasonably safe service environment.\n- Ensure the mother and baby are available at the agreed appointment time.\n- Communicate relevant health, safety and care information.\n- Follow reasonable preparation instructions.\n- Treat SEYOL practitioners respectfully.'
+        heading: '6. Customer Responsibilities',
+        content: 'Customers must:\n- Provide accurate booking information.\n- Inform SEYOL of relevant requirements before the appointment.\n- Ensure an appropriate adult is present where required.\n- Follow the instructions provided by the service practitioner.'
       },
       {
-        id: 'health-safety',
-        heading: '8. Health and Safety',
-        content: 'Customers must inform SEYOL of relevant medical concerns, allergies, infections, recent medical procedures or other circumstances that may affect service suitability.\n\nSEYOL may postpone, modify or decline a service where it reasonably considers that proceeding may create a safety concern.\n\nSEYOL services do not replace medical treatment, diagnosis or emergency care.'
+        id: 'health-and-safety',
+        heading: '7. Health and Safety',
+        content: 'Customers should inform SEYOL of any relevant health, allergy or safety concerns before the service.\n\nSEYOL may postpone or decline a service if it considers the circumstances unsuitable or unsafe.'
       },
       {
-        id: 'late-arrivals',
-        heading: '9. Late Arrivals and Missed Appointments',
-        content: 'Customers should be ready at the agreed appointment time.\n\nDelays, missed appointments and late cancellations may affect service duration, availability and applicable charges, subject to the booking-specific cancellation policy.'
+        id: 'service-limitations',
+        heading: '8. Service Limitations',
+        content: 'SEYOL services are intended to provide care and support within the scope of the service booked. They are not a replacement for medical diagnosis or treatment.'
       },
       {
-        id: 'service-modifications',
-        heading: '10. Service Modifications',
-        content: 'SEYOL may make reasonable adjustments to service arrangements where required for safety, practitioner availability or operational reasons.\n\nAny material changes to the agreed service will be communicated to the customer.'
-      },
-      {
-        id: 'feedback-complaints',
-        heading: '11. Feedback and Complaints',
-        content: 'Customers may contact SEYOL if they have concerns about a booking or service experience.\n\nSEYOL will make reasonable efforts to review and respond to complaints.'
+        id: 'changes-to-services',
+        heading: '9. Changes to Services',
+        content: 'SEYOL may make reasonable changes to service arrangements where necessary. Customers will be informed of significant changes.'
       },
       {
         id: 'contact-us',
-        heading: '12. Contact Us',
-        content: 'For booking assistance, cancellations or service enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '10. Contact Us',
+        content: 'For booking questions or assistance, please contact SEYOL through our official website or communication channels at hello@seyolpregnancycare.com.'
       }
     ]
   },
   'service-booking-cancellation-policy': {
     slug: 'service-booking-cancellation-policy',
-    title: 'Service Booking Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These Service Booking Terms apply to customers booking SEYOL services, including mother care, newborn care, infant massage, baby bathing and other home-based support services offered by SEYOL. By submitting a booking request or confirming a service appointment, you agree to these terms.',
+    title: 'Service Booking Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Customers may book SEYOL services through our website or other official booking channels. All bookings are subject to availability, confirmation, and our standard care and safety terms.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'These Service Booking Terms apply to customers booking SEYOL services, including mother care, newborn care, infant massage, baby bathing and other home-based support services offered by SEYOL.\n\nBy submitting a booking request or confirming a service appointment, you agree to these terms.'
+        id: 'booking-services',
+        heading: '1. Booking Services',
+        content: 'Customers may book SEYOL services through our website or other official booking channels.\n\nAll bookings are subject to availability and confirmation by SEYOL.'
       },
       {
-        id: 'booking-requests',
-        heading: '2. Booking Requests',
-        content: 'Customers may submit service booking requests through the SEYOL website or other approved booking channels.\n\nA booking request does not automatically guarantee an appointment.\n\nBookings are confirmed only after SEYOL has reviewed the request and provided confirmation.'
-      },
-      {
-        id: 'customer-information',
-        heading: '3. Customer Information',
-        content: 'Customers must provide accurate information when making a booking, including:\n- Customer name and contact details.\n- Preferred service and appointment date.\n- Service location.\n- Relevant information about the mother or baby.\n- Any important allergies, sensitivities or care requirements.\n\nSEYOL may request additional information where reasonably necessary to arrange the service safely and appropriately.'
-      },
-      {
-        id: 'service-availability',
-        heading: '4. Service Availability',
-        content: 'All bookings are subject to practitioner availability, service location, scheduling requirements and operational capacity.\n\nSEYOL reserves the right to propose alternative appointment dates or times where necessary.'
+        id: 'booking-confirmation',
+        heading: '2. Booking Confirmation',
+        content: 'A booking is considered confirmed only after SEYOL provides confirmation through an official communication channel.\n\nCustomers must provide accurate contact details and relevant information when making a booking.'
       },
       {
         id: 'payments',
-        heading: '5. Payments',
-        content: 'Applicable service charges, deposits and payment requirements will be communicated before booking confirmation.\n\nCustomers must complete payment according to the payment instructions provided by SEYOL.\n\nAny additional charges must be communicated before they are incurred.'
+        heading: '3. Payments',
+        content: 'Service fees, deposits and payment methods will be communicated during the booking process.\n\nAny applicable payment requirements must be completed within the stated timeframe to secure the booking.'
       },
       {
         id: 'rescheduling-cancellation',
-        heading: '6. Rescheduling and Cancellation',
-        content: 'Customers who wish to reschedule or cancel an appointment should notify SEYOL through the designated communication channels.\n\nThe applicable cancellation notice period, rescheduling conditions, deposits and refund arrangements will be communicated during the booking process.\n\nWhere a practitioner is unavailable or SEYOL must cancel a confirmed appointment, SEYOL will contact the customer to discuss an alternative arrangement or applicable refund.'
+        heading: '4. Rescheduling and Cancellation',
+        content: 'Customers who wish to cancel or reschedule a booking must contact SEYOL as early as possible.\n\nApplicable cancellation charges, refund conditions and rescheduling arrangements will be communicated before booking or during the booking process.'
+      },
+      {
+        id: 'home-service-arrangements',
+        heading: '5. Home Service Arrangements',
+        content: 'Customers must provide a safe and suitable environment for the scheduled home service.\n\nCustomers should ensure that the service location and access details are accurate.'
       },
       {
         id: 'customer-responsibilities',
-        heading: '7. Customer Responsibilities',
-        content: 'Customers are expected to:\n- Provide a suitable and reasonably safe service environment.\n- Ensure the mother and baby are available at the agreed appointment time.\n- Communicate relevant health, safety and care information.\n- Follow reasonable preparation instructions.\n- Treat SEYOL practitioners respectfully.'
+        heading: '6. Customer Responsibilities',
+        content: 'Customers must:\n- Provide accurate booking information.\n- Inform SEYOL of relevant requirements before the appointment.\n- Ensure an appropriate adult is present where required.\n- Follow the instructions provided by the service practitioner.'
       },
       {
-        id: 'health-safety',
-        heading: '8. Health and Safety',
-        content: 'Customers must inform SEYOL of relevant medical concerns, allergies, infections, recent medical procedures or other circumstances that may affect service suitability.\n\nSEYOL may postpone, modify or decline a service where it reasonably considers that proceeding may create a safety concern.\n\nSEYOL services do not replace medical treatment, diagnosis or emergency care.'
+        id: 'health-and-safety',
+        heading: '7. Health and Safety',
+        content: 'Customers should inform SEYOL of any relevant health, allergy or safety concerns before the service.\n\nSEYOL may postpone or decline a service if it considers the circumstances unsuitable or unsafe.'
       },
       {
-        id: 'late-arrivals',
-        heading: '9. Late Arrivals and Missed Appointments',
-        content: 'Customers should be ready at the agreed appointment time.\n\nDelays, missed appointments and late cancellations may affect service duration, availability and applicable charges, subject to the booking-specific cancellation policy.'
+        id: 'service-limitations',
+        heading: '8. Service Limitations',
+        content: 'SEYOL services are intended to provide care and support within the scope of the service booked. They are not a replacement for medical diagnosis or treatment.'
       },
       {
-        id: 'service-modifications',
-        heading: '10. Service Modifications',
-        content: 'SEYOL may make reasonable adjustments to service arrangements where required for safety, practitioner availability or operational reasons.\n\nAny material changes to the agreed service will be communicated to the customer.'
-      },
-      {
-        id: 'feedback-complaints',
-        heading: '11. Feedback and Complaints',
-        content: 'Customers may contact SEYOL if they have concerns about a booking or service experience.\n\nSEYOL will make reasonable efforts to review and respond to complaints.'
+        id: 'changes-to-services',
+        heading: '9. Changes to Services',
+        content: 'SEYOL may make reasonable changes to service arrangements where necessary. Customers will be informed of significant changes.'
       },
       {
         id: 'contact-us',
-        heading: '12. Contact Us',
-        content: 'For booking assistance, cancellations or service enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '10. Contact Us',
+        content: 'For booking questions or assistance, please contact SEYOL through our official website or communication channels at hello@seyolpregnancycare.com.'
       }
     ]
   },
