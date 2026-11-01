@@ -120,106 +120,86 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   'product-disclaimer': {
     slug: 'product-disclaimer',
     title: 'Product Disclaimer',
-    lastUpdated: '31 October 2026',
-    summary: 'SEYOL is committed to providing thoughtfully selected products intended to support everyday mother and baby care routines. This Product Disclaimer explains the limitations of product information and the responsibilities of customers when purchasing and using SEYOL products.',
+    lastUpdated: '1 November 2026',
+    summary: 'The information provided on the SEYOL website about our products is intended for general informational purposes. Product descriptions are not intended to replace professional medical advice.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'SEYOL is committed to providing thoughtfully selected products intended to support everyday mother and baby care routines.\n\nThis Product Disclaimer explains the limitations of product information and the responsibilities of customers when purchasing and using SEYOL products.'
+        id: 'general-information',
+        heading: '1. General Information',
+        content: 'The information provided on the SEYOL website about our products is intended for general informational purposes. Product descriptions are not intended to replace professional medical advice.'
       },
       {
-        id: 'product-information',
-        heading: '2. Product Information',
-        content: 'Product descriptions, images, ingredients, instructions and other information are provided to help customers make informed purchasing decisions.\n\nWe make reasonable efforts to ensure that product information is accurate and up to date. However, packaging, product appearance and information may occasionally change.\n\nCustomers should always refer to the actual product packaging and instructions before use.'
+        id: 'product-usage',
+        heading: '2. Product Usage',
+        content: 'Customers should read the product labels, instructions and usage information carefully before using any product.\n\nProducts must be used according to the instructions provided by SEYOL or the manufacturer.'
       },
       {
-        id: 'ingredients-suitability',
-        heading: '3. Ingredients and Product Suitability',
-        content: 'Customers should carefully review the ingredients and product suitability information before purchasing or using any product.\n\nIf you or your child has known allergies, sensitivities or specific care requirements, consult an appropriate healthcare professional before using the product.\n\nDo not assume that a product is suitable for every individual or every age group.'
+        id: 'allergies-sensitivity',
+        heading: '3. Allergies and Skin Sensitivity',
+        content: 'Every individual may respond differently to product ingredients. Customers should review the ingredient list before use and consider a patch test where appropriate.\n\nDiscontinue use if irritation or an unexpected reaction occurs. Seek professional medical advice if necessary.'
       },
       {
-        id: 'patch-testing-usage',
-        heading: '4. Patch Testing and Safe Usage',
-        content: 'Where appropriate, customers should follow the product-specific patch testing instructions before first use:\n- Follow the directions provided on the product packaging.\n- Use products only for their intended purpose.\n- Avoid contact with eyes and sensitive areas unless the product instructions specifically permit it.\n- Discontinue use if irritation or an unexpected reaction occurs.\n- Seek professional medical advice if a reaction persists or causes concern.\n- Keep products out of children\'s reach where appropriate.'
+        id: 'pregnancy-babies-children',
+        heading: '4. Pregnancy, Babies and Children',
+        content: 'If a product is intended for use during pregnancy, on babies or on children, customers should follow the product-specific instructions and seek advice from a qualified healthcare professional when appropriate.'
       },
       {
-        id: 'storage-care',
-        heading: '5. Storage and Product Care',
-        content: 'Customers should follow the storage instructions provided with each product.\n\nUnless otherwise stated, products should be stored in accordance with their packaging instructions and protected from unsuitable temperatures, contamination and direct sunlight where applicable.\n\nDo not use products beyond their stated expiry date.'
+        id: 'images-descriptions',
+        heading: '5. Product Images and Descriptions',
+        content: 'We make reasonable efforts to display accurate product images and descriptions. Actual product appearance, packaging or colour may vary slightly.'
       },
       {
-        id: 'medical-disclaimer',
-        heading: '6. Medical Disclaimer',
-        content: 'SEYOL products are not intended to diagnose, treat, cure or prevent any medical condition unless explicitly stated and legally permitted.\n\nProduct information does not replace professional medical advice.\n\nFor pregnancy-related concerns, newborn health questions, skin conditions or other medical concerns, consult a qualified healthcare professional.'
-      },
-      {
-        id: 'images-availability',
-        heading: '7. Product Images and Availability',
-        content: 'Product images are provided for illustrative purposes. Actual product appearance, packaging or presentation may vary.\n\nProduct availability, pricing and promotional offers may change without prior notice.'
-      },
-      {
-        id: 'limitation-responsibility',
-        heading: '8. Limitation of Responsibility',
-        content: 'To the extent permitted by applicable law, SEYOL is not responsible for damage or loss resulting from improper use, failure to follow product instructions, inappropriate storage or use outside the stated product suitability.\n\nNothing in this disclaimer excludes or limits any rights or liabilities that cannot legally be excluded or limited.'
+        id: 'no-medical-guarantee',
+        heading: '6. No Medical Guarantee',
+        content: 'SEYOL does not guarantee that any product will prevent, treat or cure a medical condition unless such a claim is specifically authorised and supported.'
       },
       {
         id: 'contact-us',
-        heading: '9. Contact Us',
-        content: 'For product-related questions, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '7. Contact Us',
+        content: 'For product-related questions, please contact SEYOL using the contact details provided on our website at hello@seyolpregnancycare.com.'
       }
     ]
   },
   'product-safety-disclaimer': {
     slug: 'product-safety-disclaimer',
     title: 'Product Disclaimer',
-    lastUpdated: '31 October 2026',
-    summary: 'SEYOL is committed to providing thoughtfully selected products intended to support everyday mother and baby care routines. This Product Disclaimer explains the limitations of product information and the responsibilities of customers when purchasing and using SEYOL products.',
+    lastUpdated: '1 November 2026',
+    summary: 'The information provided on the SEYOL website about our products is intended for general informational purposes. Product descriptions are not intended to replace professional medical advice.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'SEYOL is committed to providing thoughtfully selected products intended to support everyday mother and baby care routines.\n\nThis Product Disclaimer explains the limitations of product information and the responsibilities of customers when purchasing and using SEYOL products.'
+        id: 'general-information',
+        heading: '1. General Information',
+        content: 'The information provided on the SEYOL website about our products is intended for general informational purposes. Product descriptions are not intended to replace professional medical advice.'
       },
       {
-        id: 'product-information',
-        heading: '2. Product Information',
-        content: 'Product descriptions, images, ingredients, instructions and other information are provided to help customers make informed purchasing decisions.\n\nWe make reasonable efforts to ensure that product information is accurate and up to date. However, packaging, product appearance and information may occasionally change.\n\nCustomers should always refer to the actual product packaging and instructions before use.'
+        id: 'product-usage',
+        heading: '2. Product Usage',
+        content: 'Customers should read the product labels, instructions and usage information carefully before using any product.\n\nProducts must be used according to the instructions provided by SEYOL or the manufacturer.'
       },
       {
-        id: 'ingredients-suitability',
-        heading: '3. Ingredients and Product Suitability',
-        content: 'Customers should carefully review the ingredients and product suitability information before purchasing or using any product.\n\nIf you or your child has known allergies, sensitivities or specific care requirements, consult an appropriate healthcare professional before using the product.\n\nDo not assume that a product is suitable for every individual or every age group.'
+        id: 'allergies-sensitivity',
+        heading: '3. Allergies and Skin Sensitivity',
+        content: 'Every individual may respond differently to product ingredients. Customers should review the ingredient list before use and consider a patch test where appropriate.\n\nDiscontinue use if irritation or an unexpected reaction occurs. Seek professional medical advice if necessary.'
       },
       {
-        id: 'patch-testing-usage',
-        heading: '4. Patch Testing and Safe Usage',
-        content: 'Where appropriate, customers should follow the product-specific patch testing instructions before first use:\n- Follow the directions provided on the product packaging.\n- Use products only for their intended purpose.\n- Avoid contact with eyes and sensitive areas unless the product instructions specifically permit it.\n- Discontinue use if irritation or an unexpected reaction occurs.\n- Seek professional medical advice if a reaction persists or causes concern.\n- Keep products out of children\'s reach where appropriate.'
+        id: 'pregnancy-babies-children',
+        heading: '4. Pregnancy, Babies and Children',
+        content: 'If a product is intended for use during pregnancy, on babies or on children, customers should follow the product-specific instructions and seek advice from a qualified healthcare professional when appropriate.'
       },
       {
-        id: 'storage-care',
-        heading: '5. Storage and Product Care',
-        content: 'Customers should follow the storage instructions provided with each product.\n\nUnless otherwise stated, products should be stored in accordance with their packaging instructions and protected from unsuitable temperatures, contamination and direct sunlight where applicable.\n\nDo not use products beyond their stated expiry date.'
+        id: 'images-descriptions',
+        heading: '5. Product Images and Descriptions',
+        content: 'We make reasonable efforts to display accurate product images and descriptions. Actual product appearance, packaging or colour may vary slightly.'
       },
       {
-        id: 'medical-disclaimer',
-        heading: '6. Medical Disclaimer',
-        content: 'SEYOL products are not intended to diagnose, treat, cure or prevent any medical condition unless explicitly stated and legally permitted.\n\nProduct information does not replace professional medical advice.\n\nFor pregnancy-related concerns, newborn health questions, skin conditions or other medical concerns, consult a qualified healthcare professional.'
-      },
-      {
-        id: 'images-availability',
-        heading: '7. Product Images and Availability',
-        content: 'Product images are provided for illustrative purposes. Actual product appearance, packaging or presentation may vary.\n\nProduct availability, pricing and promotional offers may change without prior notice.'
-      },
-      {
-        id: 'limitation-responsibility',
-        heading: '8. Limitation of Responsibility',
-        content: 'To the extent permitted by applicable law, SEYOL is not responsible for damage or loss resulting from improper use, failure to follow product instructions, inappropriate storage or use outside the stated product suitability.\n\nNothing in this disclaimer excludes or limits any rights or liabilities that cannot legally be excluded or limited.'
+        id: 'no-medical-guarantee',
+        heading: '6. No Medical Guarantee',
+        content: 'SEYOL does not guarantee that any product will prevent, treat or cure a medical condition unless such a claim is specifically authorised and supported.'
       },
       {
         id: 'contact-us',
-        heading: '9. Contact Us',
-        content: 'For product-related questions, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '7. Contact Us',
+        content: 'For product-related questions, please contact SEYOL using the contact details provided on our website at hello@seyolpregnancycare.com.'
       }
     ]
   },
