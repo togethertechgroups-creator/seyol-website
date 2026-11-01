@@ -554,58 +554,53 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   'careers-and-training-disclaimer': {
     slug: 'careers-and-training-disclaimer',
     title: 'Careers & Training Disclaimer',
-    lastUpdated: '31 October 2026',
-    summary: 'SEYOL provides information about training programs, learning resources, educational activities and potential career opportunities related to mother and baby care. This disclaimer explains the limitations of the information provided through our website and training-related materials.',
+    lastUpdated: '1 November 2026',
+    summary: 'Information regarding SEYOL training programmes, certification recognition, career pathways, learning requirements, and non-guarantee of employment.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'SEYOL provides information about training programs, learning resources, educational activities and potential career opportunities related to mother and baby care.\n\nThis disclaimer explains the limitations of the information provided through our website and training-related materials.'
+        id: 'general-information',
+        heading: '1. General Information',
+        content: 'Information about SEYOL training programmes, career opportunities and professional development is provided for general informational purposes.'
       },
       {
-        id: 'training-information',
-        heading: '2. Training Information',
-        content: 'Course descriptions, learning outcomes, schedules, fees and eligibility requirements are provided for general information.\n\nActual course availability, content and requirements may change.\n\nParticipants should review the specific course information before registering.'
+        id: 'training-programmes',
+        heading: '2. Training Programmes',
+        content: 'Course descriptions, training schedules, learning outcomes and programme details may be updated from time to time.\n\nParticipants should review the specific programme information before registering.'
       },
       {
-        id: 'educational-purpose',
-        heading: '3. Educational Purpose',
-        content: 'SEYOL training and educational content is intended to support learning and skill development.\n\nParticipation in training does not automatically qualify a person to practise as a licensed healthcare professional, medical practitioner, nurse, midwife, doula or other regulated professional.\n\nParticipants must independently ensure they meet any applicable professional registration, licensing and legal requirements before undertaking regulated activities.'
+        id: 'no-guaranteed-employment',
+        heading: '3. No Guaranteed Employment',
+        content: 'Completing a SEYOL training programme does not guarantee employment, job placement, salary level or career progression.\n\nEmployment opportunities depend on individual qualifications, experience, employer requirements and market conditions.'
       },
       {
-        id: 'certificates-qualifications',
-        heading: '4. Certificates and Qualifications',
-        content: 'Where SEYOL offers certificates or completion documents, the applicable eligibility and assessment requirements will be communicated for the relevant program.\n\nA certificate of attendance or completion must not be interpreted as an accredited professional qualification unless formal accreditation has been confirmed.'
-      },
-      {
-        id: 'assessments',
-        heading: '5. Assessments',
-        content: 'Some training programs may include assignments, practical demonstrations, assessments or other learning requirements.\n\nAssessment results depend on the participant\'s performance and the relevant course criteria.\n\nSEYOL does not guarantee that every participant will pass an assessment or receive a certificate.'
+        id: 'certification-and-accreditation',
+        heading: '4. Certification and Accreditation',
+        content: 'Any certificate, qualification or accreditation will be described according to its actual status.\n\nParticipants should not assume that a training programme is formally accredited or recognised by an external authority unless this is specifically stated and verified.'
       },
       {
         id: 'career-opportunities',
-        heading: '6. Career Opportunities',
-        content: 'SEYOL may provide information about potential career opportunities, recruitment pathways or employment-related services.\n\nCompleting a course does not guarantee employment with SEYOL or any third-party organisation.\n\nCareer opportunities are subject to:\n- Available vacancies.\n- Candidate suitability.\n- Required qualifications and experience.\n- Employer selection decisions.\n- Applicable regulatory and licensing requirements.'
+        heading: '5. Career Opportunities',
+        content: 'Career information published on the SEYOL website is subject to availability and may change without notice.\n\nAny job opportunity will be subject to the relevant employer\'s recruitment process and eligibility requirements.'
       },
       {
-        id: 'medical-safety-limitations',
-        heading: '7. Medical and Safety Limitations',
-        content: 'Training materials and educational videos do not replace professional healthcare advice, clinical supervision or emergency assistance.\n\nParticipants must recognise the limits of their training and refer medical concerns to qualified healthcare professionals.'
+        id: 'individual-responsibility',
+        heading: '6. Individual Responsibility',
+        content: 'Participants are responsible for meeting programme requirements, completing learning activities and following applicable professional standards.'
       },
       {
-        id: 'training-materials-ip',
-        heading: '8. Training Materials and Intellectual Property',
-        content: 'All course materials, presentations, videos, documents and learning resources remain the property of SEYOL or their respective rights holders unless otherwise stated.\n\nMaterials may not be reproduced, redistributed or commercially used without permission.'
+        id: 'educational-limitations',
+        heading: '7. Educational Limitations',
+        content: 'Training materials are intended to support learning and skill development. They do not replace professional licensing, medical qualifications or other legally required credentials.'
       },
       {
-        id: 'changes-to-programs',
-        heading: '9. Changes to Programs',
-        content: 'SEYOL reserves the right to update training content, schedules, instructors and program arrangements where reasonably necessary.\n\nMaterial changes affecting registered participants will be communicated where practicable.'
+        id: 'changes-to-programmes',
+        heading: '8. Changes to Programmes',
+        content: 'SEYOL may update, reschedule or discontinue training programmes when necessary. Significant changes will be communicated to registered participants.'
       },
       {
         id: 'contact-us',
-        heading: '10. Contact Us',
-        content: 'For training and career-related enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '9. Contact Us',
+        content: 'For questions about training programmes or career opportunities, please contact SEYOL through our official website at hello@seyolpregnancycare.com.'
       }
     ]
   },
