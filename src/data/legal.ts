@@ -437,59 +437,59 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   },
   'digital-resource-terms': {
     slug: 'digital-resource-terms',
-    title: 'Digital Resource Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These Digital Resource Terms apply to digital materials made available through SEYOL, including downloadable guides, eBooks, checklists, videos, online learning materials and other digital content. By accessing, downloading or purchasing a digital resource, you agree to these terms.',
+    title: 'Digital Resource Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Terms governing the access, delivery, personal licensing, intellectual property, technical requirements, and educational scope of SEYOL digital guides, e-books, checklists, and videos.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'These Digital Resource Terms apply to digital materials made available through SEYOL, including downloadable guides, eBooks, checklists, videos, online learning materials and other digital content.\n\nBy accessing, downloading or purchasing a digital resource, you agree to these terms.'
+        id: 'about-digital-resources',
+        heading: '1. About Digital Resources',
+        content: 'SEYOL may provide digital resources such as e-books, PDF guides, checklists, videos, downloadable materials and other educational content.'
       },
       {
-        id: 'access-resources',
-        heading: '2. Access to Digital Resources',
-        content: 'Some resources may be freely available, while others may require registration, login, payment or specific access permissions.\n\nSEYOL may introduce account-based access requirements for selected digital resources.\n\nCustomers are responsible for maintaining the confidentiality of their login credentials.'
+        id: 'access-and-delivery',
+        heading: '2. Access and Delivery',
+        content: 'Digital resources may be available for immediate download, email delivery or access through a registered account.\n\nCustomers are responsible for providing accurate contact information and maintaining access to their accounts.'
       },
       {
-        id: 'personal-use-licence',
-        heading: '3. Personal Use Licence',
-        content: 'Unless otherwise stated, digital resources are provided for personal, non-commercial use.\n\nCustomers may download and access resources for their own learning and reference.\n\nWithout prior written permission from SEYOL, users must not:\n- Reproduce or resell digital resources.\n- Redistribute or share paid materials.\n- Upload resources to public websites.\n- Modify or commercially exploit materials.\n- Share restricted account access with unauthorised individuals.'
+        id: 'personal-use-only',
+        heading: '3. Personal Use Only',
+        content: 'Unless otherwise stated, digital resources are provided for personal, non-commercial use only.\n\nCustomers must not:\n- Copy or redistribute resources for commercial purposes.\n- Resell or share paid materials.\n- Reproduce or publish content without permission.\n- Remove copyright notices or ownership information.'
       },
       {
-        id: 'digital-downloads',
-        heading: '4. Digital Downloads',
-        content: 'Customers should ensure that their devices and software are compatible with the file formats provided.\n\nDownload links may be subject to access periods or technical restrictions where disclosed.\n\nSEYOL is not responsible for download failures caused by incompatible devices, internet interruptions or third-party technical issues beyond its reasonable control.'
+        id: 'intellectual-property',
+        heading: '4. Intellectual Property',
+        content: 'All digital resources, including text, images, videos, designs and downloadable materials, remain the intellectual property of SEYOL or their respective owners.'
       },
       {
-        id: 'video-library-access',
-        heading: '5. Video Library Access',
-        content: 'Certain video content may require users to register or log in before viewing.\n\nAccess may be limited to authorised accounts.\n\nUsers must not attempt to bypass access controls, extract restricted content or distribute private video links.'
+        id: 'payments-and-refunds',
+        heading: '5. Payments and Refunds',
+        content: 'Any applicable fees will be displayed before purchase.\n\nDue to the nature of digital products, refund and cancellation conditions will be communicated before purchase and will be subject to applicable consumer protection laws.'
+      },
+      {
+        id: 'technical-requirements',
+        heading: '6. Technical Requirements',
+        content: 'Customers are responsible for having suitable devices, software and internet access to view or download digital resources.'
       },
       {
         id: 'educational-disclaimer',
-        heading: '6. Educational Disclaimer',
-        content: 'Digital resources are intended for general educational and informational purposes.\n\nThey do not replace personalised medical advice, professional assessment or individual healthcare recommendations.\n\nUsers should consult qualified professionals where necessary.'
+        heading: '7. Educational Disclaimer',
+        content: 'Digital resources are provided for general educational and informational purposes. They do not replace individual medical advice, professional assessment or treatment.'
       },
       {
-        id: 'third-party-platforms',
-        heading: '7. Third-Party Platforms',
-        content: 'Some digital resources may be hosted or delivered through third-party platforms such as YouTube or other service providers.\n\nAccess to those resources may also be subject to the relevant third party\'s terms and privacy policies.'
+        id: 'content-updates',
+        heading: '8. Content Updates',
+        content: 'SEYOL may update, revise or discontinue digital resources from time to time.'
       },
       {
-        id: 'refunds',
-        heading: '8. Refunds',
-        content: 'Refund eligibility for paid digital resources will be communicated at the point of purchase and will be subject to applicable consumer protection laws.\n\nNothing in this policy removes any statutory rights available to customers.'
-      },
-      {
-        id: 'changes-availability',
-        heading: '9. Changes and Availability',
-        content: 'SEYOL may update, replace or discontinue digital resources from time to time.\n\nWhere users have purchased access for a specified period, any material changes affecting that access will be handled in accordance with the purchase terms and applicable law.'
+        id: 'unauthorised-use',
+        heading: '9. Unauthorised Use',
+        content: 'SEYOL reserves the right to take appropriate action where digital resources are used or distributed without permission.'
       },
       {
         id: 'contact-us',
         heading: '10. Contact Us',
-        content: 'For digital resource access or technical support, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        content: 'For assistance with digital resources, please contact SEYOL through our official website at hello@seyolpregnancycare.com.'
       }
     ]
   },
