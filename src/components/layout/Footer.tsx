@@ -203,10 +203,6 @@ export const Footer: React.FC = () => {
               Careers & Training Disclaimer
             </Link>
             <span>•</span>
-            <Link href="/legal/caregiver-code-of-conduct" className="hover:text-gold-light transition-colors">
-              Caregiver Code of Conduct
-            </Link>
-            <span>•</span>
             <Link href="/admin" className="hover:text-gold-light font-bold text-gold/80 transition-colors">
               Admin Portal
             </Link>

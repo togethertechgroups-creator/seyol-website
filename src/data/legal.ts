@@ -604,29 +604,6 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
       }
     ]
   },
-  'caregiver-code-of-conduct': {
-    slug: 'caregiver-code-of-conduct',
-    title: 'Caregiver Code of Conduct',
-    lastUpdated: '31 October 2026',
-    summary: 'The stringent hygiene, professional ethics, safety, and background-check standards upheld by all SEYOL care matrons and doulas.',
-    sections: [
-      {
-        id: 'hygiene-sanitation',
-        heading: '1. Clinical Hygiene & Sanitisation Protocols',
-        content: 'Every SEYOL care provider follows rigorous infection control protocols: scrubbing hands and forearms prior to each baby interaction, using sanitised linen, maintaining trimmed unpolished nails, and wearing clean professional attire.'
-      },
-      {
-        id: 'health-screenings',
-        heading: '2. Health Checks & Background Verification',
-        content: 'All personnel undergo mandatory annual medical fitness evaluations, infectious disease screenings, and comprehensive police criminal background checks before being rostered for in-home client care.'
-      },
-      {
-        id: 'respectful-care',
-        heading: '3. Respectful & Gentle Care Ethos',
-        content: 'SEYOL caregivers are trained to uphold a calm, supportive, non-intrusive presence in your home, respecting family traditions, privacy, and personal parenting preferences at all times.'
-      }
-    ]
-  },
   'shipping-and-returns': {
     slug: 'shipping-and-returns',
     title: 'Shipping, Delivery & Returns Policy',
