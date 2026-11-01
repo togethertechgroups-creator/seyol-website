@@ -321,127 +321,117 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   },
   'class-terms': {
     slug: 'class-terms',
-    title: 'Class Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These Class Terms apply to all classes, workshops, demonstrations and educational sessions organised or provided by SEYOL. By registering for a class, participants agree to these terms.',
+    title: 'Class Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Registration, attendance, conduct, and safety guidelines for all SEYOL classes, workshops, demonstrations, and educational sessions.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'These Class Terms apply to all classes, workshops, demonstrations and educational sessions organised or provided by SEYOL.\n\nBy registering for a class, participants agree to the following terms.'
+        id: 'class-registration',
+        heading: '1. Class Registration',
+        content: 'Registration for SEYOL classes and workshops is subject to availability.\n\nParticipants must provide accurate personal and contact information during registration.'
       },
       {
-        id: 'registration',
-        heading: '2. Registration',
-        content: 'Class registration is subject to availability and confirmation by SEYOL.\n\nParticipants must provide accurate registration details, including their name, contact information and any relevant information requested during registration.\n\nA registration request is not considered confirmed until confirmation has been issued by SEYOL.'
-      },
-      {
-        id: 'fees-payments',
-        heading: '3. Class Fees and Payments',
-        content: 'Applicable class fees, deposits and payment deadlines will be displayed or communicated before registration is confirmed.\n\nParticipants must complete payment according to the instructions provided.\n\nAny applicable refund or cancellation conditions will be communicated during registration.'
+        id: 'payment-confirmation',
+        heading: '2. Payment and Confirmation',
+        content: 'Class fees and payment requirements will be displayed or communicated during registration.\n\nA place is confirmed only after the required registration and payment process has been completed.'
       },
       {
         id: 'attendance-punctuality',
-        heading: '4. Attendance and Punctuality',
-        content: 'Participants should arrive on time and follow the class schedule.\n\nLate arrival may affect participation in certain activities.\n\nSEYOL reserves the right to adjust class arrangements where necessary.'
+        heading: '3. Attendance and Punctuality',
+        content: 'Participants are expected to attend classes on time and follow the instructions provided by the trainer.\n\nLate arrival may affect participation in certain activities.'
       },
       {
-        id: 'participation-conduct',
-        heading: '5. Participation and Conduct',
-        content: 'Participants are expected to:\n- Follow the instructor\'s guidance.\n- Respect other participants.\n- Maintain appropriate behaviour.\n- Follow relevant hygiene and safety instructions.\n- Avoid disrupting the learning environment.\n\nSEYOL may restrict participation where behaviour creates a safety concern or significantly disrupts the class.'
+        id: 'cancellation-rescheduling',
+        heading: '4. Cancellation and Rescheduling',
+        content: 'Requests to cancel or reschedule a class must be submitted through SEYOL\'s official communication channels.\n\nRefunds, credits and rescheduling options will be subject to the conditions communicated at the time of registration.'
       },
       {
-        id: 'practical-demonstrations',
-        heading: '6. Practical Demonstrations',
-        content: 'Some classes may include demonstrations or practical activities involving baby care, mother care or related topics.\n\nParticipants must follow the instructor\'s instructions.\n\nAny practical activity involving a real baby or mother must be conducted only with appropriate consent, suitability checks and safety arrangements.'
+        id: 'participant-conduct',
+        heading: '5. Participant Conduct',
+        content: 'Participants must behave respectfully towards trainers and other attendees.\n\nDisruptive, inappropriate or unsafe behaviour may result in removal from a class.'
       },
       {
-        id: 'class-changes',
-        heading: '7. Class Changes and Cancellations',
-        content: 'SEYOL may change class dates, times, instructors, locations or delivery formats where necessary.\n\nIf SEYOL cancels a class, participants will be informed and offered the applicable alternative arrangement or refund according to the booking conditions.'
+        id: 'health-safety',
+        heading: '6. Health and Safety',
+        content: 'Participants should inform SEYOL of relevant health or accessibility requirements before attending a class.\n\nAll practical activities must be performed according to trainer instructions.'
       },
       {
-        id: 'learning-materials',
-        heading: '8. Learning Materials',
-        content: 'Class materials, handouts, presentations and recordings are provided for personal learning purposes unless otherwise specified.\n\nParticipants must not reproduce, distribute, sell or commercially use these materials without written permission.'
+        id: 'class-materials',
+        heading: '7. Class Materials',
+        content: 'Class notes, presentations, videos and other learning materials are provided for personal learning purposes unless otherwise stated.\n\nParticipants must not reproduce, distribute or commercially use these materials without written permission.'
       },
       {
         id: 'photography-recording',
-        heading: '9. Photography and Recording',
-        content: 'Photography, video recording or audio recording during classes may be restricted.\n\nParticipants must obtain permission before recording instructors or other participants.\n\nAny use of participant photographs or recordings by SEYOL for marketing purposes requires appropriate consent.'
+        heading: '8. Photography and Recording',
+        content: 'Photography, audio recording or video recording during classes may be restricted.\n\nSEYOL will communicate any applicable recording or photography arrangements and obtain consent where required.'
       },
       {
-        id: 'learning-disclaimer',
-        heading: '10. Learning Disclaimer',
-        content: 'Participation in a class does not automatically establish professional qualification, certification, licensing or eligibility for employment.\n\nAny certificate or completion document will be issued only where applicable and subject to the relevant course requirements.'
+        id: 'changes-to-classes',
+        heading: '9. Changes to Classes',
+        content: 'SEYOL may modify class schedules, trainers, venues or delivery formats when necessary. Participants will be informed of significant changes.'
       },
       {
         id: 'contact-us',
-        heading: '11. Contact Us',
-        content: 'For class-related enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '10. Contact Us',
+        content: 'For class-related questions, please contact SEYOL through our official website at hello@seyolpregnancycare.com.'
       }
     ]
   },
   'class-workshop-terms': {
     slug: 'class-workshop-terms',
-    title: 'Class Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These Class Terms apply to all classes, workshops, demonstrations and educational sessions organised or provided by SEYOL. By registering for a class, participants agree to these terms.',
+    title: 'Class Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Registration, attendance, conduct, and safety guidelines for all SEYOL classes, workshops, demonstrations, and educational sessions.',
     sections: [
       {
-        id: 'introduction',
-        heading: '1. Introduction',
-        content: 'These Class Terms apply to all classes, workshops, demonstrations and educational sessions organised or provided by SEYOL.\n\nBy registering for a class, participants agree to the following terms.'
+        id: 'class-registration',
+        heading: '1. Class Registration',
+        content: 'Registration for SEYOL classes and workshops is subject to availability.\n\nParticipants must provide accurate personal and contact information during registration.'
       },
       {
-        id: 'registration',
-        heading: '2. Registration',
-        content: 'Class registration is subject to availability and confirmation by SEYOL.\n\nParticipants must provide accurate registration details, including their name, contact information and any relevant information requested during registration.\n\nA registration request is not considered confirmed until confirmation has been issued by SEYOL.'
-      },
-      {
-        id: 'fees-payments',
-        heading: '3. Class Fees and Payments',
-        content: 'Applicable class fees, deposits and payment deadlines will be displayed or communicated before registration is confirmed.\n\nParticipants must complete payment according to the instructions provided.\n\nAny applicable refund or cancellation conditions will be communicated during registration.'
+        id: 'payment-confirmation',
+        heading: '2. Payment and Confirmation',
+        content: 'Class fees and payment requirements will be displayed or communicated during registration.\n\nA place is confirmed only after the required registration and payment process has been completed.'
       },
       {
         id: 'attendance-punctuality',
-        heading: '4. Attendance and Punctuality',
-        content: 'Participants should arrive on time and follow the class schedule.\n\nLate arrival may affect participation in certain activities.\n\nSEYOL reserves the right to adjust class arrangements where necessary.'
+        heading: '3. Attendance and Punctuality',
+        content: 'Participants are expected to attend classes on time and follow the instructions provided by the trainer.\n\nLate arrival may affect participation in certain activities.'
       },
       {
-        id: 'participation-conduct',
-        heading: '5. Participation and Conduct',
-        content: 'Participants are expected to:\n- Follow the instructor\'s guidance.\n- Respect other participants.\n- Maintain appropriate behaviour.\n- Follow relevant hygiene and safety instructions.\n- Avoid disrupting the learning environment.\n\nSEYOL may restrict participation where behaviour creates a safety concern or significantly disrupts the class.'
+        id: 'cancellation-rescheduling',
+        heading: '4. Cancellation and Rescheduling',
+        content: 'Requests to cancel or reschedule a class must be submitted through SEYOL\'s official communication channels.\n\nRefunds, credits and rescheduling options will be subject to the conditions communicated at the time of registration.'
       },
       {
-        id: 'practical-demonstrations',
-        heading: '6. Practical Demonstrations',
-        content: 'Some classes may include demonstrations or practical activities involving baby care, mother care or related topics.\n\nParticipants must follow the instructor\'s instructions.\n\nAny practical activity involving a real baby or mother must be conducted only with appropriate consent, suitability checks and safety arrangements.'
+        id: 'participant-conduct',
+        heading: '5. Participant Conduct',
+        content: 'Participants must behave respectfully towards trainers and other attendees.\n\nDisruptive, inappropriate or unsafe behaviour may result in removal from a class.'
       },
       {
-        id: 'class-changes',
-        heading: '7. Class Changes and Cancellations',
-        content: 'SEYOL may change class dates, times, instructors, locations or delivery formats where necessary.\n\nIf SEYOL cancels a class, participants will be informed and offered the applicable alternative arrangement or refund according to the booking conditions.'
+        id: 'health-safety',
+        heading: '6. Health and Safety',
+        content: 'Participants should inform SEYOL of relevant health or accessibility requirements before attending a class.\n\nAll practical activities must be performed according to trainer instructions.'
       },
       {
-        id: 'learning-materials',
-        heading: '8. Learning Materials',
-        content: 'Class materials, handouts, presentations and recordings are provided for personal learning purposes unless otherwise specified.\n\nParticipants must not reproduce, distribute, sell or commercially use these materials without written permission.'
+        id: 'class-materials',
+        heading: '7. Class Materials',
+        content: 'Class notes, presentations, videos and other learning materials are provided for personal learning purposes unless otherwise stated.\n\nParticipants must not reproduce, distribute or commercially use these materials without written permission.'
       },
       {
         id: 'photography-recording',
-        heading: '9. Photography and Recording',
-        content: 'Photography, video recording or audio recording during classes may be restricted.\n\nParticipants must obtain permission before recording instructors or other participants.\n\nAny use of participant photographs or recordings by SEYOL for marketing purposes requires appropriate consent.'
+        heading: '8. Photography and Recording',
+        content: 'Photography, audio recording or video recording during classes may be restricted.\n\nSEYOL will communicate any applicable recording or photography arrangements and obtain consent where required.'
       },
       {
-        id: 'learning-disclaimer',
-        heading: '10. Learning Disclaimer',
-        content: 'Participation in a class does not automatically establish professional qualification, certification, licensing or eligibility for employment.\n\nAny certificate or completion document will be issued only where applicable and subject to the relevant course requirements.'
+        id: 'changes-to-classes',
+        heading: '9. Changes to Classes',
+        content: 'SEYOL may modify class schedules, trainers, venues or delivery formats when necessary. Participants will be informed of significant changes.'
       },
       {
         id: 'contact-us',
-        heading: '11. Contact Us',
-        content: 'For class-related enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '10. Contact Us',
+        content: 'For class-related questions, please contact SEYOL through our official website at hello@seyolpregnancycare.com.'
       }
     ]
   },
