@@ -495,64 +495,59 @@ export const legalPoliciesData: Record<string, LegalPolicy> = {
   },
   'employment-agency-terms': {
     slug: 'employment-agency-terms',
-    title: 'Employment Agency Terms',
-    lastUpdated: '31 October 2026',
-    summary: 'These terms apply to employment-related introduction, recruitment support, placement assistance or career opportunity services offered by SEYOL, where applicable.',
+    title: 'Employment Agency Terms & Conditions',
+    lastUpdated: '1 November 2026',
+    summary: 'Terms governing candidate registration, employer requirements, recruitment, placement scope, regulatory compliance, and confidentiality under Singapore employment laws.',
     sections: [
       {
         id: 'introduction',
         heading: '1. Introduction',
-        content: 'These terms apply to employment-related introduction, recruitment support, placement assistance or career opportunity services offered by SEYOL, where applicable.\n\nThe availability and scope of such services will depend on the specific service arrangement and applicable employment laws.'
+        content: 'These Terms & Conditions apply to individuals and organisations using SEYOL\'s employment agency or recruitment-related services, where such services are offered.'
       },
       {
-        id: 'nature-of-services',
-        heading: '2. Nature of Employment Services',
-        content: 'SEYOL may provide information about career opportunities, facilitate introductions or support communication between candidates and potential employers.\n\nSubmitting an application or registering interest does not guarantee:\n- An interview.\n- Selection by an employer.\n- A job offer.\n- Employment placement.\n- A specific salary or employment benefit.\n\nAll hiring decisions remain subject to the relevant employer\'s requirements and selection process.'
-      },
-      {
-        id: 'candidate-information',
-        heading: '3. Candidate Information',
-        content: 'Candidates must provide accurate and complete information when submitting applications. This may include:\n- Personal and contact details.\n- Education and training information.\n- Work experience.\n- Relevant qualifications and certificates.\n- Skills and employment preferences.\n\nCandidates must not submit false, misleading or fraudulent documents.'
-      },
-      {
-        id: 'consent-to-share',
-        heading: '4. Consent to Share Information',
-        content: 'Where SEYOL introduces a candidate to an employer, candidate information will be shared only in accordance with the applicable privacy requirements and appropriate consent or other lawful basis.\n\nCandidates should review relevant privacy information before submitting their applications.'
-      },
-      {
-        id: 'employer-responsibilities',
-        heading: '5. Employer Responsibilities',
-        content: 'Employers are responsible for providing accurate information about job vacancies, employment conditions, job requirements and relevant workplace arrangements.\n\nSEYOL does not independently guarantee the accuracy of every statement made by a third-party employer and will take reasonable steps to address reported concerns.'
+        id: 'registration-and-information',
+        heading: '2. Registration and Information',
+        content: 'Candidates and employers must provide accurate, complete and up-to-date information during registration and throughout the recruitment process.'
       },
       {
         id: 'candidate-responsibilities',
-        heading: '6. Candidate Responsibilities',
-        content: 'Candidates are expected to:\n- Provide truthful information.\n- Attend scheduled interviews where agreed.\n- Communicate professionally.\n- Respect employer requirements.\n- Notify SEYOL of material changes to their application.'
+        heading: '3. Candidate Responsibilities',
+        content: 'Candidates are responsible for:\n- Providing accurate qualifications and employment history.\n- Submitting genuine documents.\n- Attending scheduled interviews.\n- Informing SEYOL of changes to their availability or employment status.'
       },
       {
-        id: 'fees-and-charges',
-        heading: '7. Fees and Charges',
-        content: 'Any recruitment-related fees, where legally permitted, must be clearly communicated before the relevant service is provided.\n\nSEYOL will not impose undisclosed charges.\n\nWhere employment agency licensing or fee restrictions apply, SEYOL will comply with the relevant legal requirements.'
+        id: 'employer-responsibilities',
+        heading: '4. Employer Responsibilities',
+        content: 'Employers must provide accurate job descriptions, employment conditions, salary information and other relevant details.\n\nEmployers are responsible for complying with applicable employment laws and regulations.'
       },
       {
-        id: 'employment-outcomes',
-        heading: '8. Employment Outcomes',
-        content: 'SEYOL does not guarantee job placement, salary levels, working hours, visa approval, work permits or continued employment.\n\nEmployment decisions are made by the relevant employer and are subject to applicable laws and contractual arrangements.'
+        id: 'recruitment-and-placement',
+        heading: '5. Recruitment and Placement',
+        content: 'SEYOL may assist with candidate sourcing, screening, interview coordination and placement activities, depending on the agreed service.\n\nSEYOL does not guarantee employment, candidate selection or a specific recruitment outcome.'
       },
       {
-        id: 'regulatory-compliance',
-        heading: '9. Regulatory Compliance',
-        content: 'Where employment agency activities require licensing, registration or other regulatory approval, those activities will be carried out only in accordance with applicable legal requirements.\n\nAny regulated recruitment service will be subject to the relevant statutory terms and protections.'
+        id: 'fees-and-payments',
+        heading: '6. Fees and Payments',
+        content: 'Any applicable recruitment fees, service charges or payment arrangements will be communicated before the service is provided.\n\nAll fees must comply with applicable Singapore laws and regulatory requirements.'
       },
       {
-        id: 'complaints-enquiries',
-        heading: '10. Complaints and Enquiries',
-        content: 'Candidates and employers may contact SEYOL regarding employment-related services or concerns.'
+        id: 'confidentiality-personal-data',
+        heading: '7. Confidentiality and Personal Data',
+        content: 'Candidate and employer information will be handled in accordance with SEYOL\'s Privacy Policy and applicable data protection laws.\n\nInformation will only be shared for legitimate recruitment and service-related purposes, subject to applicable requirements.'
+      },
+      {
+        id: 'no-guarantee',
+        heading: '8. No Guarantee',
+        content: 'SEYOL does not guarantee job offers, successful placements, continued employment or specific employment outcomes.\n\nFinal hiring decisions remain with the employer.'
+      },
+      {
+        id: 'compliance-with-laws',
+        heading: '9. Compliance with Laws',
+        content: 'All employment agency activities will be subject to applicable laws and licensing requirements in Singapore.'
       },
       {
         id: 'contact-us',
-        heading: '11. Contact Us',
-        content: 'For career and employment-related enquiries, please contact SEYOL through our website at hello@seyolpregnancycare.com.'
+        heading: '10. Contact Us',
+        content: 'For employment-related questions, please contact SEYOL through the official contact details provided on our website at hello@seyolpregnancycare.com.'
       }
     ]
   },
