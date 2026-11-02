@@ -23,6 +23,7 @@ import { productsData as fallbackProducts, bundlesData } from '../../data/produc
 import { ProductCard } from '../../components/shared/ProductCard';
 import { BundleBuilder } from '../../components/interactive/BundleBuilder';
 import { SeyolProductTrust } from '../../components/interactive/SeyolProductTrust';
+import { ShopByRoutine } from '../../components/interactive/ShopByRoutine';
 import { FindProductsForYourStage } from '../../components/interactive/FindProductsForYourStage';
 import { ShareSeyolPartnerSection } from '../../components/products/ShareSeyolPartnerSection';
 import { ProductQuestionsFAQ } from '../../components/products/ProductQuestionsFAQ';
@@ -258,7 +259,7 @@ export default function ProductsPage() {
               Handcrafted Apothecary Formulations
             </div>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
-              {selectedCategory === 'all' ? 'Shop by Routine' : categoryPills.find(c => c.id === selectedCategory)?.label}
+              {selectedCategory === 'all' ? 'Shop SEY by SEYOL' : categoryPills.find(c => c.id === selectedCategory)?.label}
             </h2>
           </div>
 
@@ -271,6 +272,11 @@ export default function ProductsPage() {
 
         </div>
       </section>
+
+      {/* ========================================================================= */}
+      {/* SHOP BY ROUTINE                                                           */}
+      {/* ========================================================================= */}
+      <ShopByRoutine />
 
       {/* ========================================================================= */}
       {/* ========================================================================= */}

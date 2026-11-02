@@ -1,158 +1,458 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
-import Image, { StaticImageData } from 'next/image';
-import { ArrowUpRight } from 'lucide-react';
-import { useAdminData } from '../../context/AdminDataContext';
+import React, { useState } from "react";
+import Link from "next/link";
+import "./ShopByRoutine.css";
 
-import babyBathImg from '../../assets4/baby bath.jpg';
-import babyMassageImg from '../../assets4/baby massage.JPG';
-import babySleepImg from '../../assets4/baby sleep.JPG';
-import motherCareImg from '../../assets4/mother care.jpg';
-
-interface RoutineCardItem {
-  id: string;
-  title: string;
+interface ProductItem {
+  id: number;
+  name: string;
+  type: "product" | "bundle";
   description: string;
-  image: StaticImageData;
-  alt: string;
-  href: string;
-  objectPosition: string;
+  price: string;
+  image: string;
+  link: string;
 }
 
-const ROUTINES: RoutineCardItem[] = [
+interface RoutineItem {
+  id: string;
+  name: string;
+  subtitle: string;
+  image: string;
+  description: string;
+  products: ProductItem[];
+  guide: {
+    title: string;
+    description: string;
+    link: string;
+  };
+  video: {
+    title: string;
+    thumbnail: string;
+    link: string;
+  };
+}
+
+const routineData: RoutineItem[] = [
   {
-    id: 'bath-time',
-    title: 'Bath Time',
-    description: 'Make bath time a comforting ritual with thoughtfully selected care.',
-    image: babyBathImg,
-    alt: 'Bath and body care essentials for baby',
-    href: '/products',
-    objectPosition: 'center 15%',
+    id: "morning",
+    name: "Morning Care",
+    subtitle: "A gentle start to the day",
+    image: "/images/routine-morning.jpg",
+    description:
+      "Discover simple essentials to make your baby's morning care routine feel special.",
+    products: [
+      {
+        id: 1,
+        name: "Gentle Baby Care",
+        type: "product",
+        description: "An everyday baby care essential.",
+        price: "S$18.00",
+        image: "/images/product-baby-care.jpg",
+        link: "/shop/gentle-baby-care",
+      },
+      {
+        id: 2,
+        name: "Morning Care Bundle",
+        type: "bundle",
+        description: "A collection for your morning routine.",
+        price: "S$35.00",
+        image: "/images/bundle-morning.jpg",
+        link: "/shop/morning-care-bundle",
+      },
+    ],
+    guide: {
+      title: "Creating a Gentle Morning Routine",
+      description:
+        "Explore simple ways to introduce a comfortable morning care routine.",
+      link: "/resources/morning-care-guide",
+    },
+    video: {
+      title: "How to Build a Simple Morning Routine",
+      thumbnail: "/images/video-morning.jpg",
+      link: "/videos/morning-routine",
+    },
   },
   {
-    id: 'baby-massage',
-    title: 'Baby Massage',
-    description: 'Create a soothing bonding moment with gentle massage essentials.',
-    image: babyMassageImg,
-    alt: 'Massage oil and relaxation essentials',
-    href: '/products',
-    objectPosition: 'center 50%',
+    id: "bath",
+    name: "Bath Time",
+    subtitle: "Make bath time a special moment",
+    image: "/images/routine-bath.jpg",
+    description:
+      "Explore bath-time essentials and helpful resources for your baby's care routine.",
+    products: [
+      {
+        id: 3,
+        name: "Baby Bath Essentials",
+        type: "product",
+        description: "Explore everyday bath-time essentials.",
+        price: "S$20.00",
+        image: "/images/product-bath.jpg",
+        link: "/shop/baby-bath-essentials",
+      },
+      {
+        id: 4,
+        name: "Bath Time Bundle",
+        type: "bundle",
+        description: "A collection for your baby's bath routine.",
+        price: "S$42.00",
+        image: "/images/bundle-bath.jpg",
+        link: "/shop/bath-time-bundle",
+      },
+    ],
+    guide: {
+      title: "A Simple Baby Bath-Time Guide",
+      description:
+        "Learn about preparing a comfortable bath-time environment.",
+      link: "/resources/baby-bath-guide",
+    },
+    video: {
+      title: "Understanding Baby Bath Time",
+      thumbnail: "/images/video-bath.jpg",
+      link: "/videos/baby-bath",
+    },
   },
   {
-    id: 'bedtime-routine',
-    title: 'Bedtime Routine',
-    description: 'Settle into quieter evenings with a simple, calming care ritual.',
-    image: babySleepImg,
-    alt: 'Soft and calming sleep essentials for newborn',
-    href: '/products',
-    objectPosition: 'center 42%',
+    id: "massage",
+    name: "Baby Massage",
+    subtitle: "Bonding through gentle touch",
+    image: "/images/routine-massage.jpg",
+    description:
+      "Discover massage-related products and learning resources for your routine.",
+    products: [
+      {
+        id: 5,
+        name: "Massage Care Product",
+        type: "product",
+        description: "Explore products for your massage routine.",
+        price: "S$16.00",
+        image: "/images/product-massage.jpg",
+        link: "/shop/massage-care",
+      },
+      {
+        id: 6,
+        name: "Massage Routine Bundle",
+        type: "bundle",
+        description: "Explore a collection for massage time.",
+        price: "S$32.00",
+        image: "/images/bundle-massage.jpg",
+        link: "/shop/massage-bundle",
+      },
+    ],
+    guide: {
+      title: "Getting Started with Baby Massage",
+      description:
+        "Discover introductory information about infant massage.",
+      link: "/resources/baby-massage-guide",
+    },
+    video: {
+      title: "Understanding a Gentle Massage Routine",
+      thumbnail: "/images/video-massage.jpg",
+      link: "/videos/baby-massage",
+    },
   },
   {
-    id: 'mom-self-care',
-    title: "Mom's Self-Care",
-    description: 'Make room for yourself with nourishing essentials for everyday care.',
-    image: motherCareImg,
-    alt: 'A peaceful self-care and postpartum wellness setting',
-    href: '/products',
-    objectPosition: 'center 20%',
+    id: "bedtime",
+    name: "Bedtime Routine",
+    subtitle: "Create a calm evening routine",
+    image: "/images/routine-bedtime.jpg",
+    description:
+      "Explore products and ideas for your baby's evening care routine.",
+    products: [
+      {
+        id: 7,
+        name: "Bedtime Care Essential",
+        type: "product",
+        description: "Explore everyday bedtime care products.",
+        price: "S$19.00",
+        image: "/images/product-bedtime.jpg",
+        link: "/shop/bedtime-care",
+      },
+      {
+        id: 8,
+        name: "Bedtime Bundle",
+        type: "bundle",
+        description: "A collection for your evening routine.",
+        price: "S$38.00",
+        image: "/images/bundle-bedtime.jpg",
+        link: "/shop/bedtime-bundle",
+      },
+    ],
+    guide: {
+      title: "Building a Bedtime Routine",
+      description:
+        "Explore ideas for creating a consistent evening routine.",
+      link: "/resources/bedtime-guide",
+    },
+    video: {
+      title: "Simple Bedtime Routine Ideas",
+      thumbnail: "/images/video-bedtime.jpg",
+      link: "/videos/bedtime-routine",
+    },
+  },
+  {
+    id: "mom",
+    name: "Mom's Self-Care",
+    subtitle: "Because mom deserves care too",
+    image: "/images/routine-mom.jpg",
+    description:
+      "Find thoughtful products and resources to support your self-care routine.",
+    products: [
+      {
+        id: 9,
+        name: "Mom's Care Essential",
+        type: "product",
+        description: "Explore everyday self-care essentials.",
+        price: "S$22.00",
+        image: "/images/product-mom.jpg",
+        link: "/shop/mom-care",
+      },
+      {
+        id: 10,
+        name: "Mom's Self-Care Bundle",
+        type: "bundle",
+        description: "A collection created for your self-care routine.",
+        price: "S$45.00",
+        image: "/images/bundle-mom.jpg",
+        link: "/shop/mom-care-bundle",
+      },
+    ],
+    guide: {
+      title: "Making Time for Maternal Self-Care",
+      description:
+        "Explore gentle ideas for making time for yourself.",
+      link: "/resources/mom-self-care-guide",
+    },
+    video: {
+      title: "Simple Self-Care Moments for Moms",
+      thumbnail: "/images/video-mom.jpg",
+      link: "/videos/mom-self-care",
+    },
   },
 ];
 
-export const ShopByRoutine: React.FC = () => {
-  const { homeSettings } = useAdminData();
+function ProductCard({ product }: { product: ProductItem }) {
+  return (
+    <article className="sbr-product-card">
+      <Link href={product.link} className="sbr-product-image">
+        <img src={product.image} alt={product.name} loading="lazy" />
+        <span className="sbr-product-type">
+          {product.type === "bundle" ? "Bundle" : "Product"}
+        </span>
+      </Link>
 
-  const routineImageMap: Record<string, string | undefined> = {
-    'bath-time': homeSettings?.routineBathImage,
-    'baby-massage': homeSettings?.routineMassageImage,
-    'bedtime-routine': homeSettings?.routineSleepImage,
-    'mom-self-care': homeSettings?.routineMomCareImage,
-  };
+      <div className="sbr-product-info">
+        <h4>{product.name}</h4>
+        <p>{product.description}</p>
+
+        <div className="sbr-product-bottom">
+          <strong>{product.price}</strong>
+          <Link href={product.link} aria-label={`Explore ${product.name}`}>
+            Explore <span>↗</span>
+          </Link>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function ShopByRoutine() {
+  const [activeRoutine, setActiveRoutine] = useState<string>("morning");
+  const [activeFilter, setActiveFilter] = useState<string>("all");
+
+  const selectedRoutine =
+    routineData.find((routine) => routine.id === activeRoutine) || routineData[0];
+
+  const filteredProducts = selectedRoutine.products.filter(
+    (product) =>
+      activeFilter === "all" || product.type === activeFilter
+  );
 
   return (
-    <section className="w-full bg-[#F8F5EF] text-[#292E29] py-16 sm:py-20 lg:py-24 border-b border-[#EAE1D5]">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="sbr-section">
+      <div className="sbr-container">
 
-        {/* Routine Header (Centered) */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14 space-y-3">
-          <div className="text-[#7B1131] text-xs font-bold tracking-[3px] uppercase">
-            SEY by SEYOL · Everyday Rituals
-          </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] font-semibold text-[#7B1131] tracking-tight leading-[1.15]">
-            Shop by Routine
+        {/* Section Heading */}
+        <div className="sbr-heading">
+          <span className="sbr-eyebrow">SEY BY SEYOL</span>
+
+          <h2>
+            Shop by <span>Routine</span>
           </h2>
-          <p className="text-[#6E5652] text-sm sm:text-base leading-[1.8] max-w-2xl mx-auto">
-            Thoughtfully chosen essentials for the little moments that matter. Discover a care routine made for you and your baby&apos;s everyday needs.
+
+          <p>
+            Care that fits your everyday moments.
+            Choose a routine and discover products,
+            bundles, guides and videos for your family.
           </p>
-          <div className="pt-1">
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-1.5 text-[#7B1131] hover:text-[#5A0C24] font-bold text-xs sm:text-[13px] border-b-2 border-[#7B1131] pb-1 transition-all group"
-            >
-              <span>Explore All Products</span>
-              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </div>
+
+        {/* Hero */}
+        <div className="sbr-hero">
+          <div className="sbr-hero-content">
+            <span>THOUGHTFUL CARE, EVERY DAY</span>
+
+            <h3>
+              Little routines.
+              <br />
+              Meaningful moments.
+            </h3>
+
+            <p>
+              Explore everyday care collections designed
+              around the little moments that matter.
+            </p>
+
+            <Link href="/shop" className="sbr-hero-btn">
+              Explore SEY Products →
             </Link>
           </div>
+
+          <img
+            src="/images/shop-by-routine-banner.jpg"
+            alt="SEY baby care collection"
+          />
         </div>
 
-        {/* Routine Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
-          {ROUTINES.map((routine) => {
-            const customImage = routineImageMap[routine.id];
-            const activeImage = customImage || routine.image;
-            const isCustomString = typeof activeImage === 'string';
+        {/* Routine Selection */}
+        <div className="sbr-selection">
+          <div className="sbr-section-heading">
+            <span className="sbr-eyebrow">DISCOVER YOUR ROUTINE</span>
+            <h3>What routine are you shopping for?</h3>
+            <p>Select a routine to explore relevant collections.</p>
+          </div>
 
-            return (
-              <article
+          <div className="sbr-routine-grid">
+            {routineData.map((routine) => (
+              <button
                 key={routine.id}
-                className="group bg-white rounded-[14px] overflow-hidden border border-[#EAE5DC] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_36px_rgba(123,17,49,0.11)] hover:border-[#7B1131]/30 flex flex-col justify-between"
+                type="button"
+                className={`sbr-routine-card ${
+                  activeRoutine === routine.id ? "active" : ""
+                }`}
+                onClick={() => {
+                  setActiveRoutine(routine.id);
+                  setActiveFilter("all");
+                }}
+                aria-pressed={activeRoutine === routine.id}
               >
-                {/* Routine Image without overlay tag */}
-                <div className="relative h-[270px] sm:h-[285px] w-full overflow-hidden bg-[#E9E5DC]">
-                  <Image
-                    src={activeImage}
-                    alt={routine.alt}
-                    fill
-                    unoptimized={isCustomString}
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    style={{ objectPosition: routine.objectPosition }}
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-106"
-                  />
+                <div className="sbr-routine-image">
+                  <img src={routine.image} alt="" loading="lazy" />
+                  <span className="sbr-routine-arrow">↗</span>
                 </div>
 
-                {/* Routine Info */}
-                <div className="p-5 sm:p-5.5 flex flex-col flex-1 justify-between">
-                  <div>
-                    <h3 className="font-serif text-[21px] sm:text-[22px] font-semibold text-[#292E29] group-hover:text-[#7B1131] transition-colors mb-2 leading-snug">
-                      {routine.title}
-                    </h3>
-                    <p className="text-[#6E5652] text-xs sm:text-[13px] leading-[1.8] min-h-[58px] mb-4">
-                      {routine.description}
-                    </p>
-                  </div>
-
-                  <Link
-                    href={routine.href}
-                    className="w-full flex items-center justify-between bg-[#7B1131] hover:bg-[#5A0C24] text-white py-3 px-4 rounded-lg font-semibold text-xs sm:text-[13px] tracking-wide transition-all duration-200 shadow-xs group/btn cursor-pointer"
-                  >
-                    <span>Shop Now</span>
-                    <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
-                  </Link>
+                <div className="sbr-routine-info">
+                  <h4>{routine.name}</h4>
+                  <p>{routine.subtitle}</p>
                 </div>
-              </article>
-            );
-          })}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Routine Note */}
-        <div className="text-center mt-9 text-xs sm:text-[13px] text-[#7A6363] tracking-wide font-serif italic">
-          Thoughtful care for every little moment and every stage of motherhood.
+        {/* Selected Routine */}
+        <div className="sbr-selected">
+          <div className="sbr-selected-heading">
+            <div>
+              <span className="sbr-eyebrow">YOUR SELECTED ROUTINE</span>
+              <h3>{selectedRoutine.name}</h3>
+              <p>{selectedRoutine.description}</p>
+            </div>
+
+            <Link href="/shop" className="sbr-text-link">
+              View All Products →
+            </Link>
+          </div>
+
+          {/* Filters */}
+          <div className="sbr-filters" aria-label="Product filters">
+            {[
+              ["all", "All"],
+              ["product", "Products"],
+              ["bundle", "Bundles"],
+            ].map(([value, label]) => (
+              <button
+                type="button"
+                key={value}
+                className={activeFilter === value ? "active" : ""}
+                onClick={() => setActiveFilter(value)}
+                aria-pressed={activeFilter === value}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          {/* Product Cards */}
+          <div className="sbr-product-grid">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+
+        {/* Guide + Video */}
+        <div className="sbr-learning-grid">
+
+          <article className="sbr-learning-card sbr-guide-card">
+            <div className="sbr-learning-icon">▤</div>
+
+            <span className="sbr-eyebrow">READ & DISCOVER</span>
+
+            <h3>{selectedRoutine.guide.title}</h3>
+
+            <p>{selectedRoutine.guide.description}</p>
+
+            <Link href={selectedRoutine.guide.link}>
+              Read the Guide →
+            </Link>
+          </article>
+
+          <article className="sbr-learning-card sbr-video-card">
+            <Link
+              href={selectedRoutine.video.link}
+              className="sbr-video-image"
+              aria-label={`Watch ${selectedRoutine.video.title}`}
+            >
+              <img
+                src={selectedRoutine.video.thumbnail}
+                alt=""
+                loading="lazy"
+              />
+              <span className="sbr-play-button">▶</span>
+            </Link>
+
+            <div className="sbr-video-info">
+              <span className="sbr-eyebrow">WATCH & LEARN</span>
+
+              <h3>{selectedRoutine.video.title}</h3>
+
+              <Link href={selectedRoutine.video.link}>
+                Watch Video →
+              </Link>
+            </div>
+          </article>
+
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="sbr-bottom">
+          <div>
+            <span>SEY BY SEYOL</span>
+            <h3>Build a routine that feels right.</h3>
+            <p>
+              Thoughtful care for everyday family moments.
+            </p>
+          </div>
+
+          <Link href="/shop" className="sbr-bottom-btn">
+            Explore All Products →
+          </Link>
         </div>
 
       </div>
     </section>
   );
-};
+}
 
 export default ShopByRoutine;
