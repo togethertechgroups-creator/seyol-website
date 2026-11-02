@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { StageSelector } from '../components/interactive/StageSelector';
 import Timeline from '../components/interactive/Timeline';
+import { YourStageNextStep } from '../components/interactive/YourStageNextStep';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
@@ -239,6 +240,11 @@ export default function HomePage() {
           />
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION: YOUR STAGE, YOUR NEXT STEP                                       */}
+      {/* ========================================================================= */}
+      <YourStageNextStep />
 
       {/* ========================================================================= */}
       {/* SECTION: MOST PARENTS START HERE (Your Journey, Our Care)                 */}

@@ -1,303 +1,550 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import "./YourStageNextStep.css";
-
-type StageId = "pregnancy" | "newborn" | "postpartum" | "parenting";
-
-interface StageOption {
-  id: StageId;
-  title: string;
-  icon: string;
-}
 
 interface RecommendationItem {
   type: string;
   title: string;
   description: string;
+  icon: string;
   link: string;
 }
 
-const stageOptions: StageOption[] = [
-  { id: "pregnancy", title: "I'm Pregnant", icon: "♡" },
-  { id: "newborn", title: "Newborn Care", icon: "♧" },
-  { id: "postpartum", title: "Postpartum", icon: "✿" },
-  { id: "parenting", title: "Everyday Parenting", icon: "⌂" },
-];
-
-const recommendations: Record<StageId, RecommendationItem[]> = {
-  pregnancy: [
+const recommendations: Record<string, RecommendationItem[]> = {
+  early: [
     {
-      type: "CARE & SERVICES",
-      title: "Pregnancy Care Support",
-      description: "Explore thoughtful care for your pregnancy journey.",
-      link: "/services/prenatal-massage-therapy",
+      type: "service",
+      title: "Pregnancy Care",
+      description:
+        "Explore personalised support throughout your pregnancy journey.",
+      icon: "♡",
+      link: "/services/pregnancy-care",
     },
     {
-      type: "CLASSES",
-      title: "Preparing for Baby",
-      description: "Learn the essentials before welcoming your little one.",
-      link: "/classes",
+      type: "class",
+      title: "Pregnancy Preparation Class",
+      description:
+        "Prepare yourself for the arrival of your little one.",
+      icon: "✿",
+      link: "/classes/pregnancy-preparation",
     },
     {
-      type: "RESOURCES",
-      title: "Pregnancy Guide",
-      description: "Helpful information for every stage of pregnancy.",
-      link: "/resources",
+      type: "resource",
+      title: "Pregnancy Preparation Guide",
+      description:
+        "Helpful information and checklists for your pregnancy journey.",
+      icon: "▤",
+      link: "/resources/pregnancy-guide",
     },
   ],
+
+  upcoming: [
+    {
+      type: "service",
+      title: "Newborn Baby Care",
+      description:
+        "Discover newborn care support for your baby's first days.",
+      icon: "♡",
+      link: "/services/newborn-care",
+    },
+    {
+      type: "class",
+      title: "New Parent Preparation",
+      description:
+        "Learn essential skills before welcoming your baby.",
+      icon: "✿",
+      link: "/classes/new-parent",
+    },
+    {
+      type: "resource",
+      title: "Hospital Bag Checklist",
+      description:
+        "A practical checklist to prepare for delivery day.",
+      icon: "▤",
+      link: "/resources/hospital-bag",
+    },
+    {
+      type: "product",
+      title: "SEY Baby Care Essentials",
+      description:
+        "Explore products for your baby's early care routine.",
+      icon: "◇",
+      link: "/products",
+    },
+  ],
+
   newborn: [
     {
-      type: "CARE & SERVICES",
-      title: "Newborn Care Support",
-      description: "Discover gentle support for your baby's early days.",
-      link: "/services/infant-massage-and-bath",
+      type: "service",
+      title: "Newborn Baby Care",
+      description:
+        "Explore support for newborn care and everyday routines.",
+      icon: "♡",
+      link: "/services/newborn-care",
     },
     {
-      type: "CLASSES",
-      title: "Baby Care Learning",
-      description: "Build confidence in everyday newborn care.",
-      link: "/classes",
+      type: "class",
+      title: "Newborn Care Learning",
+      description:
+        "Build confidence in newborn care essentials.",
+      icon: "✿",
+      link: "/classes/newborn-care",
     },
     {
-      type: "RESOURCES",
-      title: "Newborn Essentials Checklist",
-      description: "A useful checklist for your baby's needs.",
-      link: "/resources",
-    },
-  ],
-  postpartum: [
-    {
-      type: "CARE & SERVICES",
-      title: "Postpartum Care",
-      description: "Explore support for your recovery and wellbeing.",
-      link: "/services/postpartum-healing-bodywork-herbal-wrap",
-    },
-    {
-      type: "CLASSES",
-      title: "Mother & Baby Care",
-      description: "Learn about caring for yourself and your baby.",
-      link: "/classes",
-    },
-    {
-      type: "RESOURCES",
-      title: "Postpartum Guide",
-      description: "Helpful resources for your postpartum journey.",
-      link: "/resources",
+      type: "resource",
+      title: "Newborn Care Checklist",
+      description:
+        "Explore helpful newborn care information.",
+      icon: "▤",
+      link: "/resources/newborn-checklist",
     },
   ],
-  parenting: [
+
+  baby: [
     {
-      type: "CARE & SERVICES",
-      title: "Everyday Family Care",
-      description: "Find support for your growing family's needs.",
-      link: "/services",
+      type: "service",
+      title: "Infant Massage & Bath",
+      description:
+        "Discover age-appropriate infant care support.",
+      icon: "♡",
+      link: "/services/infant-massage",
     },
     {
-      type: "RESOURCES",
-      title: "Parenting Resources",
-      description: "Explore practical guides and helpful information.",
-      link: "/resources",
+      type: "class",
+      title: "Baby Care Learning Class",
+      description:
+        "Learn practical baby care techniques and routines.",
+      icon: "✿",
+      link: "/classes/baby-care",
     },
     {
-      type: "SHOP",
-      title: "Care Essentials",
-      description: "Discover products for your family's daily routine.",
+      type: "resource",
+      title: "Baby Care Guide",
+      description:
+        "Explore everyday baby care tips and guidance.",
+      icon: "▤",
+      link: "/resources/baby-care",
+    },
+    {
+      type: "product",
+      title: "SEY Baby Care Collection",
+      description:
+        "Discover products for your baby's daily routine.",
+      icon: "◇",
       link: "/products",
     },
   ],
 };
 
-export function YourStageNextStep() {
-  const [stage, setStage] = useState<StageId>("pregnancy");
-  const [week, setWeek] = useState<string>("24");
-  const [edd, setEdd] = useState<string>("");
-  const [babyAge, setBabyAge] = useState<string>("0–3 months");
-  const [showResults, setShowResults] = useState<boolean>(false);
+function getPregnancyWeek(edd: string): number | null {
+  if (!edd) return null;
 
-  const handleStageChange = (newStage: StageId) => {
-    setStage(newStage);
-    setShowResults(false);
+  const dueDate = new Date(`${edd}T12:00:00`);
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+
+  const daysUntilDue = Math.ceil(
+    (dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  const pregnancyDays = 280 - daysUntilDue;
+
+  if (pregnancyDays < 0 || pregnancyDays > 294) {
+    return null;
+  }
+
+  return Math.floor(pregnancyDays / 7);
+}
+
+function getBabyAgeInDays(age: string | number, unit: string): number | null {
+  const value = Number(age);
+
+  if (!Number.isFinite(value) || value < 0) return null;
+
+  const multipliers: Record<string, number> = {
+    days: 1,
+    weeks: 7,
+    months: 30.4375,
+    years: 365.25,
   };
 
-  const handleFindSupport = () => {
+  return value * (multipliers[unit] ?? 1);
+}
+
+function getStage(
+  type: string,
+  values: { edd: string; week: string; age: string; unit: string }
+) {
+  if (type === "edd") {
+    const week = getPregnancyWeek(values.edd);
+
+    if (week === null || week < 0 || week > 42) {
+      return null;
+    }
+
+    return {
+      title: "Your Pregnancy Journey",
+      subtitle: `Approximately week ${week} of pregnancy`,
+      items: week >= 28
+        ? recommendations.upcoming
+        : recommendations.early,
+    };
+  }
+
+  if (type === "week") {
+    const week = Number(values.week);
+
+    return {
+      title: "Your Pregnancy Journey",
+      subtitle: `Week ${week} of pregnancy`,
+      items: week >= 28
+        ? recommendations.upcoming
+        : recommendations.early,
+    };
+  }
+
+  const days = getBabyAgeInDays(values.age, values.unit);
+
+  if (days === null || days > 3650) return null;
+
+  if (days <= 90) {
+    return {
+      title: "Your Newborn Journey",
+      subtitle: `Your baby is approximately ${Math.round(days)} days old`,
+      items: recommendations.newborn,
+    };
+  }
+
+  return {
+    title: "Your Baby's Growing Journey",
+    subtitle: `Your baby is approximately ${Math.round(days)} days old`,
+    items: recommendations.baby,
+  };
+}
+
+export function YourStageNextStep() {
+  const [mode, setMode] = useState<string>("edd");
+  const [edd, setEdd] = useState<string>("");
+  const [week, setWeek] = useState<string>("28");
+  const [age, setAge] = useState<string>("2");
+  const [unit, setUnit] = useState<string>("months");
+  const [filter, setFilter] = useState<string>("all");
+  const [showResults, setShowResults] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+
+  const stage = useMemo(() => {
+    if (!showResults) return null;
+
+    return getStage(mode, { edd, week, age, unit });
+  }, [showResults, mode, edd, week, age, unit]);
+
+  const visibleItems = stage?.items.filter(
+    (item) => filter === "all" || item.type === filter
+  );
+
+  const handleModeChange = (value: string) => {
+    setMode(value);
+    setShowResults(false);
+    setError("");
+    setFilter("all");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (mode === "edd") {
+      if (!edd) {
+        setError("Please select your expected due date.");
+        return;
+      }
+
+      if (getPregnancyWeek(edd) === null) {
+        setError("Please enter a valid expected due date.");
+        return;
+      }
+    }
+
+    if (mode === "week") {
+      if (!week || Number(week) < 1 || Number(week) > 42) {
+        setError("Please select a valid pregnancy week.");
+        return;
+      }
+    }
+
+    if (mode === "baby") {
+      const days = getBabyAgeInDays(age, unit);
+
+      if (days === null || days > 3650) {
+        setError("Please enter a valid baby age.");
+        return;
+      }
+    }
+
+    setFilter("all");
     setShowResults(true);
   };
 
-  const getStageDescription = () => {
-    if (stage === "pregnancy") {
-      return `Pregnancy · ${week} weeks`;
-    }
-    if (stage === "newborn") {
-      return `Newborn · ${babyAge}`;
-    }
-    if (stage === "postpartum") {
-      return `Postpartum · ${babyAge}`;
-    }
-    return "Everyday Parenting";
-  };
-
   return (
-    <section className="seyol-stage-section">
-      <div className="seyol-stage-container">
+    <section className="stage-section">
+      <div className="stage-container">
 
-        {/* Section Heading */}
-        <div className="seyol-stage-heading">
-          <span className="seyol-eyebrow">
-            YOUR JOURNEY, YOUR WAY
+        {/* Header */}
+        <div className="stage-heading">
+          <span className="stage-eyebrow">
+            YOUR SEYOL JOURNEY
           </span>
 
-          <h2>Tell Us What You Need Help With</h2>
+          <h2>
+            Your Stage, <span>Your Next Step.</span>
+          </h2>
 
           <p>
-            Choose what feels right for you. We&apos;ll help you find the right care.
+            Every stage deserves the right support.
+            Tell us where you are in your journey and
+            discover the SEYOL support that suits you.
           </p>
         </div>
 
-        <div className="seyol-stage-layout">
+        {/* Main Tool */}
+        <div className="stage-tool">
 
-          {/* Left Image */}
-          <div className="seyol-stage-image">
-            <img
-              src="/images/seyol-mother-baby.jpg"
-              alt="Mother holding her newborn baby"
-            />
+          <div className="stage-visual">
+            <div className="stage-visual-content">
+              <span>CARE FOR EVERY LITTLE MOMENT</span>
 
-            <div className="seyol-image-caption">
-              <span>CARE FOR EVERY CHAPTER</span>
-              <h3>Every little step deserves thoughtful care.</h3>
+              <h3>
+                Growing together,
+                <br />
+                every step of the way.
+              </h3>
+
+              <p>
+                From pregnancy to your baby&apos;s early years,
+                discover thoughtful support for your family.
+              </p>
             </div>
           </div>
 
-          {/* Right Interactive Form */}
-          <div className="seyol-stage-form">
+          <div className="stage-form-area">
+            <h3>Where are you right now?</h3>
 
-            <h3>Where are you in your journey?</h3>
+            <p className="stage-form-subtitle">
+              Choose an option to discover your next step.
+            </p>
 
-            <div className="seyol-stage-options">
-              {stageOptions.map((item) => (
+            {/* Selection Tabs */}
+            <div className="stage-tabs">
+              <button
+                type="button"
+                className={mode === "edd" ? "active" : ""}
+                onClick={() => handleModeChange("edd")}
+              >
+                <span>♡</span>
+                I&apos;m Expecting
+              </button>
+
+              <button
+                type="button"
+                className={mode === "week" ? "active" : ""}
+                onClick={() => handleModeChange("week")}
+              >
+                <span>✿</span>
+                Pregnancy Week
+              </button>
+
+              <button
+                type="button"
+                className={mode === "baby" ? "active" : ""}
+                onClick={() => handleModeChange("baby")}
+              >
+                <span>♡</span>
+                Baby&apos;s Age
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit}>
+
+              {mode === "edd" && (
+                <div className="stage-field">
+                  <label>Expected Due Date (EDD)</label>
+
+                  <input
+                    type="date"
+                    value={edd}
+                    onChange={(e) => {
+                      setEdd(e.target.value);
+                      setShowResults(false);
+                    }}
+                    required
+                  />
+
+                  <small>
+                    Select your expected delivery date.
+                  </small>
+                </div>
+              )}
+
+              {mode === "week" && (
+                <div className="stage-field">
+                  <label>How many weeks pregnant are you?</label>
+
+                  <select
+                    value={week}
+                    onChange={(e) => {
+                      setWeek(e.target.value);
+                      setShowResults(false);
+                    }}
+                  >
+                    {Array.from({ length: 42 }, (_, i) => (
+                      <option key={i + 1} value={i + 1}>
+                        Week {i + 1}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {mode === "baby" && (
+                <div className="stage-field">
+                  <label>How old is your baby?</label>
+
+                  <div className="baby-age-input">
+                    <input
+                      type="number"
+                      min="0"
+                      max="3650"
+                      step="any"
+                      value={age}
+                      onChange={(e) => {
+                        setAge(e.target.value);
+                        setShowResults(false);
+                      }}
+                      placeholder="Enter age"
+                      required
+                    />
+
+                    <select
+                      value={unit}
+                      onChange={(e) => {
+                        setUnit(e.target.value);
+                        setShowResults(false);
+                      }}
+                    >
+                      <option value="days">Days</option>
+                      <option value="weeks">Weeks</option>
+                      <option value="months">Months</option>
+                      <option value="years">Years</option>
+                    </select>
+                  </div>
+                </div>
+              )}
+
+              {error && (
+                <p className="stage-error" role="alert">
+                  {error}
+                </p>
+              )}
+
+              <button className="stage-submit" type="submit">
+                Find My Next Step <span>→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Recommendations */}
+        {showResults && stage && (
+          <div className="stage-results" aria-live="polite">
+            <div className="stage-results-heading">
+              <div>
+                <span className="stage-eyebrow">
+                  YOUR RECOMMENDATIONS
+                </span>
+
+                <h3>{stage.title}</h3>
+
+                <p>{stage.subtitle}</p>
+              </div>
+
+              <button
+                className="stage-reset"
+                onClick={() => setShowResults(false)}
+              >
+                ↻ Change details
+              </button>
+            </div>
+
+            {/* Filters */}
+            <div className="stage-filters">
+              {[
+                ["all", "All"],
+                ["service", "Services"],
+                ["class", "Classes"],
+                ["resource", "Resources"],
+                ["product", "Products"],
+              ].map(([value, label]) => (
                 <button
-                  key={item.id}
+                  key={value}
                   type="button"
-                  className={`seyol-stage-option ${
-                    stage === item.id ? "active" : ""
-                  }`}
-                  onClick={() => handleStageChange(item.id)}
+                  className={filter === value ? "selected" : ""}
+                  onClick={() => setFilter(value)}
                 >
-                  <span className="stage-icon">{item.icon}</span>
-                  <span>{item.title}</span>
+                  {label}
                 </button>
               ))}
             </div>
 
-            {/* Pregnancy Fields */}
-            {stage === "pregnancy" && (
-              <div className="seyol-stage-fields">
-                <label>Expected Due Date (Optional)</label>
+            {/* Cards */}
+            <div className="stage-cards">
+              {visibleItems && visibleItems.map((item) => (
+                <article className="stage-card" key={item.title}>
+                  <div className="stage-card-icon">
+                    {item.icon}
+                  </div>
 
-                <input
-                  type="date"
-                  value={edd}
-                  onChange={(e) => setEdd(e.target.value)}
-                />
-
-                <div className="seyol-or">
-                  <span>OR</span>
-                </div>
-
-                <label>How many weeks pregnant are you?</label>
-
-                <select
-                  value={week}
-                  onChange={(e) => {
-                    setWeek(e.target.value);
-                    setShowResults(false);
-                  }}
-                >
-                  <option value="8">1–12 weeks</option>
-                  <option value="16">13–20 weeks</option>
-                  <option value="24">21–27 weeks</option>
-                  <option value="30">28–32 weeks</option>
-                  <option value="34">33–36 weeks</option>
-                  <option value="38">37–40+ weeks</option>
-                </select>
-              </div>
-            )}
-
-            {/* Baby Age Fields */}
-            {(stage === "newborn" || stage === "postpartum") && (
-              <div className="seyol-stage-fields">
-                <label>How old is your baby?</label>
-
-                <select
-                  value={babyAge}
-                  onChange={(e) => {
-                    setBabyAge(e.target.value);
-                    setShowResults(false);
-                  }}
-                >
-                  <option>0–3 months</option>
-                  <option>3–6 months</option>
-                  <option>6–9 months</option>
-                  <option>9–12 months</option>
-                  <option>12+ months</option>
-                </select>
-              </div>
-            )}
-
-            {stage === "parenting" && (
-              <div className="seyol-parenting-note">
-                <p>
-                  Let&apos;s discover helpful resources, family care
-                  services and everyday essentials for you.
-                </p>
-              </div>
-            )}
-
-            <button
-              type="button"
-              className="seyol-find-button"
-              onClick={handleFindSupport}
-            >
-              Find My SEYOL Support
-              <span>→</span>
-            </button>
-
-          </div>
-        </div>
-
-        {/* Recommendation Results */}
-        {showResults && (
-          <div className="seyol-results">
-            <div className="seyol-results-heading">
-              <span>YOUR PERSONAL GUIDE</span>
-              <h3>A next step for your journey</h3>
-              <p>{getStageDescription()}</p>
-            </div>
-
-            <div className="seyol-recommendation-grid">
-              {recommendations[stage].map((item, index) => (
-                <Link
-                  href={item.link}
-                  className="seyol-recommendation-card"
-                  key={index}
-                >
-                  <span className="seyol-card-type">{item.type}</span>
-                  <h4>{item.title}</h4>
-                  <p>{item.description}</p>
-                  <span className="seyol-card-link">
-                    Explore More →
+                  <span className="stage-card-type">
+                    {item.type}
                   </span>
-                </Link>
+
+                  <h4>{item.title}</h4>
+
+                  <p>{item.description}</p>
+
+                  <Link href={item.link}>
+                    Explore More <span>↗</span>
+                  </Link>
+                </article>
               ))}
+
+              {visibleItems && visibleItems.length === 0 && (
+                <p className="stage-empty">
+                  No recommendations in this category yet.
+                </p>
+              )}
             </div>
+
+            <p className="stage-disclaimer">
+              Recommendations are general suggestions based on
+              the information provided. Please check individual
+              service and product suitability before booking or purchase.
+            </p>
           </div>
         )}
 
-        <div className="seyol-stage-footer">
-          <span>♡</span>
-          Thoughtful care for every stage of your journey.
+        {/* Bottom CTA */}
+        <div className="stage-bottom">
+          <div>
+            <span>NEED A LITTLE GUIDANCE?</span>
+            <h3>Not sure what support is right for you?</h3>
+            <p>Our team is here to help you find your next step.</p>
+          </div>
+
+          <Link href="/book" className="stage-contact">
+            Talk to SEYOL <span>→</span>
+          </Link>
         </div>
 
       </div>
@@ -306,4 +553,3 @@ export function YourStageNextStep() {
 }
 
 export default YourStageNextStep;
-
