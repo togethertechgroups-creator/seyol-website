@@ -293,10 +293,6 @@ export function YourStageNextStep() {
 
         {/* Header */}
         <div className="stage-heading">
-          <span className="stage-eyebrow">
-            YOUR SEYOL JOURNEY
-          </span>
-
           <h2>
             Your Stage, <span>Your Next Step.</span>
           </h2>
@@ -342,7 +338,6 @@ export function YourStageNextStep() {
                 className={mode === "edd" ? "active" : ""}
                 onClick={() => handleModeChange("edd")}
               >
-                <span>♡</span>
                 I&apos;m Expecting
               </button>
 
@@ -351,7 +346,6 @@ export function YourStageNextStep() {
                 className={mode === "week" ? "active" : ""}
                 onClick={() => handleModeChange("week")}
               >
-                <span>✿</span>
                 Pregnancy Week
               </button>
 
@@ -360,7 +354,6 @@ export function YourStageNextStep() {
                 className={mode === "baby" ? "active" : ""}
                 onClick={() => handleModeChange("baby")}
               >
-                <span>♡</span>
                 Baby&apos;s Age
               </button>
             </div>
@@ -460,10 +453,6 @@ export function YourStageNextStep() {
           <div className="stage-results" aria-live="polite">
             <div className="stage-results-heading">
               <div>
-                <span className="stage-eyebrow">
-                  YOUR RECOMMENDATIONS
-                </span>
-
                 <h3>{stage.title}</h3>
 
                 <p>{stage.subtitle}</p>
@@ -501,10 +490,6 @@ export function YourStageNextStep() {
             <div className="stage-cards">
               {visibleItems && visibleItems.map((item) => (
                 <article className="stage-card" key={item.title}>
-                  <div className="stage-card-icon">
-                    {item.icon}
-                  </div>
-
                   <span className="stage-card-type">
                     {item.type}
                   </span>
