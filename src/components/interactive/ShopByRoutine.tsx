@@ -301,11 +301,6 @@ export function ShopByRoutine() {
                 }}
                 aria-pressed={activeRoutine === routine.id}
               >
-                <div className="sbr-routine-image">
-                  <img src={routine.image} alt="" loading="lazy" />
-                  <span className="sbr-routine-arrow">↗</span>
-                </div>
-
                 <div className="sbr-routine-info">
                   <h4>{routine.name}</h4>
                   <p>{routine.subtitle}</p>

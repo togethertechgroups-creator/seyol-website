@@ -279,83 +279,41 @@
 .sbr-routine-card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: #FFFFFF;
   border: 1.5px solid #EAE1D5;
   border-radius: 20px;
-  overflow: hidden;
-  padding: 0.75rem;
+  padding: 1.35rem 1.25rem;
   text-align: left;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
   position: relative;
+  min-height: 96px;
 }
 
 .sbr-routine-card:hover {
-  transform: translateY(-4px);
-  border-color: #C8A45D;
-  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.08);
+  transform: translateY(-3px);
+  border-color: #7B1131;
+  box-shadow: 0 10px 24px rgba(123, 17, 49, 0.08);
 }
 
 .sbr-routine-card.active {
-  border-color: #7B1131;
+  border: 2px solid #7B1131;
   background-color: #FFFDF9;
-  box-shadow: 0 14px 32px rgba(123, 17, 49, 0.14);
-}
-
-.sbr-routine-image {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 14px;
-  overflow: hidden;
-  background-color: #F0ECE4;
-}
-
-.sbr-routine-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease-out;
-}
-
-.sbr-routine-card:hover .sbr-routine-image img {
-  transform: scale(1.06);
-}
-
-.sbr-routine-arrow {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.92);
-  color: #7B1131;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 800;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-  transition: all 0.25s ease;
-}
-
-.sbr-routine-card.active .sbr-routine-arrow {
-  background-color: #7B1131;
-  color: #FFFFFF;
+  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.12);
 }
 
 .sbr-routine-info {
-  padding: 0.85rem 0.35rem 0.35rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.35rem;
+  width: 100%;
 }
 
 .sbr-routine-info h4 {
   font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
-  font-size: 1.05rem;
+  font-size: 1.125rem;
   font-weight: 700;
   color: #3A1D1D;
   margin: 0;
@@ -367,8 +325,8 @@
 }
 
 .sbr-routine-info p {
-  font-size: 0.8rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.45;
   color: #6E5652;
   margin: 0;
 }
