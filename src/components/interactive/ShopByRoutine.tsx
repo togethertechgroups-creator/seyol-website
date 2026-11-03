@@ -274,8 +274,6 @@ export function ShopByRoutine() {
 
         {/* Section Heading */}
         <div className="sbr-heading">
-          <span className="sbr-eyebrow">SEY BY SEYOL</span>
-
           <h2>
             Shop by <span>Routine</span>
           </h2>
@@ -405,7 +403,6 @@ export function ShopByRoutine() {
         {/* Bottom CTA */}
         <div className="sbr-bottom">
           <div>
-            <span>SEY BY SEYOL</span>
             <h3>Build a routine that feels right.</h3>
             <p>
               Thoughtful care for everyday family moments.
