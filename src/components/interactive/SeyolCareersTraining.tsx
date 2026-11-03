@@ -5,25 +5,21 @@ import "./SeyolCareersTraining.css";
 
 const benefits = [
   {
-    icon: "♡",
     title: "Care-Led Approach",
     description:
       "A people-centred approach to learning and supporting families.",
   },
   {
-    icon: "✿",
     title: "Practical Learning",
     description:
       "Explore knowledge and practical skills relevant to maternal and baby care.",
   },
   {
-    icon: "⌂",
     title: "Family-Focused Values",
     description:
       "Understand the needs of parents, babies and families.",
   },
   {
-    icon: "↗",
     title: "Growth Opportunities",
     description:
       "Explore professional development and suitable career pathways.",
@@ -375,45 +371,12 @@ export function SeyolCareersTraining() {
         </div>
 
         <div className="ct-benefits-grid">
-          {benefits.map((item, index) => (
+          {benefits.map((item) => (
             <article className="ct-benefit-card" key={item.title}>
-              <div className="ct-benefit-icon">
-                {item.icon}
-              </div>
-
-              <span className="ct-card-number">
-                0{index + 1}
-              </span>
-
               <h3>{item.title}</h3>
               <p>{item.description}</p>
             </article>
           ))}
-        </div>
-
-        <div className="ct-values-banner">
-          <div>
-            <span className="ct-eyebrow">
-              OUR VALUES
-            </span>
-
-            <h3>
-              Learn with purpose.
-              <br />
-              Grow with confidence.
-            </h3>
-
-            <p>
-              Explore a learning journey built around
-              thoughtful care and continuous development.
-            </p>
-          </div>
-
-          <img
-            src="/images/seyol-training-values.jpg"
-            alt="Learning and care at SEYOL"
-            loading="lazy"
-          />
         </div>
       </section>
 
