@@ -128,8 +128,7 @@ const SeyolResourceBundles: React.FC<SeyolResourceBundlesProps> = ({ onCheckout 
           </span>
 
           <h2>
-            Everything You Need,
-            <span> Together.</span>
+            Resource <span>Bundles</span>
           </h2>
 
           <p>
