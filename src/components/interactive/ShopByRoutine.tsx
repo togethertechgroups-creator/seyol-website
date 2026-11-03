@@ -289,12 +289,6 @@ export function ShopByRoutine() {
 
         {/* Routine Selection */}
         <div className="sbr-selection">
-          <div className="sbr-section-heading">
-            <span className="sbr-eyebrow">DISCOVER YOUR ROUTINE</span>
-            <h3>What routine are you shopping for?</h3>
-            <p>Select a routine to explore relevant collections.</p>
-          </div>
-
           <div className="sbr-routine-grid">
             {routineData.map((routine) => (
               <button
