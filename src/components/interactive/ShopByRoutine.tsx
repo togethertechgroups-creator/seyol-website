@@ -287,33 +287,6 @@ export function ShopByRoutine() {
           </p>
         </div>
 
-        {/* Hero */}
-        <div className="sbr-hero">
-          <div className="sbr-hero-content">
-            <span>THOUGHTFUL CARE, EVERY DAY</span>
-
-            <h3>
-              Little routines.
-              <br />
-              Meaningful moments.
-            </h3>
-
-            <p>
-              Explore everyday care collections designed
-              around the little moments that matter.
-            </p>
-
-            <Link href="/shop" className="sbr-hero-btn">
-              Explore SEY Products →
-            </Link>
-          </div>
-
-          <img
-            src="/images/shop-by-routine-banner.jpg"
-            alt="SEY baby care collection"
-          />
-        </div>
-
         {/* Routine Selection */}
         <div className="sbr-selection">
           <div className="sbr-section-heading">
