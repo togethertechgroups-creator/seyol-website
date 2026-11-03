@@ -1,0 +1,805 @@
+/* ========================================================================= */
+/* SeyolCareersTraining.css - SEYOL Careers & Training Design System        */
+/* ========================================================================= */
+
+.seyol-careers {
+  background-color: #FAF5EE;
+  color: #3A1D1D;
+  font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 4rem;
+}
+
+/* Eyebrow Pill Tag */
+.ct-eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7B1131;
+  background-color: #F8EBEF;
+  border: 1px solid #EAC8D2;
+  padding: 0.35rem 0.95rem;
+  border-radius: 9999px;
+  width: fit-content;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* 1. HERO                                                                   */
+/* ───────────────────────────────────────────────────────────────────────── */
+
+.ct-hero {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 3rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .ct-hero {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3.5rem;
+    padding: 5rem 2rem 4rem;
+  }
+}
+
+.ct-hero-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ct-hero-content h1 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #3A1D1D;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.ct-hero-content h1 span {
+  color: #7B1131;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.ct-hero-content p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #6E5652;
+  max-width: 540px;
+  margin: 0;
+}
+
+.ct-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #7B1131;
+  color: #FFFFFF !important;
+  padding: 0.9rem 2rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  width: fit-content;
+  box-shadow: 0 8px 22px rgba(123, 17, 49, 0.25);
+  transition: all 0.25s ease;
+}
+
+.ct-primary-btn:hover {
+  background-color: #5A0C24;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.32);
+}
+
+.ct-hero-image {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid #EAE1D5;
+  background-color: #EDE4D8;
+}
+
+.ct-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* 2. SECTION 1: APPLICATION FORM                                            */
+/* ───────────────────────────────────────────────────────────────────────── */
+
+.ct-application {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: start;
+  border-top: 1px solid #EAE1D5;
+}
+
+@media (min-width: 992px) {
+  .ct-application {
+    grid-template-columns: 1fr 1.25fr;
+    gap: 4rem;
+  }
+}
+
+.ct-application-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ct-application-intro h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.ct-application-intro h2 span {
+  color: #7B1131;
+  font-style: italic;
+}
+
+.ct-application-intro p {
+  color: #6E5652;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.ct-application-image {
+  border-radius: 24px;
+  overflow: hidden;
+  height: 240px;
+  border: 1px solid #EAE1D5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  background-color: #EDE4D8;
+}
+
+.ct-application-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ct-contact-note {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+}
+
+.ct-contact-note span {
+  font-size: 1.5rem;
+  color: #7B1131;
+  flex-shrink: 0;
+}
+
+.ct-contact-note strong {
+  display: block;
+  color: #3A1D1D;
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.ct-contact-note p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6E5652;
+  line-height: 1.5;
+}
+
+/* Form Card */
+.ct-form-card {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 28px;
+  padding: 2.25rem 1.75rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .ct-form-card {
+    padding: 3rem 2.5rem;
+  }
+}
+
+.ct-form-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.ct-form-heading h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.ct-form-heading p {
+  color: #8C7672;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.ct-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .ct-form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ct-full {
+  grid-column: 1 / -1;
+}
+
+.ct-field label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #3A1D1D;
+}
+
+.ct-field input,
+.ct-field select,
+.ct-field textarea {
+  padding: 0.8rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #D9CDC4;
+  background-color: #FAF8F5;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #3A1D1D;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ct-field input:focus,
+.ct-field select:focus,
+.ct-field textarea:focus {
+  border-color: #7B1131;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 0 3px rgba(123, 17, 49, 0.12);
+}
+
+.ct-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.ct-consent input[type="checkbox"] {
+  margin-top: 0.25rem;
+  accent-color: #7B1131;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.ct-consent span {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #6E5652;
+}
+
+.ct-submit-btn {
+  width: 100%;
+  background-color: #7B1131;
+  color: #FFFFFF;
+  padding: 1rem;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 24px rgba(123, 17, 49, 0.25);
+  font-family: inherit;
+}
+
+.ct-submit-btn:hover:not(:disabled) {
+  background-color: #5A0C24;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.32);
+}
+
+.ct-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.ct-form-note {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #8C7672;
+  margin: 0.85rem 0 0;
+}
+
+.ct-message {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.ct-message.success {
+  background-color: #EBF7EE;
+  color: #1E7036;
+  border: 1px solid #C4E7CB;
+}
+
+.ct-message.error {
+  background-color: #FDF0F2;
+  color: #9E1F38;
+  border: 1px solid #F5C6CE;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* 3. SECTION 2: WHY SEYOL                                                   */
+/* ───────────────────────────────────────────────────────────────────────── */
+
+.ct-different {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  border-top: 1px solid #EAE1D5;
+}
+
+.ct-section-heading {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ct-section-heading h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.ct-section-heading h2 span {
+  color: #7B1131;
+  font-style: italic;
+}
+
+.ct-section-heading p {
+  color: #6E5652;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.ct-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3.5rem;
+}
+
+.ct-benefit-card {
+  position: relative;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 24px;
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.ct-benefit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(123, 17, 49, 0.1);
+  border-color: rgba(123, 17, 49, 0.3);
+}
+
+.ct-benefit-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #F8EBEF;
+  color: #7B1131;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.ct-card-number {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #D9CDC4;
+}
+
+.ct-benefit-card h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #3A1D1D;
+  margin: 0.25rem 0 0;
+}
+
+.ct-benefit-card p {
+  font-size: 0.925rem;
+  line-height: 1.6;
+  color: #6E5652;
+  margin: 0;
+}
+
+/* Values Banner */
+.ct-values-banner {
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #7B1131 0%, #5E0C24 60%, #46081A 100%);
+  color: #FAF6EE;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  border: 1px solid rgba(200, 164, 93, 0.35);
+  box-shadow: 0 16px 36px rgba(123, 17, 49, 0.16);
+}
+
+@media (min-width: 860px) {
+  .ct-values-banner {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+.ct-values-banner > div {
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .ct-values-banner > div {
+    padding: 3.5rem 3rem;
+  }
+}
+
+.ct-values-banner h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.75rem, 2.5vw, 2.35rem);
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.ct-values-banner p {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #F3DFD8;
+  margin: 0;
+}
+
+.ct-values-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 280px;
+  display: block;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* 4. SECTION 3: PROCESS                                                     */
+/* ───────────────────────────────────────────────────────────────────────── */
+
+.ct-process {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 5rem 1.5rem;
+  border-top: 1px solid #EAE1D5;
+}
+
+.ct-process-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (min-width: 992px) {
+  .ct-process-layout {
+    grid-template-columns: 1fr 1.25fr;
+    gap: 3rem;
+  }
+}
+
+.ct-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ct-step-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.35rem;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 18px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  width: 100%;
+}
+
+.ct-step-item:hover {
+  border-color: #7B1131;
+  background-color: #FDFBFA;
+}
+
+.ct-step-item.active {
+  background-color: #7B1131;
+  border-color: #7B1131;
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(123, 17, 49, 0.25);
+}
+
+.ct-step-number {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #A6833D;
+}
+
+.ct-step-item.active .ct-step-number {
+  color: #E4CF9E;
+}
+
+.ct-step-icon {
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAF5EE;
+  border-radius: 50%;
+  color: #7B1131;
+  flex-shrink: 0;
+}
+
+.ct-step-item.active .ct-step-icon {
+  background-color: rgba(255, 255, 255, 0.18);
+  color: #FFFFFF;
+}
+
+.ct-step-title {
+  flex: 1;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #3A1D1D;
+}
+
+.ct-step-item.active .ct-step-title {
+  color: #FFFFFF;
+}
+
+.ct-step-arrow {
+  color: #A6833D;
+  font-weight: 700;
+  transition: transform 0.2s ease;
+}
+
+.ct-step-item.active .ct-step-arrow {
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+/* Step Detail Box */
+.ct-step-detail {
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 28px;
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  justify-content: space-between;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .ct-step-detail {
+    padding: 3rem 2.5rem;
+  }
+}
+
+.ct-step-detail-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #F8EBEF;
+  color: #7B1131;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.ct-step-detail h3 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0;
+}
+
+.ct-step-detail p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #6E5652;
+  margin: 0;
+}
+
+.ct-step-navigation {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ct-step-navigation button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.ct-step-navigation button:first-child {
+  background-color: #FAF5EE;
+  border: 1px solid #D9CDC4;
+  color: #3A1D1D;
+}
+
+.ct-step-navigation button:first-child:hover:not(:disabled) {
+  background-color: #F3ECE2;
+}
+
+.ct-step-navigation button:last-child {
+  background-color: #7B1131;
+  border: 1px solid #7B1131;
+  color: #FFFFFF;
+}
+
+.ct-step-navigation button:last-child:hover:not(:disabled) {
+  background-color: #5A0C24;
+}
+
+.ct-step-navigation button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ct-progress {
+  height: 6px;
+  background-color: #EAE1D5;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.ct-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7B1131, #C8A45D);
+  transition: width 0.3s ease;
+}
+
+/* ───────────────────────────────────────────────────────────────────────── */
+/* 5. BOTTOM CTA                                                             */
+/* ───────────────────────────────────────────────────────────────────────── */
+
+.ct-bottom {
+  max-width: 1280px;
+  margin: 4rem auto 0;
+  padding: 3rem 2rem;
+  background-color: #FFFFFF;
+  border: 1px solid #EAE1D5;
+  border-radius: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 640px) {
+  .ct-bottom {
+    padding: 3.5rem 3.5rem;
+  }
+}
+
+.ct-bottom h2 {
+  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: 800;
+  color: #3A1D1D;
+  margin: 0.75rem 0 0;
+  line-height: 1.25;
+}
+
+.ct-bottom p {
+  color: #6E5652;
+  font-size: 1rem;
+  margin: 0.5rem 0 0;
+}
+
+.ct-bottom-btn {
+  background-color: #7B1131;
+  color: #FFFFFF !important;
+  padding: 0.95rem 2.25rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 8px 22px rgba(123, 17, 49, 0.25);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ct-bottom-btn:hover {
+  background-color: #5A0C24;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(123, 17, 49, 0.32);
+}

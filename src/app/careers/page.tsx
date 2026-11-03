@@ -29,6 +29,7 @@ import CareerGrowthExpectations from '../../components/interactive/CareerGrowthE
 import WhatSEYOLLooksFor from '../../components/interactive/WhatSEYOLLooksFor';
 import StayConnectedResources from '../../components/interactive/StayConnectedResources';
 import SeyolTrainingSections from '../../components/interactive/SeyolTrainingSections';
+import SeyolCareersTraining from '../../components/interactive/SeyolCareersTraining';
 
 export default function CareersPage() {
   const [selectedPathwayId, setSelectedPathwayId] = useState<SeyolCareerPathwayId>('pathway-1-foundation');
@@ -380,6 +381,9 @@ export default function CareersPage() {
 
       {/* 6. What SEYOL Looks For Section */}
       <WhatSEYOLLooksFor />
+
+      {/* 6B. SEYOL Careers & Training Interactive Section */}
+      <SeyolCareersTraining />
 
       {/* 6. Interactive Caregiver Application Wizard Section */}
       <section ref={applySectionRef} id="apply-wizard" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
