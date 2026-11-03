@@ -217,22 +217,25 @@ export const Header: React.FC = () => {
                       {/* Classes Dropdown */}
                       {link.key === 'classes' && (
                         <div
-                          className="w-[480px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
+                          className="w-[500px] bg-white border border-neutral-200 shadow-[0_25px_60px_rgba(0,0,0,0.22)] rounded-3xl p-5 text-left"
                           style={{ backgroundColor: '#ffffff' }}
                         >
-                          <div className="space-y-1">
+                          <div className="space-y-1 max-h-[460px] overflow-y-auto pr-1">
                             {[
-                              { name: 'Antenatal & Physiological Birth Preparation', desc: 'Labor breathing, positions and partner support', href: '/classes' },
-                              { name: 'Newborn Care & Infant Massage Masterclass', desc: 'Hands-on bathing holds, colic relief and soothing', href: '/classes' },
-                              { name: 'Traditional Postpartum Recovery & Nutrition', desc: 'Sacred first 40 days healing and herbal foods', href: '/classes' },
-                              { name: 'Grandparents & Partner Care Workshop', desc: 'Bridging traditional rituals with safe clinical practice', href: '/classes' },
-                              { name: 'Private 1-on-1 In-Home Masterclass', desc: 'Customised private guidance for parents', href: '/classes' },
+                              { name: 'Traditional Baby Massage & Bath Workshop', desc: 'Indian newborn bodywork, safe head holding & warm bath rituals', href: '/classes/traditional-baby-massage-and-bath-workshop' },
+                              { name: 'Newborn Care Essentials', desc: 'Paediatric sleep, soothing, swaddling & newborn hygiene', href: '/classes/newborn-care-essentials-for-modern-parents' },
+                              { name: 'Postpartum & Confinement Preparation', desc: 'Sacred fourth trimester healing, recovery & maternal nourishment', href: '/classes/postpartum-and-confinement-preparation' },
+                              { name: 'Preparing for Birth with SEYOL', desc: 'Comfort techniques, labour physiology & confident birth support', href: '/classes/preparing-for-birth-with-seyol' },
+                              { name: 'Breastfeeding & Bottle Feeding Basics', desc: 'Pain-free latching, milk supply establishment & bottle feeding', href: '/classes/breastfeeding-and-bottle-feeding-basics' },
+                              { name: 'Prenatal Movement & Comfort', desc: 'Pelvic alignment, gentle movement & pregnancy tension relief', href: '/classes/prenatal-movement-and-pelvic-comfort' },
+                              { name: 'Pregnancy to Postpartum Nourishment', desc: 'Ayurvedic & Siddha confinement nutrition, herbs & healing foods', href: '/classes/pregnancy-to-postpartum-traditional-nourishment' },
+                              { name: 'Partner & Family Preparation', desc: 'Hands-on partner labour support, newborn bonding & home setup', href: '/classes/partner-and-family-preparation-for-baby' },
                             ].map((cls) => (
                               <Link
                                 key={cls.name}
                                 href={cls.href}
                                 onClick={() => setActiveDropdown(null)}
-                                className="p-2.5 hover:bg-[#FAF6EE] rounded-xl transition-all block group/item"
+                                className="p-2 hover:bg-[#FAF6EE] rounded-xl transition-all block group/item"
                               >
                                 <div className="text-xs font-bold text-neutral-900 group-hover/item:text-[#7B1131] transition-colors">
                                   {cls.name}
