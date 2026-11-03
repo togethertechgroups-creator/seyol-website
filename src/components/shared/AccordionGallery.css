@@ -129,7 +129,7 @@
 
 .ag-panel__text {
   color: var(--ag-text);
-  font-family: var(--font-serif), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-weight: 700;
   font-size: clamp(0.92rem, 1.1vw, 1.3rem);
   letter-spacing: -0.01em;
@@ -143,7 +143,7 @@
 
 .ag-panel__subtitle {
   color: #e4cf9e;
-  font-family: var(--font-sans), sans-serif;
+  font-family: 'Lato', var(--font-lato), sans-serif;
   font-size: clamp(0.72rem, 0.8vw, 0.82rem);
   font-weight: 500;
   letter-spacing: 0.01em;

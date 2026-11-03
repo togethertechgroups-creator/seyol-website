@@ -45,7 +45,7 @@
 }
 
 .seyol-bundles-heading h2 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: clamp(2rem, 3.2vw, 2.75rem);
   font-weight: 800;
   line-height: 1.25;
@@ -185,7 +185,7 @@
 }
 
 .seyol-bundle-content h3 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -326,7 +326,7 @@
 }
 
 .seyol-bundle-footer h3 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.5rem;
   font-weight: 800;
   color: #3A1D1D;
@@ -420,7 +420,7 @@
 }
 
 .seyol-bundle-modal h3 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.6rem;
   font-weight: 800;
   color: #3A1D1D;
@@ -478,7 +478,7 @@
   font-weight: 800;
   color: #7B1131;
   margin-bottom: 1.25rem;
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
 }
 
 .seyol-bundle-modal .seyol-bundle-buy {

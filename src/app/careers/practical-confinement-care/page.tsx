@@ -80,7 +80,7 @@ export default function PracticalConfinementCare() {
           --line: #E8DCD3;
           background: var(--cream);
           color: var(--ink);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
         }
 
         .seyol-page * { box-sizing: border-box; }
@@ -122,7 +122,7 @@ export default function PracticalConfinementCare() {
           max-width: 700px;
           margin: 18px 0;
           color: var(--maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(38px, 5vw, 62px);
           font-weight: 500;
           line-height: 1.1;
@@ -185,7 +185,7 @@ export default function PracticalConfinementCare() {
         .seyol-section-heading h2 {
           margin: 12px 0;
           color: var(--maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(30px, 4vw, 42px);
           font-weight: 500;
           line-height: 1.2;
@@ -211,7 +211,7 @@ export default function PracticalConfinementCare() {
         .seyol-info-card h3 {
           margin: 0 0 12px;
           color: var(--maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 23px;
           font-weight: 500;
         }
@@ -234,7 +234,7 @@ export default function PracticalConfinementCare() {
           gap: 8px;
           margin-bottom: 20px;
           color: #721832;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 16px;
           font-weight: 700;
         }
@@ -267,7 +267,7 @@ export default function PracticalConfinementCare() {
         .seyol-module-title {
           margin: 0 0 12px;
           color: var(--maroon);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
           font-size: 16px;
           font-weight: 700;
           line-height: 1.4;
@@ -331,7 +331,7 @@ export default function PracticalConfinementCare() {
         .seyol-module-number {
           flex: 0 0 42px;
           color: #B18B79;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 25px;
         }
 
@@ -362,7 +362,7 @@ export default function PracticalConfinementCare() {
 
         .seyol-step h3 {
           color: var(--maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 22px;
           font-weight: 500;
         }
@@ -386,7 +386,7 @@ export default function PracticalConfinementCare() {
         .seyol-faq-heading h2 {
           margin: 12px 0 0;
           color: var(--maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(30px, 4vw, 42px);
           font-weight: 500;
           line-height: 1.2;
@@ -433,7 +433,7 @@ export default function PracticalConfinementCare() {
         .seyol-cta h2 {
           margin: 0 auto 14px;
           max-width: 680px;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(30px, 4vw, 43px);
           font-weight: 500;
         }

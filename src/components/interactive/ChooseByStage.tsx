@@ -54,7 +54,7 @@ export default function ChooseByStage({
           padding: 60px 0 68px;
           background: var(--cs-cream);
           color: var(--cs-text);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
           border-bottom: 1px solid var(--cs-border);
         }
 
@@ -76,7 +76,7 @@ export default function ChooseByStage({
         .stage-heading h2 {
           margin: 0 0 10px;
           color: var(--cs-maroon);
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(28px, 3.5vw, 40px);
           font-weight: 500;
           line-height: 1.25;
@@ -146,7 +146,7 @@ export default function ChooseByStage({
         .stage-card h3 {
           margin: 0 0 6px;
           color: var(--cs-maroon);
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 17px;
           font-weight: 600;
           line-height: 1.3;

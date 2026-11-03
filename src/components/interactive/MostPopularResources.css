@@ -50,7 +50,7 @@
 }
 
 .sey-popular-heading h2 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   color: #3A1D1D;
@@ -213,7 +213,7 @@
 }
 
 .sey-popular-card-content h3 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -302,7 +302,7 @@
 }
 
 .sey-popular-cta h3 {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.5rem;
   font-weight: 800;
   color: #3A1D1D;

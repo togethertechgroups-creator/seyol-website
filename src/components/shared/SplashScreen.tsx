@@ -309,7 +309,7 @@ export function SplashScreen({ onComplete }: { onComplete?: () => void }) {
           alignItems: "center",
           justifyContent: "center",
           fontWeight: 700,
-          fontFamily: '"Playfair Display", "Cinzel", Georgia, serif',
+          fontFamily: '"Garet", var(--font-garet), sans-serif',
           filter: "url(#seyol-slogan-goo)",
           margin: "0 auto",
         }}>
@@ -363,7 +363,7 @@ export function SplashScreen({ onComplete }: { onComplete?: () => void }) {
         {/* Subtitle */}
         <p style={{
           color: "#e4cf9e",
-          fontFamily: '"Playfair Display", "Cinzel", Georgia, serif',
+          fontFamily: '"Garet", var(--font-garet), sans-serif',
           fontSize: "clamp(0.72rem, 1.8vw, 0.9rem)",
           letterSpacing: "0.22em",
           textTransform: "uppercase",

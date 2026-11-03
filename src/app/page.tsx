@@ -489,7 +489,7 @@ export default function HomePage() {
                   Headquartered in Singapore, <strong className="text-brown">SEYOL</strong> is a family business led by <strong className="text-maroon font-bold">Mrs. Jemma Francis</strong>, a Certified Birth &amp; Postpartum Doula and Childbirth Educator.
                 </p>
 
-                <p className="font-valentina text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
+                <p className="font-playfair italic text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
                   &ldquo;Embrace the warmth of Indian tradition coupled with our passion and dedication at SEYOL, your trusted partner in the beautiful journey to parenthood!&rdquo;
                 </p>
               </div>

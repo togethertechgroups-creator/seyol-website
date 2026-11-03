@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Playfair_Display, Lato, Cinzel } from 'next/font/google';
+import { Playfair_Display, Lato } from 'next/font/google';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Header } from '../components/layout/Header';
@@ -23,6 +23,7 @@ const playfair = Playfair_Display({
   subsets: ['latin'],
   variable: '--font-playfair',
   display: 'swap',
+  style: ['normal', 'italic'],
 });
 
 const lato = Lato({
@@ -30,35 +31,12 @@ const lato = Lato({
   subsets: ['latin'],
   variable: '--font-lato',
   display: 'swap',
-});
-
-const cinzel = Cinzel({
-  subsets: ['latin'],
-  variable: '--font-cinzel',
-  display: 'swap',
+  style: ['normal', 'italic'],
 });
 
 const garet = localFont({
   src: '../../public/fonts/Garet-Medium.otf',
   variable: '--font-garet',
-  display: 'swap',
-});
-
-const josephSophia = localFont({
-  src: '../../public/fonts/josephsophia.otf',
-  variable: '--font-josephsophia',
-  display: 'swap',
-});
-
-const helloValentina = localFont({
-  src: '../../public/fonts/hello-valentina.ttf',
-  variable: '--font-valentina',
-  display: 'swap',
-});
-
-const rusticDelight = localFont({
-  src: '../../public/fonts/rustic-delight.ttf',
-  variable: '--font-rustic-delight',
   display: 'swap',
 });
 
@@ -100,7 +78,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en-GB" className={`${garet.variable} ${playfair.variable} ${lato.variable} ${cinzel.variable} ${josephSophia.variable} ${helloValentina.variable} ${rusticDelight.variable}`}>
+    <html lang="en-GB" className={`${garet.variable} ${playfair.variable} ${lato.variable}` }>
       <body className="bg-cream text-brown min-h-screen flex flex-col antialiased selection:bg-maroon selection:text-cream-light">
         <AuthProvider>
           <VisitorJourneyProvider>

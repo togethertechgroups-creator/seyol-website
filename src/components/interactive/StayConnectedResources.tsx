@@ -71,7 +71,7 @@ export default function StayConnectedResources() {
           padding: 78px 0;
           background: var(--sc-cream);
           color: var(--sc-ink);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
         }
 
         .seyol-connect * {
@@ -102,7 +102,7 @@ export default function StayConnectedResources() {
         }
 
         .sc-newsletter h2 {
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-weight: 500;
           line-height: 1.2;
           max-width: 700px;

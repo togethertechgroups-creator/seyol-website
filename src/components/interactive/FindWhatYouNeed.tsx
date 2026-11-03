@@ -102,7 +102,7 @@ export default function FindWhatYouNeed({
           padding: 64px 0 72px;
           background: var(--fwn-cream);
           color: var(--fwn-text);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
           border-bottom: 1px solid var(--fwn-border);
         }
 
@@ -124,7 +124,7 @@ export default function FindWhatYouNeed({
         .find-heading h2 {
           margin: 0 0 10px;
           color: var(--fwn-maroon);
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(28px, 3.5vw, 40px);
           font-weight: 500;
           line-height: 1.25;
@@ -227,7 +227,7 @@ export default function FindWhatYouNeed({
         .results-heading h3 {
           margin: 0;
           color: var(--fwn-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 17px;
           font-weight: 600;
         }
@@ -263,7 +263,7 @@ export default function FindWhatYouNeed({
         .resource-result strong {
           display: block;
           color: var(--fwn-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 15px;
           font-weight: 600;
           line-height: 1.35;
@@ -313,7 +313,7 @@ export default function FindWhatYouNeed({
         .suggested-panel h3 {
           margin: 0 0 8px;
           color: var(--fwn-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 18px;
           font-weight: 600;
         }

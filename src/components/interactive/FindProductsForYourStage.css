@@ -63,7 +63,7 @@
 }
 
 .stage-heading h2 {
-  font-family: 'Garet', var(--font-garet), var(--font-playfair), Georgia, serif;
+  font-family: 'Garet', var(--font-garet), var(--font-playfair), serif;
   font-size: 2.15rem;
   line-height: 1.15;
   font-weight: 800;
@@ -85,7 +85,7 @@
 }
 
 .stage-heading h2 em {
-  font-family: 'PlayfairDisplay', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-style: italic;
   font-weight: 500;
   color: #7B1131;
@@ -254,7 +254,7 @@
 }
 
 .stage-card-content h3 {
-  font-family: 'Garet', var(--font-garet), var(--font-playfair), Georgia, serif;
+  font-family: 'Garet', var(--font-garet), var(--font-playfair), serif;
   font-size: 1.35rem;
   font-weight: 800;
   color: #3A1D1D;

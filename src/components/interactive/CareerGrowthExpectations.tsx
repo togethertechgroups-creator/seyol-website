@@ -62,7 +62,7 @@ export default function CareerGrowthExpectations() {
           padding: 80px 0;
           background: var(--cg-cream);
           color: var(--cg-text);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
         }
 
         .career-growth * {
@@ -91,7 +91,7 @@ export default function CareerGrowthExpectations() {
         .cg-heading h2 {
           margin: 15px 0;
           color: var(--cg-maroon);
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(32px, 4vw, 48px);
           font-weight: 500;
           line-height: 1.2;
@@ -138,7 +138,7 @@ export default function CareerGrowthExpectations() {
 
         .cg-banner-content h3 {
           margin: 12px 0 0;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(27px, 3vw, 38px);
           font-weight: 500;
           line-height: 1.3;
@@ -174,7 +174,7 @@ export default function CareerGrowthExpectations() {
 
         .cg-stage-number {
           color: #B18B79;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 25px;
         }
 
@@ -191,7 +191,7 @@ export default function CareerGrowthExpectations() {
         .cg-stage h3 {
           margin: 0 0 10px;
           color: var(--cg-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 21px;
           font-weight: 500;
           line-height: 1.35;
@@ -217,7 +217,7 @@ export default function CareerGrowthExpectations() {
         .cg-expectations h3 {
           margin: 12px 0;
           color: var(--cg-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 32px;
           font-weight: 500;
           line-height: 1.25;
@@ -273,7 +273,7 @@ export default function CareerGrowthExpectations() {
 
         .cg-cta h3 {
           margin: 0 0 8px;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 26px;
           font-weight: 500;
         }

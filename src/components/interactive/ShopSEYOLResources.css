@@ -7,7 +7,7 @@
   padding: 72px 0 80px;
   background: var(--ss-cream);
   color: var(--ss-text);
-  font-family: Inter, Arial, sans-serif;
+  font-family: 'Lato', var(--font-lato), sans-serif;
   border-bottom: 1px solid var(--ss-border);
   scroll-margin-top: 80px;
 }
@@ -37,7 +37,7 @@
 .shop-heading h2 {
   margin: 0 0 12px;
   color: var(--ss-maroon);
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: clamp(30px, 4vw, 44px);
   font-weight: 500;
   line-height: 1.25;
@@ -178,7 +178,7 @@
 
 .shop-results-heading h3 {
   margin: 0;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 20px;
   color: var(--ss-maroon);
   font-weight: 600;
@@ -262,7 +262,7 @@
 
 .seyol-product-content h3 {
   margin: 0 0 8px;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 18px;
   font-weight: 600;
   color: var(--ss-maroon);
@@ -398,7 +398,7 @@
 
 .shop-empty h3 {
   margin: 0 0 6px;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 18px;
   color: var(--ss-maroon);
 }
@@ -447,7 +447,7 @@
 
 .shop-help-banner h3 {
   margin: 0 0 6px;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 22px;
   font-weight: 500;
   color: #FAF5ED;
@@ -537,7 +537,7 @@
 .seyol-product-modal h2 {
   margin: 4px 0 10px;
   color: var(--ss-maroon);
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 22px;
   font-weight: 600;
   padding-right: 36px;
@@ -553,7 +553,7 @@
 .seyol-product-modal h3 {
   margin: 18px 0 10px;
   color: var(--ss-maroon);
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 16px;
   font-weight: 600;
 }

@@ -93,7 +93,7 @@ export default function FoundationConfinementCare() {
           --line: #E7DAD1;
           background: var(--cream);
           color: var(--ink);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
         }
 
         .foundation-page * { box-sizing: border-box; }
@@ -117,7 +117,7 @@ export default function FoundationConfinementCare() {
         }
 
         .foundation-logo {
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 27px;
           letter-spacing: 2px;
         }
@@ -159,7 +159,7 @@ export default function FoundationConfinementCare() {
         .foundation-page h1,
         .foundation-page h2,
         .foundation-page h3 {
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-weight: 500;
         }
 
@@ -265,7 +265,7 @@ export default function FoundationConfinementCare() {
           gap: 8px;
           margin-bottom: 20px;
           color: #721832;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 16px;
           font-weight: 700;
         }
@@ -298,7 +298,7 @@ export default function FoundationConfinementCare() {
         .foundation-module-title {
           margin: 0 0 12px;
           color: var(--maroon);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
           font-size: 16px;
           font-weight: 700;
           line-height: 1.4;
@@ -363,7 +363,7 @@ export default function FoundationConfinementCare() {
         .foundation-number {
           flex: 0 0 40px;
           color: #B18B79;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 25px;
         }
 

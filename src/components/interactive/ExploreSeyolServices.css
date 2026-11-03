@@ -57,7 +57,7 @@
 }
 
 .seyol-services-heading h2 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 2.25rem;
   line-height: 1.2;
   font-weight: 800;
@@ -162,7 +162,7 @@
 }
 
 .seyol-service-number {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.15rem;
   font-weight: 700;
   color: #C8A45D;
@@ -175,7 +175,7 @@
 }
 
 .seyol-service-content h3 {
-  font-family: 'Playfair Display', var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
   font-size: 1.35rem;
   font-weight: 700;
   color: #3A1D1D;

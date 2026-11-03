@@ -14,8 +14,8 @@
     --gold-light: #e4cf9e;
     --gold-dark: #a6833d;
     --text-brown: #3a1d1d;
-    --font-heading: var(--font-playfair), 'Cinzel', Georgia, serif;
-    --font-body: var(--font-lato), system-ui, -apple-system, sans-serif;
+    --font-heading: 'Garet', var(--font-garet), sans-serif;
+    --font-body: 'Lato', var(--font-lato), sans-serif;
   }
 
   html {
@@ -25,7 +25,7 @@
   }
 
   body {
-    font-family: var(--font-lato), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Lato', var(--font-lato), sans-serif;
     background-color: #f7f4ef;
     color: #3a1d1d;
     line-height: 1.65;
@@ -34,7 +34,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-playfair), 'Cinzel', Georgia, serif;
+    font-family: 'Garet', var(--font-garet), sans-serif;
     color: #3a1d1d;
     letter-spacing: -0.015em;
   }
@@ -42,15 +42,15 @@
 
 /* Editorial Brand Enhancements */
 .font-display {
-  font-family: var(--font-cinzel), var(--font-playfair), Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
 }
 
 .font-serif {
-  font-family: var(--font-playfair), Georgia, serif;
+  font-family: 'Playfair Display', var(--font-playfair), serif;
 }
 
 .font-sans {
-  font-family: var(--font-lato), -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Lato', var(--font-lato), sans-serif;
 }
 
 .gold-gradient-text {

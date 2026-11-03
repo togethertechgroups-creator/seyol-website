@@ -11,22 +11,6 @@
 }
 
 @font-face {
-  font-family: 'HelloValentina';
-  src: url('/fonts/hello-valentina.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'RusticDelight';
-  src: url('/fonts/rustic-delight.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'PlayfairDisplay';
   src: url('/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
   font-weight: 100 900;
@@ -46,18 +30,18 @@
     --gold-light: #e4cf9e;
     --gold-dark: #a6833d;
     --text-brown: #3a1d1d;
-    --font-heading: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-primary: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-body: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-sans: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-serif: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Garet', var(--font-garet), sans-serif;
+    --font-primary: 'Garet', var(--font-garet), sans-serif;
+    --font-body: 'Lato', var(--font-lato), sans-serif;
+    --font-sans: 'Lato', var(--font-lato), sans-serif;
+    --font-serif: 'Playfair Display', var(--font-playfair), serif;
   }
 
   html {
     scroll-behavior: auto;
     background-color: #f7f4ef;
     color: #3a1d1d;
-    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Lato', var(--font-lato), sans-serif;
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
@@ -66,7 +50,7 @@
 
   body {
     margin: 0;
-    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Lato', var(--font-lato), sans-serif;
     background-color: #f7f4ef;
     color: #3a1d1d;
     line-height: 1.65;
@@ -93,7 +77,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Garet', var(--font-garet), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Garet', var(--font-garet), sans-serif;
     color: #3a1d1d;
     letter-spacing: -0.015em;
   }

@@ -18,7 +18,7 @@
 .resource-bundles-heading h2 {
   margin: 0 0 10px;
   color: #651f32;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 28px;
   font-weight: 600;
 }
@@ -54,7 +54,7 @@
 .complete-bundle-card h3 {
   margin: 0 0 12px;
   color: #fffaf5;
-  font-family: Georgia, serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 22px;
   font-weight: 600;
   line-height: 1.35;

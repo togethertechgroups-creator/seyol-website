@@ -62,7 +62,7 @@ export default function WhatSEYOLLooksFor() {
           padding: 80px 0;
           background: var(--seyol-cream);
           color: var(--seyol-ink);
-          font-family: Inter, Arial, sans-serif;
+          font-family: 'Lato', var(--font-lato), sans-serif;
         }
 
         .seyol-expectations * {
@@ -91,7 +91,7 @@ export default function WhatSEYOLLooksFor() {
         .seyol-expectations-heading h2 {
           margin: 14px 0;
           color: var(--seyol-maroon);
-          font-family: Georgia, "Times New Roman", serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: clamp(32px, 4vw, 46px);
           font-weight: 500;
           line-height: 1.2;
@@ -134,14 +134,14 @@ export default function WhatSEYOLLooksFor() {
           border-radius: 14px;
           background: #F7F0E8;
           color: var(--seyol-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 28px;
         }
 
         .seyol-quality-card h3 {
           margin: 0 0 12px;
           color: var(--seyol-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 20px;
           font-weight: 500;
           line-height: 1.35;
@@ -167,7 +167,7 @@ export default function WhatSEYOLLooksFor() {
         .seyol-expectations-panel h3 {
           margin: 12px 0;
           color: var(--seyol-maroon);
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 30px;
           font-weight: 500;
           line-height: 1.3;
@@ -224,7 +224,7 @@ export default function WhatSEYOLLooksFor() {
 
         .seyol-expectations-cta h3 {
           margin: 0 0 9px;
-          font-family: Georgia, serif;
+          font-family: 'Garet', var(--font-garet), sans-serif;
           font-size: 27px;
           font-weight: 500;
         }
