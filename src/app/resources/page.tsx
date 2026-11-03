@@ -35,6 +35,7 @@ import ChooseByStage from '../../components/interactive/ChooseByStage';
 import FindWhatYouNeed from '../../components/interactive/FindWhatYouNeed';
 import MostPopularResources from '../../components/interactive/MostPopularResources';
 import ShopSEYOLResources from '../../components/interactive/ShopSEYOLResources';
+import SeyolResourceBundles from '../../components/interactive/SeyolResourceBundles';
 import ResourceBundles from '../../components/interactive/ResourceBundles';
 import FreeBiteSizedLearning from '../../components/interactive/FreeBiteSizedLearning';
 
@@ -234,6 +235,11 @@ export default function ResourcesPage() {
           />
         </div>
       </div>
+
+      {/* 5B. The SEYOL Resource Collection (Bundles) */}
+      <SeyolResourceBundles
+        onCheckout={() => handleOpenWizard('bundle-seyol-complete-master')}
+      />
 
       {/* Access the SEYOL Video Library */}
       <section id="video-library" className="py-16 px-4 sm:px-6 lg:px-8 bg-cream border-t border-cream-border scroll-mt-20">
