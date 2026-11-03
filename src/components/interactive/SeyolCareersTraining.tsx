@@ -168,10 +168,6 @@ export function SeyolCareersTraining() {
       {/* SECTION 1: APPLICATION FORM */}
       <section className="ct-application" id="ct-application">
         <div className="ct-application-intro">
-          <span className="ct-eyebrow">
-            01 — JOIN OUR TEAM
-          </span>
-
           <h2>
             Apply to <span>Join SEYOL</span>
           </h2>
@@ -181,14 +177,6 @@ export function SeyolCareersTraining() {
             our training programmes? Tell us a little about
             yourself and what you are looking for.
           </p>
-
-          <div className="ct-application-image">
-            <img
-              src="/images/seyol-join-team.jpg"
-              alt="SEYOL career and training"
-              loading="lazy"
-            />
-          </div>
 
           <div className="ct-contact-note">
             <span>♡</span>
@@ -204,7 +192,6 @@ export function SeyolCareersTraining() {
 
         <div className="ct-form-card">
           <div className="ct-form-heading">
-            <span className="ct-eyebrow">GET STARTED</span>
             <h3>Your Application</h3>
             <p>Fields marked with * are required.</p>
           </div>
