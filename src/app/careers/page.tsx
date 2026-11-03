@@ -30,6 +30,7 @@ import WhatSEYOLLooksFor from '../../components/interactive/WhatSEYOLLooksFor';
 import StayConnectedResources from '../../components/interactive/StayConnectedResources';
 import SeyolTrainingSections from '../../components/interactive/SeyolTrainingSections';
 import SeyolCareersTraining from '../../components/interactive/SeyolCareersTraining';
+import SeyolGuidanceForm from '../../components/interactive/SeyolGuidanceForm';
 
 export default function CareersPage() {
   const [selectedPathwayId, setSelectedPathwayId] = useState<SeyolCareerPathwayId>('pathway-1-foundation');
@@ -490,6 +491,9 @@ export default function CareersPage() {
           </div>
         </div>
       </section>
+
+      {/* 8B. SEYOL Guidance Enquiry Form */}
+      <SeyolGuidanceForm />
 
       {/* 9. Stay Connected with SEYOL & Resources */}
       <StayConnectedResources />
