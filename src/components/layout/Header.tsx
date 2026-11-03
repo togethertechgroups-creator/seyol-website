@@ -81,9 +81,9 @@ export const Header: React.FC = () => {
         return 'left-0';
       case 'classes':
         return 'left-0';
-      case 'resources':
-        return 'left-1/2 -translate-x-1/2';
       case 'careers':
+        return 'left-1/2 -translate-x-1/2';
+      case 'resources':
         return 'right-0';
       default:
         return 'left-1/2 -translate-x-1/2';
@@ -95,9 +95,9 @@ export const Header: React.FC = () => {
     { name: 'Services', href: '/services', key: 'services' },
     { name: 'Classes', href: '/classes', key: 'classes' },
     { name: 'Products', href: '/products' },
+    { name: 'Careers', shortName: 'Careers', longName: 'Careers & Training', href: '/careers', key: 'careers' },
     { name: 'Resources', href: '/resources', key: 'resources' },
     { name: 'Our Story', href: '/our-story' },
-    { name: 'Careers', shortName: 'Careers', longName: 'Careers & Training', href: '/careers', key: 'careers' },
   ];
 
   return (
