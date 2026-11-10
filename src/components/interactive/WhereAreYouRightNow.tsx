@@ -5,16 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { 
   Heart, 
-  Baby, 
-  Sparkles, 
   ShieldCheck, 
   GraduationCap, 
   ArrowRight, 
-  CheckCircle2, 
   Clock, 
-  Calendar,
-  Flower2,
-  BookOpen
+  Flower2
 } from 'lucide-react';
 import { useFifteenMinuteCall } from '../../context/FifteenMinuteCallContext';
 
@@ -261,8 +256,7 @@ export const WhereAreYouRightNow: React.FC = () => {
       
       {/* ── Section Header ── */}
       <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
-        <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white/10 text-white border border-white/20 text-xs font-heading font-bold tracking-widest uppercase">
-          <Sparkles className="w-3.5 h-3.5 text-gold-light" />
+        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 text-white border border-white/20 text-xs font-heading font-bold tracking-widest uppercase">
           Where Are You Right Now?
         </span>
 
@@ -275,8 +269,8 @@ export const WhereAreYouRightNow: React.FC = () => {
         </p>
       </div>
 
-      {/* ── 5 Stage Image-Based Cards Grid ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 lg:gap-4.5">
+      {/* ── 5 Stage Image-Based Cards Grid (Uniform Dimensions & Baseline Alignment) ── */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 items-stretch">
         {STAGES.map((stage) => {
           const isSelected = selectedStage === stage.id;
 
@@ -284,10 +278,10 @@ export const WhereAreYouRightNow: React.FC = () => {
             <button
               key={stage.id}
               onClick={() => handleSelectStage(stage.id)}
-              className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[3/4] min-h-[290px] sm:min-h-[320px] lg:min-h-[340px] text-left transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 cursor-pointer shadow-warm-lg ${
+              className={`group relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[3/4] min-h-[300px] sm:min-h-[330px] lg:min-h-[350px] w-full text-left transition-all duration-200 flex flex-col justify-end p-4 sm:p-5 cursor-pointer shadow-warm-lg ${
                 isSelected
-                  ? 'ring-4 ring-white shadow-[0_20px_45px_rgba(0,0,0,0.5)] scale-[1.03] z-20'
-                  : 'border border-white/20 hover:border-white/60 hover:scale-[1.015] opacity-90 hover:opacity-100 z-10'
+                  ? 'border-2 border-white ring-2 ring-white/60 shadow-[0_20px_45px_rgba(0,0,0,0.45)] z-10'
+                  : 'border-2 border-white/20 hover:border-white/60 opacity-90 hover:opacity-100 z-0'
               }`}
             >
               {/* Background High-Quality Image */}
@@ -297,47 +291,33 @@ export const WhereAreYouRightNow: React.FC = () => {
                   alt={stage.title}
                   fill
                   unoptimized
-                  className="object-cover group-hover:scale-108 transition-transform duration-700 ease-out"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                 />
                 {/* Multi-stop High-Contrast Gradient Overlay for Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/92 via-black/45 to-black/15 z-[1]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-black/10 z-[1]" />
               </div>
 
-              {/* Card Top: Step Pill & Selection Indicator */}
-              <div className="relative z-10 flex items-center justify-between w-full">
-                <span className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/25 text-white text-[11px] font-heading font-extrabold tracking-wider">
-                  {stage.stepNumber}
-                </span>
-
-                {isSelected ? (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#7B1131] text-white text-[10.5px] font-heading font-bold border border-white/40 shadow-xs animate-fadeIn">
-                    <CheckCircle2 className="w-3 h-3 text-white" />
-                    <span>Selected</span>
+              {/* Selected Badge (Text only, absolutely positioned so it never affects layout) */}
+              {isSelected && (
+                <div className="absolute top-3.5 right-3.5 z-10">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#7B1131] text-white text-[10.5px] font-heading font-bold border border-white/40 shadow-xs">
+                    Selected
                   </span>
-                ) : (
-                  <span className="px-2 py-0.5 rounded-full bg-white/15 backdrop-blur-xs text-white/80 text-[10px] font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                    Select
-                  </span>
-                )}
-              </div>
+                </div>
+              )}
 
-              {/* Card Bottom: Typography & Summary */}
-              <div className="relative z-10 space-y-1 pt-12">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light/95 font-heading">
-                  {stage.badge}
-                </span>
-
-                <h3 className="font-heading text-lg sm:text-[19px] lg:text-lg font-extrabold text-white leading-tight drop-shadow-md">
+              {/* Card Bottom: Typography & Summary (Consistent Vertical Alignment) */}
+              <div className="relative z-10 w-full flex flex-col justify-end">
+                <h3 className="font-heading text-lg sm:text-[18px] lg:text-[17px] xl:text-[18px] font-extrabold text-white leading-snug drop-shadow-md min-h-[44px] flex items-end">
                   {stage.title}
                 </h3>
 
-                <p className="text-xs text-cream-light/80 leading-snug line-clamp-2 pt-0.5">
+                <p className="text-xs text-cream-light/85 leading-snug line-clamp-2 pt-1.5 min-h-[36px]">
                   {stage.subtitle}
                 </p>
 
-                <div className="pt-2 flex items-center gap-1.5 text-[11px] font-bold text-white group-hover:text-gold-light transition-colors">
+                <div className="pt-3 text-[11px] font-bold text-white group-hover:text-gold-light transition-colors">
                   <span>View Care Path</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             </button>
@@ -356,8 +336,7 @@ export const WhereAreYouRightNow: React.FC = () => {
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-[#E8DFD0]">
             <div className="space-y-1.5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF5F7] border border-[#E8D7DC] text-[#7B1131] text-xs font-heading font-extrabold uppercase tracking-wider">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#7B1131]" />
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#FAF5F7] border border-[#E8D7DC] text-[#7B1131] text-xs font-heading font-extrabold uppercase tracking-wider">
                 Suggested Care Path • {activeRecommendation.stageName}
               </span>
               <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#7B1131] tracking-tight">
