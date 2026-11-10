@@ -48,11 +48,14 @@ const footerColumns = [
   },
 ];
 
-const legalLinks = [
+const legalLinksRow1 = [
   ["Privacy Policy", "/legal/privacy-policy"],
   ["Cookie Policy", "/legal/cookie-policy"],
   ["Product Disclaimer", "/legal/product-disclaimer"],
   ["Service Booking Terms", "/legal/service-booking-terms"],
+];
+
+const legalLinksRow2 = [
   ["Class Terms", "/legal/class-terms"],
   ["Digital Resource Terms", "/legal/digital-resource-terms"],
   ["Employment Agency Terms", "/legal/employment-agency-terms"],
@@ -225,19 +228,37 @@ const SeyolFooter: React.FC = () => {
         {/* Bottom Legal Section */}
         <div className="seyol-footer-bottom">
           <div className="seyol-footer-legal">
-            {legalLinks.map(([label, url], index) => (
-              <React.Fragment key={label}>
-                <Link
-                  href={url}
-                  className={label === "Admin Portal" ? "seyol-footer-admin-link" : ""}
-                >
-                  {label}
-                </Link>
-                {index < legalLinks.length - 1 && (
-                  <span className="seyol-footer-dot">•</span>
-                )}
-              </React.Fragment>
-            ))}
+            <div className="seyol-footer-legal-row">
+              {legalLinksRow1.map(([label, url], index) => (
+                <React.Fragment key={label}>
+                  <Link
+                    href={url}
+                    className={label === "Admin Portal" ? "seyol-footer-admin-link" : ""}
+                  >
+                    {label}
+                  </Link>
+                  {index < legalLinksRow1.length - 1 && (
+                    <span className="seyol-footer-dot" aria-hidden="true">•</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+
+            <div className="seyol-footer-legal-row">
+              {legalLinksRow2.map(([label, url], index) => (
+                <React.Fragment key={label}>
+                  <Link
+                    href={url}
+                    className={label === "Admin Portal" ? "seyol-footer-admin-link" : ""}
+                  >
+                    {label}
+                  </Link>
+                  {index < legalLinksRow2.length - 1 && (
+                    <span className="seyol-footer-dot" aria-hidden="true">•</span>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
           </div>
 
           <p className="seyol-copyright">

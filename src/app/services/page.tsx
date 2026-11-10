@@ -31,11 +31,17 @@ export default function ServicesPage() {
   const { openEnquiry } = useQuickEnquiry();
 
   return (
-    <div className="flex flex-col w-full font-sans bg-cream text-brown">
+    <div className="flex flex-col w-full font-sans bg-cream text-brown overflow-x-hidden">
       {/* Hero Header with Full-Bleed Mother & Baby Sanctuary Background */}
-      <section className="relative overflow-hidden bg-[#FAF0EB] text-brown border-b border-[#F0DCD5] min-h-[260px] sm:min-h-[290px] md:min-h-[320px] lg:min-h-[340px] flex items-center pt-20 sm:pt-22 lg:pt-24 pb-6 sm:pb-7 px-4 sm:px-6 lg:px-8">
+      <section 
+        className="relative overflow-hidden bg-[#FAF0EB] text-brown border-b border-[#F0DCD5] min-h-[260px] sm:min-h-[290px] md:min-h-[320px] lg:min-h-[340px] flex items-center pt-20 sm:pt-22 lg:pt-24 pb-6 sm:pb-7 px-4 sm:px-6 lg:px-8"
+        style={{ position: 'relative', overflow: 'hidden', width: '100%', maxWidth: '100vw' }}
+      >
         {/* Full-Bleed Ambient Hero Background Image */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none select-none z-0">
+        <div 
+          className="absolute inset-0 w-full h-full pointer-events-none select-none z-0 overflow-hidden"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'hidden' }}
+        >
           <Image
             src={heroServiceImg}
             alt="Tender Motherhood Banner"
@@ -43,6 +49,7 @@ export default function ServicesPage() {
             priority
             unoptimized
             className="object-cover object-right md:object-center"
+            sizes="100vw"
           />
           {/* Subtle mobile-only soft blush tint so text is legible on narrow phone screens, hidden on desktop */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#FAF0EB]/95 via-[#FAF0EB]/70 to-transparent/20 lg:hidden pointer-events-none" />
