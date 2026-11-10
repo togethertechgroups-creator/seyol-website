@@ -132,14 +132,20 @@ export default function HomePage() {
         {/* ========================================================================= */}
         {/* SECTION 1: START HERE / BEGIN YOUR SEYOL CARE JOURNEY (Hero Slideshow)     */}
         {/* ========================================================================= */}
-        <section className="relative w-full px-1.5 sm:px-3 lg:px-4 pt-3.5 sm:pt-4 pb-6 sm:pb-8">
+        <section 
+          className="relative w-full px-1.5 sm:px-3 lg:px-4 pt-3.5 sm:pt-4 pb-6 sm:pb-8"
+          style={{ position: 'relative', overflow: 'hidden', width: '100%' }}
+        >
           <div
             className="relative rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden hero-viewport-height border border-gold/30 shadow-warm-lg bg-brown flex items-center justify-start"
-            style={{ marginTop: '5.5mm' }}
+            style={{ marginTop: '5.5mm', position: 'relative', overflow: 'hidden' }}
           >
 
             {/* Background Media with Smooth Auto Cross-Fade */}
-            <div className="absolute inset-0 z-0 overflow-hidden">
+            <div 
+              className="absolute inset-0 z-0 overflow-hidden"
+              style={{ position: 'absolute', inset: 0, overflow: 'hidden' }}
+            >
               {heroSlides.map((slide, idx) => {
                 const isActive = currentSlideIndex === idx;
                 return (
@@ -149,6 +155,8 @@ export default function HomePage() {
                       }`}
                     style={{
                       transform: 'translateY(12mm)',
+                      position: 'absolute',
+                      inset: 0,
                     }}
                   >
                     <Image
