@@ -407,6 +407,16 @@ export function YourStageNextStep() {
 
     setFilter("all");
     setShowResults(true);
+
+    setTimeout(() => {
+      const targetElement = resultsRef.current || document.getElementById("stage-recommendations");
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }, 100);
   };
 
   // Automatically scroll down to the suggested recommendations as soon as results are generated
