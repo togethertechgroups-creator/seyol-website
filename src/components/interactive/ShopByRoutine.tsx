@@ -1,412 +1,330 @@
 'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import "./ShopByRoutine.css";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { ArrowRight, Sparkles, Heart, Baby } from 'lucide-react';
 
-interface ProductItem {
-  id: number;
-  name: string;
-  type: "product" | "bundle";
-  description: string;
-  price: string;
-  image: string;
-  link: string;
-}
-
-interface RoutineItem {
+interface RoutineProduct {
   id: string;
   name: string;
   subtitle: string;
+  categoryTag: string;
+  price: string;
+  volume: string;
   image: string;
-  description: string;
-  products: ProductItem[];
-  guide: {
-    title: string;
-    description: string;
-    link: string;
-  };
-  video: {
-    title: string;
-    thumbnail: string;
-    link: string;
-  };
+  link: string;
+  keyBenefit: string;
 }
 
-const routineData: RoutineItem[] = [
+interface RoutineCategory {
+  id: 'baby-care' | 'mother-recovery';
+  title: string;
+  badge: string;
+  icon: React.ComponentType<{ className?: string }>;
+  description: string;
+  products: RoutineProduct[];
+}
+
+const ROUTINE_CATEGORIES: RoutineCategory[] = [
+  // =========================================================================
+  // 1. BABY CARE ROUTINE (6 PRODUCTS)
+  // =========================================================================
   {
-    id: "morning",
-    name: "Morning Care",
-    subtitle: "A gentle start to the day",
-    image: "/images/routine-morning.jpg",
+    id: 'baby-care',
+    title: 'Baby Care Routine',
+    badge: 'NEWBORN & INFANT CARE',
+    icon: Baby,
     description:
-      "Discover simple essentials to make your baby's morning care routine feel special.",
+      'Gentle everyday rituals designed for your baby’s delicate skin, safe bath-time comfort, and peaceful sleep.',
     products: [
       {
-        id: 1,
-        name: "Gentle Baby Care",
-        type: "product",
-        description: "An everyday baby care essential.",
-        price: "S$18.00",
-        image: "/images/product-baby-care.jpg",
-        link: "/shop/gentle-baby-care",
+        id: 'soothing-baby-massage-oil',
+        name: 'Soothing Baby Massage Oil',
+        subtitle: 'Cold-pressed sweet almond, virgin coconut & calming Nilgiri botanicals for daily touch.',
+        categoryTag: 'Baby Massage',
+        price: '₹680',
+        volume: '200 ml',
+        image: '/images/products-hero-banner.png',
+        link: '/products/soothing-baby-massage-oil',
+        keyBenefit: '100% Edible-Grade Botanicals',
       },
       {
-        id: 2,
-        name: "Morning Care Bundle",
-        type: "bundle",
-        description: "A collection for your morning routine.",
-        price: "S$35.00",
-        image: "/images/bundle-morning.jpg",
-        link: "/shop/morning-care-bundle",
+        id: 'nourishing-baby-massage-oil',
+        name: 'Nourishing Baby Massage Oil',
+        subtitle: 'Fortified herbal sesame base infused with Ashwagandha & Bala roots to support motor growth.',
+        categoryTag: 'Strengthening Massage',
+        price: '₹740',
+        volume: '200 ml',
+        image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&q=80&w=800',
+        link: '/products/nourishing-baby-massage-oil-traditional-herbal',
+        keyBenefit: 'Supports Muscle & Bone Tone',
+      },
+      {
+        id: 'gentle-baby-bath-powder',
+        name: 'Gentle Baby Bath Powder',
+        subtitle: 'Micro-milled green gram, white turmeric, sandalwood & rose petals (Nalangu Maavu).',
+        categoryTag: 'Daily Bathing',
+        price: '₹520',
+        volume: '250 g',
+        image: 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&q=80&w=800',
+        link: '/products/gentle-baby-bath-powder-nalangu-maavu',
+        keyBenefit: 'Soap-Free Nalangu Maavu',
+      },
+      {
+        id: 'traditional-sambirani-set',
+        name: 'Traditional Sambirani Care Set',
+        subtitle: 'Pure Benzoin dhoop resin, brass fumer & charcoal to safely dry baby’s hair and keep warmth.',
+        categoryTag: 'Bath Drying Ritual',
+        price: '₹580',
+        volume: 'Complete Dhoop Kit',
+        image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&q=80&w=800',
+        link: '/products',
+        keyBenefit: 'Prevents Post-Bath Chills',
+      },
+      {
+        id: 'tummy-comfort-roll-on',
+        name: 'Tummy Comfort Roll-On',
+        subtitle: 'Pure Hing (Asafoetida), Ajwain & sweet fennel in coconut carrier oil for infant colic.',
+        categoryTag: 'Digestive Comfort',
+        price: '₹390',
+        volume: '40 ml',
+        image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?auto=format&fit=crop&q=80&w=800',
+        link: '/products/colic-relief-tummy-roll-on',
+        keyBenefit: 'Fast Colic & Gas Relief',
+      },
+      {
+        id: 'ayurvedic-baby-kajal',
+        name: 'Ayurvedic Baby Kajal',
+        subtitle: 'Pure cold-pressed castor oil, organic cow ghee & almond soot for cooling eye care.',
+        categoryTag: 'Traditional Eye Care',
+        price: '₹350',
+        volume: '5 g',
+        image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&q=80&w=800',
+        link: '/products',
+        keyBenefit: '100% Herbal & Lead-Free',
       },
     ],
-    guide: {
-      title: "Creating a Gentle Morning Routine",
-      description:
-        "Explore simple ways to introduce a comfortable morning care routine.",
-      link: "/resources/morning-care-guide",
-    },
-    video: {
-      title: "How to Build a Simple Morning Routine",
-      thumbnail: "/images/video-morning.jpg",
-      link: "/videos/morning-routine",
-    },
   },
+
+  // =========================================================================
+  // 2. MOTHER'S POSTPARTUM RECOVERY ROUTINE (3 PRODUCTS)
+  // =========================================================================
   {
-    id: "bath",
-    name: "Bath Time",
-    subtitle: "Make bath time a special moment",
-    image: "/images/routine-bath.jpg",
+    id: 'mother-recovery',
+    title: "Mother's Postpartum Recovery Routine",
+    badge: 'SACRED 40-DAY CONFINEMENT',
+    icon: Heart,
     description:
-      "Explore bath-time essentials and helpful resources for your baby's care routine.",
+      'Time-honoured South Indian herbal therapies formulated to restore physical strength, relieve muscular aches, and nourish new mothers.',
     products: [
       {
-        id: 3,
-        name: "Baby Bath Essentials",
-        type: "product",
-        description: "Explore everyday bath-time essentials.",
-        price: "S$20.00",
-        image: "/images/product-bath.jpg",
-        link: "/shop/baby-bath-essentials",
+        id: 'traditional-prasava-legiyam',
+        name: 'Traditional Prasava Legiyam',
+        subtitle: 'Ancient postpartum medicinal jam formulated with dry ginger, black pepper & jaggery.',
+        categoryTag: 'Postpartum Nutrition',
+        price: '₹750',
+        volume: '400 g',
+        image: 'https://images.unsplash.com/photo-1544126592-807ade215a0b?auto=format&fit=crop&q=80&w=800',
+        link: '/products',
+        keyBenefit: 'Aids Digestion & Lactation',
       },
       {
-        id: 4,
-        name: "Bath Time Bundle",
-        type: "bundle",
-        description: "A collection for your baby's bath routine.",
-        price: "S$42.00",
-        image: "/images/bundle-bath.jpg",
-        link: "/shop/bath-time-bundle",
+        id: 'restorative-mother-massage-oil',
+        name: 'Restorative Mother Massage Oil',
+        subtitle: 'Fortified herbal sesame oil enriched with 28 classical Ayurvedic herbs for uterine toning.',
+        categoryTag: 'Maternal Abhyanga',
+        price: '₹890',
+        volume: '300 ml',
+        image: 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
+        link: '/products/restorative-mother-postpartum-massage-oil',
+        keyBenefit: '28 Classical Healing Herbs',
+      },
+      {
+        id: 'rejuvenating-herbal-bath-sachet',
+        name: 'Rejuvenating Herbal Bath Sachet',
+        subtitle: 'Vethu Kuli steeping sachets with Nirgundi, Eucalyptus, Neem & Tamarind leaves.',
+        categoryTag: 'Herbal Sitz Bath',
+        price: '₹650',
+        volume: 'Pack of 10 Sachets',
+        image: 'https://images.unsplash.com/photo-1512290900672-1f5be1c6e1dc?auto=format&fit=crop&q=80&w=800',
+        link: '/products/warming-mother-herbal-bath-sachet-vethu-kuli',
+        keyBenefit: 'Soothes Perineal Soreness',
       },
     ],
-    guide: {
-      title: "A Simple Baby Bath-Time Guide",
-      description:
-        "Learn about preparing a comfortable bath-time environment.",
-      link: "/resources/baby-bath-guide",
-    },
-    video: {
-      title: "Understanding Baby Bath Time",
-      thumbnail: "/images/video-bath.jpg",
-      link: "/videos/baby-bath",
-    },
-  },
-  {
-    id: "massage",
-    name: "Baby Massage",
-    subtitle: "Bonding through gentle touch",
-    image: "/images/routine-massage.jpg",
-    description:
-      "Discover massage-related products and learning resources for your routine.",
-    products: [
-      {
-        id: 5,
-        name: "Massage Care Product",
-        type: "product",
-        description: "Explore products for your massage routine.",
-        price: "S$16.00",
-        image: "/images/product-massage.jpg",
-        link: "/shop/massage-care",
-      },
-      {
-        id: 6,
-        name: "Massage Routine Bundle",
-        type: "bundle",
-        description: "Explore a collection for massage time.",
-        price: "S$32.00",
-        image: "/images/bundle-massage.jpg",
-        link: "/shop/massage-bundle",
-      },
-    ],
-    guide: {
-      title: "Getting Started with Baby Massage",
-      description:
-        "Discover introductory information about infant massage.",
-      link: "/resources/baby-massage-guide",
-    },
-    video: {
-      title: "Understanding a Gentle Massage Routine",
-      thumbnail: "/images/video-massage.jpg",
-      link: "/videos/baby-massage",
-    },
-  },
-  {
-    id: "bedtime",
-    name: "Bedtime Routine",
-    subtitle: "Create a calm evening routine",
-    image: "/images/routine-bedtime.jpg",
-    description:
-      "Explore products and ideas for your baby's evening care routine.",
-    products: [
-      {
-        id: 7,
-        name: "Bedtime Care Essential",
-        type: "product",
-        description: "Explore everyday bedtime care products.",
-        price: "S$19.00",
-        image: "/images/product-bedtime.jpg",
-        link: "/shop/bedtime-care",
-      },
-      {
-        id: 8,
-        name: "Bedtime Bundle",
-        type: "bundle",
-        description: "A collection for your evening routine.",
-        price: "S$38.00",
-        image: "/images/bundle-bedtime.jpg",
-        link: "/shop/bedtime-bundle",
-      },
-    ],
-    guide: {
-      title: "Building a Bedtime Routine",
-      description:
-        "Explore ideas for creating a consistent evening routine.",
-      link: "/resources/bedtime-guide",
-    },
-    video: {
-      title: "Simple Bedtime Routine Ideas",
-      thumbnail: "/images/video-bedtime.jpg",
-      link: "/videos/bedtime-routine",
-    },
-  },
-  {
-    id: "mom",
-    name: "Mom's Self-Care",
-    subtitle: "Because mom deserves care too",
-    image: "/images/routine-mom.jpg",
-    description:
-      "Find thoughtful products and resources to support your self-care routine.",
-    products: [
-      {
-        id: 9,
-        name: "Mom's Care Essential",
-        type: "product",
-        description: "Explore everyday self-care essentials.",
-        price: "S$22.00",
-        image: "/images/product-mom.jpg",
-        link: "/shop/mom-care",
-      },
-      {
-        id: 10,
-        name: "Mom's Self-Care Bundle",
-        type: "bundle",
-        description: "A collection created for your self-care routine.",
-        price: "S$45.00",
-        image: "/images/bundle-mom.jpg",
-        link: "/shop/mom-care-bundle",
-      },
-    ],
-    guide: {
-      title: "Making Time for Maternal Self-Care",
-      description:
-        "Explore gentle ideas for making time for yourself.",
-      link: "/resources/mom-self-care-guide",
-    },
-    video: {
-      title: "Simple Self-Care Moments for Moms",
-      thumbnail: "/images/video-mom.jpg",
-      link: "/videos/mom-self-care",
-    },
   },
 ];
 
-function ProductCard({ product }: { product: ProductItem }) {
-  return (
-    <article className="sbr-product-card">
-      <Link href={product.link} className="sbr-product-image">
-        <img src={product.image} alt={product.name} loading="lazy" />
-        <span className="sbr-product-type">
-          {product.type === "bundle" ? "Bundle" : "Product"}
-        </span>
-      </Link>
-
-      <div className="sbr-product-info">
-        <h4>{product.name}</h4>
-        <p>{product.description}</p>
-
-        <div className="sbr-product-bottom">
-          <strong>{product.price}</strong>
-          <Link href={product.link} aria-label={`Explore ${product.name}`}>
-            Explore <span>↗</span>
-          </Link>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 export function ShopByRoutine() {
-  const [activeRoutine, setActiveRoutine] = useState<string>("morning");
-  const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [activeTab, setActiveTab] = useState<'baby-care' | 'mother-recovery'>('baby-care');
 
-  const selectedRoutine =
-    routineData.find((routine) => routine.id === activeRoutine) || routineData[0];
-
-  const filteredProducts = selectedRoutine.products.filter(
-    (product) =>
-      activeFilter === "all" || product.type === activeFilter
-  );
+  const currentCategory =
+    ROUTINE_CATEGORIES.find((cat) => cat.id === activeTab) || ROUTINE_CATEGORIES[0];
 
   return (
-    <section className="sbr-section">
-      <div className="sbr-container">
-
-        {/* Section Heading */}
-        <div className="sbr-heading">
-          <h2>
-            Shop by <span>Routine</span>
+    <section className="w-full bg-[#FAF6EE] text-[#3A1D1D] py-16 sm:py-20 lg:py-24 border-y border-[#EAE1D5] font-heading relative overflow-hidden">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
+        
+        {/* Section Header */}
+        <header className="text-center max-w-3xl mx-auto space-y-3 sm:space-y-4">
+          <span className="inline-block text-[11px] sm:text-xs font-heading font-extrabold tracking-[0.2em] uppercase text-[#7B1131] bg-[#F8EBEF] border border-[#EAC8D2] px-4 py-1.5 rounded-full">
+            SHOP BY ROUTINE
+          </span>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#3A1D1D] tracking-tight leading-[1.18]">
+            Build a routine that feels right.
           </h2>
-
-          <p>
-            Care that fits your everyday moments.
-            Choose a routine and discover products,
-            bundles, guides and videos for your family.
+          <p className="font-sans text-sm sm:text-base md:text-lg text-[#6E5652] max-w-2xl mx-auto leading-relaxed">
+            Thoughtful care for everyday family moments. Choose a routine to explore authentic South Indian botanicals crafted specifically for your baby’s delicate care and mother’s postpartum recovery.
           </p>
-        </div>
+        </header>
 
-        {/* Routine Selection */}
-        <div className="sbr-selection">
-          <div className="sbr-routine-grid">
-            {routineData.map((routine) => (
-              <button
-                key={routine.id}
-                type="button"
-                className={`sbr-routine-card ${
-                  activeRoutine === routine.id ? "active" : ""
-                }`}
-                onClick={() => {
-                  setActiveRoutine(routine.id);
-                  setActiveFilter("all");
-                }}
-                aria-pressed={activeRoutine === routine.id}
-              >
-                <div className="sbr-routine-info">
-                  <h4>{routine.name}</h4>
-                  <p>{routine.subtitle}</p>
-                </div>
-              </button>
-            ))}
+        {/* 2-Way Routine Category Switcher */}
+        <div className="flex items-center justify-center">
+          <div 
+            role="tablist"
+            aria-label="Routine Categories"
+            className="inline-flex p-1.5 sm:p-2 bg-[#F0EBE1] rounded-2xl sm:rounded-full border border-[#E0D6C8] shadow-warm-xs gap-1.5 sm:gap-2 max-w-full overflow-x-auto scrollbar-none"
+          >
+            {ROUTINE_CATEGORIES.map((category) => {
+              const Icon = category.icon;
+              const isActive = activeTab === category.id;
+              return (
+                <button
+                  key={category.id}
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => setActiveTab(category.id)}
+                  className={`flex-shrink-0 px-5 sm:px-8 py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-heading font-bold transition-all duration-300 flex items-center gap-2 cursor-pointer focus:outline-none ${
+                    isActive
+                      ? 'bg-[#7B1131] text-white shadow-warm-md scale-[1.01]'
+                      : 'text-[#3A1D1D] hover:text-[#7B1131] hover:bg-white/70'
+                  }`}
+                >
+                  <Icon className={`w-4 h-4 ${isActive ? 'text-[#E4CF9E]' : 'text-[#A6833D]'}`} />
+                  <span>{category.title}</span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full font-sans font-semibold ${
+                    isActive ? 'bg-white/20 text-white' : 'bg-[#EAE1D5] text-[#6E5652]'
+                  }`}>
+                    {category.products.length}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* Selected Routine */}
-        <div className="sbr-selected">
-          <div className="sbr-selected-heading">
-            <div>
-              <span className="sbr-eyebrow">YOUR SELECTED ROUTINE</span>
-              <h3>{selectedRoutine.name}</h3>
-              <p>{selectedRoutine.description}</p>
+        {/* Active Routine Panel */}
+        <div 
+          key={currentCategory.id}
+          role="tabpanel"
+          className="space-y-8 animate-fadeIn"
+        >
+          {/* Category Intro Bar */}
+          <div className="bg-white rounded-2xl sm:rounded-3xl border border-[#EAE1D5] p-5 sm:p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-warm-xs">
+            <div className="space-y-1">
+              <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#A6833D]">
+                {currentCategory.badge}
+              </span>
+              <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-[#3A1D1D]">
+                {currentCategory.title}
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-[#6E5652] max-w-2xl leading-relaxed">
+                {currentCategory.description}
+              </p>
             </div>
 
-            <Link href="/shop" className="sbr-text-link">
-              View All Products →
-            </Link>
-          </div>
-
-          {/* Filters */}
-          <div className="sbr-filters" aria-label="Product filters">
-            {[
-              ["all", "All"],
-              ["product", "Products"],
-              ["bundle", "Bundles"],
-            ].map(([value, label]) => (
-              <button
-                type="button"
-                key={value}
-                className={activeFilter === value ? "active" : ""}
-                onClick={() => setActiveFilter(value)}
-                aria-pressed={activeFilter === value}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-
-          {/* Product Cards */}
-          <div className="sbr-product-grid">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-
-        {/* Guide + Video */}
-        <div className="sbr-learning-grid">
-
-          <article className="sbr-learning-card sbr-guide-card">
-            <div className="sbr-learning-icon">▤</div>
-
-            <span className="sbr-eyebrow">READ & DISCOVER</span>
-
-            <h3>{selectedRoutine.guide.title}</h3>
-
-            <p>{selectedRoutine.guide.description}</p>
-
-            <Link href={selectedRoutine.guide.link}>
-              Read the Guide →
-            </Link>
-          </article>
-
-          <article className="sbr-learning-card sbr-video-card">
             <Link
-              href={selectedRoutine.video.link}
-              className="sbr-video-image"
-              aria-label={`Watch ${selectedRoutine.video.title}`}
+              href="/products"
+              className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#7B1131] hover:text-[#5A0C24] transition-colors whitespace-nowrap self-start md:self-center"
             >
-              <img
-                src={selectedRoutine.video.thumbnail}
-                alt=""
-                loading="lazy"
-              />
-              <span className="sbr-play-button">▶</span>
+              <span>View All in Shop</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-
-            <div className="sbr-video-info">
-              <span className="sbr-eyebrow">WATCH & LEARN</span>
-
-              <h3>{selectedRoutine.video.title}</h3>
-
-              <Link href={selectedRoutine.video.link}>
-                Watch Video →
-              </Link>
-            </div>
-          </article>
-
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="sbr-bottom">
-          <div>
-            <h3>Build a routine that feels right.</h3>
-            <p>
-              Thoughtful care for everyday family moments.
-            </p>
           </div>
 
-          <Link href="/shop" className="sbr-bottom-btn">
-            Explore All Products →
+          {/* Product Cards Grid */}
+          <div className={`grid grid-cols-1 sm:grid-cols-2 ${
+            currentCategory.products.length === 3 
+              ? 'lg:grid-cols-3 max-w-5xl mx-auto' 
+              : 'lg:grid-cols-3'
+          } gap-6 sm:gap-7 items-stretch`}>
+            {currentCategory.products.map((product) => (
+              <article
+                key={product.id}
+                className="group relative flex flex-col justify-between bg-white rounded-2xl sm:rounded-3xl border border-[#EAE1D5] overflow-hidden p-5 sm:p-6 hover:border-[#7B1131]/40 hover:shadow-warm-lg hover:-translate-y-1.5 transition-all duration-300"
+              >
+                <div className="space-y-4">
+                  {/* Product Image Container */}
+                  <div className="relative w-full h-52 sm:h-56 rounded-xl overflow-hidden bg-[#FAF6EE] border border-[#EAE1D5]/70">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-106 transition-transform duration-500 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" />
+                  </div>
+
+                  {/* Product Details */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-[11px] text-[#A6833D] font-sans">
+                      <span className="font-semibold uppercase tracking-wider">{product.categoryTag}</span>
+                      <span className="font-medium text-[#6E5652]">{product.volume}</span>
+                    </div>
+
+                    <h4 className="font-heading font-extrabold text-base sm:text-lg text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug line-clamp-2 min-h-[48px] flex items-center">
+                      <Link href={product.link} className="hover:underline">
+                        {product.name}
+                      </Link>
+                    </h4>
+
+                    <p className="font-sans text-xs text-[#6E5652] leading-relaxed line-clamp-2 min-h-[36px]">
+                      {product.subtitle}
+                    </p>
+
+                    <div className="pt-1">
+                      <span className="inline-block text-[11px] font-sans font-medium text-[#7B1131] bg-[#FAF0EB] px-2.5 py-1 rounded-full border border-[#EAC8D2]/60">
+                        {product.keyBenefit}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card Action & Price */}
+                <div className="pt-4 border-t border-[#EAE1D5]/80 mt-5 flex items-center justify-between gap-3">
+                  <div className="flex flex-col">
+                    <span className="text-[10px] uppercase font-sans text-[#7A6363] tracking-wider">Price</span>
+                    <span className="font-heading font-extrabold text-base sm:text-lg text-[#7B1131]">
+                      {product.price}
+                    </span>
+                  </div>
+
+                  <Link
+                    href={product.link}
+                    className="py-2.5 px-4 rounded-xl bg-[#FAF6EE] group-hover:bg-[#7B1131] text-[#7B1131] group-hover:text-white font-heading font-bold text-xs tracking-wider transition-all duration-200 flex items-center gap-1.5 border border-[#EAE1D5] group-hover:border-[#7B1131] shadow-2xs hover:scale-[1.02]"
+                  >
+                    <span>Explore Product</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Section Footer: Solid Maroon CTA Button with NO Gold Border */}
+        <div className="pt-4 sm:pt-6 flex flex-col items-center justify-center gap-3 text-center">
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 bg-[#7B1131] hover:bg-[#5A0C24] text-white px-8 sm:px-10 py-4 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide transition-all duration-200 shadow-warm-md hover:shadow-warm-lg hover:scale-[1.02] border-none cursor-pointer"
+          >
+            <span>Explore All Products</span>
+            <ArrowRight className="w-4 h-4" />
           </Link>
+          <p className="font-sans text-xs text-[#7A6363]">
+            100% natural, AYUSH-certified traditional formulations for modern family wellness.
+          </p>
         </div>
 
       </div>
