@@ -271,7 +271,7 @@ export default function HomePage() {
       >
         <div className="space-y-5 sm:space-y-6 max-w-3xl text-center text-cream-light px-4">
           <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
-            Honouring Every Sacred Step of Motherhood
+            Every New Beginning Deserves the Right Support
           </h2>
 
           <p className="font-sans text-base sm:text-lg md:text-xl text-cream-light/95 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
