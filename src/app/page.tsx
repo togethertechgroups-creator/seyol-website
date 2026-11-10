@@ -275,7 +275,7 @@ export default function HomePage() {
           </h2>
 
           <p className="font-sans text-base sm:text-lg md:text-xl text-cream-light/95 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
-            Experience the serenity of traditional herbal oil therapies, certified birth doula guidance, and gentle infant bath rituals in your own home sanctuary.
+            Support for pregnancy, birth, postpartum and your baby’s first days, rooted in traditional Indian care and adapted for modern family life
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
