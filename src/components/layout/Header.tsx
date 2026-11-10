@@ -24,9 +24,12 @@ import {
   Flower2,
   ShieldCheck,
   Heart,
-  Baby
+  Baby,
+  ShoppingCart,
+  Clock
 } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useFifteenMinuteCall } from '../../context/FifteenMinuteCallContext';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 import { useAuth } from '../../context/AuthContext';
 import { SmartSearch } from '../seyol/SmartSearch';
@@ -38,6 +41,7 @@ export const Header: React.FC = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { totalItems, openCart } = useCart();
+  const { openCallBooking } = useFifteenMinuteCall();
   const { openEnquiry } = useQuickEnquiry();
   const { isAuthenticated, user, openAuthModal, logout } = useAuth();
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -337,10 +341,25 @@ export const Header: React.FC = () => {
               );
             })}
 
+            {/* Shopping Cart Icon in Navigation */}
+            <Link
+              href="/cart"
+              aria-label="Shopping Cart"
+              className="relative p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-[#7B1131] hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-1"
+              title="View Shopping Cart"
+            >
+              <ShoppingCart className="w-3.5 h-3.5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#7B1131] text-white text-[9px] font-bold min-w-[15px] h-[15px] px-0.5 rounded-full flex items-center justify-center ring-1 ring-white shadow-2xs leading-none">
+                  {totalItems > 99 ? '99+' : totalItems}
+                </span>
+              )}
+            </Link>
+
             {/* Compact Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-1"
+              className="p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-0.5"
               title="Search SEYOL Care"
             >
               <Search className="w-3.5 h-3.5" />
@@ -425,23 +444,29 @@ export const Header: React.FC = () => {
               </button>
             )}
 
-            {/* 2. Book Button (Maroon pill matching mockup) */}
+            {/* 2. Book a 15-Minute Call Button */}
             <button
-              onClick={() => openEnquiry()}
-              className="px-3 sm:px-5 h-[32px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#650E28] text-white text-[10.5px] sm:text-[12px] font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center shrink-0"
+              onClick={() => openCallBooking()}
+              aria-label="Book a 15-Minute Call"
+              className="px-3 sm:px-4.5 h-[32px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#5A0C24] text-white text-[10.5px] sm:text-[12px] font-heading font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center shrink-0 hover:scale-[1.02] active:scale-[0.98]"
             >
-              <span>Book</span>
+              <span>Book a 15-Minute Call</span>
             </button>
 
-            {/* 3. Calendar Action Icon (Matching mockup outline box) */}
-            <button
-              onClick={() => openEnquiry({ serviceTitle: 'Appointment Booking' })}
-              aria-label="Calendar Appointment Booking"
-              className="w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
-              title="Schedule Care Calendar"
+            {/* 3. Shopping Cart Action Icon */}
+            <Link
+              href="/cart"
+              aria-label="View Shopping Cart"
+              className="relative w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
+              title="Shopping Cart"
             >
-              <Calendar className="w-3.5 h-3.5 text-[#7B1131]" />
-            </button>
+              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#7B1131]" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 bg-[#7B1131] text-white text-[9.5px] font-bold min-w-[17px] h-[17px] px-1 rounded-full flex items-center justify-center ring-2 ring-white shadow-xs leading-none">
+                  {totalItems > 99 ? '99+' : totalItems}
+                </span>
+              )}
+            </Link>
 
             {/* Mobile Hamburger Toggle */}
             <button
@@ -487,14 +512,30 @@ export const Header: React.FC = () => {
                   <FileText className="w-4 h-4 text-[#7B1131]" />
                   <span>My SEYOL Care Portal</span>
                 </Link>
+                <Link
+                  href="/cart"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="w-full py-2.5 px-4 rounded-xl bg-white text-[#7B1131] border border-neutral-200 hover:border-[#7B1131] font-bold text-center text-xs shadow-2xs flex items-center justify-between transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center space-x-2">
+                    <ShoppingCart className="w-4 h-4 text-[#7B1131]" />
+                    <span>Shopping Cart</span>
+                  </div>
+                  {totalItems > 0 && (
+                    <span className="bg-[#7B1131] text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      {totalItems} {totalItems === 1 ? 'item' : 'items'}
+                    </span>
+                  )}
+                </Link>
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    openEnquiry();
+                    openCallBooking();
                   }}
-                  className="w-full py-2.5 px-4 rounded-xl bg-[#7B1131] hover:bg-[#650E28] text-white font-bold text-center text-xs shadow-xs transition-colors cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-xl bg-[#7B1131] hover:bg-[#5A0C24] text-white font-heading font-bold text-center text-xs shadow-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
                 >
-                  Book Now &amp; Care Consultation
+                  <Clock className="w-3.5 h-3.5 text-white" />
+                  <span>Book a 15-Minute Call</span>
                 </button>
               </div>
             </div>

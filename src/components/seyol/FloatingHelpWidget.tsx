@@ -1,14 +1,15 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { MessageCircle, X, Calendar } from 'lucide-react';
+import { useFifteenMinuteCall } from '../../context/FifteenMinuteCallContext';
 
 export const FloatingHelpWidget: React.FC = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openCallBooking } = useFifteenMinuteCall();
 
   // Close when user clicks outside
   useEffect(() => {
@@ -110,10 +111,13 @@ export const FloatingHelpWidget: React.FC = () => {
           </a>
 
           {/* Option 2: Book a 15-Minute Call */}
-          <Link
-            href="/book"
-            onClick={() => setIsOpen(false)}
-            className="flex items-center gap-3 p-3 rounded-xl bg-[#F7F4EF] hover:bg-[#FAF6EE] text-[#3A1D1D] hover:text-[#7B1131] border border-[#E8E0D2] transition-all duration-200 group text-left cursor-pointer shadow-2xs hover:shadow-xs"
+          <button
+            type="button"
+            onClick={() => {
+              setIsOpen(false);
+              openCallBooking();
+            }}
+            className="w-full flex items-center gap-3 p-3 rounded-xl bg-[#F7F4EF] hover:bg-[#FAF6EE] text-[#3A1D1D] hover:text-[#7B1131] border border-[#E8E0D2] transition-all duration-200 group text-left cursor-pointer shadow-2xs hover:shadow-xs"
           >
             <div className="w-10 h-10 rounded-full bg-[#7B1131] text-white flex items-center justify-center shrink-0 group-hover:bg-[#5A0C24] transition-colors">
               <Calendar className="w-5 h-5 text-white" />
@@ -123,10 +127,10 @@ export const FloatingHelpWidget: React.FC = () => {
                 Book a 15-Minute Call
               </div>
               <div className="text-[11px] text-[#7A6363] font-sans leading-tight mt-0.5">
-                Schedule your appointment online
+                Schedule your 15-minute consultation
               </div>
             </div>
-          </Link>
+          </button>
         </div>
       </div>
 

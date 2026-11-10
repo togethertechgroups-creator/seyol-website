@@ -18,6 +18,8 @@ import { AnnouncementTicker, StickyJourneyCTA, FloatingHelpWidget } from '../com
 import { BookingWizardModal } from '../components/booking/BookingWizardModal';
 import { PortalAuthModal } from '../components/auth/PortalAuthModal';
 import { ScrollObserver } from '../components/shared/ScrollObserver';
+import { FifteenMinuteCallProvider } from '../context/FifteenMinuteCallContext';
+import { FifteenMinuteCallModal } from '../components/booking/FifteenMinuteCallModal';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -87,6 +89,7 @@ export default function RootLayout({
                 <AdminDataProvider>
                   <PortalDataProvider>
                   <BookingModalProvider>
+                    <FifteenMinuteCallProvider>
                     <QuickEnquiryProvider>
                       <Header />
                       <ScrollObserver />
@@ -98,7 +101,9 @@ export default function RootLayout({
                       <PortalAuthModal />
                       <StickyJourneyCTA />
                       <FloatingHelpWidget />
+                      <FifteenMinuteCallModal />
                     </QuickEnquiryProvider>
+                  </FifteenMinuteCallProvider>
                   </BookingModalProvider>
                   </PortalDataProvider>
                 </AdminDataProvider>

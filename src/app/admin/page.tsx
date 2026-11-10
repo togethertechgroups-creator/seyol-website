@@ -5,11 +5,12 @@ import Link from 'next/link';
 import { 
   Globe, Users, ShoppingCart, ShoppingBag, 
   CreditCard, BarChart3, Settings as SettingsIcon, 
-  LogOut, Calendar, Menu, X, CheckCircle2 
+  LogOut, Calendar, Clock, Menu, X, CheckCircle2 
 } from 'lucide-react';
 import { AdminWebsiteManager } from '../../components/admin/AdminWebsiteManager';
 import { AdminProductCatalog } from '../../components/admin/AdminProductCatalog';
 import { AdminClientEditor } from '../../components/admin/AdminClientEditor';
+import { AdminCallAppointments } from '../../components/admin/AdminCallAppointments';
 import { AdminOrderManager } from '../../components/admin/AdminOrderManager';
 import { AdminPaymentManager } from '../../components/admin/AdminPaymentManager';
 import { AdminReportsAnalytics } from '../../components/admin/AdminReportsAnalytics';
@@ -18,7 +19,7 @@ import { AdminLoginScreen } from '../../components/admin/AdminLoginScreen';
 import { useAdminData } from '../../context/AdminDataContext';
 import { usePortalData } from '../../context/PortalDataContext';
 
-type AdminModule = 'customers' | 'orders' | 'website' | 'products' | 'payments' | 'reports' | 'settings';
+type AdminModule = 'customers' | 'calls' | 'orders' | 'website' | 'products' | 'payments' | 'reports' | 'settings';
 
 export default function AdminPage() {
   const { orders, products } = useAdminData();
@@ -117,6 +118,13 @@ export default function AdminPage() {
           badgeColor: 'bg-[#7B1131]/10 text-[#7B1131]',
         },
         {
+          id: 'calls' as AdminModule,
+          label: '15-Min Calls',
+          icon: Clock,
+          badge: 'New',
+          badgeColor: 'bg-emerald-100 text-emerald-800 font-bold',
+        },
+        {
           id: 'orders' as AdminModule,
           label: 'Store Orders',
           icon: ShoppingCart,
@@ -170,6 +178,7 @@ export default function AdminPage() {
   const currentTabLabel = () => {
     switch (activeTab) {
       case 'customers': return 'Client Portals & Care Editor';
+      case 'calls': return '15-Minute Consultation Calls';
       case 'orders': return 'Store Orders & Dispatch Pipeline';
       case 'products': return 'Botanical Products & Bundles';
       case 'payments': return 'Invoices & Stripe Billing';
@@ -417,6 +426,7 @@ export default function AdminPage() {
           {/* Module Content */}
           <div className="animate-fadeIn">
             {activeTab === 'customers' && <AdminClientEditor />}
+            {activeTab === 'calls' && <AdminCallAppointments onNotify={showToast} />}
             {activeTab === 'orders' && <AdminOrderManager />}
             {activeTab === 'products' && <AdminProductCatalog onNotify={showToast} />}
             {activeTab === 'website' && <AdminWebsiteManager onNotify={showToast} />}
