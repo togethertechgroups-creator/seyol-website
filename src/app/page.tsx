@@ -34,6 +34,7 @@ import {
   BellRing
 } from 'lucide-react';
 import { StageSelector } from '../components/interactive/StageSelector';
+import { WhereAreYouRightNow } from '../components/interactive/WhereAreYouRightNow';
 import Timeline from '../components/interactive/Timeline';
 import { YourStageNextStep } from '../components/interactive/YourStageNextStep';
 import { MostParentsStartHere } from '../components/interactive/MostParentsStartHere';
@@ -204,18 +205,18 @@ export default function HomePage() {
 
               {/* 2 CTA Buttons */}
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-start gap-3 sm:gap-4 pt-2 sm:pt-3 w-full sm:w-auto">
-                {/* Button 1: Maroon background with cream text */}
+                {/* Button 1: Solid clean maroon CTA with white text, no gold border */}
                 <button
                   onClick={activeSlide.ctaPrimaryAction}
-                  className="px-6 sm:px-7 py-3 rounded-full bg-[#7B1131] hover:bg-[#600E26] text-[#FAF6EE] font-extrabold text-xs sm:text-sm tracking-wide shadow-warm-lg transition-all duration-200 hover:scale-[1.02] border border-gold/40 cursor-pointer"
+                  className="px-6 sm:px-7 py-3.5 rounded-full bg-[#7B1131] hover:bg-[#5A0C24] text-white font-heading font-bold text-xs sm:text-sm tracking-wide shadow-warm-lg transition-all duration-200 hover:scale-[1.02] border-0 cursor-pointer"
                 >
                   {activeSlide.ctaPrimaryText}
                 </button>
 
-                {/* Button 2: Maroon outline and text with transparent background */}
+                {/* Button 2: Completely transparent background, crisp readable white text */}
                 <button
                   onClick={activeSlide.ctaSecondaryAction}
-                  className="px-6 sm:px-7 py-3 rounded-full bg-white/10 hover:bg-white/20 text-[#FAF6EE] border-2 border-[#991840] font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 hover:scale-[1.02] cursor-pointer backdrop-blur-xs"
+                  className="px-6 sm:px-7 py-3.5 rounded-full bg-transparent hover:bg-white/10 text-white border-2 border-white/80 hover:border-white font-heading font-bold text-xs sm:text-sm tracking-wide transition-all duration-200 hover:scale-[1.02] cursor-pointer"
                 >
                   {activeSlide.ctaSecondaryText}
                 </button>
@@ -226,18 +227,10 @@ export default function HomePage() {
         </section>
 
         {/* ========================================================================= */}
-        {/* SECTION 2: WHERE ARE YOU RIGHT NOW? (Interactive Horizontal Timeline)     */}
+        {/* SECTION 2: WHERE ARE YOU RIGHT NOW? (5 Interactive Image-Based Stages)     */}
         {/* ========================================================================= */}
         <div id="care-path">
-          <Timeline
-            title="Where Are You Right Now?"
-            periodLabel="Preconception • Birth • Postpartum"
-            activeColor="#C8A45D"
-            backgroundColor="#7B1131"
-            textColor="#FAF6EE"
-            mutedTextColor="rgba(250, 246, 238, 0.85)"
-            imageUrl="/images/sleeping-newborn-heritage.jpg"
-          />
+          <WhereAreYouRightNow />
         </div>
       </div>
 

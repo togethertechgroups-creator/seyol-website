@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef } from "react";
 import Link from "next/link";
+import { useFifteenMinuteCall } from "../../context/FifteenMinuteCallContext";
 import "./YourStageNextStep.css";
 
 interface RecommendationItem {
@@ -16,60 +17,68 @@ const recommendations: Record<string, RecommendationItem[]> = {
   early: [
     {
       type: "service",
-      title: "Pregnancy Care",
+      title: "Prenatal Massage Therapy",
       description:
-        "Explore personalised support throughout your pregnancy journey.",
+        "Specialized side-lying clinical massage to relieve early pregnancy fatigue, lumbar tension, and pelvic ache.",
       icon: "♡",
-      link: "/services/pregnancy-care",
+      link: "/services/prenatal-massage-therapy",
     },
     {
       type: "class",
-      title: "Pregnancy Preparation Class",
+      title: "Prenatal Movement & Pelvic Comfort",
       description:
-        "Prepare yourself for the arrival of your little one.",
+        "Gentle movement masterclass teaching maternal pelvic alignment, breathing techniques, and posture support.",
       icon: "✿",
-      link: "/classes/pregnancy-preparation",
+      link: "/classes/prenatal-movement-and-pelvic-comfort",
     },
     {
       type: "resource",
-      title: "Pregnancy Preparation Guide",
+      title: "Pregnancy to Postpartum Nourishment Guide",
       description:
-        "Helpful information and checklists for your pregnancy journey.",
+        "Traditional Ayurvedic & Siddha nutritional wisdom for vitality across your second and third trimesters.",
       icon: "▤",
-      link: "/resources/pregnancy-guide",
+      link: "/classes/pregnancy-to-postpartum-traditional-nourishment",
+    },
+    {
+      type: "product",
+      title: "Maternal Body Comfort & Belly Oil",
+      description:
+        "Hydrating herbal belly oil formulated to nourish stretching skin and improve dermal elasticity.",
+      icon: "◇",
+      link: "/products",
     },
   ],
 
   upcoming: [
     {
       type: "service",
-      title: "Newborn Baby Care",
+      title: "Birth Doula Support",
       description:
-        "Discover newborn care support for your baby's first days.",
+        "Dedicated birth companion providing continuous labour advocacy, partner coaching, and physiological birth positions.",
       icon: "♡",
-      link: "/services/newborn-care",
+      link: "/services/birth-doula-support",
     },
     {
       type: "class",
-      title: "New Parent Preparation",
+      title: "Preparing for Birth with SEYOL",
       description:
-        "Learn essential skills before welcoming your baby.",
+        "Comprehensive childbirth workshop covering labor breathing rhythms, birth comfort, and hospital sanctuary prep.",
       icon: "✿",
-      link: "/classes/new-parent",
+      link: "/classes/preparing-for-birth-with-seyol",
     },
     {
       type: "resource",
-      title: "Hospital Bag Checklist",
+      title: "Hospital Bag & Birth Sanctuary Checklist",
       description:
-        "A practical checklist to prepare for delivery day.",
+        "A practical, clinician-vetted checklist for labour comfort, hospital documentation, and home arrival.",
       icon: "▤",
-      link: "/resources/hospital-bag",
+      link: "/resources",
     },
     {
       type: "product",
       title: "SEY Baby Care Essentials",
       description:
-        "Explore products for your baby's early care routine.",
+        "Pure cold-pressed virgin coconut massage oil and traditional herbal bath powder for newborn arrival.",
       icon: "◇",
       link: "/products",
     },
@@ -78,60 +87,68 @@ const recommendations: Record<string, RecommendationItem[]> = {
   newborn: [
     {
       type: "service",
-      title: "Newborn Baby Care",
+      title: "Postpartum Massage & Bengkung Wrap",
       description:
-        "Explore support for newborn care and everyday routines.",
+        "Sacred 40-day Mandalam recovery, hot herbal Kizhi fomentation, uterine tonification, and traditional belly binding.",
       icon: "♡",
-      link: "/services/newborn-care",
+      link: "/services/postpartum-massage-and-wrap",
     },
     {
       type: "class",
-      title: "Newborn Care Learning",
+      title: "Newborn Care Essentials for Modern Parents",
       description:
-        "Build confidence in newborn care essentials.",
+        "Pediatric sleep foundations, soothing, swaddling holds, and gentle newborn bathing techniques.",
       icon: "✿",
-      link: "/classes/newborn-care",
+      link: "/classes/newborn-care-essentials-for-modern-parents",
     },
     {
       type: "resource",
-      title: "Newborn Care Checklist",
+      title: "The Sacred 40-Day Confinement Guide",
       description:
-        "Explore helpful newborn care information.",
+        "South Indian postpartum recovery handbook covering Pathiya Samayal healing foods and herbal bathing rituals.",
       icon: "▤",
-      link: "/resources/newborn-checklist",
+      link: "/resources",
+    },
+    {
+      type: "product",
+      title: "Traditional Vethu Kuli Bath Sachets",
+      description:
+        "Herbal bath pouches boiled into healing water for deep muscle relief, lochia expulsion, and maternal restoration.",
+      icon: "◇",
+      link: "/products",
     },
   ],
 
   baby: [
     {
       type: "service",
-      title: "Infant Massage & Bath",
+      title: "Signature Infant Massage & Bath",
       description:
-        "Discover age-appropriate infant care support.",
+        "Traditional Indian newborn bodywork with safe head-holding, digestion colic strokes, and relaxing warm bath rituals.",
       icon: "♡",
-      link: "/services/infant-massage",
+      link: "/services/infant-massage-and-bath",
     },
     {
       type: "class",
-      title: "Baby Care Learning Class",
+      title: "Traditional Baby Massage & Bath Workshop",
       description:
-        "Learn practical baby care techniques and routines.",
+        "Master the physiological strokes, colic relief holds, and warm water bath rituals for your growing baby.",
       icon: "✿",
-      link: "/classes/baby-care",
+      link: "/classes/traditional-baby-massage-and-bath-workshop",
     },
     {
       type: "resource",
-      title: "Baby Care Guide",
+      title: "Newborn Sleep & Feeding Log Tracker",
       description:
-        "Explore everyday baby care tips and guidance.",
+        "Milestone monitoring template to track baby sleep cycles, feeding intervals, and wet diapers.",
       icon: "▤",
-      link: "/resources/baby-care",
+      link: "/resources",
     },
     {
       type: "product",
-      title: "SEY Baby Care Collection",
+      title: "Nalangu Maavu Herbal Bath Powder",
       description:
-        "Discover products for your baby's daily routine.",
+        "Gentle, soap-free traditional herbal powder formulated with green gram and rose petals for sensitive infant skin.",
       icon: "◇",
       link: "/products",
     },
@@ -234,6 +251,9 @@ export function YourStageNextStep() {
   const [showResults, setShowResults] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  const resultsRef = useRef<HTMLDivElement>(null);
+  const { openCallBooking } = useFifteenMinuteCall();
+
   const stage = useMemo(() => {
     if (!showResults) return null;
 
@@ -285,16 +305,24 @@ export function YourStageNextStep() {
 
     setFilter("all");
     setShowResults(true);
+
+    // Auto-scroll directly down to recommendations
+    setTimeout(() => {
+      resultsRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }, 80);
   };
 
   return (
     <section className="stage-section">
       <div className="stage-container">
 
-        {/* Header */}
+        {/* Header - No full stop */}
         <div className="stage-heading">
           <h2>
-            Your Stage, <span>Your Next Step.</span>
+            Your Stage, <span>Your Next Step</span>
           </h2>
 
           <p>
@@ -362,7 +390,8 @@ export function YourStageNextStep() {
 
               {mode === "edd" && (
                 <div className="stage-field">
-                  <label>Expected Due Date (EDD)</label>
+                  {/* Pregnancy input label: I'm Expecting – Estimated Due Date */}
+                  <label>I&apos;m Expecting – Estimated Due Date</label>
 
                   <input
                     type="date"
@@ -375,7 +404,7 @@ export function YourStageNextStep() {
                   />
 
                   <small>
-                    Select your expected delivery date.
+                    Select your expected delivery date to calculate your current trimester recommendations.
                   </small>
                 </div>
               )}
@@ -441,25 +470,41 @@ export function YourStageNextStep() {
                 </p>
               )}
 
-              <button className="stage-submit" type="submit">
+              <button className="stage-submit cursor-pointer" type="submit">
                 Find My Next Step <span>→</span>
               </button>
+
+              {/* Clear Supporting Link */}
+              <div className="pt-3 text-center sm:text-left">
+                <button
+                  type="button"
+                  onClick={() => openCallBooking()}
+                  className="text-xs font-bold text-[#7B1131] hover:underline inline-flex items-center gap-1 cursor-pointer"
+                >
+                  <span>Not sure what support is right for you?</span>
+                  <span>Book a 15-Minute Call →</span>
+                </button>
+              </div>
+
             </form>
           </div>
         </div>
 
-        {/* Recommendations */}
+        {/* Recommendations Section (Auto-scrolled on submit) */}
         {showResults && stage && (
-          <div className="stage-results" aria-live="polite">
+          <div
+            ref={resultsRef}
+            className="stage-results scroll-mt-24"
+            aria-live="polite"
+          >
             <div className="stage-results-heading">
               <div>
                 <h3>{stage.title}</h3>
-
                 <p>{stage.subtitle}</p>
               </div>
 
               <button
-                className="stage-reset"
+                className="stage-reset cursor-pointer"
                 onClick={() => setShowResults(false)}
               >
                 ↻ Change details
@@ -512,24 +557,28 @@ export function YourStageNextStep() {
             </div>
 
             <p className="stage-disclaimer">
-              Recommendations are general suggestions based on
-              the information provided. Please check individual
-              service and product suitability before booking or purchase.
+              Recommendations are clinical suggestions based on
+              the stage provided. Please consult with our care leads or check individual
+              service details before booking.
             </p>
           </div>
         )}
 
-        {/* Bottom CTA */}
+        {/* Bottom CTA with "Not sure what support is right for you?" */}
         <div className="stage-bottom">
           <div>
-            <span>NEED A LITTLE GUIDANCE?</span>
+            <span>CARE GUIDANCE &amp; CONSULTATION</span>
             <h3>Not sure what support is right for you?</h3>
-            <p>Our team is here to help you find your next step.</p>
+            <p>Our maternal care specialists are here to guide you to the perfect care plan.</p>
           </div>
 
-          <Link href="/book" className="stage-contact">
-            Talk to SEYOL <span>→</span>
-          </Link>
+          <button
+            type="button"
+            onClick={() => openCallBooking()}
+            className="stage-contact cursor-pointer"
+          >
+            Book a 15-Minute Call <span>→</span>
+          </button>
         </div>
 
       </div>
