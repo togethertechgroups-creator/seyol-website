@@ -1,0 +1,374 @@
+/* ==========================================================================
+   SEYOL FOOTER COMPONENT
+   Primary Colours: Maroon (#7B1131) and Cream (#F7F4EF)
+   Typography: Garet (Headings & Brand) + Lato (Body & Links)
+   Gold (#C8A45D): subtle accent highlights only
+   ========================================================================== */
+
+.seyol-footer {
+  width: 100%;
+  background-color: #7B1131;
+  color: #F7F4EF;
+  font-family: 'Lato', var(--font-lato), sans-serif;
+  border-top: 1px solid rgba(200, 164, 93, 0.25);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.seyol-footer-container {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 4.5rem 1.5rem 2.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  .seyol-footer-container {
+    padding: 5.5rem 2rem 3rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .seyol-footer-container {
+    padding: 6rem 2.5rem 3.5rem;
+  }
+}
+
+/* Main Footer: Links Grid + Newsletter */
+.seyol-footer-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(247, 244, 239, 0.15);
+}
+
+@media (min-width: 1024px) {
+  .seyol-footer-main {
+    grid-template-columns: 1.7fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+@media (min-width: 1280px) {
+  .seyol-footer-main {
+    grid-template-columns: 2fr 1fr;
+    gap: 5rem;
+  }
+}
+
+/* 4 Navigation Columns Grid */
+.seyol-footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.25rem 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .seyol-footer-links {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 1.25rem;
+  }
+}
+
+.seyol-footer-column h3 {
+  font-family: 'Garet', var(--font-garet), sans-serif !important;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FCFBFA;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.3;
+}
+
+.seyol-footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.seyol-footer-column ul li a {
+  color: rgba(247, 244, 239, 0.82);
+  text-decoration: none;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.seyol-footer-column ul li a:hover,
+.seyol-footer-column ul li a:focus-visible {
+  color: #C8A45D;
+  transform: translateX(2px);
+}
+
+/* Newsletter Column */
+.seyol-footer-newsletter {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(200, 164, 93, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-blur: 8px;
+}
+
+@media (min-width: 640px) {
+  .seyol-footer-newsletter {
+    padding: 2.25rem;
+  }
+}
+
+.seyol-footer-newsletter h3 {
+  font-family: 'Garet', var(--font-garet), sans-serif !important;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #FCFBFA;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.01em;
+}
+
+.seyol-footer-newsletter p {
+  color: rgba(247, 244, 239, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+.seyol-newsletter-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+}
+
+@media (min-width: 480px) {
+  .seyol-newsletter-input {
+    flex-direction: row;
+    align-items: center;
+    background: #FCFBFA;
+    border-radius: 9999px;
+    padding: 0.3rem 0.35rem 0.3rem 1.25rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.seyol-newsletter-input input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #3A1D1D;
+  font-family: 'Lato', var(--font-lato), sans-serif;
+  font-size: 0.9rem;
+  padding: 0.75rem 1rem;
+}
+
+@media (max-width: 479px) {
+  .seyol-newsletter-input input {
+    background: #FCFBFA;
+    border-radius: 9999px;
+    padding: 0.85rem 1.25rem;
+  }
+}
+
+.seyol-newsletter-input input::placeholder {
+  color: #8C7878;
+}
+
+.seyol-newsletter-input button {
+  background: #7B1131;
+  color: #FCFBFA;
+  border: none;
+  border-radius: 9999px;
+  font-family: 'Garet', var(--font-garet), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.75rem 1.4rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+
+.seyol-newsletter-input button:hover:not(:disabled) {
+  background: #5A0C24;
+  transform: scale(1.02);
+}
+
+.seyol-newsletter-input button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.seyol-newsletter-line {
+  height: 1px;
+  background: rgba(247, 244, 239, 0.12);
+  margin: 1.25rem 0 0.85rem;
+}
+
+.seyol-newsletter-consent {
+  font-size: 0.78rem;
+  color: rgba(247, 244, 239, 0.72);
+  line-height: 1.5;
+  display: block;
+}
+
+.seyol-newsletter-consent a {
+  color: #C8A45D;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.seyol-newsletter-consent a:hover {
+  color: #E4CF9E;
+}
+
+.seyol-newsletter-success {
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #86EFAC;
+}
+
+.seyol-newsletter-error {
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #FCA5A5;
+}
+
+/* Social Media Section */
+.seyol-footer-social {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(247, 244, 239, 0.12);
+}
+
+.seyol-footer-social h4 {
+  font-family: 'Garet', var(--font-garet), sans-serif !important;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #FCFBFA;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem 0;
+}
+
+.seyol-social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.seyol-social-links a {
+  color: rgba(247, 244, 239, 0.8);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 0.25rem 0;
+}
+
+.seyol-social-links a:hover,
+.seyol-social-links a:focus-visible {
+  color: #C8A45D;
+}
+
+/* Brand Section (Middle) */
+.seyol-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.75rem 0 2.25rem;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .seyol-footer-brand {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+    padding: 3rem 0 2.25rem;
+  }
+}
+
+.seyol-footer-logo {
+  font-family: 'Garet', var(--font-garet), sans-serif;
+  font-size: 1.95rem;
+  font-weight: 900;
+  color: #FCFBFA;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.seyol-footer-logo:hover {
+  opacity: 0.9;
+}
+
+.seyol-footer-brand p {
+  color: rgba(247, 244, 239, 0.78);
+  font-size: 0.925rem;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Bottom Legal Section */
+.seyol-footer-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(247, 244, 239, 0.12);
+  text-align: center;
+}
+
+@media (min-width: 992px) {
+  .seyol-footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.seyol-footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.85rem 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .seyol-footer-legal {
+    justify-content: flex-start;
+  }
+}
+
+.seyol-footer-legal a {
+  color: rgba(247, 244, 239, 0.7);
+  font-size: 0.8rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.seyol-footer-legal a:hover,
+.seyol-footer-legal a:focus-visible {
+  color: #C8A45D;
+}
+
+.seyol-copyright {
+  color: rgba(247, 244, 239, 0.55);
+  font-size: 0.8rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
