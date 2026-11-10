@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState, useRef } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useFifteenMinuteCall } from "../../context/FifteenMinuteCallContext";
 import "./YourStageNextStep.css";
@@ -14,7 +14,7 @@ interface RecommendationItem {
 }
 
 const recommendations: Record<string, RecommendationItem[]> = {
-  early: [
+  early_pregnancy: [
     {
       type: "service",
       title: "Prenatal Massage Therapy",
@@ -49,7 +49,7 @@ const recommendations: Record<string, RecommendationItem[]> = {
     },
   ],
 
-  upcoming: [
+  birth_prep: [
     {
       type: "service",
       title: "Birth Doula Support",
@@ -67,10 +67,45 @@ const recommendations: Record<string, RecommendationItem[]> = {
       link: "/classes/preparing-for-birth-with-seyol",
     },
     {
+      type: "service",
+      title: "Stay-In Confinement Nanny Consultation",
+      description:
+        "Advance reservation and matching with vetted, experienced confinement nannies for 24/7 post-birth home care.",
+      icon: "♡",
+      link: "/services/stay-in-confinement-nanny-support",
+    },
+    {
       type: "resource",
       title: "Hospital Bag & Birth Sanctuary Checklist",
       description:
         "A practical, clinician-vetted checklist for labour comfort, hospital documentation, and home arrival.",
+      icon: "▤",
+      link: "/resources",
+    },
+  ],
+
+  imminent_arrival: [
+    {
+      type: "service",
+      title: "Postpartum & Confinement Advance Reservation",
+      description:
+        "Lock in your sacred 40-day postpartum confinement dates, herbal wrap package, and doula care schedule.",
+      icon: "♡",
+      link: "/services/postpartum-massage-and-wrap",
+    },
+    {
+      type: "class",
+      title: "Breastfeeding & Bottle Feeding Basics",
+      description:
+        "Master pain-free latching, colostrum harvesting, milk supply establishment, and feeding setup.",
+      icon: "✿",
+      link: "/classes/breastfeeding-and-bottle-feeding-basics",
+    },
+    {
+      type: "resource",
+      title: "The Sacred 40-Day Confinement Guide",
+      description:
+        "South Indian postpartum recovery handbook covering Pathiya Samayal healing foods and herbal bathing rituals.",
       icon: "▤",
       link: "/resources",
     },
@@ -84,7 +119,7 @@ const recommendations: Record<string, RecommendationItem[]> = {
     },
   ],
 
-  newborn: [
+  sacred_confinement: [
     {
       type: "service",
       title: "Postpartum Massage & Bengkung Wrap",
@@ -94,20 +129,20 @@ const recommendations: Record<string, RecommendationItem[]> = {
       link: "/services/postpartum-massage-and-wrap",
     },
     {
+      type: "service",
+      title: "Hourly Newborn Support / Night Matron",
+      description:
+        "Gentle nocturnal infant care, safe bathing, and soothing support allowing mothers to get restorative sleep.",
+      icon: "♡",
+      link: "/services/hourly-newborn-support",
+    },
+    {
       type: "class",
       title: "Newborn Care Essentials for Modern Parents",
       description:
         "Pediatric sleep foundations, soothing, swaddling holds, and gentle newborn bathing techniques.",
       icon: "✿",
       link: "/classes/newborn-care-essentials-for-modern-parents",
-    },
-    {
-      type: "resource",
-      title: "The Sacred 40-Day Confinement Guide",
-      description:
-        "South Indian postpartum recovery handbook covering Pathiya Samayal healing foods and herbal bathing rituals.",
-      icon: "▤",
-      link: "/resources",
     },
     {
       type: "product",
@@ -119,7 +154,7 @@ const recommendations: Record<string, RecommendationItem[]> = {
     },
   ],
 
-  baby: [
+  early_infant: [
     {
       type: "service",
       title: "Signature Infant Massage & Bath",
@@ -149,6 +184,41 @@ const recommendations: Record<string, RecommendationItem[]> = {
       title: "Nalangu Maavu Herbal Bath Powder",
       description:
         "Gentle, soap-free traditional herbal powder formulated with green gram and rose petals for sensitive infant skin.",
+      icon: "◇",
+      link: "/products",
+    },
+  ],
+
+  growing_baby: [
+    {
+      type: "service",
+      title: "Mother & Baby Combo Packages",
+      description:
+        "Restorative maternal bodywork combined with gentle baby massage routines for joint parent-child relaxation.",
+      icon: "♡",
+      link: "/services/mother-and-baby-combo-packages",
+    },
+    {
+      type: "class",
+      title: "Partner & Family Preparation for Baby",
+      description:
+        "Hands-on baby care, family communication rhythms, and positive developmental play for growing infants.",
+      icon: "✿",
+      link: "/classes/partner-and-family-preparation-for-baby",
+    },
+    {
+      type: "resource",
+      title: "Baby Weaning & Nourishment Guide",
+      description:
+        "Traditional, wholesome introduction to first solids, digestion support, and gentle pediatric nutrition.",
+      icon: "▤",
+      link: "/resources",
+    },
+    {
+      type: "product",
+      title: "Restorative Mother Massage Oil",
+      description:
+        "Cold-pressed sesame, wild turmeric, and traditional herbal infusions to strengthen ongoing maternal recovery.",
       icon: "◇",
       link: "/products",
     },
@@ -201,44 +271,76 @@ function getStage(
       return null;
     }
 
-    return {
-      title: "Your Pregnancy Journey",
-      subtitle: `Approximately week ${week} of pregnancy`,
-      items: week >= 28
-        ? recommendations.upcoming
-        : recommendations.early,
-    };
+    if (week < 28) {
+      return {
+        title: "Your Second Trimester Journey",
+        subtitle: `Approximately week ${week} of pregnancy • Maternal Vitality & Pelvic Comfort`,
+        items: recommendations.early_pregnancy,
+      };
+    } else if (week <= 36) {
+      return {
+        title: "Your Third Trimester Journey",
+        subtitle: `Approximately week ${week} of pregnancy • Labour & Birth Preparation`,
+        items: recommendations.birth_prep,
+      };
+    } else {
+      return {
+        title: "Your Imminent Arrival Journey",
+        subtitle: `Approximately week ${week} of pregnancy • Final Countdown & Confinement Setup`,
+        items: recommendations.imminent_arrival,
+      };
+    }
   }
 
   if (type === "week") {
     const week = Number(values.week);
 
-    return {
-      title: "Your Pregnancy Journey",
-      subtitle: `Week ${week} of pregnancy`,
-      items: week >= 28
-        ? recommendations.upcoming
-        : recommendations.early,
-    };
+    if (week < 28) {
+      return {
+        title: "Your Second Trimester Journey",
+        subtitle: `Week ${week} of pregnancy • Maternal Vitality & Pelvic Comfort`,
+        items: recommendations.early_pregnancy,
+      };
+    } else if (week <= 36) {
+      return {
+        title: "Your Third Trimester Journey",
+        subtitle: `Week ${week} of pregnancy • Childbirth & Doula Preparation`,
+        items: recommendations.birth_prep,
+      };
+    } else {
+      return {
+        title: "Your Imminent Arrival Journey",
+        subtitle: `Week ${week} of pregnancy • Final Birth & Confinement Preparation`,
+        items: recommendations.imminent_arrival,
+      };
+    }
   }
 
   const days = getBabyAgeInDays(values.age, values.unit);
 
   if (days === null || days > 3650) return null;
 
-  if (days <= 90) {
+  if (days <= 45) {
     return {
-      title: "Your Newborn Journey",
-      subtitle: `Your baby is approximately ${Math.round(days)} days old`,
-      items: recommendations.newborn,
+      title: "Your Sacred 40-Day Confinement Journey",
+      subtitle: `Your baby is ${Math.round(days)} days old • Sacred Fourth Trimester Healing`,
+      items: recommendations.sacred_confinement,
+    };
+  } else if (days <= 180) {
+    const months = (days / 30.4375).toFixed(1);
+    return {
+      title: "Your Early Infant Care Journey",
+      subtitle: `Your baby is approximately ${months} months old (${Math.round(days)} days) • Infant Massage & Daily Rituals`,
+      items: recommendations.early_infant,
+    };
+  } else {
+    const months = Math.round(days / 30.4375);
+    return {
+      title: "Your Growing Baby's Journey",
+      subtitle: `Your child is approximately ${months} months old • Milestone Support & Family Care`,
+      items: recommendations.growing_baby,
     };
   }
-
-  return {
-    title: "Your Baby's Growing Journey",
-    subtitle: `Your baby is approximately ${Math.round(days)} days old`,
-    items: recommendations.baby,
-  };
 }
 
 export function YourStageNextStep() {
@@ -305,18 +407,26 @@ export function YourStageNextStep() {
 
     setFilter("all");
     setShowResults(true);
-
-    // Auto-scroll directly down to recommendations
-    setTimeout(() => {
-      resultsRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }, 80);
   };
 
+  // Automatically scroll down to the suggested recommendations as soon as results are generated
+  useEffect(() => {
+    if (showResults && stage) {
+      const timer = setTimeout(() => {
+        const targetElement = resultsRef.current || document.getElementById("stage-recommendations");
+        if (targetElement) {
+          targetElement.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [showResults, stage]);
+
   return (
-    <section className="stage-section">
+    <section className="stage-section" id="your-stage-next-step">
       <div className="stage-container">
 
         {/* Header - No full stop */}
@@ -391,9 +501,10 @@ export function YourStageNextStep() {
               {mode === "edd" && (
                 <div className="stage-field">
                   {/* Pregnancy input label: I'm Expecting – Estimated Due Date */}
-                  <label>I&apos;m Expecting – Estimated Due Date</label>
+                  <label htmlFor="stage-edd-input">I&apos;m Expecting – Estimated Due Date</label>
 
                   <input
+                    id="stage-edd-input"
                     type="date"
                     value={edd}
                     onChange={(e) => {
@@ -411,9 +522,10 @@ export function YourStageNextStep() {
 
               {mode === "week" && (
                 <div className="stage-field">
-                  <label>How many weeks pregnant are you?</label>
+                  <label htmlFor="stage-week-select">How many weeks pregnant are you?</label>
 
                   <select
+                    id="stage-week-select"
                     value={week}
                     onChange={(e) => {
                       setWeek(e.target.value);
@@ -431,10 +543,11 @@ export function YourStageNextStep() {
 
               {mode === "baby" && (
                 <div className="stage-field">
-                  <label>How old is your baby?</label>
+                  <label htmlFor="stage-age-input">How old is your baby?</label>
 
                   <div className="baby-age-input">
                     <input
+                      id="stage-age-input"
                       type="number"
                       min="0"
                       max="3650"
@@ -450,6 +563,7 @@ export function YourStageNextStep() {
 
                     <select
                       value={unit}
+                      aria-label="Baby age unit"
                       onChange={(e) => {
                         setUnit(e.target.value);
                         setShowResults(false);
@@ -474,15 +588,15 @@ export function YourStageNextStep() {
                 Find My Next Step <span>→</span>
               </button>
 
-              {/* Clear Supporting Link */}
-              <div className="pt-3 text-center sm:text-left">
+              {/* Clear Supporting Link with "Not sure what support is right for you?" */}
+              <div className="pt-3.5 text-center sm:text-left">
                 <button
                   type="button"
                   onClick={() => openCallBooking()}
-                  className="text-xs font-bold text-[#7B1131] hover:underline inline-flex items-center gap-1 cursor-pointer"
+                  className="text-xs sm:text-sm font-bold text-[#7B1131] hover:underline inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>Not sure what support is right for you?</span>
-                  <span>Book a 15-Minute Call →</span>
+                  <span className="text-[#A6833D] hover:text-[#7B1131]">Book a 15-Minute Call →</span>
                 </button>
               </div>
 
@@ -494,6 +608,7 @@ export function YourStageNextStep() {
         {showResults && stage && (
           <div
             ref={resultsRef}
+            id="stage-recommendations"
             className="stage-results scroll-mt-24"
             aria-live="polite"
           >
@@ -569,7 +684,7 @@ export function YourStageNextStep() {
           <div>
             <span>CARE GUIDANCE &amp; CONSULTATION</span>
             <h3>Not sure what support is right for you?</h3>
-            <p>Our maternal care specialists are here to guide you to the perfect care plan.</p>
+            <p>Our care matrons are here to help match the ideal support, workshop, or herbal routine for your family.</p>
           </div>
 
           <button

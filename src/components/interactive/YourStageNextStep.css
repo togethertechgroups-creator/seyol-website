@@ -849,6 +849,7 @@
 
 /* ── Recommendations Results Panel ── */
 .stage-results {
+  scroll-margin-top: 5.5rem;
   background: #FFFFFF;
   border-radius: 28px;
   border: 1px solid #EAE1D5;
