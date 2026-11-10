@@ -14,7 +14,6 @@ import {
   Calendar,
   PhoneCall,
   MessageSquare,
-  Sparkles,
   ArrowDownCircle,
   ExternalLink
 } from 'lucide-react';
@@ -526,26 +525,16 @@ export const SupportModeTabs: React.FC = () => {
                         sizes="(max-width: 768px) 100vw, 33vw"
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                      <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-heading font-extrabold uppercase tracking-wider text-[#7B1131] shadow-xs">
-                        {card.tag}
-                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
                     </div>
 
                     <div>
-                      <h4 className="font-heading font-extrabold text-lg sm:text-xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
+                      <h4 className="font-heading font-extrabold text-lg sm:text-xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug min-h-[32px] flex items-center">
                         {card.title}
                       </h4>
-                      <p className="font-sans text-xs sm:text-[13px] text-[#7A6363] leading-relaxed mt-2">
+                      <p className="font-sans text-xs sm:text-[13px] text-[#7A6363] leading-relaxed mt-2 min-h-[48px]">
                         {card.desc}
                       </p>
-                    </div>
-
-                    <div className="pt-2">
-                      <span className="inline-flex items-center gap-1.5 text-[11px] font-sans font-semibold text-[#A6833D] bg-[#FDFAF2] border border-[#EDDCB5] px-2.5 py-1 rounded-full">
-                        <Sparkles className="w-3 h-3 text-[#C8A45D]" />
-                        {card.keyDetail}
-                      </span>
                     </div>
                   </div>
 
@@ -592,7 +581,7 @@ export const SupportModeTabs: React.FC = () => {
                 className="group relative flex flex-col justify-between bg-[#FCFBFA] rounded-2xl sm:rounded-3xl border border-[#E8E0D2] overflow-hidden p-5 sm:p-6 hover:border-[#7B1131]/40 hover:bg-white hover:shadow-warm-lg hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div className="space-y-4">
-                  {/* Thumbnail Image with Tag Overlay */}
+                  {/* Thumbnail Image */}
                   <div className="relative w-full h-40 sm:h-44 rounded-xl overflow-hidden bg-cream border border-[#E8E0D2]/60">
                     <Image
                       src={card.imgSrc}
@@ -601,26 +590,16 @@ export const SupportModeTabs: React.FC = () => {
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-                    <span className="absolute top-2.5 left-2.5 bg-white/95 backdrop-blur-md px-2.5 py-0.5 rounded-full text-[10px] font-heading font-extrabold uppercase tracking-wider text-[#7B1131] shadow-xs">
-                      {card.tag}
-                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
                   </div>
 
                   <div>
-                    <h4 className="font-heading font-extrabold text-base sm:text-lg text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug line-clamp-2">
+                    <h4 className="font-heading font-extrabold text-base sm:text-lg text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug line-clamp-2 min-h-[48px] flex items-center">
                       {card.title}
                     </h4>
-                    <p className="font-sans text-xs text-[#7A6363] leading-relaxed mt-2 line-clamp-3">
+                    <p className="font-sans text-xs text-[#7A6363] leading-relaxed mt-2 line-clamp-3 min-h-[54px]">
                       {card.desc}
                     </p>
-                  </div>
-
-                  <div className="pt-1">
-                    <span className="inline-flex items-center gap-1.5 text-[11px] font-sans font-medium text-[#A6833D] bg-[#FDFAF2] border border-[#EDDCB5]/80 px-2.5 py-0.5 rounded-full">
-                      <Sparkles className="w-2.5 h-2.5 text-[#C8A45D]" />
-                      {card.keyDetail}
-                    </span>
                   </div>
                 </div>
 
