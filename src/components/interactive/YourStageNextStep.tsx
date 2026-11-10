@@ -510,8 +510,8 @@ export function YourStageNextStep() {
 
               {mode === "edd" && (
                 <div className="stage-field">
-                  {/* Pregnancy input label: I'm Expecting – Estimated Due Date */}
-                  <label htmlFor="stage-edd-input">I&apos;m Expecting – Estimated Due Date</label>
+                  {/* Pregnancy input label: I'm Expecting to Estimated Due Date */}
+                  <label htmlFor="stage-edd-input">I&apos;m Expecting to Estimated Due Date</label>
 
                   <input
                     id="stage-edd-input"
