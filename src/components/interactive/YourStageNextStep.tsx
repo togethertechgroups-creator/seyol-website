@@ -225,10 +225,12 @@ const recommendations: Record<string, RecommendationItem[]> = {
   ],
 };
 
-function getPregnancyWeek(edd: string): number | null {
-  if (!edd) return null;
+function getPregnancyWeek(edd: string): number {
+  if (!edd) return 28;
 
   const dueDate = new Date(`${edd}T12:00:00`);
+  if (isNaN(dueDate.getTime())) return 28;
+
   const today = new Date();
   today.setHours(12, 0, 0, 0);
 
@@ -238,17 +240,20 @@ function getPregnancyWeek(edd: string): number | null {
 
   const pregnancyDays = 280 - daysUntilDue;
 
-  if (pregnancyDays < 0 || pregnancyDays > 294) {
-    return null;
+  if (pregnancyDays > 294) {
+    return 40;
+  }
+  if (pregnancyDays < 0) {
+    return 12;
   }
 
-  return Math.floor(pregnancyDays / 7);
+  return Math.max(1, Math.min(42, Math.floor(pregnancyDays / 7)));
 }
 
-function getBabyAgeInDays(age: string | number, unit: string): number | null {
+function getBabyAgeInDays(age: string | number, unit: string): number {
   const value = Number(age);
 
-  if (!Number.isFinite(value) || value < 0) return null;
+  if (!Number.isFinite(value) || value < 0) return 30;
 
   const multipliers: Record<string, number> = {
     days: 1,
@@ -266,10 +271,6 @@ function getStage(
 ) {
   if (type === "edd") {
     const week = getPregnancyWeek(values.edd);
-
-    if (week === null || week < 0 || week > 42) {
-      return null;
-    }
 
     if (week < 28) {
       return {
@@ -293,7 +294,7 @@ function getStage(
   }
 
   if (type === "week") {
-    const week = Number(values.week);
+    const week = Number(values.week) || 28;
 
     if (week < 28) {
       return {
@@ -317,8 +318,6 @@ function getStage(
   }
 
   const days = getBabyAgeInDays(values.age, values.unit);
-
-  if (days === null || days > 3650) return null;
 
   if (days <= 45) {
     return {
@@ -345,7 +344,11 @@ function getStage(
 
 export function YourStageNextStep() {
   const [mode, setMode] = useState<string>("edd");
-  const [edd, setEdd] = useState<string>("");
+  const [edd, setEdd] = useState<string>(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 84); // pre-populate with ~12 weeks in the future
+    return d.toISOString().split("T")[0];
+  });
   const [week, setWeek] = useState<string>("28");
   const [age, setAge] = useState<string>("2");
   const [unit, setUnit] = useState<string>("months");
@@ -373,65 +376,36 @@ export function YourStageNextStep() {
     setFilter("all");
   };
 
+  const scrollToResults = () => {
+    setTimeout(() => {
+      const targetElement = resultsRef.current || document.getElementById("stage-recommendations");
+      if (targetElement) {
+        const yOffset = -90;
+        const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (mode === "edd") {
-      if (!edd) {
-        setError("Please select your expected due date.");
-        return;
-      }
-
-      if (getPregnancyWeek(edd) === null) {
-        setError("Please enter a valid expected due date.");
-        return;
-      }
-    }
-
-    if (mode === "week") {
-      if (!week || Number(week) < 1 || Number(week) > 42) {
-        setError("Please select a valid pregnancy week.");
-        return;
-      }
-    }
-
-    if (mode === "baby") {
-      const days = getBabyAgeInDays(age, unit);
-
-      if (days === null || days > 3650) {
-        setError("Please enter a valid baby age.");
-        return;
-      }
+    if (mode === "edd" && !edd) {
+      const d = new Date();
+      d.setDate(d.getDate() + 84);
+      setEdd(d.toISOString().split("T")[0]);
     }
 
     setFilter("all");
     setShowResults(true);
-
-    setTimeout(() => {
-      const targetElement = resultsRef.current || document.getElementById("stage-recommendations");
-      if (targetElement) {
-        targetElement.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      }
-    }, 100);
+    scrollToResults();
   };
 
   // Automatically scroll down to the suggested recommendations as soon as results are generated
   useEffect(() => {
     if (showResults && stage) {
-      const timer = setTimeout(() => {
-        const targetElement = resultsRef.current || document.getElementById("stage-recommendations");
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }
-      }, 100);
-      return () => clearTimeout(timer);
+      scrollToResults();
     }
   }, [showResults, stage]);
 
@@ -510,8 +484,8 @@ export function YourStageNextStep() {
 
               {mode === "edd" && (
                 <div className="stage-field">
-                  {/* Pregnancy input label: I'm Expecting to Estimated Due Date */}
-                  <label htmlFor="stage-edd-input">I&apos;m Expecting to Estimated Due Date</label>
+                  {/* Pregnancy input label: Estimated Due Date */}
+                  <label htmlFor="stage-edd-input">Estimated Due Date</label>
 
                   <input
                     id="stage-edd-input"
@@ -600,14 +574,23 @@ export function YourStageNextStep() {
 
               {/* Clear Supporting Link with "Not sure what support is right for you?" */}
               <div className="pt-3.5 text-center sm:text-left">
-                <button
-                  type="button"
-                  onClick={() => openCallBooking()}
-                  className="text-xs sm:text-sm font-bold text-[#7B1131] hover:underline inline-flex items-center gap-1.5 cursor-pointer"
-                >
-                  <span>Not sure what support is right for you?</span>
-                  <span className="text-[#A6833D] hover:text-[#7B1131]">Book a 15-Minute Call →</span>
-                </button>
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs sm:text-sm">
+                  <span className="font-bold text-[#3A1D1D]">Not sure what support is right for you?</span>
+                  <button
+                    type="button"
+                    onClick={() => openCallBooking()}
+                    className="font-bold text-[#7B1131] hover:text-[#5A0C24] underline hover:no-underline inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <span>Book a 15-Minute Call →</span>
+                  </button>
+                  <span className="text-neutral-400 hidden sm:inline">•</span>
+                  <Link
+                    href="/contact"
+                    className="font-semibold text-[#A6833D] hover:text-[#7B1131] hover:underline"
+                  >
+                    Send Guidance Enquiry
+                  </Link>
+                </div>
               </div>
 
             </form>
@@ -694,16 +677,24 @@ export function YourStageNextStep() {
           <div>
             <span>CARE GUIDANCE &amp; CONSULTATION</span>
             <h3>Not sure what support is right for you?</h3>
-            <p>Our care matrons are here to help match the ideal support, workshop, or herbal routine for your family.</p>
+            <p>Our care matrons are here to help match the ideal clinical service, parent workshop, or herbal routine for your family.</p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => openCallBooking()}
-            className="stage-contact cursor-pointer"
-          >
-            Book a 15-Minute Call <span>→</span>
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={() => openCallBooking()}
+              className="stage-contact cursor-pointer"
+            >
+              Book a 15-Minute Call <span>→</span>
+            </button>
+            <Link
+              href="/contact"
+              className="px-6 py-3.5 rounded-full bg-white text-[#7B1131] border border-[#7B1131]/30 hover:border-[#7B1131] font-heading font-bold text-xs tracking-wider transition-all duration-200 cursor-pointer shadow-xs hover:scale-[1.02]"
+            >
+              General Enquiry
+            </Link>
+          </div>
         </div>
 
       </div>
