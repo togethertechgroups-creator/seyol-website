@@ -51,10 +51,10 @@ export const PopularClassesShowcase: React.FC = () => {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
 
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
           Popular Classes Parents Start With
         </h2>
-        <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
           These three signature masterclasses have empowered thousands of parents to handle their newborns with total calm and zero panic.
         </p>
       </div>
@@ -80,7 +80,7 @@ export const PopularClassesShowcase: React.FC = () => {
 
               {/* Title & Tagline */}
               <div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown group-hover:text-maroon transition-colors leading-snug">
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown group-hover:text-maroon transition-colors leading-snug">
                   {cls.title}
                 </h3>
                 <p className="text-xs text-brown-muted mt-1.5 leading-relaxed line-clamp-2">

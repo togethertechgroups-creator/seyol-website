@@ -132,7 +132,7 @@ export const AdminPaymentManager: React.FC = () => {
           <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
             Finance &amp; Billing Control
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
+          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
             Payment Management
           </h1>
           <p className="text-xs text-neutral-500 mt-1">
@@ -183,7 +183,7 @@ export const AdminPaymentManager: React.FC = () => {
       {/* Payment Methods Breakdown */}
       <div className="bg-white p-5 rounded-2xl border border-neutral-200 shadow-xs space-y-3">
         <div className="flex items-center justify-between">
-          <h3 className="font-serif font-bold text-sm text-neutral-900">Payment Modes &amp; Channels</h3>
+          <h3 className="font-heading font-bold text-sm text-neutral-900">Payment Modes &amp; Channels</h3>
           <span className="text-[11px] text-neutral-400">Instant Settlements Supported</span>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
@@ -459,7 +459,7 @@ export const AdminPaymentManager: React.FC = () => {
       {isNewInvoiceOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-fadeIn">
           <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-neutral-200 space-y-5">
-            <h3 className="font-serif font-bold text-lg text-neutral-900">Issue Custom Payment Invoice</h3>
+            <h3 className="font-heading font-bold text-lg text-neutral-900">Issue Custom Payment Invoice</h3>
             <form onSubmit={handleCreateInvoice} className="space-y-4 text-xs">
               <div>
                 <label className="block text-[11px] font-bold uppercase text-neutral-600 mb-1">Select Client</label>

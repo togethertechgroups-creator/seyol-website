@@ -70,7 +70,7 @@ function ScrollItem({
           </div>
         )}
         
-        <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight leading-[1.15]">
+        <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight leading-[1.15]">
           {item.title}
         </h3>
 
@@ -122,7 +122,7 @@ export function Scroll01({ items, className = "" }: Readonly<Scroll01Props>) {
                   <span className="w-8 h-px bg-[#8C6D4F]" />
                 </div>
               )}
-              <h3 className="font-serif text-2xl font-bold text-[#721832] leading-tight">
+              <h3 className="font-heading text-2xl font-bold text-[#721832] leading-tight">
                 {item.title}
               </h3>
               {item.subtitle && (

@@ -49,7 +49,7 @@ export const FirstSeyolResource: React.FC = () => {
               10 — A GIFT FOR YOUR JOURNEY
             </span>
 
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold text-white tracking-tight leading-snug">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-bold text-white tracking-tight leading-snug">
               Your First SEYOL Resource
             </h2>
 

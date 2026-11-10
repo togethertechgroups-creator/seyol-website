@@ -71,7 +71,7 @@ export const BundleBuilder: React.FC = () => {
     <section className="bg-cream-dark/30 rounded-3xl border border-cream-border p-6 sm:p-10 shadow-warm-md font-sans">
       <div className="max-w-3xl mx-auto text-center mb-8">
 
-        <h2 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brown">
           Build Your Custom Mother & Baby Care Routine
         </h2>
         <p className="text-xs sm:text-sm text-brown-muted mt-2">

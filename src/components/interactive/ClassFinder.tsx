@@ -200,7 +200,7 @@ export const ClassFinder: React.FC<ClassFinderProps> = ({ externalStageFilter = 
 
                 {/* Title & Tagline */}
                 <Link href={`/classes/${cls.slug}`} className="block group">
-                  <h3 className="font-serif text-lg font-bold text-brown group-hover:text-maroon transition-colors leading-snug mb-1.5">
+                  <h3 className="font-heading text-lg font-bold text-brown group-hover:text-maroon transition-colors leading-snug mb-1.5">
                     {cls.title}
                   </h3>
                 </Link>
@@ -293,7 +293,7 @@ export const ClassFinder: React.FC<ClassFinderProps> = ({ externalStageFilter = 
                   ))}
                   <span className="text-[11px] text-brown-muted font-medium">• {cls.format} • {cls.duration}</span>
                 </div>
-                <h3 className="font-serif text-lg font-bold text-brown hover:text-maroon transition-colors">
+                <h3 className="font-heading text-lg font-bold text-brown hover:text-maroon transition-colors">
                   <Link href={`/classes/${cls.slug}`}>
                     {cls.title}
                   </Link>

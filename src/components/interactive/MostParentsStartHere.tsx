@@ -60,10 +60,10 @@ export const MostParentsStartHere: React.FC = () => {
         
         {/* Section Header */}
         <header className="text-center max-w-[680px] mx-auto mb-10 sm:mb-12">
-          <div className="text-[#7B1131] text-xs font-bold tracking-[3px] uppercase mb-3 sm:mb-4">
+          <div className="text-[#7B1131] text-xs font-bold tracking-[3px] uppercase font-heading mb-3 sm:mb-4">
             Your Journey, Our Care
           </div>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-semibold text-[#7B1131] leading-[1.2] mb-4 sm:mb-4.5 tracking-tight">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[46px] xl:text-[50px] font-extrabold text-[#7B1131] leading-[1.15] mb-4 sm:mb-4.5 tracking-tight">
             Most Parents Start Here
           </h2>
           <p className="text-[#6E5652] text-sm sm:text-base leading-[1.8]">

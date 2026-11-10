@@ -70,7 +70,7 @@ function BookPageContent() {
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="max-w-4xl mx-auto text-center space-y-2 relative z-10">
-          <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.12]">
             Book Your SEYOL Care Journey
           </h1>
 
@@ -84,7 +84,7 @@ function BookPageContent() {
       {!showAllServices ? (
         <section className="pt-4 pb-1 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full animate-fadeIn">
           <div className="bg-white border border-[#EAE1D5] rounded-2xl py-4 px-6 sm:py-5 sm:px-8 shadow-warm-xs text-center relative overflow-hidden">
-            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#70152B] tracking-tight leading-tight mb-1.5">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#7B1131] tracking-tight leading-[1.18] mb-2">
               {activeSvc.title}
             </h2>
 
@@ -159,7 +159,7 @@ function BookPageContent() {
                     </span>
                   </div>
 
-                  <div className="font-serif font-bold text-xs sm:text-sm line-clamp-2">
+                  <div className="font-heading font-bold text-xs sm:text-sm line-clamp-2">
                     {svc.title}
                   </div>
                 </button>

@@ -323,7 +323,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
       <div className="bg-cream-dark/60 p-6 border-b border-cream-border">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-cream-border/60">
           <div>
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+            <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">
               {isSuccess ? 'Application Submitted' : 'Caregiver Pathway Application'}
             </h2>
           </div>
@@ -382,7 +382,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 1 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">About You</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">About You</h3>
                 <p className="text-xs text-brown-muted">
                   Please provide your personal details so our admissions team can verify your application.
                 </p>
@@ -548,7 +548,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 2 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Find Your SEYOL Pathway</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Find Your SEYOL Pathway</h3>
                 <p className="text-xs text-brown-muted">
                   Answer the two quick qualification questions below to confirm or refine your ideal caregiver track.
                 </p>
@@ -624,7 +624,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
 
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h4 className="font-serif text-lg font-bold text-brown flex items-center space-x-2">
+                    <h4 className="font-heading text-lg font-bold text-brown flex items-center space-x-2">
                       <span>{activePathway.icon}</span>
                       <span>{activePathway.title}</span>
                     </h4>
@@ -684,7 +684,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 3 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Experience & Background</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Experience & Background</h3>
                 <p className="text-xs text-brown-muted">
                   Details specific to <strong className="text-maroon">{activePathway.subtitle}</strong>.
                 </p>
@@ -1079,7 +1079,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 4 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Work Interest & Availability</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Work Interest & Availability</h3>
                 <p className="text-xs text-brown-muted">
                   Let us know your geographic preferences and assignment availability.
                 </p>
@@ -1194,7 +1194,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 5 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Motivation & Interview</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Motivation & Interview</h3>
                 <p className="text-xs text-brown-muted">
                   Share your passion for mother and baby care and indicate your interview availability.
                 </p>
@@ -1341,7 +1341,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 6 of 6</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Review & Declarations</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Review & Declarations</h3>
                 <p className="text-xs text-brown-muted">
                   Please review and accept our caregiver recruitment and training acknowledgements.
                 </p>
@@ -1476,7 +1476,7 @@ export const CaregiverApplicationWizard: React.FC<CaregiverApplicationWizardProp
                 <span className="text-[11px] font-bold uppercase tracking-wider text-maroon bg-maroon-soft px-3 py-1 rounded-full border border-maroon/20">
                   Application Received
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown">
                   Welcome to SEYOL Academy, {formData.fullName}!
                 </h3>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">

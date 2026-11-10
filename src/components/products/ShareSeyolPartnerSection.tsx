@@ -87,7 +87,7 @@ export const ShareSeyolPartnerSection: React.FC = () => {
                 GROW WITH US
               </span>
 
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3A1D1D] tracking-tight leading-[1.12]">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#3A1D1D] tracking-tight leading-[1.12]">
                 Share SEY by SEYOL
               </h2>
 
@@ -184,7 +184,7 @@ export const ShareSeyolPartnerSection: React.FC = () => {
 
               {/* Modal Top Header */}
               <div className="mb-4 pr-10 space-y-0.5">
-                <h3 className="font-serif text-2xl sm:text-[26px] font-bold text-[#3A1D1D] tracking-tight">
+                <h3 className="font-heading text-2xl sm:text-[26px] font-bold text-[#3A1D1D] tracking-tight">
                   Let&apos;s grow together.
                 </h3>
                 <p className="text-xs sm:text-sm text-[#6E5652]">
@@ -198,7 +198,7 @@ export const ShareSeyolPartnerSection: React.FC = () => {
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <div className="space-y-1.5">
-                    <h4 className="font-serif text-xl font-bold text-[#3A1D1D]">
+                    <h4 className="font-heading text-xl font-bold text-[#3A1D1D]">
                       Application Received!
                     </h4>
                     <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">

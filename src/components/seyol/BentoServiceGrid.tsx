@@ -21,7 +21,7 @@ export const BentoServiceGrid: React.FC = () => {
             <div className="absolute top-0 right-0 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
             <div className="space-y-4 relative z-10">
-              <h3 className="font-serif text-2xl sm:text-4xl font-bold leading-tight">
+              <h3 className="font-heading text-2xl sm:text-4xl font-bold leading-tight">
                 {featured.title}
               </h3>
 
@@ -73,7 +73,7 @@ export const BentoServiceGrid: React.FC = () => {
                     {service.duration}
                   </span>
                 </div>
-                <h4 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors">
+                <h4 className="font-heading font-bold text-lg text-brown group-hover:text-maroon transition-colors">
                   {service.title}
                 </h4>
                 <p className="text-xs text-brown-muted line-clamp-2 leading-relaxed">

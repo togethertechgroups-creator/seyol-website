@@ -91,7 +91,7 @@ export const LearningNeedFinder: React.FC = () => {
       
       {/* Section Header */}
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight">
+        <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight">
           Tell Us What You Want to Learn
         </h3>
         <p className="text-xs sm:text-sm text-brown-muted">
@@ -155,7 +155,7 @@ export const LearningNeedFinder: React.FC = () => {
               </span>
             </div>
 
-            <h4 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown tracking-tight">
+            <h4 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown tracking-tight">
               {matchedClass.title}
             </h4>
 

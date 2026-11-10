@@ -399,7 +399,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#7B1131]">
             Content Management System
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
             CMS Portal
           </h1>
           <p className="text-xs text-stone-600 mt-1">
@@ -505,7 +505,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
           <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
             <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
-                <h2 className="font-serif text-lg font-bold text-stone-900">
+                <h2 className="font-heading text-lg font-bold text-stone-900">
                   Start Here Hero Carousel Images
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -650,7 +650,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
           {/* Founder Section Card */}
           <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
             <div className="border-b border-stone-100 pb-4">
-              <h2 className="font-serif text-lg font-bold text-stone-900">
+              <h2 className="font-heading text-lg font-bold text-stone-900">
                 Founder Narrative &amp; Brand Story
               </h2>
               <p className="text-xs text-stone-500 mt-0.5">
@@ -775,7 +775,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
           <div className="bg-white rounded-2xl border border-stone-200 p-6 sm:p-7 shadow-xs space-y-6">
             <div className="border-b border-stone-100 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
               <div>
-                <h2 className="font-serif text-lg font-bold text-stone-900">
+                <h2 className="font-heading text-lg font-bold text-stone-900">
                   Shop by Routine Images
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -916,7 +916,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   <Video className="w-3 h-3" />
                   <span>Start Here Homepage Carousel</span>
                 </div>
-                <h2 className="font-serif text-lg font-bold text-stone-900">
+                <h2 className="font-heading text-lg font-bold text-stone-900">
                   Real Stories, Healing Touch &amp; Video Journeys
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -1016,7 +1016,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                       {/* Author & Info */}
                       <div>
                         <div className="flex items-center justify-between gap-1">
-                          <h3 className="font-serif font-bold text-stone-900 text-sm leading-tight">
+                          <h3 className="font-heading font-bold text-stone-900 text-sm leading-tight">
                             {story.author}
                           </h3>
                           <div className="flex items-center text-amber-500 shrink-0">
@@ -1115,7 +1115,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                     {whyTrustVideos.length} {whyTrustVideos.length === 1 ? 'Video Story' : 'Video Stories'}
                   </span>
                 </div>
-                <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">
+                <h2 className="font-heading text-lg font-bold text-stone-900 mt-1">
                   Why Families Trust SEYOL — Video Carousel
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -1251,7 +1251,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
 
                       {/* Video Info */}
                       <div className="space-y-1">
-                        <h3 className="font-serif font-bold text-sm text-stone-900 leading-snug line-clamp-2">
+                        <h3 className="font-heading font-bold text-sm text-stone-900 leading-snug line-clamp-2">
                           {story.title}
                         </h3>
                         <p className="text-xs text-stone-600 font-medium flex items-center gap-1.5">
@@ -1320,7 +1320,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   <span className="text-xs text-stone-300">•</span>
                   <span className="text-xs text-stone-500 font-medium">Header &amp; Search Content</span>
                 </div>
-                <h2 className="font-serif text-lg font-bold text-stone-900 mt-1">
+                <h2 className="font-heading text-lg font-bold text-stone-900 mt-1">
                   &ldquo;Popular Ways Families Begin&rdquo; Section Settings
                 </h2>
                 <p className="text-xs text-stone-500 mt-0.5">
@@ -1424,7 +1424,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
           {/* Care Services Catalog Sub-Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2">
             <div>
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 Care Services Catalog &amp; Pricing Details
               </h3>
               <p className="text-xs text-stone-500">
@@ -1523,7 +1523,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                       <span className="text-[10px] font-bold text-[#F3C49F] uppercase tracking-wider block">
                         {service.format || 'HOLISTIC CARE'}
                       </span>
-                      <h4 className="font-serif font-bold text-base text-white leading-tight drop-shadow-xs">
+                      <h4 className="font-heading font-bold text-base text-white leading-tight drop-shadow-xs">
                         {service.shortTitle || service.title}
                       </h4>
                     </div>
@@ -1606,7 +1606,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
         <div className="space-y-5">
           <div className="flex items-center justify-between pb-2 border-b border-stone-200">
             <div>
-              <h2 className="font-serif text-base font-bold text-stone-900">
+              <h2 className="font-heading text-base font-bold text-stone-900">
                 Hero Announcement &amp; Promotion Slides
               </h2>
               <p className="text-xs text-stone-500">
@@ -1650,7 +1650,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   </div>
 
                   <div className="p-4 space-y-1.5">
-                    <h3 className="font-serif font-bold text-sm text-stone-900 leading-snug">
+                    <h3 className="font-heading font-bold text-sm text-stone-900 leading-snug">
                       {slide.title}
                     </h3>
                     <p className="text-xs text-stone-500 line-clamp-2">
@@ -1707,7 +1707,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
         <div className="space-y-5">
           <div className="flex items-center justify-between pb-2 border-b border-stone-200">
             <div>
-              <h2 className="font-serif text-base font-bold text-stone-900">
+              <h2 className="font-heading text-base font-bold text-stone-900">
                 Verified Mother Video &amp; Written Stories
               </h2>
               <p className="text-xs text-stone-500">
@@ -1738,7 +1738,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="font-serif font-bold text-sm text-stone-900">
+                      <h3 className="font-heading font-bold text-sm text-stone-900">
                         {test.author}
                       </h3>
                       <p className="text-[11px] text-stone-400">
@@ -1814,7 +1814,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   <BookOpen className="w-3 h-3" />
                   <span>Free Resource Management</span>
                 </div>
-                <h2 className="font-serif text-lg sm:text-xl font-bold text-stone-900">
+                <h2 className="font-heading text-lg sm:text-xl font-bold text-stone-900">
                   Stage Resources &amp; Free E-Book Handbooks
                 </h2>
                 <p className="text-xs text-stone-500 mt-1 max-w-2xl leading-relaxed">
@@ -1897,7 +1897,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                     Editing Document for:
                   </span>
-                  <h3 className="font-serif font-bold text-base text-stone-900">
+                  <h3 className="font-heading font-bold text-base text-stone-900">
                     {resourceForm.stageLabel}
                   </h3>
                 </div>
@@ -2104,7 +2104,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                     <span>{resourceForm.badge || 'COMPLIMENTARY GUIDE'}</span>
                   </div>
 
-                  <h4 className="font-serif text-base sm:text-lg font-bold text-[#FAF8F5] leading-snug">
+                  <h4 className="font-heading text-base sm:text-lg font-bold text-[#FAF8F5] leading-snug">
                     {resourceForm.title || 'Guide Title'}
                   </h4>
 
@@ -2144,7 +2144,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-stone-100 pb-3">
               <div className="flex items-center space-x-2">
                 <Users className="w-4 h-4 text-[#7B1131]" />
-                <h3 className="font-serif font-bold text-sm text-stone-900">
+                <h3 className="font-heading font-bold text-sm text-stone-900">
                   Recent Customer Leads &amp; Verified Downloads ({guideLeads?.length || 0})
                 </h3>
               </div>
@@ -2249,7 +2249,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                   Services Catalog • &ldquo;Popular Ways Families Begin&rdquo;
                 </span>
-                <h3 className="font-serif font-bold text-lg text-stone-900">
+                <h3 className="font-heading font-bold text-lg text-stone-900">
                   {editingService ? `Edit Service: ${editingService.shortTitle || editingService.title}` : 'Create New Clinical Care Service'}
                 </h3>
               </div>
@@ -2638,7 +2638,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
           <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl border border-stone-200 space-y-4 my-8">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 {editingBanner ? 'Edit Banner Slide' : 'Create Hero Banner'}
               </h3>
               <button
@@ -2779,7 +2779,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
           <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl border border-stone-200 space-y-4 my-8">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 {editingTestimonial ? 'Edit Mother Story' : 'Add Mother Reflection'}
               </h3>
               <button
@@ -2915,7 +2915,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                   Start Here • Real Stories &amp; Video Journeys
                 </span>
-                <h3 className="font-serif font-bold text-base text-stone-900">
+                <h3 className="font-heading font-bold text-base text-stone-900">
                   {editingRealStory ? 'Edit Client Video Story' : 'Add New Client Video Story'}
                 </h3>
               </div>
@@ -3224,7 +3224,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                   Services Trust Carousel
                 </span>
-                <h3 className="font-serif font-bold text-base text-stone-900">
+                <h3 className="font-heading font-bold text-base text-stone-900">
                   {editingWhyTrustVideo ? 'Edit Care Video Story' : 'Add Care Video Story'}
                 </h3>
               </div>
@@ -3422,7 +3422,7 @@ export const AdminWebsiteManager: React.FC<AdminWebsiteManagerProps> = ({ onNoti
             </div>
 
             <div className="space-y-1">
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 Delete {deleteConfirmation.type}?
               </h3>
               <p className="text-xs text-stone-500">

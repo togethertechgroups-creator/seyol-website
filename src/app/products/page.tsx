@@ -132,7 +132,7 @@ export default function ProductsPage() {
               <p className={`text-xs sm:text-sm md:text-base font-serif italic ${slide.isLight ? 'text-[#7B1131] font-semibold' : 'text-gold-light/95'}`}>
                 "{slide.subtitle}"
               </p>
-              <h1 className={`font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight ${slide.isLight ? 'text-[#7B1131]' : 'text-white drop-shadow-md'}`}>
+              <h1 className={`font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.12] tracking-tight ${slide.isLight ? 'text-[#7B1131]' : 'text-white drop-shadow-md'}`}>
                 {slide.title}
               </h1>
             </div>
@@ -145,7 +145,7 @@ export default function ProductsPage() {
             <div className="pt-2">
               <button
                 onClick={() => setSelectedCategory(slide.categoryTarget || 'all')}
-                className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-[#F5C242] hover:bg-[#e0b038] text-[#3a1d1d] font-extrabold text-sm sm:text-base shadow-warm-md hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
+                className="px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-maroon hover:bg-maroon-dark text-white border border-gold/40 font-extrabold text-sm sm:text-base shadow-warm-md hover:scale-105 transition-all duration-200 flex items-center space-x-2 cursor-pointer"
               >
                 <span>{slide.ctaText}</span>
               </button>
@@ -258,7 +258,7 @@ export default function ProductsPage() {
             <div className="text-[11px] font-extrabold uppercase tracking-widest text-[#7B1131]">
               Handcrafted Apothecary Formulations
             </div>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-[#3a1d1d] leading-[1.18]">
               {selectedCategory === 'all' ? 'Shop SEY by SEYOL' : categoryPills.find(c => c.id === selectedCategory)?.label}
             </h2>
           </div>
@@ -286,7 +286,7 @@ export default function ProductsPage() {
         <div className="max-w-[98%] 2xl:max-w-[1780px] mx-auto space-y-10">
           
           <div className="text-center max-w-3xl mx-auto space-y-2 pb-4 border-b border-neutral-200">
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3a1d1d]">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-[#3a1d1d] leading-[1.18]">
               SEYOL Favourites
             </h2>
             <p className="text-xs sm:text-sm text-neutral-500">
@@ -312,7 +312,7 @@ export default function ProductsPage() {
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#3a1d1d]">
+                  <h3 className="font-heading text-lg sm:text-xl font-bold text-[#3a1d1d]">
                     {bundle.title}
                   </h3>
                   <p className="text-xs text-neutral-600 leading-relaxed">
@@ -341,7 +341,7 @@ export default function ProductsPage() {
                       Save ₹{bundle.savings} ({bundle.savingsPercent}% Off)
                     </div>
                     <div className="flex items-baseline space-x-2">
-                      <span className="font-serif font-extrabold text-xl text-[#7B1131]">
+                      <span className="font-heading font-extrabold text-xl text-[#7B1131]">
                         ₹{bundle.bundlePrice}
                       </span>
                       <span className="text-xs text-neutral-400 line-through">

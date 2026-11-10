@@ -107,7 +107,7 @@ export const AdminReportsAnalytics: React.FC = () => {
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#7B1131]">
             Executive Intelligence
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
             Reports &amp; Operational Analytics
           </h1>
           <p className="text-xs text-stone-600 mt-1">
@@ -198,7 +198,7 @@ export const AdminReportsAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
             <div>
-              <h2 className="font-serif text-base font-bold text-stone-900">
+              <h2 className="font-heading text-base font-bold text-stone-900">
                 Order Fulfillment Pipeline
               </h2>
               <p className="text-xs text-stone-500">Live operational status across all received store orders</p>
@@ -242,7 +242,7 @@ export const AdminReportsAnalytics: React.FC = () => {
         <div className="bg-white rounded-2xl border border-stone-200 p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
             <div>
-              <h2 className="font-serif text-base font-bold text-stone-900">
+              <h2 className="font-heading text-base font-bold text-stone-900">
                 Catalog &amp; Billing Ledger Health
               </h2>
               <p className="text-xs text-stone-500">Real-time status of service offerings and botanical stock</p>

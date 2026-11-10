@@ -89,7 +89,7 @@ export const NeedHelpChoosingSection: React.FC = () => {
           <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-[2.5px] text-[#70152B]">
             PERSONALIZED CARE ADVISORY
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-[42px] font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-[42px] font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
             Need Help Choosing? <span className="inline sm:inline text-[#70152B]">SEYOL Will Guide You</span>
           </h2>
           <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed max-w-xl mx-auto">
@@ -105,7 +105,7 @@ export const NeedHelpChoosingSection: React.FC = () => {
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <div className="space-y-1.5">
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#3A1D1D]">
+                <h3 className="font-heading text-2xl sm:text-3xl font-bold text-[#3A1D1D]">
                   Request Dispatched to SEYOL Team!
                 </h3>
                 <p className="text-xs sm:text-sm text-[#6E5652] max-w-md mx-auto leading-relaxed">

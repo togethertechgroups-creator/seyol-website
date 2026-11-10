@@ -50,7 +50,7 @@ export const PersonalisedCareCard: React.FC = () => {
       <div className="relative z-10 space-y-4 max-w-2xl">
 
 
-        <h3 className="font-serif text-2xl sm:text-3xl font-bold leading-snug">
+        <h3 className="font-heading text-2xl sm:text-3xl font-bold leading-snug">
           {info.title}
         </h3>
 

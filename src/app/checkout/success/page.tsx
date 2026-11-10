@@ -173,7 +173,7 @@ function SuccessContent() {
         <div className="w-16 h-16 rounded-full bg-[#FAF6F0] flex items-center justify-center mb-4 border border-[#E8DCC4]">
           <Loader2 className="w-8 h-8 animate-spin text-[#7B1131]" />
         </div>
-        <h2 className="font-serif font-bold text-2xl text-[#3a1d1d] mb-2">
+        <h2 className="font-heading font-bold text-2xl text-[#3a1d1d] mb-2">
           Verifying Payment with Stripe...
         </h2>
         <p className="text-sm text-neutral-600 max-w-md">
@@ -189,7 +189,7 @@ function SuccessContent() {
         <div className="w-16 h-16 rounded-full bg-red-50 flex items-center justify-center mb-4 border border-red-200">
           <AlertCircle className="w-8 h-8 text-red-600" />
         </div>
-        <h2 className="font-serif font-bold text-2xl text-[#3a1d1d] mb-2">
+        <h2 className="font-heading font-bold text-2xl text-[#3a1d1d] mb-2">
           Payment Not Verified
         </h2>
         <p className="text-sm text-neutral-600 max-w-md mb-6">
@@ -222,7 +222,7 @@ function SuccessContent() {
           <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block mb-3">
             ✓ Live Payment Succeeded
           </span>
-          <h1 className="font-serif font-bold text-3xl text-[#3a1d1d] mb-2">
+          <h1 className="font-heading font-bold text-3xl text-[#3a1d1d] mb-2">
             Payment &amp; Order Confirmed!
           </h1>
           <p className="text-sm text-[#6d534a]">
@@ -244,7 +244,7 @@ function SuccessContent() {
 
           <div className="flex items-center justify-between text-xs border-b border-[#E8DCC4]/60 pb-2.5">
             <span className="text-[#8B6B4D] font-medium">Amount Paid (Verified):</span>
-            <span className="font-serif font-extrabold text-lg text-emerald-800">
+            <span className="font-heading font-extrabold text-lg text-emerald-800">
               {currencySymbol}{orderDetails?.amount.toLocaleString()}
             </span>
           </div>

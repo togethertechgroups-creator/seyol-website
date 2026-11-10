@@ -44,7 +44,7 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
         
         {/* Header */}
         <div className="text-center mb-8 space-y-2">
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-brown tracking-tight leading-[1.18]">
             Real Stories, Healing Touch &amp; Video Journeys
           </h2>
           <p className="text-xs sm:text-sm text-brown-muted max-w-xl mx-auto">
@@ -154,7 +154,7 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
               </div>
 
               <blockquote className="space-y-2">
-                <p className="font-serif text-lg sm:text-xl font-bold text-maroon leading-snug">
+                <p className="font-serif italic font-normal text-lg sm:text-xl md:text-2xl text-maroon leading-relaxed">
                   "{current.quote}"
                 </p>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed font-medium">
@@ -166,7 +166,7 @@ export const TestimonialCarousel: React.FC<{ filterStage?: JourneyStage }> = ({
             {/* Author Details & Carousel Controls */}
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-cream-border/80">
               <div>
-                <div className="font-serif font-bold text-sm text-brown">
+                <div className="font-heading font-bold text-sm sm:text-base text-brown">
                   {current.author}
                 </div>
                 <div className="text-xs text-brown-muted flex items-center space-x-2 mt-0.5 font-medium">

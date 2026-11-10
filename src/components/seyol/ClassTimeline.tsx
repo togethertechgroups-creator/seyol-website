@@ -13,7 +13,7 @@ export const ClassTimeline: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Live Cohort Schedule</span>
-          <h3 className="font-serif text-2xl font-bold text-brown">Upcoming Masterclasses</h3>
+          <h3 className="font-heading text-2xl font-bold text-brown">Upcoming Masterclasses</h3>
         </div>
         <span className="text-xs text-brown-muted font-medium">Chennai Studio & Live Interactive Online</span>
       </div>
@@ -35,7 +35,7 @@ export const ClassTimeline: React.FC = () => {
                   <span className="text-xs font-bold text-maroon">₹{cls.pricing}</span>
                 </div>
 
-                <h4 className="font-serif font-bold text-base text-brown leading-snug">{cls.title}</h4>
+                <h4 className="font-heading font-bold text-base text-brown leading-snug">{cls.title}</h4>
 
                 {firstSession && (
                   <div className="space-y-1.5 text-xs text-brown-muted border-t border-cream-border/60 pt-2">

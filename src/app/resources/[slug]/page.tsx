@@ -36,7 +36,7 @@ export default function ResourceDetailPage() {
   if (!bundle && !resource) {
     return (
       <div className="py-24 text-center space-y-4 max-w-md mx-auto font-sans bg-cream min-h-[60vh] flex flex-col items-center justify-center">
-        <h2 className="font-serif text-2xl font-bold text-maroon">Resource Not Found</h2>
+        <h2 className="font-heading text-2xl font-bold text-maroon">Resource Not Found</h2>
         <p className="text-xs text-brown-muted">The requested guide or bundle could not be located in our digital library.</p>
         <Link href="/resources" className="inline-block px-6 py-3 bg-maroon text-cream-light text-xs font-bold rounded-xl shadow-warm-sm">
           Return to Resources Hub
@@ -85,7 +85,7 @@ export default function ResourceDetailPage() {
                 )}
               </div>
 
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
                 {bundle.title}
               </h1>
 
@@ -127,10 +127,10 @@ export default function ResourceDetailPage() {
                   <div className="text-[10px] uppercase font-bold text-brown-muted">Price</div>
                   <div className="flex items-baseline space-x-2">
                     {bundle.isFree ? (
-                      <span className="font-serif text-3xl font-black text-maroon">FREE</span>
+                      <span className="font-heading text-3xl font-black text-maroon">FREE</span>
                     ) : (
                       <>
-                        <span className="font-serif text-3xl font-black text-maroon">₹{bundle.price}</span>
+                        <span className="font-heading text-3xl font-black text-maroon">₹{bundle.price}</span>
                         {bundle.originalPrice && (
                           <span className="text-sm text-brown-muted line-through">₹{bundle.originalPrice}</span>
                         )}
@@ -241,7 +241,7 @@ export default function ResourceDetailPage() {
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
               {resource?.title}
             </h1>
 

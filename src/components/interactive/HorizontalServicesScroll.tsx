@@ -53,7 +53,7 @@ export default function HorizontalServicesScroll() {
         
         {/* Section Header matching the reference */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
             Signature <span className="font-garet font-black italic tracking-wide">SEYOL</span> Care Services
           </h2>
         </div>

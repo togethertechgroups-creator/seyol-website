@@ -17,7 +17,7 @@ export const MemberDashboard: React.FC = () => {
         <div className="w-14 h-14 rounded-full bg-maroon text-gold flex items-center justify-center mx-auto shadow-warm-sm">
           <Lock className="w-6 h-6" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-brown">Member Portal Access</h3>
+        <h3 className="font-heading text-2xl font-bold text-brown">Member Portal Access</h3>
         <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
           Log in to access your digital resource locker, video masterclasses, active postnatal care bookings, and stage guidance.
         </p>
@@ -47,7 +47,7 @@ export const MemberDashboard: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center space-x-2">
-              <h3 className="font-serif text-xl font-bold text-brown">{user.name}</h3>
+              <h3 className="font-heading text-xl font-bold text-brown">{user.name}</h3>
               <span className="px-2 py-0.5 rounded-full bg-maroon-soft text-maroon text-[10px] font-bold border border-maroon/20">
                 Active Member
               </span>
@@ -99,7 +99,7 @@ export const MemberDashboard: React.FC = () => {
                 <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Active Care Package</span>
                 <span className="px-2.5 py-0.5 rounded-full bg-gold/20 text-maroon-dark text-xs font-bold">Confirmed</span>
               </div>
-              <h4 className="font-serif font-bold text-base text-brown">28-Day Sacred Postpartum Confinement & Kattu</h4>
+              <h4 className="font-heading font-bold text-base text-brown">28-Day Sacred Postpartum Confinement & Kattu</h4>
               <p className="text-xs text-brown-muted">Assigned Senior Matron: Mrs. Lakshmi S. • Daily Visits at 9:30 AM IST</p>
             </div>
           </div>

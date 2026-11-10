@@ -64,7 +64,7 @@ export const AccordionFAQ: React.FC<{ defaultCategory?: string }> = ({
               >
                 <div className="flex items-center space-x-3">
                   <HelpCircle className="w-4 h-4 text-gold-dark flex-shrink-0" />
-                  <span className="font-serif font-bold text-sm sm:text-base text-brown group-hover:text-maroon transition-colors">
+                  <span className="font-heading font-bold text-sm sm:text-base text-brown group-hover:text-maroon transition-colors">
                     {faq.question}
                   </span>
                 </div>

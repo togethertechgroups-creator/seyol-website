@@ -216,7 +216,7 @@ export default function OurStoryPage() {
               </div>
 
               {/* Main Heading */}
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#3A1D1D] tracking-tight leading-[1.15]">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[56px] xl:text-[62px] font-extrabold text-[#3A1D1D] tracking-tight leading-[1.12]">
                 The Story Behind SEYOL
               </h1>
 
@@ -280,7 +280,7 @@ export default function OurStoryPage() {
             {/* 1. Care */}
             <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
               <Heart className="w-6 h-6 text-[#721832] stroke-[1.75]" />
-              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+              <h3 className="font-heading text-base sm:text-lg font-bold text-[#3A1D1D]">
                 Care
               </h3>
               <p className="text-xs sm:text-sm text-[#6E5652]">
@@ -291,7 +291,7 @@ export default function OurStoryPage() {
             {/* 2. Knowledge */}
             <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
               <BookOpen className="w-6 h-6 text-[#721832] stroke-[1.75]" />
-              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+              <h3 className="font-heading text-base sm:text-lg font-bold text-[#3A1D1D]">
                 Knowledge
               </h3>
               <p className="text-xs sm:text-sm text-[#6E5652]">
@@ -302,7 +302,7 @@ export default function OurStoryPage() {
             {/* 3. Community */}
             <div className="flex flex-col items-center space-y-1.5 p-3 rounded-2xl hover:bg-[#FAF0E4]/60 transition-colors">
               <Users className="w-6 h-6 text-[#721832] stroke-[1.75]" />
-              <h3 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+              <h3 className="font-heading text-base sm:text-lg font-bold text-[#3A1D1D]">
                 Community
               </h3>
               <p className="text-xs sm:text-sm text-[#6E5652]">
@@ -350,7 +350,7 @@ export default function OurStoryPage() {
             {/* Right Story */}
             <div className="md:col-span-8 space-y-5 text-left">
               <div className="space-y-1">
-                <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight">
+                <h2 className="font-heading text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#721832] tracking-tight leading-[1.18]">
                   Why SEYOL Exists
                 </h2>
                 <div className="font-serif italic text-xs sm:text-sm text-[#A87C4F] font-medium">
@@ -380,7 +380,7 @@ export default function OurStoryPage() {
 
           {/* Section Header */}
           <div className="space-y-3 text-center max-w-2xl mx-auto">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#721832] tracking-tight leading-[1.18]">
               The SEYOL Method
             </h2>
             <div className="font-serif italic text-sm sm:text-base text-[#A87C4F] font-medium">
@@ -412,7 +412,7 @@ export default function OurStoryPage() {
                     <Heart className="w-6 h-6 stroke-[1.6]" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-serif font-bold text-lg sm:text-xl text-[#721832]">
+                    <h3 className="font-heading font-bold text-lg sm:text-xl text-[#721832]">
                       Personalised Care
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-[#6E5551] leading-relaxed">
@@ -441,7 +441,7 @@ export default function OurStoryPage() {
                     <Leaf className="w-6 h-6 stroke-[1.6]" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-serif font-bold text-lg sm:text-xl text-[#721832]">
+                    <h3 className="font-heading font-bold text-lg sm:text-xl text-[#721832]">
                       Tradition Meets Modern Life
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-[#6E5551] leading-relaxed">
@@ -470,7 +470,7 @@ export default function OurStoryPage() {
                     <Users className="w-6 h-6 stroke-[1.6]" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="font-serif font-bold text-lg sm:text-xl text-[#721832]">
+                    <h3 className="font-heading font-bold text-lg sm:text-xl text-[#721832]">
                       Family-Centred Support
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-[#6E5551] leading-relaxed">
@@ -494,7 +494,7 @@ export default function OurStoryPage() {
           
           {/* Centered Section Header */}
           <div className="space-y-3 text-center max-w-2xl mx-auto">
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#721832] tracking-tight leading-[1.15]">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#721832] tracking-tight leading-[1.15]">
               From Services to a Care Ecosystem
             </h2>
             <div className="font-serif italic text-base sm:text-lg text-[#A87C4F] font-medium">
@@ -577,7 +577,7 @@ export default function OurStoryPage() {
                     </div>
 
                     {/* Service Title */}
-                    <h3 className={`font-serif font-bold text-sm sm:text-[15px] leading-snug whitespace-pre-line text-center my-auto transition-colors duration-200 ${
+                    <h3 className={`font-heading font-bold text-sm sm:text-[15px] leading-snug whitespace-pre-line text-center my-auto transition-colors duration-200 ${
                       isActive ? 'text-white' : 'text-[#721832]'
                     }`}>
                       {service.title}
@@ -606,7 +606,7 @@ export default function OurStoryPage() {
           
           {/* Section Header */}
           <div className="space-y-1 text-left">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#721832] tracking-tight leading-[1.18]">
               Our Journey So Far
             </h2>
             <div className="font-serif italic text-xs sm:text-sm text-[#A87C4F] font-medium">
@@ -644,7 +644,7 @@ export default function OurStoryPage() {
                       {/* Top Slot (h-[110px]) */}
                       {isTop ? (
                         <div className="h-[110px] flex flex-col justify-end pb-3 space-y-1">
-                          <div className="font-serif font-black text-sm lg:text-base text-[#721832] group-hover:text-[#A87C4F] transition-colors duration-200">
+                          <div className="font-heading font-black text-sm lg:text-base text-[#721832] group-hover:text-[#A87C4F] transition-colors duration-200">
                             {milestone.year}
                           </div>
                           <div className="font-sans font-bold text-xs sm:text-sm text-[#4A3531]">
@@ -674,7 +674,7 @@ export default function OurStoryPage() {
                       {/* Bottom Slot (h-[110px]) */}
                       {!isTop ? (
                         <div className="h-[110px] pt-3 space-y-1">
-                          <div className="font-serif font-black text-sm lg:text-base text-[#721832] group-hover:text-[#A87C4F] transition-colors duration-200">
+                          <div className="font-heading font-black text-sm lg:text-base text-[#721832] group-hover:text-[#A87C4F] transition-colors duration-200">
                             {milestone.year}
                           </div>
                           <div className="font-sans font-bold text-xs sm:text-sm text-[#4A3531]">
@@ -707,7 +707,7 @@ export default function OurStoryPage() {
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-current" />
                     </div>
-                    <div className="font-serif font-black text-sm text-[#721832]">
+                    <div className="font-heading font-black text-sm text-[#721832]">
                       {milestone.year}
                     </div>
                     <div className="font-sans font-bold text-xs text-[#4A3531]">
@@ -760,7 +760,7 @@ export default function OurStoryPage() {
               </div>
 
               {/* Two-Tone Master Headline (Website Brand Colors: Maroon & Gold) */}
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-bold tracking-tight leading-[1.14]">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-bold tracking-tight leading-[1.14]">
                 <span className="block text-[#721832]">Care You Can Trust.</span>
                 <span className="block font-serif italic text-[#A87C4F] font-normal mt-1">
                   A Tradition You Can Believe In.
@@ -809,7 +809,7 @@ export default function OurStoryPage() {
                   <Users className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.6]" />
                 </div>
                 <div className="text-left">
-                  <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
+                  <div className="font-heading text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
                     10,000+
                   </div>
                   <div className="text-xs sm:text-[13px] text-[#5C4541] font-sans font-medium mt-1.5">
@@ -824,7 +824,7 @@ export default function OurStoryPage() {
                   <Leaf className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.7]" />
                 </div>
                 <div className="text-left">
-                  <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
+                  <div className="font-heading text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
                     50+
                   </div>
                   <div className="text-xs sm:text-[13px] text-[#5C4541] font-sans font-medium mt-1.5">
@@ -839,7 +839,7 @@ export default function OurStoryPage() {
                   <Heart className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.6]" />
                 </div>
                 <div className="text-left">
-                  <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
+                  <div className="font-heading text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
                     4.8/5
                   </div>
                   <div className="text-xs sm:text-[13px] text-[#5C4541] font-sans font-medium mt-1.5">
@@ -854,7 +854,7 @@ export default function OurStoryPage() {
                   <Sprout className="w-6 h-6 sm:w-7 sm:h-7 stroke-[1.6]" />
                 </div>
                 <div className="text-left">
-                  <div className="font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
+                  <div className="font-heading text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#721832] tracking-tight leading-none">
                     100%
                   </div>
                   <div className="text-xs sm:text-[13px] text-[#5C4541] font-sans font-medium mt-1.5">
@@ -877,7 +877,7 @@ export default function OurStoryPage() {
 
           {/* Section Header (Centered) */}
           <div className="space-y-2 text-center max-w-2xl mx-auto">
-            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-[#721832] tracking-tight">
+            <h2 className="font-heading text-2xl sm:text-3xl lg:text-[40px] font-bold text-[#721832] tracking-tight leading-[1.18]">
               Families We Have Walked With
             </h2>
             <div className="font-serif italic text-xs sm:text-sm text-[#A87C4F] font-medium">
@@ -1031,7 +1031,7 @@ export default function OurStoryPage() {
               </div>
 
               {/* Two-Tone Master Headline (Website Brand Colors: Maroon & Gold) */}
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-bold tracking-tight leading-[1.14]">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-[44px] lg:text-[48px] font-bold tracking-tight leading-[1.14]">
                 <span className="block text-[#721832]">Begin Your</span>
                 <span className="block mt-1">
                   <span className="text-[#721832]">SEYOL</span>{' '}

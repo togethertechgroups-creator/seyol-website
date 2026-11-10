@@ -52,12 +52,12 @@ export default function ClassesPage() {
         <div className="max-w-5xl mx-auto text-center space-y-6 relative z-10">
 
 
-          <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-md">
+          <h1 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] drop-shadow-md">
             Master the Sacred Art of <br className="hidden sm:inline" />
             <span className="text-gold-light">Newborn Care &amp; Birth Wisdom</span>
           </h1>
 
-          <p className="font-playfair text-sm sm:text-base md:text-lg text-cream-light/90 max-w-2xl mx-auto leading-relaxed">
+          <p className="font-sans text-sm sm:text-base md:text-lg text-cream-light/95 max-w-2xl mx-auto leading-relaxed">
             Replace fear and sleepless anxiety with joyful confidence. Learn traditional infant bodywork, colic soothing, physiological birth mechanics, and breastfeeding latches in live interactive cohorts.
           </p>
 
@@ -81,7 +81,7 @@ export default function ClassesPage() {
           <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
             <a
               href="#calendar"
-              className="px-8 py-3.5 rounded-full bg-gradient-to-r from-gold via-gold-light to-gold text-maroon-dark font-extrabold text-xs sm:text-sm tracking-wide shadow-warm-lg hover:scale-105 transition-all cursor-pointer"
+              className="px-8 py-3.5 rounded-full bg-maroon hover:bg-maroon-dark text-white border border-gold/40 font-extrabold text-xs sm:text-sm tracking-wide shadow-warm-lg hover:scale-105 transition-all cursor-pointer"
             >
               Browse Upcoming Calendar
             </a>
@@ -103,10 +103,10 @@ export default function ClassesPage() {
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-2">
 
-            <h2 className="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-2xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Choose by Learning Stage
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed max-w-xl mx-auto">
               Select where you are in your parenthood timeline to view classes tailored to your exact milestone.
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function ClassesPage() {
                     <Icon className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-xs sm:text-sm leading-snug">{st.label}</h3>
+                    <h3 className="font-heading font-bold text-xs sm:text-sm leading-snug">{st.label}</h3>
                     <p className={`text-[10px] mt-0.5 ${isActive ? 'text-cream-light/80' : 'text-brown-muted'}`}>
                       {st.desc}
                     </p>
@@ -163,10 +163,10 @@ export default function ClassesPage() {
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-2">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Explore SEYOL Classes
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed max-w-xl mx-auto">
               Search by keyword, filter by live online format or in-person Chennai studio cohorts.
             </p>
           </div>
@@ -189,10 +189,10 @@ export default function ClassesPage() {
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Not Sure Which Class Fits?
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed max-w-xl mx-auto">
               Compare our practical workshops and bundle passes to pick the best path for your family.
             </p>
           </div>
@@ -215,10 +215,10 @@ export default function ClassesPage() {
         <div className="site-container mx-auto space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Class Calendar &amp; Online Registration
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed max-w-xl mx-auto">
               Select your preferred date, view remaining seat availability, and lock in your couple pass instantly.
             </p>
           </div>
@@ -250,10 +250,10 @@ export default function ClassesPage() {
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Trusted by Parents and Learners
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed max-w-xl mx-auto">
               Learn directly from certified childbirth educators, registered midwives, and master infant touch specialists.
             </p>
           </div>
@@ -267,7 +267,7 @@ export default function ClassesPage() {
                 className="w-20 h-20 rounded-2xl object-cover border-2 border-gold/40 shrink-0"
               />
               <div className="space-y-1 text-xs">
-                <h3 className="font-serif text-lg font-bold text-maroon">Ms. Jemma Francis</h3>
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-maroon">Ms. Jemma Francis</h3>
                 <div className="font-semibold text-brown">Co-Founder &amp; Master Infant Touch Educator</div>
                 <div className="text-gold-dark font-medium">Certified IAIM Educator • 18+ Years Experience</div>
                 <p className="text-brown-muted pt-1 leading-relaxed">
@@ -284,7 +284,7 @@ export default function ClassesPage() {
                 className="w-20 h-20 rounded-2xl object-cover border-2 border-gold/40 shrink-0"
               />
               <div className="space-y-1 text-xs">
-                <h3 className="font-serif text-lg font-bold text-maroon">Ms. Janet Francis</h3>
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-maroon">Ms. Janet Francis</h3>
                 <div className="font-semibold text-brown">Co-Founder &amp; Clinical Midwife Specialist</div>
                 <div className="text-gold-dark font-medium">Registered Midwife &amp; IBCLC Lactation Consultant</div>
                 <p className="text-brown-muted pt-1 leading-relaxed">
@@ -307,10 +307,10 @@ export default function ClassesPage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-3">
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-4xl font-extrabold text-brown tracking-tight leading-[1.18]">
               Quick Answers Before You Register
             </h2>
-            <p className="font-playfair text-xs sm:text-sm text-brown-muted">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed">
               Everything you need to know regarding ticket passes, replay access, simulation materials, and partner attendance.
             </p>
           </div>
@@ -326,7 +326,7 @@ export default function ClassesPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Need Help Choosing a Class? SEYOL Will Guide You.
             </h2>
             <p className="text-xs sm:text-sm md:text-base text-brown-muted">
@@ -345,10 +345,10 @@ export default function ClassesPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center space-y-2">
 
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-brown">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-4xl font-extrabold text-brown leading-[1.18]">
               Your First SEYOL Resource
             </h2>
-            <p className="font-playfair text-xs sm:text-sm text-brown-muted">
+            <p className="font-sans text-sm sm:text-base text-brown-muted leading-relaxed">
               Download our expert-crafted checklists, newborn bath guides, and postpartum recovery handbooks.
             </p>
           </div>

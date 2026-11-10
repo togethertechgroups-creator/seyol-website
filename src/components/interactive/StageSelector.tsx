@@ -247,7 +247,7 @@ export const StageSelector: React.FC<StageSelectorProps> = ({
           {/* Header Row */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-cream-border/80 relative z-10">
             <div>
-              <h3 className="font-serif text-xl sm:text-2xl font-extrabold text-brown tracking-tight">
+              <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-brown tracking-tight">
                 Your Suggested Care Path
               </h3>
             </div>
@@ -289,7 +289,7 @@ export const StageSelector: React.FC<StageSelectorProps> = ({
                   </div>
 
                   {/* Title */}
-                  <h4 className="font-serif text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
+                  <h4 className="font-heading text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
                     {activePath.service.title}
                   </h4>
 
@@ -340,7 +340,7 @@ export const StageSelector: React.FC<StageSelectorProps> = ({
                   </div>
 
                   {/* Title */}
-                  <h4 className="font-serif text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
+                  <h4 className="font-heading text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
                     {activePath.classItem.title}
                   </h4>
 
@@ -391,7 +391,7 @@ export const StageSelector: React.FC<StageSelectorProps> = ({
                   </div>
 
                   {/* Title */}
-                  <h4 className="font-serif text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
+                  <h4 className="font-heading text-[15px] sm:text-base font-bold text-brown group-hover:text-[#7B1131] transition-colors leading-snug tracking-tight">
                     {activePath.product.title}
                   </h4>
 

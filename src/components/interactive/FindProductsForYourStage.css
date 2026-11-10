@@ -85,7 +85,7 @@
 }
 
 .stage-heading h2 em {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-style: italic;
   font-weight: 500;
   color: #7B1131;

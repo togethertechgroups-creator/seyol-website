@@ -131,7 +131,7 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
           <span className="inline-block text-[11px] sm:text-xs font-bold uppercase tracking-[2.5px] text-[#70152B]">
             THE SEYOL PROMISE
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-[44px] font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-[44px] font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
             Why families trust SEYOL
           </h2>
           <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed max-w-2xl mx-auto">
@@ -230,7 +230,7 @@ export const WhyFamiliesTrustSeyol: React.FC = () => {
               key={idx}
               className="bg-white rounded-2xl border border-[#ECE5DD] shadow-[0_2px_12px_rgba(58,29,29,0.03)] hover:border-[#70152B]/40 hover:shadow-[0_8px_20px_rgba(112,21,43,0.06)] transition-all duration-300 p-4 sm:p-5 flex flex-col justify-center"
             >
-              <h4 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D] tracking-tight leading-snug mb-1">
+              <h4 className="font-heading text-base sm:text-lg font-bold text-[#3A1D1D] tracking-tight leading-snug mb-1">
                 {pillar.title}
               </h4>
               <p className="text-xs sm:text-[13px] text-[#6E5652] leading-relaxed">

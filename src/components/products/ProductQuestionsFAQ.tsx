@@ -63,7 +63,7 @@ export const ProductQuestionsFAQ: React.FC = () => {
             <span className="inline-block text-xs font-bold uppercase tracking-[0.18em] text-[#7B1131]">
               09 — PRODUCT QUESTIONS
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A1D1D] tracking-tight">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[#3A1D1D] tracking-tight">
               Questions Before You Buy?
             </h2>
           </div>

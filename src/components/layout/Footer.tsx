@@ -56,7 +56,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Services */}
           <div className="space-y-3">
-            <h4 className="font-serif text-base font-bold text-gold-light">Care Services</h4>
+            <h4 className="font-heading text-base sm:text-lg font-bold text-cream-light">Care Services</h4>
             <ul className="space-y-2 text-xs text-cream-light/80">
               <li>
                 <Link href="/services#postpartum-massage" className="hover:text-gold-light transition-colors">
@@ -93,7 +93,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Education & Products */}
           <div className="space-y-3">
-            <h4 className="font-serif text-base font-bold text-gold-light">Masterclasses & SEY</h4>
+            <h4 className="font-heading text-base sm:text-lg font-bold text-cream-light">Masterclasses & SEY</h4>
             <ul className="space-y-2 text-xs text-cream-light/80">
               <li>
                 <Link href="/classes" className="hover:text-gold-light transition-colors">
@@ -130,7 +130,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 4: Institutional & Careers */}
           <div className="space-y-3">
-            <h4 className="font-serif text-base font-bold text-gold-light">Institution & Trust</h4>
+            <h4 className="font-heading text-base sm:text-lg font-bold text-cream-light">Institution & Trust</h4>
             <ul className="space-y-2 text-xs text-cream-light/80">
               <li>
                 <Link href="/our-story" className="hover:text-gold-light transition-colors">

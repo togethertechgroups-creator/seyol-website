@@ -82,7 +82,7 @@ export const PortalAuthModal: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light bg-gold/20 px-2 py-0.5 rounded-full border border-gold/30">
                 Customer Account
               </span>
-              <h3 className="font-serif text-xl font-bold text-cream-light mt-0.5">
+              <h3 className="font-heading text-xl font-bold text-cream-light mt-0.5">
                 My SEYOL Care Portal Login
               </h3>
             </div>

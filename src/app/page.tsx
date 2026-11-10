@@ -189,16 +189,16 @@ export default function HomePage() {
             {/* Left-Aligned Slide Content */}
             <div className="relative z-10 max-w-xl lg:max-w-2xl xl:max-w-3xl px-5 sm:px-10 lg:px-14 pt-14 sm:pt-16 pb-6 sm:pb-8 text-left text-cream-light space-y-2.5 sm:space-y-3.5 w-full">
 
-              {/* Slide Heading with Font Pairing: Bold Sans + Italic Serif */}
-              <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-[46px] font-extrabold text-white tracking-tight leading-[1.2] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
+              {/* Slide Heading in Primary Garet font */}
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] xl:text-[60px] font-extrabold text-white tracking-tight leading-[1.12] drop-shadow-[0_4px_16px_rgba(0,0,0,0.7)]">
                 {activeSlide.headingSans}{' '}
-                <span className="font-serif italic font-normal text-gold-light">
+                <span className="text-gold-light font-extrabold">
                   {activeSlide.headingSerif}
                 </span>
               </h1>
 
               {/* Subtext */}
-              <p className="text-xs sm:text-sm md:text-base text-cream-light/95 max-w-xl font-normal leading-relaxed drop-shadow font-sans">
+              <p className="text-sm sm:text-base md:text-lg text-cream-light/95 max-w-xl font-normal leading-relaxed drop-shadow font-sans">
                 {activeSlide.subtext}
               </p>
 
@@ -269,11 +269,11 @@ export default function HomePage() {
         scrollHint="SCROLL DOWN TO EXPAND SANCTUARY"
       >
         <div className="space-y-5 sm:space-y-6 max-w-3xl text-center text-cream-light px-4">
-          <h2 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
+          <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
             Honouring Every Sacred Step of Motherhood
           </h2>
 
-          <p className="font-playfair text-sm sm:text-base md:text-lg text-cream-light/95 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
+          <p className="font-sans text-base sm:text-lg md:text-xl text-cream-light/95 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
             Experience the serenity of traditional herbal oil therapies, certified birth doula guidance, and gentle infant bath rituals in your own home sanctuary.
           </p>
 
@@ -340,13 +340,10 @@ export default function HomePage() {
 
           {/* Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight drop-shadow-sm">
-              The SEYOL{' '}
-              <span className="font-serif italic font-normal text-gold-light">
-                Method
-              </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-extrabold text-white tracking-tight drop-shadow-sm leading-[1.14]">
+              The SEYOL Method
             </h2>
-            <p className="font-playfair text-xs sm:text-sm text-white/80 max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-white/90 max-w-xl mx-auto leading-relaxed">
               Four fundamental pillars that protect maternal mental health, hormonal recovery, and newborn vitality.
             </p>
           </div>
@@ -393,7 +390,7 @@ export default function HomePage() {
                   <div className={`flex items-center justify-between w-full ${pillar.align === 'right' ? 'flex-row-reverse' : 'flex-row'}`}>
                     {/* Number Block with bottom triangle notch */}
                     <div className="relative bg-[#7B1131] text-white rounded-2xl px-4 py-2.5 flex flex-col items-center justify-center shadow-md min-w-[72px] group-hover:bg-[#5e0c24] transition-colors duration-300">
-                      <span className="font-serif font-black text-2xl sm:text-3xl leading-none text-white">{pillar.stepNum}</span>
+                      <span className="font-heading font-black text-2xl sm:text-3xl leading-none text-white">{pillar.stepNum}</span>
                       <span className="text-[8px] font-bold tracking-widest text-gold-light uppercase mt-0.5">SEYOL</span>
                       {/* Triangle Speech Bubble Notch */}
                       <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[6px] border-t-[#7B1131]" />
@@ -408,12 +405,12 @@ export default function HomePage() {
                   {/* Body Content */}
                   <div className="space-y-2 pt-2 flex-1 flex flex-col justify-start">
                     {/* Pillar Title */}
-                    <h3 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors tracking-tight leading-snug">
+                    <h3 className="font-heading font-bold text-lg sm:text-xl text-brown group-hover:text-maroon transition-colors tracking-tight leading-snug">
                       {pillar.title}
                     </h3>
 
                     {/* Pillar Description */}
-                    <p className="text-xs sm:text-sm text-brown-muted leading-relaxed font-normal pt-1">
+                    <p className="text-sm sm:text-base text-brown-muted leading-relaxed font-normal pt-1">
                       {pillar.desc}
                     </p>
                   </div>
@@ -446,13 +443,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-              Not Sure Which{' '}
-              <span className="font-serif italic font-normal text-maroon">
-                Option Fits?
-              </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
+              Not Sure Which Option Fits?
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
               Compare our in-home confinement visits, stay-in nanny care, and live education workshops side-by-side.
             </p>
           </div>
@@ -476,20 +470,20 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             {/* Left Narrative */}
             <div className="lg:col-span-7 space-y-6">
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-extrabold text-brown tracking-tight leading-tight">
                 Why Families Begin with SEYOL
               </h2>
 
-              <p className="font-playfair text-base sm:text-lg text-brown font-medium leading-relaxed">
+              <p className="font-sans text-base sm:text-lg md:text-[19px] text-brown leading-relaxed font-normal">
                 Derived from an <span className="text-maroon font-bold">Ancient Tamil word</span> signifying the <span className="text-maroon font-bold">God of Newborns</span>, our company name <strong className="font-bold text-brown">SEYOL</strong> embodies our commitment to guiding parents starting from conception to childbirth.
               </p>
 
               <div className="p-5 sm:p-6 rounded-2xl bg-cream-light/90 border border-cream-border/80 shadow-xs space-y-3">
-                <p className="text-sm sm:text-base text-brown-muted leading-relaxed">
+                <p className="text-sm sm:text-base text-brown-muted leading-relaxed font-sans">
                   Headquartered in Singapore, <strong className="text-brown">SEYOL</strong> is a family business led by <strong className="text-maroon font-bold">Mrs. Jemma Francis</strong>, a Certified Birth &amp; Postpartum Doula and Childbirth Educator.
                 </p>
 
-                <p className="font-playfair italic text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
+                <p className="font-serif italic text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
                   &ldquo;Embrace the warmth of Indian tradition coupled with our passion and dedication at SEYOL, your trusted partner in the beautiful journey to parenthood!&rdquo;
                 </p>
               </div>
@@ -533,7 +527,7 @@ export default function HomePage() {
                   <div className="text-[11px] font-bold text-gold-light tracking-wider uppercase">
                     {homeSettings?.founderTitle || 'Founder & Childbirth Educator'}
                   </div>
-                  <h4 className="font-serif text-xl sm:text-2xl font-bold text-cream-light">
+                  <h4 className="font-heading text-xl sm:text-2xl font-bold text-cream-light">
                     {homeSettings?.founderName || 'Mrs. Jemma Francis'}
                   </h4>
                   <p className="text-xs text-cream-light/80 font-sans">
@@ -557,13 +551,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-sans text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
-              Trusted by Families{' '}
-              <span className="font-serif italic font-normal text-maroon">
-                at Every Stage
-              </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
+              Trusted by Families at Every Stage
             </h2>
-            <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
               Real experiences from parents, families, and learners who started their care journey with SEYOL.
             </p>
           </div>
@@ -578,13 +569,10 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
         <div className="max-w-4xl mx-auto space-y-6">
           <div className="text-center space-y-2">
-            <h2 className="font-sans text-3xl sm:text-4xl font-extrabold text-brown tracking-tight">
-              Your First{' '}
-              <span className="font-serif italic font-normal text-maroon">
-                SEYOL Resource
-              </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-[1.18]">
+              Your First SEYOL Resource
             </h2>
-            <p className="font-playfair text-xs sm:text-sm text-brown-muted">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
               Download our expert-crafted checklists, newborn bath guides, and postpartum recovery handbooks.
             </p>
           </div>
@@ -599,10 +587,10 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full font-sans">
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Still Unsure? We’ll Guide You.
             </h2>
-            <p className="text-xs sm:text-sm md:text-base text-brown-muted">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
               Share your due date, confinement preferences, or product questions with our senior care matrons.
             </p>
           </div>

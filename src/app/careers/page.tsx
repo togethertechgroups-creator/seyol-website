@@ -84,7 +84,7 @@ export default function CareersPage() {
                 CAREERS &amp; TRAINING AT SEYOL
               </span>
 
-              <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-normal text-white tracking-tight leading-[1.18]">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white tracking-tight leading-[1.12]">
                 Learn with SEYOL. Grow with SEYOL.
               </h1>
 
@@ -156,7 +156,7 @@ export default function CareersPage() {
                         {pillar.icon}
                       </div>
                       <div>
-                        <div className="font-serif font-bold text-xs text-white">{pillar.title}</div>
+                        <div className="font-heading font-bold text-xs text-white">{pillar.title}</div>
                         <div className="text-[11px] text-[#EAD7D0] leading-snug mt-0.5 whitespace-normal">{pillar.desc}</div>
                       </div>
                     </div>
@@ -183,7 +183,7 @@ export default function CareersPage() {
       <section id="choose-path" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
 
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-brown leading-[1.18]">
             Choose Your Path
           </h2>
           <p className="text-xs sm:text-sm text-brown-muted">
@@ -216,7 +216,7 @@ export default function CareersPage() {
                   </div>
 
                   <div>
-                    <h3 className="font-serif font-bold text-base sm:text-lg text-brown leading-snug">
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-brown leading-snug">
                       {path.title}
                     </h3>
                     <div className="text-xs font-semibold text-maroon mt-0.5">
@@ -265,7 +265,7 @@ export default function CareersPage() {
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">
               LEARN WITH SEYOL
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-brown leading-[1.18]">
               Explore SEYOL In-House Training
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
@@ -294,7 +294,7 @@ export default function CareersPage() {
                     </div>
 
                     <div>
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                      <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                         {course.title}
                       </h3>
                       <div className="text-xs text-maroon font-semibold mt-0.5">{course.subtitle}</div>
@@ -390,7 +390,7 @@ export default function CareersPage() {
       <section ref={applySectionRef} id="apply-wizard" className="py-14 md:py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full space-y-8">
         <div className="text-center space-y-2">
 
-          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-brown leading-[1.18]">
             Start Your SEYOL Caregiver Application
           </h2>
           <p className="text-xs sm:text-sm text-brown-muted max-w-xl mx-auto">
@@ -408,7 +408,7 @@ export default function CareersPage() {
         <div className="max-w-7xl mx-auto space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">Why Practice with SEYOL</span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
+            <h2 className="font-heading text-2xl sm:text-3xl font-bold text-brown leading-[1.18]">
               Professional Respect, Fair Remuneration & Growth
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
@@ -443,7 +443,7 @@ export default function CareersPage() {
                 <div className="w-10 h-10 rounded-2xl bg-cream border border-cream-border flex items-center justify-center">
                   {item.icon}
                 </div>
-                <h4 className="font-serif font-bold text-base text-brown">{item.title}</h4>
+                <h4 className="font-heading font-bold text-base text-brown">{item.title}</h4>
                 <p className="text-xs text-brown-muted leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -456,7 +456,7 @@ export default function CareersPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">Admissions FAQ</span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+            <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown">
               Quick Answers Before You Apply
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
@@ -484,7 +484,7 @@ export default function CareersPage() {
               }
             ].map((faq, idx) => (
               <div key={idx} className="bg-cream-light rounded-2xl p-5 border border-cream-border space-y-2 shadow-warm-sm">
-                <h4 className="font-serif font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
+                <h4 className="font-heading font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">{faq.a}</p>
               </div>
             ))}

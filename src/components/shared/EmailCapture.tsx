@@ -182,11 +182,11 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         {/* Left Side: Live dynamic guide information based on selected stage */}
         <div className="space-y-3.5 lg:col-span-7">
-          <h3 className="font-playfair text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
+          <h3 className="font-heading text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
             {currentTitle}
           </h3>
 
-          <p className="font-playfair text-xs sm:text-sm text-cream-light/85 leading-relaxed">
+          <p className="font-sans text-xs sm:text-sm text-cream-light/85 leading-relaxed">
             {currentSubtitle}
           </p>
 
@@ -195,7 +195,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({
             {currentHighlights.map((hl, idx) => (
               <div key={idx} className="flex items-center space-x-1.5 bg-black/15 px-2.5 py-1 rounded-lg">
                 <CheckCircle2 className="w-3.5 h-3.5 text-gold" />
-                <span className="font-playfair">{hl}</span>
+                <span className="font-sans">{hl}</span>
               </div>
             ))}
           </div>
@@ -221,7 +221,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({
               </div>
 
               <div className="space-y-1">
-                <div className="font-serif font-bold text-xl text-gold-light">
+                <div className="font-heading font-bold text-xl text-gold-light">
                   Email Verified &amp; Guide Ready!
                 </div>
                 <p className="text-xs text-cream-light/85 max-w-xs mx-auto">
@@ -271,7 +271,7 @@ export const EmailCapture: React.FC<EmailCaptureProps> = ({
               )}
 
               <div>
-                <label className="block font-playfair font-semibold text-cream-light mb-1.5">
+                <label className="block font-sans font-semibold text-cream-light mb-1.5">
                   Your Full Name *
                 </label>
                 <input

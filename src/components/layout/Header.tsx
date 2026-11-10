@@ -134,7 +134,7 @@ export const Header: React.FC = () => {
           </Link>
 
           {/* ── Center: Desktop Navigation Bar with Dropdowns (64px height centered) ── */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 shrink font-sans text-[12px] xl:text-[13px] font-semibold text-neutral-700 leading-none h-[64px]">
+          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 shrink font-heading text-[13px] xl:text-[14px] font-semibold text-neutral-800 tracking-wide leading-none h-[64px]">
             {navLinks.map((link) => {
               const isCurrentRoute = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
               const isDropdownOpen = link.key && activeDropdown === link.key;

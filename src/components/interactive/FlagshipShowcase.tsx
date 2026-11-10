@@ -125,7 +125,7 @@ export const FlagshipShowcase: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-cream-light leading-snug">
+                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-cream-light leading-snug">
                   {mainService.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-cream-light/80 leading-relaxed">
@@ -182,7 +182,7 @@ export const FlagshipShowcase: React.FC = () => {
           <div className="lg:col-span-5 flex flex-col justify-between space-y-5">
             <div className="space-y-4">
               <div className="flex items-center justify-between px-1">
-                <h4 className="font-serif text-lg font-bold text-cream-light flex items-center space-x-2">
+                <h4 className="font-heading text-lg font-bold text-cream-light flex items-center space-x-2">
                   <Sparkles className="w-4 h-4 text-gold" />
                   <span>Complementary Care Packages</span>
                 </h4>
@@ -210,7 +210,7 @@ export const FlagshipShowcase: React.FC = () => {
                         <span className="text-[10px] font-bold text-gold uppercase tracking-wider block">
                           {secService.shortTitle}
                         </span>
-                        <h5 className="font-serif text-base font-bold text-cream-light leading-snug line-clamp-1">
+                        <h5 className="font-heading text-base font-bold text-cream-light leading-snug line-clamp-1">
                           {secService.title}
                         </h5>
                         <p className="text-xs text-cream-light/75 leading-relaxed line-clamp-2">

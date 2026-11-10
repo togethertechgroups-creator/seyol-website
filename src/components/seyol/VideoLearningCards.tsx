@@ -47,7 +47,7 @@ export const VideoLearningCards: React.FC<VideoLearningCardProps> = ({
           <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
             {video.category}
           </span>
-          <h4 className="font-serif font-bold text-sm text-brown line-clamp-2 leading-snug group-hover:text-maroon transition-colors">
+          <h4 className="font-heading font-bold text-sm text-brown line-clamp-2 leading-snug group-hover:text-maroon transition-colors">
             {video.title}
           </h4>
           <p className="text-xs text-brown-muted line-clamp-2 leading-relaxed">

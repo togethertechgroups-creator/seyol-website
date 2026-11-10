@@ -14,7 +14,7 @@ export const DigitalResourceLocker: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Unlocked Materials</span>
-          <h4 className="font-serif font-bold text-lg text-brown">Digital Library & Workbooks</h4>
+          <h4 className="font-heading font-bold text-lg text-brown">Digital Library & Workbooks</h4>
         </div>
         <span className="text-xs text-brown-muted font-bold">{purchased.length} Items Accessible</span>
       </div>
@@ -30,7 +30,7 @@ export const DigitalResourceLocker: React.FC = () => {
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>{res.type.replace('-', ' ').toUpperCase()}</span>
               </div>
-              <h5 className="font-serif font-bold text-sm text-brown">{res.title}</h5>
+              <h5 className="font-heading font-bold text-sm text-brown">{res.title}</h5>
               <p className="text-xs text-brown-muted line-clamp-2">{res.description}</p>
             </div>
 

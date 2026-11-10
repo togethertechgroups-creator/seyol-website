@@ -11,7 +11,7 @@ export const BeforeAfterRoutineUI: React.FC = () => {
     <div className="w-full bg-cream-light p-6 sm:p-10 rounded-3xl border border-cream-border shadow-warm-lg space-y-6">
       <div className="text-center max-w-2xl mx-auto space-y-2">
 
-        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
+        <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brown">
           Before & After 21-Day SEY Routine
         </h3>
         <p className="text-xs sm:text-sm text-brown-muted">

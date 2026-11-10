@@ -39,10 +39,10 @@ export const ClassRegistrationSteps: React.FC = () => {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
 
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
           How Class Registration Works
         </h2>
-        <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
           Reserve your seat in under 2 minutes with instant confirmation and complimentary partner attendance.
         </p>
       </div>
@@ -66,7 +66,7 @@ export const ClassRegistrationSteps: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <h4 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
+                <h4 className="font-heading font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
                   {st.title}
                 </h4>
                 <p className="text-xs text-brown-muted leading-relaxed">

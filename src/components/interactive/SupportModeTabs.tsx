@@ -269,10 +269,10 @@ export const SupportModeTabs: React.FC = () => {
       
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
           How Would You <span className="italic text-[#7B1131]">Like SEYOL</span> to Support You?
         </h2>
-        <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+        <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
           From hands-on maternal healing and live-in nannies to empowering classes and professional doula training — choose the support format that fits your life.
         </p>
       </div>
@@ -308,7 +308,7 @@ export const SupportModeTabs: React.FC = () => {
             <span className="text-[11px] font-extrabold uppercase tracking-widest text-gold-dark">
               {activeTab.sublabel}
             </span>
-            <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown tracking-tight">
+            <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown tracking-tight">
               {activeTab.heroTitle}
             </h3>
             <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
@@ -341,7 +341,7 @@ export const SupportModeTabs: React.FC = () => {
                   </span>
                 </div>
 
-                <h4 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
+                <h4 className="font-heading font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
                   {card.title}
                 </h4>
 

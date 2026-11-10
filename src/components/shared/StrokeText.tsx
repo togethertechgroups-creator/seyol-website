@@ -30,7 +30,7 @@ const StrokeText: React.FC<StrokeTextProps> = ({
       className={`relative inline-flex items-center select-none py-0.5 ${className}`.trim()}
       style={style}
     >
-      <h1 className="flex items-center font-serif font-black tracking-tight leading-none uppercase text-cream-light drop-shadow-xl">
+      <h1 className="flex items-center font-heading font-black tracking-tight leading-none uppercase text-cream-light drop-shadow-xl">
         {chars.map((char, i) => (
           <span
             key={i}

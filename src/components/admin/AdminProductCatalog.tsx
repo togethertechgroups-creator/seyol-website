@@ -126,7 +126,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#7B1131]">
             Apothecary &amp; Formulations
           </span>
-          <h1 className="font-serif text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
+          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-stone-900 mt-0.5">
             Botanical Product Catalog
           </h1>
           <p className="text-xs text-stone-600 mt-1">
@@ -263,7 +263,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
                         <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                           {prod.category}
                         </span>
-                        <h3 className="font-serif font-bold text-sm text-stone-900 leading-snug">
+                        <h3 className="font-heading font-bold text-sm text-stone-900 leading-snug">
                           {prod.title}
                         </h3>
                       </div>
@@ -338,7 +338,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
         <div className="space-y-5">
           <div className="flex items-center justify-between pb-2 border-b border-stone-200">
             <div>
-              <h2 className="font-serif text-base font-bold text-stone-900">
+              <h2 className="font-heading text-base font-bold text-stone-900">
                 Combined Care &amp; Confinement Packages
               </h2>
               <p className="text-xs text-stone-500">
@@ -377,7 +377,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
                     </div>
                   </div>
 
-                  <h3 className="font-serif font-bold text-sm text-stone-900">
+                  <h3 className="font-heading font-bold text-sm text-stone-900">
                     {pkg.name}
                   </h3>
                   {pkg.description && (
@@ -444,7 +444,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
                 <span className="text-[10px] font-bold uppercase tracking-wider text-[#7B1131]">
                   {editingProduct ? 'Edit Botanical Formula' : 'New Product'}
                 </span>
-                <h3 className="font-serif font-bold text-lg text-stone-900">
+                <h3 className="font-heading font-bold text-lg text-stone-900">
                   {editingProduct ? editingProduct.title : 'Create Botanical Product'}
                 </h3>
               </div>
@@ -650,7 +650,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/60 backdrop-blur-xs animate-fadeIn overflow-y-auto">
           <div className="bg-white rounded-2xl p-6 sm:p-7 max-w-lg w-full shadow-2xl border border-stone-200 space-y-4 my-8">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 {editingBundle ? 'Edit Care Package' : 'Create Care Package'}
               </h3>
               <button
@@ -798,7 +798,7 @@ export const AdminProductCatalog: React.FC<AdminProductCatalogProps> = ({ onNoti
             </div>
 
             <div className="space-y-1">
-              <h3 className="font-serif font-bold text-base text-stone-900">
+              <h3 className="font-heading font-bold text-base text-stone-900">
                 Delete {deleteConfirmation.type}?
               </h3>
               <p className="text-xs text-stone-500">

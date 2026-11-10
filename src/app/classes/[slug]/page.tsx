@@ -29,7 +29,7 @@ export default function ClassDetailPage() {
   if (!classItem) {
     return (
       <div className="py-20 text-center space-y-4 max-w-md mx-auto">
-        <h2 className="font-serif text-2xl font-bold text-maroon">Workshop Not Found</h2>
+        <h2 className="font-heading text-2xl font-bold text-maroon">Workshop Not Found</h2>
         <p className="text-xs text-brown-muted">The requested workshop could not be located.</p>
         <Link href="/classes" className="inline-block px-5 py-2.5 bg-maroon text-cream-light text-xs font-bold rounded-xl">
           Return to Classes Directory
@@ -71,7 +71,7 @@ export default function ClassDetailPage() {
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-brown tracking-tight leading-[1.12]">
               {classItem.title}
             </h1>
 
@@ -92,14 +92,14 @@ export default function ClassDetailPage() {
               />
               <div className="text-xs space-y-0.5">
                 <div className="text-[10px] uppercase font-bold text-gold-dark">Lead Workshop Facilitator</div>
-                <div className="font-serif font-bold text-base text-brown">{classItem.instructor.name}</div>
+                <div className="font-heading font-bold text-base text-brown">{classItem.instructor.name}</div>
                 <div className="text-brown-muted font-medium">{classItem.instructor.credentials}</div>
               </div>
             </div>
 
             {/* Curriculum Breakdown */}
             <div className="bg-cream-light rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4">
-              <h3 className="font-serif text-xl font-bold text-brown">
+              <h3 className="font-heading text-xl font-bold text-brown">
                 Workshop Curriculum & Practical Learning Modules
               </h3>
               <div className="space-y-2.5 text-xs text-brown">
@@ -116,7 +116,7 @@ export default function ClassDetailPage() {
 
             {/* Included Materials */}
             <div className="bg-cream-light rounded-3xl p-6 sm:p-8 border border-cream-border space-y-3">
-              <h3 className="font-serif text-lg font-bold text-brown flex items-center space-x-2">
+              <h3 className="font-heading text-lg font-bold text-brown flex items-center space-x-2">
                 <Gift className="w-4 h-4 text-maroon" />
                 <span>Materials & Take-Home Resources Included</span>
               </h3>
@@ -138,7 +138,7 @@ export default function ClassDetailPage() {
                 <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                   Cohort Tuition Fee
                 </div>
-                <div className="font-serif font-bold text-3xl text-maroon">
+                <div className="font-heading font-bold text-3xl text-maroon">
                   ₹{classItem.pricing}
                 </div>
                 <div className="text-[11px] text-gold-dark font-semibold">

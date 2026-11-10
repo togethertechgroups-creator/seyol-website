@@ -59,7 +59,7 @@ export const ClassCalendar: React.FC = () => {
       {/* Header & Month Switcher */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-cream-border mb-6">
         <div>
-          <h3 className="font-serif text-2xl font-bold text-brown">
+          <h3 className="font-heading text-2xl font-bold text-brown">
             Upcoming Masterclasses & Workshops
           </h3>
           <p className="text-xs text-brown-muted mt-1">
@@ -161,7 +161,7 @@ export const ClassCalendar: React.FC = () => {
                     </span>
                   </div>
 
-                  <h4 className="font-serif text-base font-bold text-brown">
+                  <h4 className="font-heading text-base font-bold text-brown">
                     {item.classTitle}
                   </h4>
 

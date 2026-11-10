@@ -512,7 +512,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               </span>
             )}
           </div>
-          <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+          <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown">
             Your SEYOL Care Journey Begins!
           </h2>
           <p className="text-xs sm:text-sm text-brown max-w-md mx-auto leading-relaxed">
@@ -591,7 +591,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
         <div className={`relative z-10 ${isModal ? 'max-w-5xl mx-auto pr-14 sm:pr-16' : ''}`}>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1">
-              <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
                 {serviceConfig.title}
               </h2>
               <p className="text-xs sm:text-sm text-cream-light/90 max-w-2xl line-clamp-1">
@@ -687,7 +687,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                     Step 1 of {serviceConfig.stepCount}
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                     About You
                   </h3>
                   <p className="text-xs text-brown-muted">
@@ -1077,7 +1077,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your preparation timeline and fertility goals.</p>
                 </div>
 
@@ -1241,7 +1241,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Select how and when you would like to connect with your SEYOL care advisor.</p>
                 </div>
 
@@ -1299,7 +1299,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Pregnancy Details</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Pregnancy Details</h3>
                   <p className="text-xs text-brown-muted">Ensuring optimal safety and tailored ergonomic cushioning.</p>
                 </div>
 
@@ -1367,7 +1367,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">What areas of discomfort would you like our therapist to focus on? (Limit: choose up to 3)</p>
                 </div>
 
@@ -1413,7 +1413,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Select your package, preferred date, session timing, and residential address.</p>
                 </div>
 
@@ -1510,7 +1510,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Your Birth Support Needs</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Your Birth Support Needs</h3>
                   <p className="text-xs text-brown-muted">Helping us tailor your birth preference plan and labour advocacy.</p>
                 </div>
 
@@ -1714,7 +1714,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                   <p className="text-xs text-brown-muted">Select your doula tier and preferred consultation mode.</p>
                 </div>
 
@@ -1788,7 +1788,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your delivery stage so we can coordinate your start window.</p>
                 </div>
 
@@ -2031,7 +2031,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                   <p className="text-xs text-brown-muted">Select between SEYOL Standard Postpartum (SSP) and Premium Postpartum (SPP).</p>
                 </div>
 
@@ -2143,7 +2143,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your baby’s birth stage for customized massage strokes.</p>
                 </div>
 
@@ -2332,7 +2332,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                   <p className="text-xs text-brown-muted">Select your baby massage &amp; bath package.</p>
                 </div>
 
@@ -2410,7 +2410,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your delivery timeline for synchronized dual care.</p>
                 </div>
 
@@ -2612,7 +2612,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                   <p className="text-xs text-brown-muted">Select your Standard Combo (SSC 1–7) or Premium Herbal Combo (SPC 1–7).</p>
                 </div>
 
@@ -2752,7 +2752,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Personal Details</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Personal Details</h3>
                   <p className="text-xs text-brown-muted">Helping us tailor your residential confinement care placement.</p>
                 </div>
 
@@ -2989,7 +2989,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 7</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Household Basics</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Household Basics</h3>
                   <p className="text-xs text-brown-muted">Matching the ideal stay-in nanny for your home environment.</p>
                 </div>
 
@@ -3134,7 +3134,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                 <div className="flex items-center justify-between">
                   <div className="space-y-1">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of 7</span>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                    <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                     <p className="text-xs text-brown-muted">Select your interested confinement nanny package.</p>
                   </div>
                   <button
@@ -3201,7 +3201,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your baby’s stage and specific health requirements.</p>
                 </div>
 
@@ -3443,7 +3443,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of 6</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Choose Your Support</h3>
                   <p className="text-xs text-brown-muted">Choose your hours, timing, and required respite assistance.</p>
                 </div>
 
@@ -3545,7 +3545,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us about your baby’s age and current feeding methods.</p>
                 </div>
 
@@ -3703,7 +3703,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
                   <p className="text-xs text-brown-muted">Select all lactation areas you’d like guidance on.</p>
                 </div>
 
@@ -3757,7 +3757,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Choose your preferred mode and session time.</p>
                 </div>
 
@@ -3814,7 +3814,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 2 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Brings You Here?</h3>
                   <p className="text-xs text-brown-muted">Tell us who you are booking for and which maternal stage best describes you.</p>
                 </div>
 
@@ -3888,7 +3888,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 3 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">What Do You Need Support With?</h3>
                   <p className="text-xs text-brown-muted">Select the guidance topics for your 45-minute roadmap session.</p>
                 </div>
 
@@ -3937,7 +3937,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
               <div className="space-y-6">
                 <div className="space-y-1">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Step 4 of {serviceConfig.stepCount}</span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Appointment Preference</h3>
                   <p className="text-xs text-brown-muted">Choose your preferred consultation format and timing.</p>
                 </div>
 
@@ -3996,7 +3996,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                     Step {serviceConfig.stepCount - 2} of {serviceConfig.stepCount}
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                     My SEYOL Care Journey
                   </h3>
                   <p className="text-xs text-brown-muted">
@@ -4081,7 +4081,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                     Step {serviceConfig.stepCount - 1} of {serviceConfig.stepCount}
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                     Consent &amp; Booking Terms
                   </h3>
                   <p className="text-xs text-brown-muted">
@@ -4152,7 +4152,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                   <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                     Final Step {serviceConfig.stepCount} of {serviceConfig.stepCount}
                   </span>
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                  <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                     Review Your Care Summary
                   </h3>
                   <p className="text-xs text-brown-muted">
@@ -4416,7 +4416,7 @@ export const ServiceBookingWizard: React.FC<ServiceBookingWizardProps> = ({
                     <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                       {serviceConfig.title}
                     </span>
-                    <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+                    <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                       Choose Your Care Package
                     </h3>
                     <p className="text-xs text-brown-muted">

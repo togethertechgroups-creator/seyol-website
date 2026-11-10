@@ -38,7 +38,7 @@ export const ProductRoutineBuilder: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
         <div>
 
-          <h3 className="font-serif text-2xl font-bold text-brown">
+          <h3 className="font-heading text-2xl font-bold text-brown">
             Product Routine Builder
           </h3>
         </div>
@@ -73,7 +73,7 @@ export const ProductRoutineBuilder: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                 {prod.category}
               </span>
-              <h4 className="font-serif font-bold text-sm text-brown">{prod.title}</h4>
+              <h4 className="font-heading font-bold text-sm text-brown">{prod.title}</h4>
               <p className="text-xs text-brown-muted line-clamp-2">{prod.shortDescription}</p>
             </div>
 

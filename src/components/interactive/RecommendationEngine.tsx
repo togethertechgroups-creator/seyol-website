@@ -320,7 +320,7 @@ export const RecommendationEngine: React.FC = () => {
                     <span>Recommended Care Pathway</span>
                   </span>
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-maroon leading-tight">
+                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-maroon leading-tight">
                   {rec.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed max-w-2xl">
@@ -355,7 +355,7 @@ export const RecommendationEngine: React.FC = () => {
                     </span>
                     <ShieldCheck className="w-4 h-4 text-maroon opacity-70" />
                   </div>
-                  <h4 className="font-serif text-base font-bold text-brown leading-snug">
+                  <h4 className="font-heading text-base font-bold text-brown leading-snug">
                     {rec.service.title}
                   </h4>
                   <p className="text-xs text-brown-muted leading-relaxed line-clamp-3">
@@ -387,7 +387,7 @@ export const RecommendationEngine: React.FC = () => {
                     </span>
                     <Calendar className="w-4 h-4 text-gold-dark opacity-70" />
                   </div>
-                  <h4 className="font-serif text-base font-bold text-brown leading-snug">
+                  <h4 className="font-heading text-base font-bold text-brown leading-snug">
                     {rec.classItem.title}
                   </h4>
                   <p className="text-xs text-brown-muted leading-relaxed line-clamp-3">
@@ -419,7 +419,7 @@ export const RecommendationEngine: React.FC = () => {
                     </span>
                     <ShoppingBag className="w-4 h-4 text-brown opacity-70" />
                   </div>
-                  <h4 className="font-serif text-base font-bold text-brown leading-snug">
+                  <h4 className="font-heading text-base font-bold text-brown leading-snug">
                     {rec.product.title}
                   </h4>
                   <p className="text-xs text-brown-muted leading-relaxed line-clamp-3">

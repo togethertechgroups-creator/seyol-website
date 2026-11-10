@@ -160,7 +160,7 @@ export const ExpandingCards = React.forwardRef<
 
               <div className="space-y-1.5">
                 <h3 className={cn(
-                  "font-serif text-2xl sm:text-3xl lg:text-[32px] font-bold text-white transition-all duration-300 delay-150 ease-out leading-tight drop-shadow-sm",
+                  "font-heading text-2xl sm:text-3xl lg:text-[32px] font-bold text-white transition-all duration-300 delay-150 ease-out leading-tight drop-shadow-sm",
                   isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
                 )}>
                   {item.title}

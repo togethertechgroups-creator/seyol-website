@@ -32,7 +32,7 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="py-20 text-center space-y-4 max-w-md mx-auto font-sans">
-        <h2 className="font-serif text-2xl font-bold text-maroon">Product Not Found</h2>
+        <h2 className="font-heading text-2xl font-bold text-maroon">Product Not Found</h2>
         <p className="text-xs text-brown-muted">The requested formulation could not be located.</p>
         <Link href="/products" className="inline-block px-5 py-2.5 bg-maroon text-cream-light text-xs font-bold rounded-xl">
           Return to SEY Store
@@ -106,7 +106,7 @@ export default function ProductDetailPage() {
                 <span className="text-xs text-brown-muted">({product.reviewCount} verified parent reviews)</span>
               </div>
 
-              <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight leading-tight">
+              <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-brown tracking-tight leading-[1.12]">
                 {product.title}
               </h1>
 
@@ -117,7 +117,7 @@ export default function ProductDetailPage() {
 
             {/* Price & Volume */}
             <div className="flex items-baseline space-x-3 pb-3 border-b border-cream-border">
-              <span className="font-serif font-bold text-3xl text-maroon">
+              <span className="font-heading font-bold text-3xl text-maroon">
                 ₹{product.price}
               </span>
               <span className="text-xs text-brown-muted font-medium">
@@ -208,13 +208,13 @@ export default function ProductDetailPage() {
           {/* Hero Botanical Ingredients */}
           <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
 
-            <h3 className="font-serif text-xl font-bold text-brown">
+            <h3 className="font-heading text-xl font-bold text-brown">
               Hero Ayurvedic & Siddha Ingredients
             </h3>
             <div className="space-y-3">
               {product.heroIngredients.map((ing, i) => (
                 <div key={i} className="bg-cream-light p-3.5 rounded-xl border border-cream-border/70 space-y-0.5">
-                  <div className="font-serif font-bold text-xs text-maroon flex items-center justify-between">
+                  <div className="font-heading font-bold text-xs text-maroon flex items-center justify-between">
                     <span>{ing.name}</span>
                     {ing.botanicalName && (
                       <span className="font-sans italic text-[10px] text-brown-muted font-normal">
@@ -231,7 +231,7 @@ export default function ProductDetailPage() {
           {/* How to Use Ritual */}
           <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
 
-            <h3 className="font-serif text-xl font-bold text-brown">
+            <h3 className="font-heading text-xl font-bold text-brown">
               Traditional Daily Application Routine
             </h3>
             <div className="space-y-3 text-xs text-brown">

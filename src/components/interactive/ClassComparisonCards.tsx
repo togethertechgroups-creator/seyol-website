@@ -58,7 +58,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-brown-muted block">
                 Hands-On Infant Touch & Bath
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Traditional Baby Massage & Bath Workshop
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -108,7 +108,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-maroon block">
                 Complete First 3 Months Guide
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 Newborn Care Essentials Masterclass
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -163,7 +163,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-maroon block">
                 Labour & Delivery Mastery
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 Childbirth Preparation Masterclass
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -206,7 +206,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-brown-muted block">
                 Ongoing Physical Movement
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Prenatal Yoga & Pelvic Mobility (4-Week Series)
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -253,7 +253,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-brown-muted block">
                 Targeted Single Topic
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Single Workshop Pass
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -298,7 +298,7 @@ export const ClassComparisonCards: React.FC = () => {
               <span className="text-[10px] font-bold uppercase tracking-wider text-maroon block">
                 Ultimate Parenthood Preparation
               </span>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 All-Access Parenthood Master Bundle
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">

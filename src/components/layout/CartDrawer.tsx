@@ -299,7 +299,7 @@ export const CartDrawer: React.FC = () => {
                 </button>
               )}
               <ShoppingBag className="w-5 h-5 text-maroon" />
-              <h2 className="font-serif text-lg font-bold text-brown">
+              <h2 className="font-heading text-lg font-bold text-brown">
                 {step === 'checkout'
                   ? 'Delivery & Checkout'
                   : step === 'success'
@@ -352,7 +352,7 @@ export const CartDrawer: React.FC = () => {
                   <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#7B1131] bg-gold/20 px-3 py-1 rounded-full">
                     Order #{confirmedOrder.orderNumber}
                   </span>
-                  <h3 className="font-serif text-xl font-bold text-[#3a1d1d] mt-3">
+                  <h3 className="font-heading text-xl font-bold text-[#3a1d1d] mt-3">
                     Thank You, {confirmedOrder.customerName}!
                   </h3>
                   <p className="text-xs text-brown-muted max-w-xs mx-auto mt-1">
@@ -571,7 +571,7 @@ export const CartDrawer: React.FC = () => {
                 <div className="w-16 h-16 rounded-full bg-cream-dark/60 text-maroon mx-auto flex items-center justify-center">
                   <ShoppingBag className="w-8 h-8 opacity-50" />
                 </div>
-                <h3 className="font-serif text-lg font-bold text-brown">Your Basket is Empty</h3>
+                <h3 className="font-heading text-lg font-bold text-brown">Your Basket is Empty</h3>
                 <p className="text-xs text-brown-muted max-w-xs mx-auto">
                   Explore our handcrafted SEY infant oils, gentle Nalangu Maavu bath powders, and digital Fourth Trimester workbooks.
                 </p>
@@ -599,7 +599,7 @@ export const CartDrawer: React.FC = () => {
                   <div className="flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex justify-between items-start">
-                        <h4 className="font-serif text-xs font-bold text-brown leading-tight">
+                        <h4 className="font-heading text-xs font-bold text-brown leading-tight">
                           {item.title}
                         </h4>
                         <button

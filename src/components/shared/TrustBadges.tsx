@@ -64,7 +64,7 @@ export const TrustBadges: React.FC<{ variant?: 'full' | 'compact' }> = ({ varian
               <div key={i} className="flex flex-col items-center justify-center space-y-1 px-4 py-2 text-center group">
                 <Icon className="w-6 h-6 text-gold-light group-hover:scale-110 transition-transform duration-300" />
                 <div>
-                  <div className="font-serif font-bold text-xl tracking-tight text-white">
+                  <div className="font-heading font-bold text-xl tracking-tight text-white">
                     <StatsCounter value={stat.numericValue} suffix={stat.suffix} duration={1.5} />
                   </div>
                   <div className="text-[10px] font-bold uppercase tracking-widest text-gold-light/90">{stat.label}</div>
@@ -118,12 +118,12 @@ export const TrustBadges: React.FC<{ variant?: 'full' | 'compact' }> = ({ varian
           {/* Centered Header Block */}
           <div className="text-center max-w-2xl mx-auto space-y-3 pt-2">
             {/* Title */}
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
               Our Community
             </h2>
 
             {/* Subtitle */}
-            <p className="font-playfair text-xs sm:text-sm text-brown font-medium leading-relaxed max-w-lg mx-auto">
+            <p className="font-sans text-xs sm:text-sm text-brown font-medium leading-relaxed max-w-lg mx-auto">
               Thousands of mothers and families trust us every day.
               <br />
               Be a part of our growing community.
@@ -143,7 +143,7 @@ export const TrustBadges: React.FC<{ variant?: 'full' | 'compact' }> = ({ varian
                   {/* Top Header Row: Stat Number + Circular Icon */}
                   <div className="flex items-center justify-between w-full">
                     {/* Stat Number with Count-Up Animation */}
-                    <div className="font-serif font-black text-4xl sm:text-5xl text-[#7B1131] tracking-tight">
+                    <div className="font-heading font-black text-4xl sm:text-5xl text-[#7B1131] tracking-tight">
                       <StatsCounter
                         value={stat.numericValue}
                         suffix={stat.suffix}

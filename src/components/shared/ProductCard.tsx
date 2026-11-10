@@ -74,7 +74,7 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="space-y-2.5">
           
           <Link href={`/products/${product.slug}`} className="block group-hover:text-[#7B1131] transition-colors">
-            <h3 className="font-serif text-lg sm:text-xl font-bold text-[#3a1d1d] leading-snug line-clamp-1">
+            <h3 className="font-heading text-lg sm:text-xl font-bold text-[#3a1d1d] leading-snug line-clamp-1">
               {product.title}
             </h3>
           </Link>
@@ -100,7 +100,7 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
         <div className="pt-3 border-t border-neutral-100 flex items-center justify-between">
           <div>
             <div className="text-[10px] text-neutral-400 font-bold uppercase tracking-wider">Apothecary Rate</div>
-            <div className="font-serif font-extrabold text-xl sm:text-2xl text-[#7B1131] leading-tight">
+            <div className="font-heading font-extrabold text-xl sm:text-2xl text-[#7B1131] leading-tight">
               ₹{product.price.toLocaleString()}
             </div>
           </div>

@@ -33,7 +33,7 @@ export const ServiceFinder: React.FC = () => {
         <div className="text-[#70152B] text-xs font-bold tracking-[2.5px] uppercase">
           {servicesSettings?.sectionBadge || 'YOUR JOURNEY, YOUR WAY'}
         </div>
-        <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3A1D1D] tracking-tight">
+        <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3A1D1D] tracking-tight">
           {servicesSettings?.sectionTitle || 'Popular Ways Families Begin'}
         </h2>
         <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">

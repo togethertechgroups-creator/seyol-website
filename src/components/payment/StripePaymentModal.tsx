@@ -330,7 +330,7 @@ function CheckoutForm({
 
         <div className="flex items-baseline justify-between border-t border-[#E8DCC4]/60 pt-2">
           <div>
-            <h4 className="font-serif font-bold text-sm text-[#3a1d1d]">{title}</h4>
+            <h4 className="font-heading font-bold text-sm text-[#3a1d1d]">{title}</h4>
             {subtitle && <p className="text-[11px] text-[#6d534a]">{subtitle}</p>}
             <p className="text-[11px] text-[#8B6B4D] mt-0.5">
               Client: <span className="font-semibold text-[#3a1d1d]">{customerName}</span> ({customerPhone})
@@ -500,7 +500,7 @@ export function StripePaymentModal(props: StripePaymentModalProps) {
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-serif font-bold text-base text-[#3a1d1d]">
+              <h3 className="font-heading font-bold text-base text-[#3a1d1d]">
                 Secure Stripe Checkout
               </h3>
               <p className="text-xs text-[#8B6B4D]">

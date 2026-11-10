@@ -241,7 +241,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+            <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">
               {isComplete ? 'Resource Locker Unlocked' : 'Access Your SEYOL Guide Kit'}
             </h2>
           </div>
@@ -298,7 +298,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 1 of 4</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Your Contact Details</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Your Contact Details</h3>
                 <p className="text-xs text-brown-muted">
                   We will deliver your high-resolution download kit, receipts, and Care Portal access to these channels.
                 </p>
@@ -468,7 +468,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 2 of 4</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Access & Recipient Details</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Access & Recipient Details</h3>
                 <p className="text-xs text-brown-muted">
                   Personalise the delivery format and specify who will be using this resource.
                 </p>
@@ -657,7 +657,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 3 of 4</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Consent & Digital Terms</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Consent & Digital Terms</h3>
                 <p className="text-xs text-brown-muted">
                   Please review the health guidance disclaimers and digital access terms before completing access.
                 </p>
@@ -810,7 +810,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
             >
               <div>
                 <div className="text-xs font-bold uppercase tracking-wider text-maroon mb-1">Step 4 of 4</div>
-                <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">Review & Complete Order</h3>
+                <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">Review & Complete Order</h3>
                 <p className="text-xs text-brown-muted">
                   Verify your chosen bundle, check inclusions, and unlock instant lifetime access.
                 </p>
@@ -830,7 +830,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
                         </span>
                       )}
                     </div>
-                    <h4 className="font-serif text-lg font-bold text-brown">{selectedBundle.title}</h4>
+                    <h4 className="font-heading text-lg font-bold text-brown">{selectedBundle.title}</h4>
                     <p className="text-xs text-brown-muted">{selectedBundle.tagline}</p>
                   </div>
 
@@ -1113,7 +1113,7 @@ export const ResourceAccessWizard: React.FC<ResourceAccessWizardProps> = ({
                 <span className="text-[11px] font-bold uppercase tracking-wider text-maroon bg-maroon-soft px-3 py-1 rounded-full border border-maroon/20">
                   Access Successfully Granted
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+                <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-brown">
                   Welcome to Your SEYOL Resource Vault!
                 </h3>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">

@@ -491,7 +491,7 @@ export const AdminOrderManager: React.FC = () => {
       {/* Top Header Bar: Orders title, Search, Stage Filter & + New Order (Exact Reference Layout) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-neutral-200/80">
         <div className="flex items-center space-x-3">
-          <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d] tracking-tight">
+          <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#3a1d1d] tracking-tight">
             Orders
           </h1>
           <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#7B1131]/10 text-[#7B1131]">
@@ -609,7 +609,7 @@ export const AdminOrderManager: React.FC = () => {
           {filteredOrders.length === 0 ? (
             <div className="bg-white p-12 rounded-3xl border border-neutral-200 text-center space-y-3">
               <ShoppingCart className="w-12 h-12 text-neutral-300 mx-auto" />
-              <h3 className="font-serif font-bold text-lg text-neutral-700">No Orders Found</h3>
+              <h3 className="font-heading font-bold text-lg text-neutral-700">No Orders Found</h3>
               <p className="text-xs text-neutral-500 max-w-sm mx-auto">
                 No orders match your filter. Switch back to "All" or click "+ New Order" to create one.
               </p>
@@ -1166,7 +1166,7 @@ export const AdminOrderManager: React.FC = () => {
             </div>
 
             <div className="text-center space-y-1">
-              <h3 className="font-serif font-bold text-xl text-[#3a1d1d]">
+              <h3 className="font-heading font-bold text-xl text-[#3a1d1d]">
                 Reject Order #{rejectingOrder.orderNumber}
               </h3>
               <p className="text-xs text-neutral-500">
@@ -1236,7 +1236,7 @@ export const AdminOrderManager: React.FC = () => {
             </div>
 
             <div className="text-center space-y-1">
-              <h3 className="font-serif font-bold text-lg sm:text-xl text-[#3a1d1d]">
+              <h3 className="font-heading font-bold text-lg sm:text-xl text-[#3a1d1d]">
                 Dispatch Order #{shippingOrder.orderNumber}
               </h3>
               <p className="text-xs text-neutral-500">

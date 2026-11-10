@@ -63,7 +63,7 @@ export default function ResourcesPage() {
               YOUR PARENTHOOD JOURNEY, SUPPORTED
             </span>
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-medium text-[#651F32] tracking-tight leading-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-[#7B1131] tracking-tight leading-tight">
               The SEYOL Parent Resource Hub
             </h1>
 
@@ -171,7 +171,7 @@ export default function ResourcesPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center relative z-10">
               <div className="lg:col-span-8 space-y-4">
                 <div>
-                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-cream-light">
+                  <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-extrabold text-cream-light leading-[1.18]">
                     {masterBundle.title}
                   </h2>
                   <p className="text-xs sm:text-sm text-cream-muted mt-2 leading-relaxed max-w-2xl">
@@ -204,7 +204,7 @@ export default function ResourcesPage() {
                     Complete Library Price
                   </span>
                   <div className="flex items-baseline justify-center space-x-2 my-1">
-                    <span className="font-serif text-4xl font-extrabold text-gold-light">₹1,299</span>
+                    <span className="font-heading text-4xl font-extrabold text-gold-light">₹1,299</span>
                     <span className="text-sm text-cream-muted line-through">₹5,694</span>
                   </div>
                   <span className="text-xs font-bold text-gold bg-gold/20 px-2.5 py-0.5 rounded-full inline-block">
@@ -256,7 +256,7 @@ export default function ResourcesPage() {
         <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">Resource FAQs</span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown leading-[1.18]">
               Questions Before You Purchase or Sign Up?
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
@@ -288,7 +288,7 @@ export default function ResourcesPage() {
               }
             ].map((faq, idx) => (
               <div key={idx} className="bg-cream-light rounded-2xl p-5 border border-cream-border space-y-2 shadow-warm-sm">
-                <h4 className="font-serif font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
+                <h4 className="font-heading font-bold text-sm sm:text-base text-brown">{faq.q}</h4>
                 <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">{faq.a}</p>
               </div>
             ))}
@@ -317,7 +317,7 @@ export default function ResourcesPage() {
               </div>
 
               <div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+                <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown leading-[1.18]">
                   {freeStarterPack.title}
                 </h2>
                 <p className="text-xs sm:text-sm text-brown-muted mt-1 leading-relaxed">
@@ -341,7 +341,7 @@ export default function ResourcesPage() {
               <div>
                 <div className="text-[10px] uppercase font-bold text-brown-muted">Package Value</div>
                 <div className="flex items-baseline justify-center space-x-2">
-                  <span className="font-serif text-3xl font-black text-maroon">FREE</span>
+                  <span className="font-heading text-3xl font-black text-maroon">FREE</span>
                   <span className="text-xs text-brown-muted line-through">₹499 Value</span>
                 </div>
                 <div className="text-[11px] text-brown-muted mt-0.5">Instant delivery via Email & WhatsApp</div>
@@ -366,7 +366,7 @@ export default function ResourcesPage() {
             <span className="text-xs font-bold uppercase tracking-wider text-maroon">
               Interactive 4-Step Access Gateway
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-brown">
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown leading-[1.18]">
               Stay Connected with SEYOL
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted max-w-xl mx-auto">

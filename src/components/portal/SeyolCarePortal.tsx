@@ -299,7 +299,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
             </div>
 
             <div className="relative z-10 space-y-3">
-              <h1 className="font-serif text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
+              <h1 className="font-heading text-2xl sm:text-3xl font-bold text-cream-light leading-snug">
                 My SEYOL<br />Care Portal
               </h1>
               <p className="text-xs text-cream-light/70 leading-relaxed max-w-xs mx-auto">
@@ -328,7 +328,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {/* Right Panel — Login Form */}
           <div className="bg-white flex flex-col justify-center p-8 sm:p-12">
             <div className="mb-8">
-              <h2 className="font-serif text-2xl font-bold text-brown">Welcome back</h2>
+              <h2 className="font-heading text-2xl font-bold text-brown">Welcome back</h2>
               <p className="text-xs text-brown-muted mt-1">Sign in to access your care journey</p>
             </div>
 
@@ -462,7 +462,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                 </span>
               )}
             </div>
-            <h1 className="font-serif text-lg sm:text-xl font-bold tracking-tight text-brown leading-tight">
+            <h1 className="font-heading text-lg sm:text-xl font-bold tracking-tight text-brown leading-tight">
               My SEYOL Care Portal
             </h1>
           </div>
@@ -597,7 +597,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                   <div className="text-[11px] font-bold uppercase tracking-wider text-maroon">
                     Active Care Journey
                   </div>
-                  <h2 className="font-serif text-2xl font-bold text-brown mt-0.5">
+                  <h2 className="font-heading text-2xl font-bold text-brown mt-0.5">
                     Welcome back, {clientData.clientName.split(' ')[0]}
                   </h2>
                   <p className="text-xs text-brown-muted mt-1">
@@ -634,7 +634,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                       </span>
                     </div>
 
-                    <h3 className="font-serif font-bold text-lg text-brown leading-snug">
+                    <h3 className="font-heading font-bold text-lg text-brown leading-snug">
                       {clientData.upcomingAppointment.serviceTitle}
                     </h3>
 
@@ -694,7 +694,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                       </span>
                     </div>
 
-                    <h3 className="font-serif font-bold text-base text-brown">
+                    <h3 className="font-heading font-bold text-base text-brown">
                       {clientData.activePackage.title}
                     </h3>
 
@@ -825,7 +825,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                   <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                     Next Step from SEYOL • {clientData.nextStepFromSeyol.targetTimeline}
                   </div>
-                  <h4 className="font-serif font-bold text-sm sm:text-base text-brown">
+                  <h4 className="font-heading font-bold text-sm sm:text-base text-brown">
                     {clientData.nextStepFromSeyol.nextMilestoneTitle}
                   </h4>
                   <p className="text-xs text-brown-muted leading-relaxed">
@@ -843,7 +843,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cream-border pb-4">
                 <div>
-                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">My Care Calendar</h2>
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">My Care Calendar</h2>
                   <p className="text-xs text-brown-muted">
                     Track all confirmed appointments, pending requests, class dates, payment due dates, and rest windows.
                   </p>
@@ -925,7 +925,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                             )}
                           </div>
 
-                          <h4 className="font-serif font-bold text-sm sm:text-base text-brown">{ev.title}</h4>
+                          <h4 className="font-heading font-bold text-sm sm:text-base text-brown">{ev.title}</h4>
 
                           {ev.notes && <p className="text-xs text-brown-muted">{ev.notes}</p>}
                         </div>
@@ -949,7 +949,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'invoices' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">Invoices, Receipts & Payments</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">Invoices, Receipts & Payments</h2>
                 <p className="text-xs text-brown-muted">
                   View itemized receipts, download tax documentation, and pay milestone balances securely online.
                 </p>
@@ -980,7 +980,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                               {isPaid ? 'Paid in Full' : 'Payment Due'}
                             </span>
                           </div>
-                          <h4 className="font-serif font-bold text-sm sm:text-base text-brown mt-1">
+                          <h4 className="font-heading font-bold text-sm sm:text-base text-brown mt-1">
                             {inv.packageTitle}
                           </h4>
                         </div>
@@ -1034,7 +1034,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                     className="bg-cream-light p-6 sm:p-8 rounded-3xl border border-cream-border shadow-warm-lg max-w-md w-full space-y-4"
                   >
                     <div className="flex items-center justify-between border-b border-cream-border pb-3">
-                      <h3 className="font-serif font-bold text-lg text-brown">Pay Balance Online</h3>
+                      <h3 className="font-heading font-bold text-lg text-brown">Pay Balance Online</h3>
                       <button
                         onClick={() => setPayingInvoice(null)}
                         className="text-brown-muted hover:text-maroon"
@@ -1092,7 +1092,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
                 <div>
-                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">Preparation Item List</h2>
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">Preparation Item List</h2>
                   <p className="text-xs text-brown-muted">
                     Mother and infant preparation checklist before matron visit and confinement care.
                   </p>
@@ -1175,7 +1175,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'scn_checkin' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">SCN Weekly Check-In Form</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">SCN Weekly Check-In Form</h2>
                 <p className="text-xs text-brown-muted">
                   Submit weekly updates on baby milestones, mother recovery status, and nanny feedback so SEYOL senior matrons can optimize your care plan.
                 </p>
@@ -1334,7 +1334,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
 
               {/* Past Check-Ins Log */}
               <div className="space-y-3 pt-4 border-t border-cream-border">
-                <h4 className="font-serif font-bold text-sm text-brown">Previous Weekly Check-In History</h4>
+                <h4 className="font-heading font-bold text-sm text-brown">Previous Weekly Check-In History</h4>
                 {clientData.scnCheckIns.map((ci) => (
                   <div key={ci.id} className="bg-cream p-4 rounded-2xl border border-cream-border text-xs space-y-1.5">
                     <div className="flex items-center justify-between">
@@ -1366,7 +1366,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cream-border pb-4">
                 <div>
-                  <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">Messages & Important Updates</h2>
+                  <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">Messages & Important Updates</h2>
                   <p className="text-xs text-brown-muted">
                     Official dispatch alerts, booking updates, receipts, and clinical notifications.
                   </p>
@@ -1419,7 +1419,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                             <span className="text-[10px] text-brown-muted">{msg.timestamp}</span>
                           </div>
 
-                          <h4 className="font-serif font-bold text-sm sm:text-base text-brown pt-1">
+                          <h4 className="font-heading font-bold text-sm sm:text-base text-brown pt-1">
                             {msg.title}
                           </h4>
 
@@ -1457,7 +1457,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'classes' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">My Classes & Masterclasses</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">My Classes & Masterclasses</h2>
                 <p className="text-xs text-brown-muted">
                   Enrolled live workshops, virtual classroom links, and class study recordings.
                 </p>
@@ -1489,7 +1489,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                       <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-gold/20 text-maroon">
                         {cls.status}
                       </span>
-                      <h3 className="font-serif font-bold text-base text-brown">{cls.title}</h3>
+                      <h3 className="font-heading font-bold text-base text-brown">{cls.title}</h3>
                       <div className="text-xs text-brown-muted">
                         <div><strong>Instructor:</strong> {cls.instructor}</div>
                         <div><strong>Schedule:</strong> {cls.dateTime} ({cls.duration})</div>
@@ -1520,7 +1520,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'resources' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">My Digital Resource Locker</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">My Digital Resource Locker</h2>
                 <p className="text-xs text-brown-muted">
                   Permanent cloud access to your unlocked SEYOL workbooks, checklists, and diet templates.
                 </p>
@@ -1559,7 +1559,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                       <div className="w-8 h-8 rounded-lg bg-gold/20 flex items-center justify-center text-maroon mb-1">
                         <BookOpen className="w-4 h-4" />
                       </div>
-                      <h4 className="font-serif font-bold text-xs text-brown">{res.title}</h4>
+                      <h4 className="font-heading font-bold text-xs text-brown">{res.title}</h4>
                       <div className="text-[10px] text-brown-muted">{res.format} • {res.size}</div>
                     </div>
 
@@ -1582,7 +1582,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'documents' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">Documents & Signed Consents</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">Documents & Signed Consents</h2>
                 <p className="text-xs text-brown-muted">
                   Legal agreements, medical safety disclaimers, and household caregiver privacy policies.
                 </p>
@@ -1599,7 +1599,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                         <ShieldCheck className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-serif font-bold text-xs sm:text-sm text-brown">{doc.title}</h4>
+                        <h4 className="font-heading font-bold text-xs sm:text-sm text-brown">{doc.title}</h4>
                         <div className="text-[10px] text-brown-muted">
                           Signed / Acknowledged on {doc.signedDate} • Status: <span className="text-green-700 font-bold">Active</span>
                         </div>
@@ -1625,7 +1625,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
           {activeTab === 'support' && (
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-brown">Support & Matron Concierge</h2>
+                <h2 className="font-heading text-xl sm:text-2xl font-bold text-brown">Support & Matron Concierge</h2>
                 <p className="text-xs text-brown-muted">
                   Reach our dedicated clinical team, request an urgent callback, or access emergency hospital hotlines.
                 </p>
@@ -1638,7 +1638,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                     <div className="w-10 h-10 rounded-2xl bg-green-100 text-green-700 flex items-center justify-center">
                       <MessageCircle className="w-5 h-5" />
                     </div>
-                    <h3 className="font-serif font-bold text-base text-brown">WhatsApp Matron Concierge</h3>
+                    <h3 className="font-heading font-bold text-base text-brown">WhatsApp Matron Concierge</h3>
                     <p className="text-xs text-brown-muted leading-relaxed">
                       Instant messaging with our duty postpartum matron for routine feeding questions, baby hiccups, or dietary guidance.
                     </p>
@@ -1661,7 +1661,7 @@ export const SeyolCarePortal: React.FC<SeyolCarePortalProps> = ({
                     <div className="w-10 h-10 rounded-2xl bg-maroon-soft text-maroon flex items-center justify-center">
                       <Phone className="w-5 h-5" />
                     </div>
-                    <h3 className="font-serif font-bold text-base text-brown">Senior Matron Callback</h3>
+                    <h3 className="font-heading font-bold text-base text-brown">Senior Matron Callback</h3>
                     <p className="text-xs text-brown-muted leading-relaxed">
                       Request a 1-on-1 urgent callback with Ms Jemma Francis for clinical concerns or lactation difficulties.
                     </p>

@@ -144,7 +144,7 @@ export const HorizontalWords = () => {
                     </svg>
 
                     {/* Kinetic Typography */}
-                    <h2 className="display horizontal-words__h2 font-serif text-brown" aria-label="Your Trusted Partner In The Beautiful Journey Of Parenthood">
+                    <h2 className="display horizontal-words__h2 font-heading text-brown" aria-label="Your Trusted Partner In The Beautiful Journey Of Parenthood">
                         {[
                             { text: "Your", whiteLetters: [] },
                             { text: "Trusted", whiteLetters: [3] }, // 's'
@@ -185,7 +185,7 @@ export const HorizontalWords = () => {
 
             {/* Bottom Centered Subtitle */}
             <div className="horizontal-words__bottom-text">
-                <div className="horizontal-words__bottom-text-l font-playfair text-brown">
+                <div className="horizontal-words__bottom-text-l font-sans text-brown">
                     Rooted in Siddha, Ayurveda <em>&</em> ancestral Tamil wellness traditions.<br />
                     Serving modern families across pregnancy, sacred confinement, and gentle infant rituals.
                 </div>

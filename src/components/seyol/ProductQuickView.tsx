@@ -60,7 +60,7 @@ export const ProductQuickView: React.FC<ProductQuickViewProps> = ({ product, onC
               <span className="text-xs font-bold text-brown">{product.rating} ({product.reviewCount} Reviews)</span>
             </div>
 
-            <h3 className="font-serif font-bold text-xl text-maroon">{product.title}</h3>
+            <h3 className="font-heading font-bold text-xl text-maroon">{product.title}</h3>
             <p className="text-xs font-semibold text-brown-muted">{product.subtitle}</p>
             <div className="font-serif font-bold text-xl text-brown">₹{product.price} <span className="text-xs font-normal text-brown-muted">/ {product.volume}</span></div>
 

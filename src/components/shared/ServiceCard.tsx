@@ -33,7 +33,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
             <span className="text-[10px] sm:text-[11px] font-bold text-[#F3C49F] uppercase tracking-[0.16em] block">
               {service.format || 'HOLISTIC CARE'}
             </span>
-            <h3 className="font-serif text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-[1.18] drop-shadow-xs">
+            <h3 className="font-heading text-2xl sm:text-[26px] font-bold text-white tracking-tight leading-[1.18] drop-shadow-xs">
               {service.shortTitle || service.title}
             </h3>
           </div>
@@ -79,7 +79,7 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
               <div className="text-[10px] tracking-[1.5px] uppercase font-bold text-[#9C9289] mb-1">
                 PRICING GUIDE
               </div>
-              <div className="font-serif text-[15px] sm:text-base font-bold text-[#70152B] leading-snug">
+              <div className="font-heading text-[15px] sm:text-base font-bold text-[#70152B] leading-snug">
                 {service.pricingGuide}
               </div>
             </div>

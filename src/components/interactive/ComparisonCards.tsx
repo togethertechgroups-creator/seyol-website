@@ -56,7 +56,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
                 Focused Maternal Recovery
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Traditional Postpartum Massage & Wrap
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -107,7 +107,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                 Synchronised Dual Confinement Care
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 Complete Mother & Baby Combo
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -163,7 +163,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                 24/7 Round-the-Clock Residence
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 Stay-In Confinement Nanny
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -207,7 +207,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
                 Flexible Respite Care
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Hourly Newborn Support
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -254,7 +254,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
                 Focused Daily Baby Care
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
                 Infant Bath Service & Massage
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">
@@ -309,7 +309,7 @@ export const ComparisonCards: React.FC = () => {
               <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
                 On-Demand Day &amp; Night Respite
               </div>
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-maroon">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
                 Hourly Newborn Support
               </h3>
               <p className="text-xs text-brown-muted leading-relaxed">

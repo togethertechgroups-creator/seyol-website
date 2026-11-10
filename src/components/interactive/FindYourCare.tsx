@@ -68,7 +68,7 @@ export const FindYourCare: React.FC = () => {
             <div className="text-[#70152B] text-xs font-bold tracking-[3px] uppercase mb-3 sm:mb-4">
               Care for Every Chapter
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-semibold text-[#70152B] leading-[1.2] mb-4 tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-[44px] font-semibold text-[#70152B] leading-[1.2] mb-4 tracking-tight">
               Choose by Stage
             </h2>
             <p className="text-[#6E5652] text-sm sm:text-base leading-[1.8]">
@@ -95,7 +95,7 @@ export const FindYourCare: React.FC = () => {
                     />
                   </div>
                   <div className="p-5 sm:p-6 pb-2">
-                    <h3 className="font-serif text-xl sm:text-[22px] font-semibold text-[#70152B] group-hover:text-[#580F21] transition-colors mb-2.5">
+                    <h3 className="font-heading text-xl sm:text-[22px] font-semibold text-[#70152B] group-hover:text-[#580F21] transition-colors mb-2.5">
                       {card.title}
                     </h3>
                     <p className="text-[#6E5652] text-xs sm:text-[13px] leading-[1.8] min-h-[52px]">

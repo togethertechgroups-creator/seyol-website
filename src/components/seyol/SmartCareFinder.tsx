@@ -39,7 +39,7 @@ export const SmartCareFinder: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cream-border pb-4">
         <div>
 
-          <h3 className="font-serif text-2xl font-bold text-brown">
+          <h3 className="font-heading text-2xl font-bold text-brown">
             Smart Care & Routine Finder
           </h3>
         </div>
@@ -170,7 +170,7 @@ export const SmartCareFinder: React.FC = () => {
                   <Flower2 className="w-3.5 h-3.5" />
                   <span>Top Care Service</span>
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brown">{matchedServices[0].title}</h4>
+                <h4 className="font-heading font-bold text-sm text-brown">{matchedServices[0].title}</h4>
                 <p className="text-xs text-brown-muted line-clamp-2">{matchedServices[0].summary}</p>
                 <Link
                   href={`/services#${matchedServices[0].slug}`}
@@ -188,7 +188,7 @@ export const SmartCareFinder: React.FC = () => {
                   <Calendar className="w-3.5 h-3.5" />
                   <span>Recommended Masterclass</span>
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brown">{matchedClasses[0].title}</h4>
+                <h4 className="font-heading font-bold text-sm text-brown">{matchedClasses[0].title}</h4>
                 <p className="text-xs text-brown-muted line-clamp-2">{matchedClasses[0].summary}</p>
                 <Link
                   href={`/classes#${matchedClasses[0].slug}`}
@@ -206,7 +206,7 @@ export const SmartCareFinder: React.FC = () => {
                   <ShoppingBag className="w-3.5 h-3.5" />
                   <span>Botanical Ritual</span>
                 </div>
-                <h4 className="font-serif font-bold text-sm text-brown">{matchedProducts[0].title}</h4>
+                <h4 className="font-heading font-bold text-sm text-brown">{matchedProducts[0].title}</h4>
                 <p className="text-xs text-brown-muted line-clamp-2">{matchedProducts[0].shortDescription}</p>
                 <Link
                   href={`/products#${matchedProducts[0].slug}`}

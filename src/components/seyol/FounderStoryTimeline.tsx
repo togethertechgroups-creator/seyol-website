@@ -34,7 +34,7 @@ export const FounderStoryTimeline: React.FC = () => {
   return (
     <div className="w-full bg-cream-light p-6 sm:p-10 rounded-3xl border border-cream-border shadow-warm-lg space-y-8">
       <div className="text-center max-w-2xl mx-auto space-y-2">
-        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
+        <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brown">
           18+ Years of Sacred Postnatal Heritage
         </h3>
       </div>
@@ -52,7 +52,7 @@ export const FounderStoryTimeline: React.FC = () => {
             >
               <div className="w-full sm:w-[45%] bg-cream p-5 rounded-2xl border border-cream-border shadow-warm-sm space-y-2">
                 <span className="font-serif font-bold text-lg text-maroon">{step.year}</span>
-                <h4 className="font-serif font-bold text-sm text-brown">{step.title}</h4>
+                <h4 className="font-heading font-bold text-sm text-brown">{step.title}</h4>
                 <p className="text-xs text-brown-muted leading-relaxed">{step.description}</p>
               </div>
 

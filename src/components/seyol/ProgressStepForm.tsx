@@ -36,7 +36,7 @@ export const ProgressStepForm: React.FC<ProgressStepFormProps> = ({
         <div className="w-12 h-12 rounded-full bg-gold/20 text-maroon flex items-center justify-center mx-auto">
           <Check className="w-6 h-6" />
         </div>
-        <h3 className="font-serif text-2xl font-bold text-brown">Booking Request Received!</h3>
+        <h3 className="font-heading text-2xl font-bold text-brown">Booking Request Received!</h3>
         <p className="text-xs sm:text-sm text-brown-muted max-w-md mx-auto">
           Thank you, {formData.name || 'parent'}. Our senior SEYOL care matron will contact you at {formData.phone || 'your phone number'} within 2 to 4 business hours to finalize your schedule.
         </p>
@@ -48,7 +48,7 @@ export const ProgressStepForm: React.FC<ProgressStepFormProps> = ({
     <div className="bg-cream-light p-6 sm:p-10 rounded-3xl border border-cream-border shadow-warm-lg space-y-6">
       <div className="space-y-2">
         <span className="text-[10px] font-bold uppercase tracking-wider text-maroon">Multi-Step Booking</span>
-        <h3 className="font-serif text-2xl font-bold text-brown">{title}</h3>
+        <h3 className="font-heading text-2xl font-bold text-brown">{title}</h3>
       </div>
 
       {/* Progress Bar */}

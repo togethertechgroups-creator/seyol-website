@@ -10,37 +10,30 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'PlayfairDisplay';
-  src: url('/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 @layer base {
   :root {
-    --cream: #f7f4ef;
-    --cream-light: #fcfbfa;
-    --cream-dark: #ede7dc;
-    --maroon: #7b1131;
-    --maroon-dark: #5a0c24;
+    --cream: #F7F4EF;
+    --cream-light: #FCFBFA;
+    --cream-dark: #EDE7DC;
+    --maroon: #7B1131;
+    --maroon-dark: #5A0C24;
     --maroon-light: #991840;
-    --gold: #c8a45d;
-    --gold-light: #e4cf9e;
-    --gold-dark: #a6833d;
-    --text-brown: #3a1d1d;
+    --gold: #C8A45D;
+    --gold-light: #E4CF9E;
+    --gold-dark: #A6833D;
+    --text-brown: #3A1D1D;
     --font-heading: 'Garet', var(--font-garet), sans-serif;
     --font-primary: 'Garet', var(--font-garet), sans-serif;
     --font-body: 'Lato', var(--font-lato), sans-serif;
     --font-sans: 'Lato', var(--font-lato), sans-serif;
-    --font-serif: 'Playfair Display', var(--font-playfair), serif;
+    --font-serif: 'Times New Roman', Times, serif;
+    --font-quote: 'Times New Roman', Times, serif;
   }
 
   html {
     scroll-behavior: auto;
-    background-color: #f7f4ef;
-    color: #3a1d1d;
+    background-color: #F7F4EF;
+    color: #3A1D1D;
     font-family: 'Lato', var(--font-lato), sans-serif;
     overflow-x: hidden;
     width: 100%;
@@ -51,9 +44,9 @@
   body {
     margin: 0;
     font-family: 'Lato', var(--font-lato), sans-serif;
-    background-color: #f7f4ef;
-    color: #3a1d1d;
-    line-height: 1.65;
+    background-color: #F7F4EF;
+    color: #3A1D1D;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -76,30 +69,44 @@
     will-change: transform;
   }
 
+  /* Rule 1: Use Garet as the primary font for all page titles, section headings, card headings and headers */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Garet', var(--font-garet), sans-serif;
-    color: #3a1d1d;
+    font-family: 'Garet', var(--font-garet), sans-serif !important;
+    color: #3A1D1D;
     letter-spacing: -0.015em;
   }
 }
 
 @layer utilities {
-  /* Responsive typography clamps */
+  /* Responsive typography scale inspired by Maven Clinic */
   .text-fluid-h1 {
-    font-size: clamp(1.75rem, 4vw + 1rem, 3.25rem);
-    line-height: 1.15;
+    font-family: 'Garet', var(--font-garet), sans-serif !important;
+    font-size: clamp(2rem, 4.5vw + 1rem, 3.85rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
   }
   .text-fluid-h2 {
-    font-size: clamp(1.4rem, 3vw + 0.6rem, 2.5rem);
-    line-height: 1.2;
+    font-family: 'Garet', var(--font-garet), sans-serif !important;
+    font-size: clamp(1.6rem, 3.2vw + 0.8rem, 2.75rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
   }
   .text-fluid-h3 {
-    font-size: clamp(1.15rem, 2vw + 0.5rem, 1.75rem);
+    font-family: 'Garet', var(--font-garet), sans-serif !important;
+    font-size: clamp(1.25rem, 2vw + 0.6rem, 2rem);
     line-height: 1.25;
   }
   .text-fluid-body {
-    font-size: clamp(0.85rem, 1vw + 0.45rem, 1.05rem);
-    line-height: 1.65;
+    font-family: 'Lato', var(--font-lato), sans-serif;
+    font-size: clamp(0.95rem, 0.5vw + 0.85rem, 1.125rem);
+    line-height: 1.7;
+  }
+
+  /* Rule 2: Times New Roman reserved exclusively for special quotes and callouts */
+  .font-quote,
+  .quote-serif {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
   }
 
   /* Accessible touch target (44x44px minimum) */
@@ -137,7 +144,7 @@
     padding-right: clamp(0.75rem, 2vw, 2rem);
   }
 
-  /* Responsive Height for Hero on Desktop (+20mm / ~75px increase) */
+  /* Responsive Height for Hero on Desktop */
   .hero-viewport-height {
     min-height: 550px;
     height: auto;

@@ -53,7 +53,7 @@ export const InteractiveServiceMap: React.FC = () => {
     <div className="w-full bg-cream-light p-6 sm:p-10 rounded-3xl border border-cream-border shadow-warm-lg space-y-8">
       <div className="text-center max-w-2xl mx-auto space-y-2">
 
-        <h3 className="font-serif text-2xl sm:text-3xl font-bold text-brown">
+        <h3 className="font-heading text-2xl sm:text-3xl font-bold text-brown">
           Map Your Support Network
         </h3>
         <p className="text-xs sm:text-sm text-brown-muted">
@@ -87,7 +87,7 @@ export const InteractiveServiceMap: React.FC = () => {
                 {isSelected && <span className="text-[10px] font-bold uppercase tracking-wider text-gold-light">Active</span>}
               </div>
               <div>
-                <h4 className="font-serif font-bold text-sm leading-snug">{node.title}</h4>
+                <h4 className="font-heading font-bold text-sm leading-snug">{node.title}</h4>
                 <p className={`text-[11px] mt-1 ${isSelected ? 'text-cream-light/80' : 'text-brown-muted'}`}>
                   {node.setting}
                 </p>
@@ -112,7 +112,7 @@ export const InteractiveServiceMap: React.FC = () => {
             </span>
           </div>
 
-          <h4 className="font-serif font-bold text-xl text-maroon">{activeNode.title}</h4>
+          <h4 className="font-heading font-bold text-xl text-maroon">{activeNode.title}</h4>
           <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">{activeNode.description}</p>
         </div>
 

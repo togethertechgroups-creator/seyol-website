@@ -74,7 +74,7 @@ export const Modal: React.FC<ModalProps> = ({
           </button>
 
           {title && (
-            <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown mb-4 pr-8">
+            <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown mb-4 pr-8">
               {title}
             </h3>
           )}

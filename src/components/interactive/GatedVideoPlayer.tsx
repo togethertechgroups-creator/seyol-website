@@ -166,7 +166,7 @@ export const GatedVideoPlayer: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-cream-border mb-6">
         <div>
-          <h3 className="font-serif text-2xl font-bold text-brown">
+          <h3 className="font-heading text-2xl font-bold text-brown">
             Access the SEYOL Video Library
           </h3>
           <p className="text-xs text-brown-muted mt-1 max-w-2xl">
@@ -235,7 +235,7 @@ export const GatedVideoPlayer: React.FC = () => {
                     <span className="inline-block px-3 py-1 rounded-full bg-maroon/90 text-[11px] font-bold text-gold tracking-wide uppercase border border-gold/30">
                       Login Required to Watch Videos
                     </span>
-                    <h4 className="font-serif text-lg sm:text-2xl font-bold text-white pt-1">
+                    <h4 className="font-heading text-lg sm:text-2xl font-bold text-white pt-1">
                       {activeVideo.title}
                     </h4>
                     <p className="text-xs text-cream-light/90 max-w-md mx-auto leading-relaxed">
@@ -284,7 +284,7 @@ export const GatedVideoPlayer: React.FC = () => {
               </div>
             </div>
 
-            <h4 className="font-serif text-lg sm:text-xl font-bold text-brown">
+            <h4 className="font-heading text-lg sm:text-xl font-bold text-brown">
               {activeVideo.title}
             </h4>
             <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
@@ -416,7 +416,7 @@ export const GatedVideoPlayer: React.FC = () => {
 
               <h3 
                 id="video-auth-modal-title"
-                className="font-serif text-xl sm:text-2xl font-bold text-brown leading-snug"
+                className="font-heading text-xl sm:text-2xl font-bold text-brown leading-snug"
               >
                 Please Log In or Sign Up to Access the SEYOL Video Library
               </h3>

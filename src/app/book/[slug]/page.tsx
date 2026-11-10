@@ -53,7 +53,7 @@ function DynamicBookContent() {
             <span className="text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-full bg-white/15 text-gold-light border border-white/20">
               {config.badge}
             </span>
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-[1.12]">
               Book {config.title}
             </h1>
             <p className="text-xs sm:text-sm text-cream-light max-w-xl">

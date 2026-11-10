@@ -21,10 +21,10 @@ export const ClassMethodDifference: React.FC = () => {
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-3">
 
-        <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+        <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
           What Makes SEYOL Classes Different
         </h2>
-        <p className="font-playfair text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
+        <p className="font-sans text-xs sm:text-sm md:text-base text-brown-muted max-w-xl mx-auto">
           Unlike pre-recorded internet videos or medical-heavy clinical lectures, SEYOL workshops provide active hands-on coaching rooted in warmth and tradition.
         </p>
       </div>
@@ -73,7 +73,7 @@ export const ClassMethodDifference: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                <h4 className="font-serif font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
+                <h4 className="font-heading font-bold text-lg text-brown group-hover:text-maroon transition-colors leading-snug">
                   {pillar.title}
                 </h4>
                 <p className="text-xs text-brown-muted leading-relaxed">
@@ -88,7 +88,7 @@ export const ClassMethodDifference: React.FC = () => {
       {/* Comparison Table: SEYOL Classes vs Generic Online Courses */}
       <div className="bg-cream-light rounded-3xl border border-cream-border p-6 sm:p-8 shadow-warm-sm overflow-hidden">
         <div className="text-center max-w-lg mx-auto mb-6">
-          <h3 className="font-serif text-xl font-bold text-brown">
+          <h3 className="font-heading text-xl font-bold text-brown">
             SEYOL Interactive Classes vs Generic Online Advice
           </h3>
         </div>

@@ -256,7 +256,7 @@ export default function ServiceDetailPage() {
           <div className="lg:col-span-7 space-y-4 pl-2 sm:pl-6 md:pl-10 lg:pl-12">
 
 
-            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-tight">
+            <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-brown tracking-tight leading-[1.12]">
               {service.title}
             </h1>
 
@@ -272,7 +272,7 @@ export default function ServiceDetailPage() {
             {isPostpartumPage && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
                 <div className="p-4 rounded-2xl bg-white border border-cream-border shadow-warm-xs space-y-1.5">
-                  <div className="font-serif font-bold text-sm text-[#7B1131] flex items-center space-x-1.5">
+                  <div className="font-heading font-bold text-sm sm:text-base text-[#7B1131] flex items-center space-x-1.5">
                     <Sparkles className="w-4 h-4 text-gold-dark" />
                     <span>Full-Body Oil Massage</span>
                   </div>
@@ -282,7 +282,7 @@ export default function ServiceDetailPage() {
                 </div>
 
                 <div className="p-4 rounded-2xl bg-white border border-cream-border shadow-warm-xs space-y-1.5">
-                  <div className="font-serif font-bold text-sm text-[#7B1131] flex items-center space-x-1.5">
+                  <div className="font-heading font-bold text-sm sm:text-base text-[#7B1131] flex items-center space-x-1.5">
                     <Heart className="w-4 h-4 text-maroon" />
                     <span>Abdominal Wrap</span>
                   </div>
@@ -354,7 +354,7 @@ export default function ServiceDetailPage() {
           <div className="lg:col-span-8 space-y-6 flex flex-col justify-center pl-4 sm:pl-8 lg:pl-[30mm]">
             <div className="space-y-2">
 
-              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-white tracking-tight">
                 Benefits Of Service
               </h2>
             </div>
@@ -426,7 +426,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
           
           <div className="lg:col-span-7 space-y-7 pl-4 sm:pl-8 lg:pl-[30mm]">
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
               How is it done?
             </h2>
 
@@ -504,7 +504,7 @@ export default function ServiceDetailPage() {
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
               Postpartum Bath Add-On
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
@@ -545,7 +545,7 @@ export default function ServiceDetailPage() {
                     <Icon className="w-6 h-6" />
                   </div>
                   <div className="space-y-1.5">
-                    <h3 className="font-serif font-bold text-base text-brown">{item.title}</h3>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-brown">{item.title}</h3>
                     <p className="text-xs text-brown-muted leading-relaxed font-medium">{item.desc}</p>
                   </div>
                 </div>
@@ -555,7 +555,7 @@ export default function ServiceDetailPage() {
 
           {/* Timing Note Card */}
           <div className="max-w-xl mx-auto bg-white border border-gold/40 rounded-2xl p-5 text-center shadow-warm-xs space-y-1">
-            <div className="font-serif font-bold text-sm text-[#7B1131]">
+            <div className="font-heading font-bold text-sm sm:text-base text-[#7B1131]">
               Total Duration of Postpartum Massage, Bath &amp; Wrap
             </div>
             <p className="text-xs text-brown font-semibold">
@@ -574,7 +574,7 @@ export default function ServiceDetailPage() {
           
           <div className="text-center max-w-2xl mx-auto space-y-3">
 
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#7B1131] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
               Combined Packages
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
@@ -607,7 +607,7 @@ export default function ServiceDetailPage() {
 
                   <div className="space-y-6">
                     <div className="flex items-center justify-between pt-1">
-                      <div className="w-10 h-10 rounded-2xl bg-maroon-soft border border-maroon/20 flex items-center justify-center text-maroon font-serif font-extrabold text-sm shadow-xs group-hover:bg-[#7B1131] group-hover:text-cream-light transition-colors duration-300">
+                      <div className="w-10 h-10 rounded-2xl bg-maroon-soft border border-maroon/20 flex items-center justify-center text-maroon font-heading font-extrabold text-sm shadow-xs group-hover:bg-[#7B1131] group-hover:text-cream-light transition-colors duration-300">
                         {String(idx + 1).padStart(2, '0')}
                       </div>
                       <span className="text-[11px] font-bold uppercase tracking-wider text-brown-muted bg-cream px-3 py-1 rounded-full border border-cream-border">
@@ -616,7 +616,7 @@ export default function ServiceDetailPage() {
                     </div>
 
                     <div className="space-y-1">
-                      <h3 className="font-serif text-xl sm:text-2xl font-bold text-brown group-hover:text-[#7B1131] transition-colors">
+                      <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown group-hover:text-[#7B1131] transition-colors">
                         {pkg.name}
                       </h3>
                       <div className="text-[11px] font-semibold text-brown-muted uppercase tracking-wider">
@@ -642,7 +642,7 @@ export default function ServiceDetailPage() {
 
                       <div className="p-3 rounded-2xl bg-[#FAF2F4] border border-[#7B1131]/20 flex items-center justify-between">
                         <span className="text-xs text-brown font-medium">Session Rate / Price:</span>
-                        <span suppressHydrationWarning className="font-serif font-bold text-sm text-[#7B1131]">
+                        <span suppressHydrationWarning className="font-heading font-bold text-sm sm:text-base text-[#7B1131]">
                           {priceDisplay}
                         </span>
                       </div>
@@ -683,7 +683,7 @@ export default function ServiceDetailPage() {
         <div className="bg-[#f5e3df] text-brown rounded-3xl p-8 sm:p-12 shadow-warm-lg border border-cream-border relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
           {/* Left Text and CTA */}
           <div className="space-y-4 text-left max-w-xl z-10">
-            <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#7B1131] tracking-tight leading-snug">
+            <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#7B1131] tracking-tight leading-snug">
               What Our Clients Have To Say About SEYOL?
             </h3>
             <p className="text-xs sm:text-sm text-brown leading-relaxed font-medium">
@@ -735,7 +735,7 @@ export default function ServiceDetailPage() {
         <div className="max-w-4xl mx-auto space-y-10">
           
           <div className="text-center space-y-2">
-            <h2 className="font-serif text-3xl sm:text-4xl font-extrabold text-[#7B1131] tracking-tight">
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-4xl lg:text-[44px] font-extrabold text-[#7B1131] tracking-tight">
               Frequently Asked Questions
             </h2>
             <p className="text-xs sm:text-sm text-brown-muted">
@@ -753,7 +753,7 @@ export default function ServiceDetailPage() {
                 >
                   <button
                     onClick={() => setOpenPostpartumFaq(isOpen ? null : idx)}
-                    className="w-full p-5 text-left font-serif font-bold text-sm sm:text-base text-brown flex items-center justify-between gap-4 cursor-pointer hover:text-maroon transition-colors"
+                    className="w-full p-5 text-left font-heading font-bold text-sm sm:text-base text-brown flex items-center justify-between gap-4 cursor-pointer hover:text-maroon transition-colors"
                   >
                     <span>{faq.q}</span>
                     {isOpen ? (
@@ -799,7 +799,7 @@ export default function ServiceDetailPage() {
 
             {/* Overlapping Dusty Rose Card on Bottom Right */}
             <div className="bg-[#caa0a0] text-[#3d0f19] p-6 sm:p-8 md:p-9 rounded-none sm:rounded-sm shadow-2xl w-full lg:max-w-[460px] lg:absolute lg:bottom-0 lg:right-0 z-20 space-y-4 text-left border border-white/25 mt-4 lg:mt-0">
-              <h2 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#7B1131] tracking-tight leading-snug">
+              <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#7B1131] tracking-tight leading-snug">
                 Lactation Support
               </h2>
               
@@ -832,7 +832,7 @@ export default function ServiceDetailPage() {
                     <Icon className="w-6 h-6" />
                   </div>
                   <div className="space-y-1.5">
-                    <h3 className="font-serif font-bold text-lg text-[#7B1131]">{pillar.title}</h3>
+                    <h3 className="font-heading font-bold text-lg sm:text-xl text-[#7B1131]">{pillar.title}</h3>
                     <p className="text-xs text-brown-muted leading-relaxed font-medium">{pillar.desc}</p>
                   </div>
                 </div>
@@ -842,7 +842,7 @@ export default function ServiceDetailPage() {
 
           {/* Lactation FAQs */}
           <div className="max-w-4xl mx-auto space-y-6 pt-4">
-            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[#7B1131] text-center">
+            <h3 className="font-heading text-2xl sm:text-3xl font-bold text-[#7B1131] text-center">
               Lactation Support FAQs
             </h3>
 
@@ -856,7 +856,7 @@ export default function ServiceDetailPage() {
                   >
                     <button
                       onClick={() => setOpenLactationFaq(isOpen ? null : idx)}
-                      className="w-full p-5 text-left font-serif font-bold text-sm sm:text-base text-brown flex items-center justify-between gap-4 cursor-pointer hover:text-maroon transition-colors"
+                      className="w-full p-5 text-left font-heading font-bold text-sm sm:text-base text-brown flex items-center justify-between gap-4 cursor-pointer hover:text-maroon transition-colors"
                     >
                       <span>{faq.q}</span>
                       {isOpen ? (

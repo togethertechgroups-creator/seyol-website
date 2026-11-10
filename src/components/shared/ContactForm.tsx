@@ -41,7 +41,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           <div className="w-16 h-16 rounded-full bg-gold/20 text-gold-dark mx-auto flex items-center justify-center">
             <CheckCircle2 className="w-10 h-10" />
           </div>
-          <h3 className="font-serif text-2xl font-bold text-maroon">
+          <h3 className="font-heading text-2xl font-bold text-maroon">
             Message Dispatched Successfully!
           </h3>
           <p className="text-xs sm:text-sm text-brown-muted max-w-md mx-auto leading-relaxed">

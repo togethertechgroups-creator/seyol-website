@@ -21,7 +21,7 @@ import { ScrollObserver } from '../components/shared/ScrollObserver';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-sans',
   display: 'swap',
   style: ['normal', 'italic'],
 });

@@ -400,7 +400,7 @@ export const AdminClientEditor: React.FC = () => {
           {/* Directory Header Bar */}
           <div className="p-6 border-b border-neutral-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <h2 className="font-serif text-xl font-bold text-neutral-900">All Registered Customers</h2>
+              <h2 className="font-heading text-xl font-bold text-neutral-900">All Registered Customers</h2>
               <p className="text-xs text-neutral-500 mt-0.5">
                 Click any customer to edit their services, packages, appointments, invoices &amp; matron assignments.
               </p>
@@ -478,7 +478,7 @@ export const AdminClientEditor: React.FC = () => {
 
                       <div className="space-y-1">
                         <div className="flex items-center space-x-2 flex-wrap">
-                          <h3 className="font-serif font-bold text-base text-neutral-900 group-hover:text-[#7B1131] transition-colors">
+                          <h3 className="font-heading font-bold text-base text-neutral-900 group-hover:text-[#7B1131] transition-colors">
                             {cust.clientName}
                           </h3>
                           <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
@@ -603,7 +603,7 @@ export const AdminClientEditor: React.FC = () => {
                   </div>
                   <div>
                     <div className="flex items-center space-x-2">
-                      <h2 className="font-serif font-bold text-lg text-neutral-900">{activeCustomer.clientName}</h2>
+                      <h2 className="font-heading font-bold text-lg text-neutral-900">{activeCustomer.clientName}</h2>
                       <span className="text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900">
                         {activeCustomer.stage}
                       </span>
@@ -682,7 +682,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'package' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Active Care Package &amp; Matron Assignment</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Active Care Package &amp; Matron Assignment</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Assign the primary confinement/doula package and dedicated caregiver.</p>
                     </div>
 
@@ -777,7 +777,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'appointment' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Upcoming Care Visit / Appointment</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Upcoming Care Visit / Appointment</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Control next scheduled session, arrival time, and consultation format.</p>
                     </div>
 
@@ -859,7 +859,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'payments' && (
                   <div className="space-y-6 max-w-3xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Invoices &amp; Payment Records</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Invoices &amp; Payment Records</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Manage milestone payments, invoices, and instant paid/unpaid status toggles.</p>
                     </div>
 
@@ -985,7 +985,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'session_note' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Matron Session Observation &amp; Care Recommendations</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Matron Session Observation &amp; Care Recommendations</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Post clinical progress updates for the mother to read in her care portal.</p>
                     </div>
 
@@ -1029,7 +1029,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'next_step' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Next Milestone from SEYOL</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Next Milestone from SEYOL</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Let the mother know what milestone phase comes next in her recovery.</p>
                     </div>
 
@@ -1075,7 +1075,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'credentials' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Portal Login ID &amp; Credentials</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Portal Login ID &amp; Credentials</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Manage the client's username/passcode used to log into the portal at <span className="font-mono text-[#7B1131]">/portal</span>.</p>
                     </div>
 
@@ -1133,7 +1133,7 @@ export const AdminClientEditor: React.FC = () => {
                 {activeTab === 'message' && (
                   <div className="space-y-5 max-w-2xl">
                     <div>
-                      <h3 className="font-serif font-bold text-lg text-neutral-900">Send Direct Notification / Message</h3>
+                      <h3 className="font-heading font-bold text-lg text-neutral-900">Send Direct Notification / Message</h3>
                       <p className="text-xs text-neutral-500 mt-0.5">Pushes a real-time message to {activeCustomer.clientName}'s Care Portal inbox.</p>
                     </div>
 
@@ -1208,7 +1208,7 @@ export const AdminClientEditor: React.FC = () => {
                   <UserPlus className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-serif font-bold text-xl text-neutral-900">Add New Customer</h3>
+                  <h3 className="font-heading font-bold text-xl text-neutral-900">Add New Customer</h3>
                   <p className="text-xs text-neutral-500">Create client profile, assign care package, and set up login credentials.</p>
                 </div>
               </div>

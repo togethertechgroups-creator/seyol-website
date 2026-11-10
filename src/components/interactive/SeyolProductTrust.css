@@ -57,7 +57,7 @@
 }
 
 .sey-trust-heading h2 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 2.25rem;
   line-height: 1.2;
   font-weight: 800;
@@ -154,7 +154,7 @@
 }
 
 .sey-image-caption h3 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
@@ -167,7 +167,7 @@
 }
 
 .sey-ingredient-content h3 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.65rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -232,7 +232,7 @@
 }
 
 .sey-accordion-button strong {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.05rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -352,7 +352,7 @@
 }
 
 .sey-practice-image-note strong {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 0.95rem;
   color: #3A1D1D;
 }
@@ -364,7 +364,7 @@
 }
 
 .sey-practice-content h2 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 2.25rem;
   line-height: 1.2;
   font-weight: 800;
@@ -385,7 +385,7 @@
 }
 
 .sey-practice-content h3 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: #7B1131;
@@ -432,7 +432,7 @@
 
 .sey-practice-point strong {
   display: block;
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -603,7 +603,7 @@
 }
 
 .sey-review-quote {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Times New Roman', Times, serif;
   font-size: 1.45rem;
   line-height: 1.48;
   font-weight: 700;
@@ -632,7 +632,7 @@
   border-radius: 50%;
   background-color: #7B1131;
   color: #FFFFFF;
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.2rem;
   font-weight: 700;
   display: flex;
@@ -643,7 +643,7 @@
 
 .sey-review-author-info strong {
   display: block;
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -763,7 +763,7 @@
 }
 
 .sey-gallery-heading h3 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: #3A1D1D;
@@ -835,7 +835,7 @@
 }
 
 .sey-review-cta h3 {
-  font-family: 'Playfair Display', var(--font-playfair), serif;
+  font-family: 'Garet', var(--font-garet), sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   color: #3A1D1D;

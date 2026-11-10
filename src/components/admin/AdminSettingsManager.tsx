@@ -85,7 +85,7 @@ export const AdminSettingsManager: React.FC = () => {
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B1131]">
           System &amp; Workspace Configuration
         </span>
-        <h1 className="font-serif text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
+        <h1 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#3a1d1d]">
           Platform Settings
         </h1>
         <p className="text-xs text-neutral-500 mt-1">
@@ -100,7 +100,7 @@ export const AdminSettingsManager: React.FC = () => {
             <Key className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-base text-neutral-900">Admin Authentication &amp; Password</h3>
+            <h3 className="font-heading font-bold text-base text-neutral-900">Admin Authentication &amp; Password</h3>
             <p className="text-xs text-neutral-500">Update the login password required to access the Admin Console.</p>
           </div>
         </div>
@@ -159,7 +159,7 @@ export const AdminSettingsManager: React.FC = () => {
             <Phone className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-base text-neutral-900">Clinic Profile &amp; Emergency Helplines</h3>
+            <h3 className="font-heading font-bold text-base text-neutral-900">Clinic Profile &amp; Emergency Helplines</h3>
             <p className="text-xs text-neutral-500">Contact coordinates displayed across patient portal headers and website footer.</p>
           </div>
         </div>
@@ -221,7 +221,7 @@ export const AdminSettingsManager: React.FC = () => {
             <Download className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="font-serif font-bold text-base text-neutral-900">Database Backup &amp; Safe Reset</h3>
+            <h3 className="font-heading font-bold text-base text-neutral-900">Database Backup &amp; Safe Reset</h3>
             <p className="text-xs text-neutral-500">Download complete snapshot of customer files, products, orders, and content.</p>
           </div>
         </div>

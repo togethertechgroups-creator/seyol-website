@@ -18,7 +18,7 @@ export default function LegalPolicyPage() {
   if (!policy) {
     return (
       <div className="pt-32 pb-20 text-center space-y-4 max-w-md mx-auto font-sans px-4">
-        <h2 className="font-serif text-2xl font-bold text-maroon">Document Not Found</h2>
+        <h2 className="font-heading text-2xl font-bold text-maroon">Document Not Found</h2>
         <p className="text-xs text-brown-muted">The requested legal document could not be located.</p>
         <Link href="/" className="inline-block px-5 py-2.5 bg-maroon text-cream-light text-xs font-bold rounded-xl">
           Return to Homepage
@@ -37,7 +37,7 @@ export default function LegalPolicyPage() {
             <span>/</span>
             <span>Legal & Institutional Policies</span>
           </div>
-          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight">
             {policy.title}
           </h1>
           <div className="flex items-center space-x-2 text-xs text-brown-muted pt-1">
@@ -64,7 +64,7 @@ export default function LegalPolicyPage() {
                 id={section.id} 
                 className="space-y-3 pt-6 border-t border-cream-border/70 first:pt-0 first:border-0"
               >
-                <h2 className="font-serif text-lg sm:text-xl md:text-2xl font-bold text-maroon">
+                <h2 className="font-heading text-lg sm:text-xl md:text-2xl font-bold text-maroon">
                   {section.heading}
                 </h2>
                 <p className="text-brown-muted leading-relaxed whitespace-pre-line text-sm sm:text-[15px]">

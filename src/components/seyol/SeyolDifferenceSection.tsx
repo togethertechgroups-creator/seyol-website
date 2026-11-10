@@ -13,7 +13,7 @@ export const SeyolDifferenceSection: React.FC = () => {
           <span className="inline-block text-xs font-bold uppercase tracking-[2.5px] text-[#70152B]">
             THE SEYOL DIFFERENCE
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl md:text-[46px] lg:text-5xl font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-[46px] lg:text-5xl font-bold text-[#3A1D1D] tracking-tight leading-[1.18]">
             What Makes SEYOL Support Different
           </h2>
           <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed max-w-2xl mx-auto">
@@ -39,7 +39,7 @@ export const SeyolDifferenceSection: React.FC = () => {
               <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6 text-[#70152B]" />
             </div>
             <div className="space-y-1.5 flex-1">
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#3A1D1D]">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#3A1D1D]">
                 The SEYOL Method
               </h3>
               <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">
@@ -59,7 +59,7 @@ export const SeyolDifferenceSection: React.FC = () => {
               <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-[#70152B]" />
             </div>
             <div className="space-y-1.5 flex-1">
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-[#3A1D1D]">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-[#3A1D1D]">
                 Safety &amp; Standards
               </h3>
               <p className="text-xs sm:text-sm text-[#6E5652] leading-relaxed">
@@ -76,7 +76,7 @@ export const SeyolDifferenceSection: React.FC = () => {
         {/* Bottom Banner Card */}
         <div className="bg-[#EFE9DF] rounded-2xl sm:rounded-3xl p-5 sm:p-7 border border-[#E5DAD0] flex items-center justify-between gap-4 shadow-xs">
           <div className="space-y-1">
-            <h4 className="font-serif text-base sm:text-lg font-bold text-[#3A1D1D]">
+            <h4 className="font-heading text-base sm:text-lg font-bold text-[#3A1D1D]">
               Trust begins with transparency.
             </h4>
             <p className="text-xs sm:text-sm text-[#6E5652]">

@@ -100,7 +100,7 @@ export const AdminLoginScreen: React.FC<AdminLoginScreenProps> = ({ onLoginSucce
               <span className="text-[10px] font-bold uppercase tracking-widest text-[#7B1131]">
                 Administrative Access
               </span>
-              <h1 className="font-serif text-2xl font-bold text-stone-900 mt-0.5">
+              <h1 className="font-heading text-2xl font-bold text-stone-900 mt-0.5">
                 Admin Console
               </h1>
               <p className="text-xs text-stone-500 mt-1">
