@@ -7,6 +7,7 @@ import Image from 'next/image';
 import heroBg1 from '../assets4/ChatGPT Image Aug 25, 2026, 09_09_24 AM.png';
 import heroBg2 from '../assets4/ChatGPT Image Aug 25, 2026, 09_12_27 AM.png';
 import heroBg3 from '../assets4/ChatGPT Image Aug 25, 2026, 08_26_15 AM.png';
+import motherBabyMethodImg from '../assets4/mother and baby.jpg';
 import ScrollExpand from '../components/shared/ScrollExpand';
 import WordReveal from '../components/shared/WordReveal';
 import gsap from 'gsap';
@@ -318,246 +319,253 @@ export default function HomePage() {
       {/* SECTION 8: THE SEYOL METHOD (Section Explaining Philosophy in 4 Pillars)  */}
       {/* ========================================================================= */}
 
-      {/* Top Organic Wave Transition to Deep Maroon */}
-      <div className="w-full overflow-hidden leading-none relative z-20 pointer-events-none bg-[#FAF6EE]">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-12 sm:h-20 lg:h-28 text-[#6d132c] block -mb-px"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,45 C320,120 420,-15 720,45 C1020,105 1180,5 1440,55 L1440,120 L0,120 Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
+      {/* ========================================================================= */}
+      {/* SECTION 8: THE SEYOL METHOD (Bento Grid Inspired by Maven Clinic)         */}
+      {/* ========================================================================= */}
+      <section id="seyol-method" className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF6EE] relative overflow-hidden font-sans border-b border-[#EAE1D5]/60">
+        <div className="site-container mx-auto space-y-12 sm:space-y-16 relative z-10 max-w-[1360px]">
 
-      {/* Main The SEYOL Method Section in Deep Maroon */}
-      <section id="seyol-method" className="no-scroll-reveal bg-gradient-to-b from-[#6d132c] via-[#7B1131] to-[#500c20] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
-        {/* Ambient glowing radial effects */}
-        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:28px_28px] opacity-40 pointer-events-none" />
-
-        <div className="site-container mx-auto space-y-12 relative z-10">
-
-          {/* Header */}
+          {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-extrabold text-white tracking-tight drop-shadow-sm leading-[1.14]">
+            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-4 py-1.5 rounded-full inline-block">
+              Our Care Philosophy
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-extrabold text-[#3A1D1D] tracking-tight leading-[1.14]">
               The SEYOL Method
             </h2>
-            <p className="font-sans text-sm sm:text-base md:text-lg text-white/90 max-w-xl mx-auto leading-relaxed">
+            <p className="font-sans text-sm sm:text-base md:text-lg text-[#55403D] max-w-xl mx-auto leading-relaxed">
               Rooted in ancestral tradition, professionally delivered, and thoughtfully shaped for modern family life.
             </p>
           </div>
 
-          {/* 6-Card Asymmetric Mosaic Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7 max-w-[1360px] mx-auto items-stretch">
-            
-            {/* Card 1: Traditional Care at the Core (Wide, Span 2 Cols on Desktop) */}
-            <div className="col-span-1 md:col-span-2 lg:col-span-2 bg-white text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-7 sm:p-9 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    01 • ANCESTRAL HERITAGE
+          {/* 6-Card Bento Grid (3 Columns on Desktop, 2 on Tablet, 1 on Mobile) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-7 items-stretch">
+
+            {/* Card 1: Traditional Care at the Core (Slot 1, Top-Left - Photo Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#EAE1D5]/70 bg-cream-card">
+              <Image
+                src={heroBg3}
+                alt="Traditional Care at the Core"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              {/* Dark gradient overlay for text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#1A0308]/90 via-[#1A0308]/45 to-[#1A0308]/20 pointer-events-none" />
+
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2 max-w-sm">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug drop-shadow-sm">
+                  Traditional Care at the Core
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed drop-shadow-sm">
+                  Rooted in familiar Indian mother and baby care practices passed through generations.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Professionally Delivered (Slot 2, Top-Center - 3D Stacked Pills Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#7B1131]/30 bg-gradient-to-br from-[#8C1B3C] via-[#7B1131] to-[#550A1F] text-white">
+              {/* Ambient radial glow */}
+              <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gold/15 rounded-full blur-2xl pointer-events-none" />
+
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug">
+                  Professionally Delivered
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-white/85 leading-relaxed max-w-xs">
+                  Certified Doulas, Licensed Employment Agency, ACRA-Registered Company.
+                </p>
+              </div>
+
+              {/* 3D Stacked Floating Pills Graphic */}
+              <div className="relative z-10 w-full flex flex-col items-center justify-center pt-6 pb-2 space-y-2.5">
+                {/* Pill 1: Certified Doulas */}
+                <div className="w-[88%] max-w-[270px] bg-[#4E081B]/85 border border-white/20 rounded-2xl px-3.5 py-2.5 shadow-md flex items-center gap-3 backdrop-blur-sm -mb-1 transform scale-[0.93] transition-transform duration-300 group-hover:scale-95">
+                  <div className="w-7 h-7 rounded-full bg-[#7B1131] border border-white/30 flex items-center justify-center shrink-0 shadow-inner">
+                    <Flower2 className="w-3.5 h-3.5 text-cream-light" />
+                  </div>
+                  <span className="text-xs font-heading font-bold text-white tracking-wide truncate">
+                    Certified Doulas
                   </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <Flower2 className="w-5 h-5" />
+                </div>
+
+                {/* Pill 2: Licensed Employment Agency (Featured White Pill in Front) */}
+                <div className="w-[98%] max-w-[290px] bg-white text-[#3A1D1D] rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3 border border-white/90 z-20 transform transition-transform duration-300 group-hover:scale-105">
+                  <div className="w-8 h-8 rounded-full bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center shrink-0 shadow-sm">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-xs sm:text-[13px] font-heading font-extrabold text-[#7B1131] tracking-wide truncate">
+                      Licensed Employment Agency
+                    </span>
+                    <span className="text-[10px] font-sans text-[#7B1131]/70 leading-none">
+                      MOM Licensed &amp; Verified
+                    </span>
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-2 max-w-xl">
-                  <h3 className="font-heading font-extrabold text-xl sm:text-2xl lg:text-[26px] text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Traditional Care at the Core
-                  </h3>
-                  <p className="font-sans text-sm sm:text-base text-[#55403D] leading-relaxed">
-                    Rooted in familiar Indian mother and baby care practices passed through generations.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-6 relative z-10">
-                <div className="flex flex-wrap items-center gap-2 text-xs font-sans text-[#7B1131]">
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Sacred 40-Day Mandalam</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Traditional Abhyanga</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Gentle Baby Touch</span>
+                {/* Pill 3: ACRA-Registered Company */}
+                <div className="w-[90%] max-w-[275px] bg-gradient-to-r from-[#FAF6EE] to-[#EFE5D8] text-[#3A1D1D] border border-white/60 rounded-2xl px-3.5 py-2.5 shadow-md flex items-center gap-3 -mt-1 z-10 transform scale-[0.95] transition-transform duration-300 group-hover:scale-100">
+                  <div className="w-7 h-7 rounded-full bg-[#C8A45D]/25 text-[#7B1131] flex items-center justify-center shrink-0">
+                    <Award className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-xs font-heading font-bold text-[#3A1D1D] tracking-wide truncate">
+                    ACRA-Registered Company
+                  </span>
                 </div>
               </div>
             </div>
 
-            {/* Card 2: Professionally Delivered (Tall, Span 2 Rows on Desktop) */}
-            <div className="col-span-1 md:col-span-1 lg:col-span-1 lg:row-span-2 bg-[#FCFBFA] text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-7 sm:p-9 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-5 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    02 • ACCREDITATION
-                  </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                </div>
-
-                <div className="space-y-3 pt-2">
-                  <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Professionally Delivered
-                  </h3>
-                  <p className="font-sans text-sm sm:text-base text-[#55403D] leading-relaxed">
-                    Certified Doulas, Licensed Employment Agency, ACRA-Registered Company.
-                  </p>
-                </div>
-
-                {/* Institutional Trust Checkpoints */}
-                <div className="pt-4 space-y-2.5">
-                  <div className="flex items-start gap-2.5 text-xs font-sans text-[#3A1D1D] bg-white p-3 rounded-xl border border-[#EAE1D5]">
-                    <CheckCircle2 className="w-4 h-4 text-[#7B1131] shrink-0 mt-0.5" />
-                    <span>Certified Doulas &amp; Care Matrons</span>
-                  </div>
-                  <div className="flex items-start gap-2.5 text-xs font-sans text-[#3A1D1D] bg-white p-3 rounded-xl border border-[#EAE1D5]">
-                    <CheckCircle2 className="w-4 h-4 text-[#7B1131] shrink-0 mt-0.5" />
-                    <span>Licensed Employment Agency</span>
-                  </div>
-                  <div className="flex items-start gap-2.5 text-xs font-sans text-[#3A1D1D] bg-white p-3 rounded-xl border border-[#EAE1D5]">
-                    <CheckCircle2 className="w-4 h-4 text-[#7B1131] shrink-0 mt-0.5" />
-                    <span>ACRA-Registered Singapore Entity</span>
-                  </div>
-                </div>
+            {/* Card 3: Care Through Every Stage (Slot 3, Top-Right - Wireframe 3D Sphere Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#E2D8CF] bg-gradient-to-b from-[#F7F2EC] via-[#EFE7DE] to-[#E5DCD2] text-[#3A1D1D]">
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#3A1D1D] tracking-tight leading-snug">
+                  Care Through Every Stage
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed max-w-xs">
+                  Support that can continue from preconception and pregnancy through birth, postpartum recovery and the early months with baby.
+                </p>
               </div>
 
-              <div className="pt-6 border-t border-[#EAE1D5]/80 mt-6 relative z-10">
-                <span className="text-[11px] font-heading font-semibold text-[#A6833D] uppercase tracking-wider">
-                  MOM &amp; ACRA Licensed Clinical Governance
-                </span>
-              </div>
-            </div>
+              {/* 3D Wireframe Globe with Floating Stage Tags */}
+              <div className="relative w-full h-44 sm:h-48 flex items-center justify-center pt-2">
+                <svg
+                  className="w-40 h-40 sm:w-44 sm:h-44 transition-transform duration-700 ease-out group-hover:rotate-12"
+                  viewBox="0 0 200 200"
+                  fill="none"
+                >
+                  {/* Outer border sphere */}
+                  <circle cx="100" cy="100" r="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.35" />
+                  {/* Latitudes */}
+                  <ellipse cx="100" cy="100" rx="85" ry="55" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+                  <ellipse cx="100" cy="100" rx="85" ry="24" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.45" />
+                  {/* Equator / Central Horizon */}
+                  <line x1="15" y1="100" x2="185" y2="100" stroke="#C8A45D" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.6" />
+                  {/* Longitudes */}
+                  <ellipse cx="100" cy="100" rx="55" ry="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
+                  <ellipse cx="100" cy="100" rx="24" ry="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.45" />
+                  <line x1="100" y1="15" x2="100" y2="185" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
+                </svg>
 
-            {/* Card 3: Adapted for Modern Families (Compact, 1 Col) */}
-            <div className="col-span-1 md:col-span-1 lg:col-span-1 bg-white text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    03 • FLEXIBILITY
-                  </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <Clock className="w-5 h-5" />
-                  </div>
+                {/* Floating Stage Tags Anchored on the Sphere */}
+                <div className="absolute top-[32%] left-[8%] bg-white/95 backdrop-blur-md border border-[#EAE1D5] rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-[#7B1131] shadow-md flex items-center gap-1 group-hover:-translate-y-1 transition-transform">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8A45D]" />
+                  Preconception
                 </div>
 
-                <div className="space-y-2 pt-2">
-                  <h3 className="font-heading font-extrabold text-lg sm:text-xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Adapted for Modern Families
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed">
-                    Care shaped around today’s homes, schedules, routines and family needs.
-                  </p>
+                <div className="absolute top-[48%] right-[6%] bg-white/95 backdrop-blur-md border border-[#EAE1D5] rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-[#7B1131] shadow-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#7B1131]" />
+                  Pregnancy &amp; Birth
+                </div>
+
+                <div className="absolute bottom-[8%] left-[26%] bg-[#7B1131] text-white border border-white/50 rounded-full px-3 py-1 text-[10px] font-heading font-bold shadow-lg flex items-center gap-1 group-hover:scale-105 transition-transform">
+                  <Sparkles className="w-3 h-3 text-[#E8C574]" />
+                  Postpartum &amp; Early Months
                 </div>
               </div>
             </div>
 
-            {/* Card 4: Mother & Baby Considered Together (Compact, 1 Col) */}
-            <div className="col-span-1 md:col-span-1 lg:col-span-1 bg-white text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    04 • DUAL SANCTUARY
-                  </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <Heart className="w-5 h-5" />
-                  </div>
-                </div>
+            {/* Card 4: Adapted for Modern Families (Slot 4, Bottom-Left - Concentric Radar Arcs Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#3A0715] bg-gradient-to-b from-[#380715] via-[#2A040F] to-[#1A0208] text-white">
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug">
+                  Adapted for Modern Families
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-white/80 leading-relaxed max-w-xs">
+                  Care shaped around today’s homes, schedules, routines and family needs.
+                </p>
+              </div>
 
-                <div className="space-y-2 pt-2">
-                  <h3 className="font-heading font-extrabold text-lg sm:text-xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Mother &amp; Baby Considered Together
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed">
-                    Care that considers the mother’s recovery alongside baby’s everyday needs.
-                  </p>
+              {/* Concentric Radar Rings & Sweeping Beam */}
+              <div className="relative w-full h-40 sm:h-44 overflow-hidden mt-4">
+                {/* Concentric Circular Arcs */}
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full border border-white/10" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full border border-white/15" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full border border-white/20" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full border border-[#C8A45D]/40" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full border border-[#C8A45D]/60 bg-[#7B1131]/40" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#C8A45D] shadow-[0_0_12px_#C8A45D]" />
+
+                {/* Radar Sweeping Beam */}
+                <div
+                  className="absolute -bottom-10 left-1/2 origin-bottom -translate-x-1/2 w-56 h-56 pointer-events-none transition-transform duration-1000 ease-out group-hover:rotate-45"
+                  style={{
+                    background: 'conic-gradient(from 180deg at 50% 100%, rgba(200,164,93,0.38) 0deg, rgba(123,17,49,0.18) 25deg, transparent 55deg)',
+                    borderRadius: '50% 50% 0 0'
+                  }}
+                />
+
+                {/* Radar Scanner Line with Glowing Node */}
+                <div className="absolute -bottom-10 left-1/2 origin-bottom w-[1.5px] h-36 bg-gradient-to-t from-[#C8A45D] via-[#C8A45D]/60 to-transparent rotate-[32deg] group-hover:rotate-[65deg] transition-transform duration-1000 ease-out">
+                  <div className="absolute top-5 -left-1 w-2.5 h-2.5 rounded-full bg-[#C8A45D] shadow-[0_0_10px_#C8A45D]" />
                 </div>
               </div>
             </div>
 
-            {/* Card 5: Care That Works in Real Life (Compact, 1 Col) */}
-            <div className="col-span-1 md:col-span-1 lg:col-span-1 bg-white text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-6 sm:p-7 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    05 • PRACTICALITY
-                  </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <CheckCircle2 className="w-5 h-5" />
+            {/* Card 5: Care That Works in Real Life (Slot 5, Bottom-Center - Floating Chat Bubbles with Heart) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#E2D8CF] bg-gradient-to-b from-[#F7F2EC] via-[#EFE7DE] to-[#E3D7CC] text-[#3A1D1D]">
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#3A1D1D] tracking-tight leading-snug">
+                  Care That Works in Real Life
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed max-w-xs">
+                  Care designed to be easy to understand, follow and use at home.
+                </p>
+              </div>
+
+              {/* 3D-Styled Floating Chat Bubbles with Heart */}
+              <div className="relative w-full h-40 sm:h-44 flex items-center justify-center">
+                {/* Back Dark Maroon Bubble */}
+                <div className="w-16 h-12 sm:w-18 sm:h-14 bg-[#7B1131] rounded-2xl rounded-bl-sm shadow-md absolute bottom-14 right-16 sm:right-20 transform -rotate-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:-rotate-3 flex items-center justify-center">
+                  <div className="flex gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
                   </div>
                 </div>
 
-                <div className="space-y-2 pt-2">
-                  <h3 className="font-heading font-extrabold text-lg sm:text-xl text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Care That Works in Real Life
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed">
-                    Care designed to be easy to understand, follow and use at home.
-                  </p>
+                {/* Front White Bubble with Heart */}
+                <div className="w-24 h-20 sm:w-28 sm:h-24 bg-white rounded-3xl rounded-bl-md shadow-2xl border border-[#EAE1D5] flex items-center justify-center absolute bottom-4 right-6 sm:right-8 z-10 transform transition-all duration-300 group-hover:scale-105">
+                  <div className="relative">
+                    <Heart className="w-9 h-9 sm:w-11 sm:h-11 text-[#7B1131] fill-[#7B1131] drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
+                    <Sparkles className="w-3.5 h-3.5 text-[#C8A45D] absolute -top-1 -right-1" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Card 6: Care Through Every Stage (Wide, Span 2 Cols on Desktop) */}
-            <div className="col-span-1 md:col-span-2 lg:col-span-2 bg-white text-[#3A1D1D] rounded-2xl sm:rounded-3xl p-7 sm:p-9 border border-[#EAE1D5] shadow-warm-lg hover:shadow-warm-xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between relative overflow-hidden group">
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full">
-                    06 • LIFECYCLE CONTINUITY
-                  </span>
-                  <div className="w-11 h-11 rounded-xl bg-[#FAF0EB] text-[#7B1131] flex items-center justify-center group-hover:scale-110 group-hover:bg-[#7B1131] group-hover:text-white transition-all duration-300">
-                    <Compass className="w-5 h-5" />
-                  </div>
-                </div>
+            {/* Card 6: Mother & Baby Considered Together (Slot 6, Bottom-Right - Photo Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#EAE1D5]/70 bg-cream-card">
+              <Image
+                src={motherBabyMethodImg}
+                alt="Mother & Baby Considered Together"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              {/* Dark gradient overlay for text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#1A0308]/90 via-[#1A0308]/45 to-[#1A0308]/20 pointer-events-none" />
 
-                <div className="space-y-2 pt-2 max-w-xl">
-                  <h3 className="font-heading font-extrabold text-xl sm:text-2xl lg:text-[26px] text-[#3A1D1D] group-hover:text-[#7B1131] transition-colors leading-snug">
-                    Care Through Every Stage
-                  </h3>
-                  <p className="font-sans text-sm sm:text-base text-[#55403D] leading-relaxed">
-                    Support that can continue from preconception and pregnancy through birth, postpartum recovery and the early months with baby.
-                  </p>
-                </div>
-              </div>
-
-              {/* Stage Journey Ribbon */}
-              <div className="pt-6 relative z-10">
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-xs font-sans text-[#7B1131]">
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Preconception</span>
-                  <span className="text-[#A6833D]">→</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Pregnancy</span>
-                  <span className="text-[#A6833D]">→</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Birth</span>
-                  <span className="text-[#A6833D]">→</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Postpartum Recovery</span>
-                  <span className="text-[#A6833D]">→</span>
-                  <span className="bg-[#FAF6EE] px-3 py-1 rounded-full border border-[#EAE1D5]">Early Months</span>
-                </div>
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2 max-w-sm">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug drop-shadow-sm">
+                  Mother &amp; Baby Considered Together
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed drop-shadow-sm">
+                  Care that considers the mother’s recovery alongside baby’s everyday needs.
+                </p>
               </div>
             </div>
 
           </div>
         </div>
       </section>
-
-      {/* Bottom Organic Wave Transition from Maroon back to Cream */}
-      <div className="w-full overflow-hidden leading-none -mt-1 relative z-20 pointer-events-none">
-        <svg
-          viewBox="0 0 1440 120"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-12 sm:h-20 lg:h-28 text-[#500c20] block rotate-180"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,45 C320,120 420,-15 720,45 C1020,105 1180,5 1440,55 L1440,120 L0,120 Z"
-            fill="currentColor"
-          />
-        </svg>
-      </div>
 
       {/* ========================================================================= */}
       {/* SECTION 9: NOT SURE WHICH OPTION FITS? (Interactive Comparison Cards)     */}
