@@ -279,19 +279,29 @@ export default function HomePage() {
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={() => openEnquiry({ serviceTitle: 'Sanctuary In-Home Care' })}
-              className="px-8 py-3.5 rounded-full bg-cream-light text-maroon hover:bg-white font-bold text-xs sm:text-sm tracking-wide shadow-warm-xl hover:scale-105 transition-all duration-200 cursor-pointer shimmer-button"
-            >
-              Book In-Home Sanctuary Ritual
-            </button>
-
             <Link
               href="/services"
-              className="px-8 py-3.5 rounded-full bg-[#160307]/75 hover:bg-[#160307]/95 text-cream-light border border-gold/50 backdrop-blur-md font-bold text-xs sm:text-sm tracking-wide hover:scale-105 transition-all duration-200 shadow-warm-lg"
+              className="px-8 py-3.5 rounded-full bg-cream-light text-maroon hover:bg-white font-bold text-xs sm:text-sm tracking-wide shadow-warm-xl hover:scale-105 transition-all duration-200 cursor-pointer shimmer-button inline-flex items-center justify-center"
             >
-              Explore Your Options
+              Explore Services
             </Link>
+
+            <a
+              href="#your-stage-next-step"
+              onClick={(e) => {
+                e.preventDefault();
+                const target = document.getElementById('your-stage-next-step');
+                if (target) {
+                  const y = target.getBoundingClientRect().top + window.pageYOffset - 90;
+                  window.scrollTo({ top: y, behavior: 'smooth' });
+                } else {
+                  window.location.hash = 'your-stage-next-step';
+                }
+              }}
+              className="px-8 py-3.5 rounded-full bg-[#160307]/75 hover:bg-[#160307]/95 text-cream-light border border-gold/50 backdrop-blur-md font-bold text-xs sm:text-sm tracking-wide hover:scale-105 transition-all duration-200 shadow-warm-lg inline-flex items-center justify-center cursor-pointer"
+            >
+              Find Your Next Step
+            </a>
           </div>
         </div>
       </ScrollExpand>
