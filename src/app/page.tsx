@@ -568,16 +568,19 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 9: NOT SURE WHICH OPTION FITS? (Interactive Comparison Cards)     */}
+      {/* SECTION 9: NOT SURE WHICH OPTION FITS? (Responsive Comparison Table)      */}
       {/* ========================================================================= */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <div className="space-y-6">
+      <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
+        <div className="space-y-8 sm:space-y-10">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
+            <span className="text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-4 py-1.5 rounded-full inline-block">
+              Support Comparison
+            </span>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#3A1D1D] tracking-tight leading-[1.18]">
               Not Sure Which Option Fits?
             </h2>
-            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
-              Compare our in-home confinement visits, stay-in nanny care, and live education workshops side-by-side.
+            <p className="font-sans text-sm sm:text-base md:text-lg text-[#55403D] max-w-xl mx-auto leading-relaxed">
+              Compare our services, classes, nanny support, hourly care, and consultations side-by-side to choose the right fit for your family.
             </p>
           </div>
 

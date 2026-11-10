@@ -1,357 +1,319 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Check, X, Sparkles, Shield, Clock, Heart, ArrowRight, GraduationCap, Flower2, Users } from 'lucide-react';
+import React from 'react';
+import Link from 'next/link';
+import { ArrowRight, Sparkles, Calendar, BookOpen, Heart, Clock, MessageSquare } from 'lucide-react';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 
-type ComparisonTab = 'postpartum' | 'nanny' | 'infant-hourly';
+interface ComparisonRow {
+  criterion: string;
+  isQuote?: boolean;
+  services: string;
+  classes: string;
+  nanny: string;
+  hourly: string;
+  consultation: string;
+}
+
+const comparisonData: ComparisonRow[] = [
+  {
+    criterion: 'Best if you...',
+    services: 'Want SEYOL to provide the care',
+    classes: 'Want to learn how to do it yourself',
+    nanny: 'Need ongoing support after birth',
+    hourly: 'Need help for a few hours',
+    consultation: 'Need personalised guidance',
+  },
+  {
+    criterion: 'How support works',
+    services: 'Scheduled care sessions',
+    classes: 'Guided learning and demonstrations',
+    nanny: 'Live-in daily support',
+    hourly: 'Flexible hourly care',
+    consultation: 'One-to-one discussion',
+  },
+  {
+    criterion: 'Time commitment',
+    services: 'Single or package sessions',
+    classes: 'One or multiple classes',
+    nanny: '28 days or longer',
+    hourly: 'Book by the hour',
+    consultation: '30–60 minutes',
+  },
+  {
+    criterion: 'Where',
+    services: 'Mainly at home',
+    classes: 'Online or in-person, depending on class',
+    nanny: 'Your home',
+    hourly: 'Your home',
+    consultation: 'Online / consultation format',
+  },
+  {
+    criterion: 'Best suited for',
+    services: 'Pregnancy, postpartum, mother & baby care',
+    classes: 'Preparing before or after baby arrives',
+    nanny: 'Early postpartum period',
+    hourly: 'Families needing extra newborn help',
+    consultation: 'When you are unsure what support you need',
+  },
+  {
+    criterion: 'Choose this when...',
+    isQuote: true,
+    services: '“I want someone experienced to care for me or my baby.”',
+    classes: '“I want to learn and feel confident doing it myself.”',
+    nanny: '“I need someone with us every day.”',
+    hourly: '“I only need extra help at certain times.”',
+    consultation: '“I need help deciding what comes next.”',
+  },
+];
 
 export const ComparisonCards: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<ComparisonTab>('postpartum');
   const { openEnquiry } = useQuickEnquiry();
 
   return (
-    <div className="w-full font-sans space-y-8">
-      {/* Selector Tabs */}
-      <div className="flex justify-center">
-        <div className="inline-flex flex-wrap justify-center p-1.5 rounded-2xl bg-cream border border-cream-border gap-1.5">
-          <button
-            onClick={() => setActiveTab('postpartum')}
-            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'postpartum'
-                ? 'bg-maroon text-cream-light shadow-sm'
-                : 'text-brown hover:text-maroon hover:bg-white/60'
-            }`}
-          >
-            Postpartum Massage vs Combo
-          </button>
-          <button
-            onClick={() => setActiveTab('nanny')}
-            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'nanny'
-                ? 'bg-maroon text-cream-light shadow-sm'
-                : 'text-brown hover:text-maroon hover:bg-white/60'
-            }`}
-          >
-            Nanny vs Hourly Support
-          </button>
-          <button
-            onClick={() => setActiveTab('infant-hourly')}
-            className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-              activeTab === 'infant-hourly'
-                ? 'bg-maroon text-cream-light shadow-sm'
-                : 'text-brown hover:text-maroon hover:bg-white/60'
-            }`}
-          >
-            Infant Bath Service vs Hourly Newborn Support
-          </button>
-        </div>
+    <div className="w-full font-sans">
+      {/* Mobile Swipe Hint */}
+      <div className="flex md:hidden items-center justify-end px-2 pb-2 text-[11px] font-sans text-brown-muted gap-1.5">
+        <span>Swipe horizontally to compare</span>
+        <ArrowRight className="w-3 h-3 text-maroon animate-pulse" />
       </div>
 
-      {activeTab === 'postpartum' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
-          {/* Card 1: Postpartum Massage & Wrap */}
-          <div className="bg-cream-light rounded-3xl border border-cream-border p-6 sm:p-8 flex flex-col justify-between shadow-warm-sm hover:border-gold/60 transition-all">
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
-                Focused Maternal Recovery
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
-                Traditional Postpartum Massage & Wrap
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                Daily 90-minute in-home maternal bodywork, herbal steam fomentation (Kizhi), and traditional South Indian cotton belly binding.
-              </p>
+      {/* Main Comparison Table Card in Rich SEYOL Maroon */}
+      <div className="w-full overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#4A0A1C] via-[#3E0716] to-[#2B0510] text-[#F7F4EF] border border-[#7B1131]/60 shadow-warm-xl relative">
+        {/* Ambient Glow */}
+        <div className="absolute -top-24 -right-24 w-80 h-80 bg-[#7B1131]/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Full mother body massage & uterine involution strokes</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Daily hot herbal bath (Vethu Kuli) preparation</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Firm cotton belly binding (Kattu) for core support</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown-muted">
-                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
-                  <span className="line-through">Baby massage and bathing (Mother only)</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown-muted">
-                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
-                  <span className="line-through">Confinement cooking or night support</span>
-                </div>
-              </div>
-            </div>
+        {/* Responsive Horizontal Scroll Wrapper */}
+        <div className="overflow-x-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
+          <table className="w-full min-w-[880px] text-left border-collapse">
+            {/* Table Header: 5 Support Columns + 1 Criteria Column */}
+            <thead>
+              <tr className="border-b border-white/15 bg-[#300511]/90 backdrop-blur-sm">
+                {/* Column 1: Comparison Criteria Heading */}
+                <th
+                  scope="col"
+                  className="sticky left-0 z-30 bg-[#300511] px-5 sm:px-6 py-5 sm:py-6 w-[200px] min-w-[190px] border-r border-white/15 shadow-[3px_0_10px_rgba(0,0,0,0.35)]"
+                >
+                  <span className="text-[11px] sm:text-xs font-heading font-extrabold uppercase tracking-widest text-[#E8C574]">
+                    Comparison
+                  </span>
+                  <div className="text-white font-heading font-bold text-sm sm:text-base mt-1">
+                    Support Features
+                  </div>
+                </th>
 
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: 'Postpartum Massage & Wrap (10-28 Days)' })}
-                className="w-full py-3 rounded-xl bg-cream border border-cream-border hover:bg-maroon hover:text-cream-light font-bold text-xs transition-colors cursor-pointer"
-              >
-                Enquire for Mother Care
-              </button>
-            </div>
-          </div>
+                {/* Column 2: Services */}
+                <th scope="col" className="px-4 sm:px-6 py-5 sm:py-6 w-[18%] min-w-[160px] align-top">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-[#E8C574]/80">
+                      In-Home Care
+                    </span>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-white leading-tight">
+                      Services
+                    </h3>
+                  </div>
+                </th>
 
-          {/* Card 2: Mother & Baby Combo (Popular) */}
-          <div className="bg-cream-light rounded-3xl border-2 border-gold p-6 sm:p-8 flex flex-col justify-between shadow-warm-md relative">
-            <div className="absolute -top-3 right-6 bg-gold text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Most Popular Choice
-            </div>
+                {/* Column 3: Classes */}
+                <th scope="col" className="px-4 sm:px-6 py-5 sm:py-6 w-[18%] min-w-[160px] align-top">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-[#E8C574]/80">
+                      Guided Learning
+                    </span>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-white leading-tight">
+                      Classes
+                    </h3>
+                  </div>
+                </th>
 
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
-                Synchronised Dual Confinement Care
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
-                Complete Mother & Baby Combo
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                Coordinated 2.5-hour daily dual session. Mother receives full recovery bodywork and binding, while baby receives traditional infant massage and soothing bath.
-              </p>
+                {/* Column 4: Confinement Nanny */}
+                <th scope="col" className="px-4 sm:px-6 py-5 sm:py-6 w-[18%] min-w-[165px] align-top">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-[#E8C574]/80">
+                      28+ Days Daily
+                    </span>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-white leading-tight">
+                      Confinement Nanny
+                    </h3>
+                  </div>
+                </th>
 
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Full mother postpartum massage, Kizhi & belly binding</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Full baby Thokkanam massage, colic relief & herbal bath</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Synchronised routine allowing mother & baby to nap together</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Complimentary SEY Botanical Care Gift Box</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Weekly clinical lactation & recovery supervision check-ins</span>
-                </div>
-              </div>
-            </div>
+                {/* Column 5: Hourly Newborn Support */}
+                <th scope="col" className="px-4 sm:px-6 py-5 sm:py-6 w-[18%] min-w-[170px] align-top">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-[#E8C574]/80">
+                      Flexible Hours
+                    </span>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-white leading-tight">
+                      Hourly Newborn Support
+                    </h3>
+                  </div>
+                </th>
 
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: 'Complete Mother & Baby Postpartum Combo' })}
-                className="w-full py-3.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs tracking-wide shadow-warm-sm transition-all flex items-center justify-center space-x-2 cursor-pointer shimmer-button"
-              >
-                <span>Reserve Dual Care Package</span>
-                <ArrowRight className="w-4 h-4 text-gold-light" />
-              </button>
-            </div>
-          </div>
+                {/* Column 6: Consultation */}
+                <th scope="col" className="px-4 sm:px-6 py-5 sm:py-6 w-[18%] min-w-[160px] align-top">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-heading font-semibold uppercase tracking-wider text-[#E8C574]/80">
+                      Personal Guidance
+                    </span>
+                    <h3 className="font-heading font-bold text-base sm:text-lg text-white leading-tight">
+                      Consultation
+                    </h3>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+
+            {/* Table Body: 6 Comparison Criteria Rows */}
+            <tbody className="divide-y divide-white/10 font-sans">
+              {comparisonData.map((row, idx) => (
+                <tr
+                  key={idx}
+                  className={`group transition-colors duration-150 ${
+                    idx % 2 === 0 ? 'bg-transparent' : 'bg-white/[0.02]'
+                  } hover:bg-white/[0.05]`}
+                >
+                  {/* Sticky First Column: Comparison Criterion */}
+                  <th
+                    scope="row"
+                    className={`sticky left-0 z-20 px-5 sm:px-6 py-4 sm:py-5 border-r border-white/15 shadow-[3px_0_10px_rgba(0,0,0,0.35)] font-heading font-bold text-xs sm:text-[13px] tracking-wide text-white ${
+                      idx % 2 === 0 ? 'bg-[#360513]' : 'bg-[#320411]'
+                    } group-hover:bg-[#400717] transition-colors`}
+                  >
+                    {row.criterion}
+                  </th>
+
+                  {/* Services Column */}
+                  <td
+                    className={`px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-[13px] leading-relaxed ${
+                      row.isQuote
+                        ? 'italic font-heading text-[#FAF0EB] text-[13px] sm:text-sm'
+                        : 'text-[#F7F4EF]/90'
+                    }`}
+                  >
+                    {row.services}
+                  </td>
+
+                  {/* Classes Column */}
+                  <td
+                    className={`px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-[13px] leading-relaxed ${
+                      row.isQuote
+                        ? 'italic font-heading text-[#FAF0EB] text-[13px] sm:text-sm'
+                        : 'text-[#F7F4EF]/90'
+                    }`}
+                  >
+                    {row.classes}
+                  </td>
+
+                  {/* Confinement Nanny Column */}
+                  <td
+                    className={`px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-[13px] leading-relaxed ${
+                      row.isQuote
+                        ? 'italic font-heading text-[#FAF0EB] text-[13px] sm:text-sm'
+                        : 'text-[#F7F4EF]/90'
+                    }`}
+                  >
+                    {row.nanny}
+                  </td>
+
+                  {/* Hourly Newborn Support Column */}
+                  <td
+                    className={`px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-[13px] leading-relaxed ${
+                      row.isQuote
+                        ? 'italic font-heading text-[#FAF0EB] text-[13px] sm:text-sm'
+                        : 'text-[#F7F4EF]/90'
+                    }`}
+                  >
+                    {row.hourly}
+                  </td>
+
+                  {/* Consultation Column */}
+                  <td
+                    className={`px-4 sm:px-6 py-4 sm:py-5 text-xs sm:text-[13px] leading-relaxed ${
+                      row.isQuote
+                        ? 'italic font-heading text-[#FAF0EB] text-[13px] sm:text-sm'
+                        : 'text-[#F7F4EF]/90'
+                    }`}
+                  >
+                    {row.consultation}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
+            {/* Table Footer: Actionable CTA Buttons for Each Column */}
+            <tfoot>
+              <tr className="border-t border-white/20 bg-[#2B040E]">
+                <th
+                  scope="row"
+                  className="sticky left-0 z-20 bg-[#2B040E] px-5 sm:px-6 py-5 border-r border-white/15 shadow-[3px_0_10px_rgba(0,0,0,0.35)]"
+                >
+                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-white/80">
+                    Next Step
+                  </span>
+                </th>
+
+                {/* Services CTA */}
+                <td className="px-4 sm:px-6 py-5">
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#E8C574] hover:text-white transition-colors group"
+                  >
+                    <span>Explore Services</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </td>
+
+                {/* Classes CTA */}
+                <td className="px-4 sm:px-6 py-5">
+                  <Link
+                    href="/classes"
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#E8C574] hover:text-white transition-colors group"
+                  >
+                    <span>Explore Classes</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </td>
+
+                {/* Confinement Nanny CTA */}
+                <td className="px-4 sm:px-6 py-5">
+                  <button
+                    onClick={() => openEnquiry({ serviceTitle: 'Stay-In Confinement Nanny Support' })}
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#E8C574] hover:text-white transition-colors group cursor-pointer text-left"
+                  >
+                    <span>Enquire Nanny</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </td>
+
+                {/* Hourly Newborn Support CTA */}
+                <td className="px-4 sm:px-6 py-5">
+                  <button
+                    onClick={() => openEnquiry({ serviceTitle: 'Hourly Newborn Support' })}
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#E8C574] hover:text-white transition-colors group cursor-pointer text-left"
+                  >
+                    <span>Book Hourly Care</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </td>
+
+                {/* Consultation CTA */}
+                <td className="px-4 sm:px-6 py-5">
+                  <Link
+                    href="/book"
+                    className="inline-flex items-center gap-1.5 text-xs font-heading font-bold text-[#E8C574] hover:text-white transition-colors group"
+                  >
+                    <span>Book a Call</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
-      )}
-
-      {activeTab === 'nanny' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
-          {/* Card 1: 24/7 Stay-In Confinement Nanny */}
-          <div className="bg-cream-light rounded-3xl border-2 border-gold p-6 sm:p-8 flex flex-col justify-between shadow-warm-md relative">
-            <div className="absolute -top-3 right-6 bg-gold text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Complete Peace of Mind
-            </div>
-
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
-                24/7 Round-the-Clock Residence
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
-                Stay-In Confinement Nanny
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                A background-verified, hospital-trained confinement nanny lives with your family to oversee newborn night feeds, mother’s confinement meals, and nursery sanitation.
-              </p>
-
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>24/7 night-time baby burping, soothing, and diapering</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Nutritious traditional confinement cooking for mother</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Baby laundry, bottle boiling, and nursery hygiene</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Guaranteed continuous night sleep for new parents</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: '24/7 Stay-In Confinement Nanny' })}
-                className="w-full py-3.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs tracking-wide shadow-warm-sm transition-all flex items-center justify-center space-x-2 cursor-pointer shimmer-button"
-              >
-                <span>Reserve Stay-In Care</span>
-                <ArrowRight className="w-4 h-4 text-gold-light" />
-              </button>
-            </div>
-          </div>
-
-          {/* Card 2: Hourly Support */}
-          <div className="bg-cream-light rounded-3xl border border-cream-border p-6 sm:p-8 flex flex-col justify-between shadow-warm-sm hover:border-gold/60 transition-all">
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
-                Flexible Respite Care
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
-                Hourly Newborn Support
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                Targeted daytime or overnight blocks (4 to 8 hours) by certified newborn aides to give parents essential rest or manage specific colic hours.
-              </p>
-
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Targeted soothing during evening fussy / colic hours</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Assistance while parents nap, shower, or attend meetings</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Sterilisation of pump parts and bottle feeding</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown-muted">
-                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
-                  <span className="line-through">Full household confinement cooking</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: 'Hourly Newborn Respite Support' })}
-                className="w-full py-3 rounded-xl bg-cream border border-cream-border hover:bg-maroon hover:text-cream-light font-bold text-xs transition-colors cursor-pointer"
-              >
-                Enquire for Hourly Blocks
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'infant-hourly' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fadeIn">
-          {/* Card 1: Infant Bath Service & Baby Massage */}
-          <div className="bg-cream-light rounded-3xl border border-cream-border p-6 sm:p-8 flex flex-col justify-between shadow-warm-sm hover:border-gold/60 transition-all">
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-brown-muted">
-                Focused Daily Baby Care
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-brown">
-                Infant Bath Service & Massage
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                A specialised 45 to 60-minute daily in-home ritual focusing on traditional Thokkanam infant massage, herbal warm bath, and delicate newborn hygiene.
-              </p>
-
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Full traditional baby massage (Thokkanam) for bone & muscle tone</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Gentle herbal warm bath (Vethu Kuli) tailored for newborn skin</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Umbilical cord hygiene, scalp cradle care & colic gas-relief strokes</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Hands-on coaching so parents gain lifelong holding & bathing confidence</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown-muted">
-                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
-                  <span className="line-through">Mother postpartum bodywork or belly binding</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown-muted">
-                  <X className="w-4 h-4 text-brown-muted/50 shrink-0" />
-                  <span className="line-through">Extended day/night respite hours or cooking</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: 'Infant Bath & Massage Service' })}
-                className="w-full py-3 rounded-xl bg-cream border border-cream-border hover:bg-maroon hover:text-cream-light font-bold text-xs transition-colors cursor-pointer"
-              >
-                Enquire for Infant Bath
-              </button>
-            </div>
-          </div>
-
-          {/* Card 2: Hourly Newborn Support */}
-          <div className="bg-cream-light rounded-3xl border-2 border-gold p-6 sm:p-8 flex flex-col justify-between shadow-warm-md relative">
-            <div className="absolute -top-3 right-6 bg-gold text-maroon-dark text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
-              Flexible Respite Choice
-            </div>
-
-            <div className="space-y-4">
-              <div className="text-[10px] font-bold uppercase tracking-wider text-maroon">
-                On-Demand Day &amp; Night Respite
-              </div>
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-maroon">
-                Hourly Newborn Support
-              </h3>
-              <p className="text-xs text-brown-muted leading-relaxed">
-                Targeted 4 to 8-hour blocks by certified newborn aides to give exhausted parents restorative sleep, manage fussy colic hours, and assist with feeds.
-              </p>
-
-              <div className="space-y-2.5 pt-4 border-t border-cream-border text-xs">
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Flexible daytime or overnight shift blocks (4, 6, or 8 hours)</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Night-time feeds, paced bottle feeding, soothing & diaper changes</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Expert evening colic relief, burping & safe sleep settling</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Sterilising pump parts, baby bottles & nursery hygiene maintenance</span>
-                </div>
-                <div className="flex items-center space-x-2 text-brown">
-                  <Check className="w-4 h-4 text-maroon shrink-0" />
-                  <span>Guaranteed uninterrupted rest and recovery for parents</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="pt-6 mt-6 border-t border-cream-border">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: 'Hourly Newborn Respite Support' })}
-                className="w-full py-3.5 rounded-xl bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs tracking-wide shadow-warm-sm transition-all flex items-center justify-center space-x-2 cursor-pointer shimmer-button"
-              >
-                <span>Reserve Hourly Newborn Care</span>
-                <ArrowRight className="w-4 h-4 text-gold-light" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 };
+export default ComparisonCards;
