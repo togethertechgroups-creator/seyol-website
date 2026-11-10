@@ -49,11 +49,15 @@ const footerColumns = [
 ];
 
 const legalLinks = [
-  ["Terms & Conditions", "/legal/service-booking-terms"],
   ["Privacy Policy", "/legal/privacy-policy"],
   ["Cookie Policy", "/legal/cookie-policy"],
   ["Product Disclaimer", "/legal/product-disclaimer"],
   ["Service Booking Terms", "/legal/service-booking-terms"],
+  ["Class Terms", "/legal/class-terms"],
+  ["Digital Resource Terms", "/legal/digital-resource-terms"],
+  ["Employment Agency Terms", "/legal/employment-agency-terms"],
+  ["Careers & Training Disclaimer", "/legal/careers-and-training-disclaimer"],
+  ["Admin Portal", "/admin"],
 ];
 
 const SeyolFooter: React.FC = () => {
@@ -221,10 +225,18 @@ const SeyolFooter: React.FC = () => {
         {/* Bottom Legal Section */}
         <div className="seyol-footer-bottom">
           <div className="seyol-footer-legal">
-            {legalLinks.map(([label, url]) => (
-              <Link href={url} key={label}>
-                {label}
-              </Link>
+            {legalLinks.map(([label, url], index) => (
+              <React.Fragment key={label}>
+                <Link
+                  href={url}
+                  className={label === "Admin Portal" ? "seyol-footer-admin-link" : ""}
+                >
+                  {label}
+                </Link>
+                {index < legalLinks.length - 1 && (
+                  <span className="seyol-footer-dot">•</span>
+                )}
+              </React.Fragment>
             ))}
           </div>
 
@@ -240,4 +252,3 @@ const SeyolFooter: React.FC = () => {
 
 export { SeyolFooter };
 export default SeyolFooter;
-

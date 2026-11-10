@@ -47,6 +47,26 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/class-terms',
+        destination: '/legal/class-terms',
+        permanent: true,
+      },
+      {
+        source: '/digital-resource-terms',
+        destination: '/legal/digital-resource-terms',
+        permanent: true,
+      },
+      {
+        source: '/employment-agency-terms',
+        destination: '/legal/employment-agency-terms',
+        permanent: true,
+      },
+      {
+        source: '/careers-and-training-disclaimer',
+        destination: '/legal/careers-and-training-disclaimer',
+        permanent: true,
+      },
+      {
         source: '/resource-bundles',
         destination: '/resources#seyol-bundles',
         permanent: true,
