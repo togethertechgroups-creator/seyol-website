@@ -158,7 +158,7 @@ export const MostParentsStartHere: React.FC = () => {
             href="/services"
             className="inline-flex items-center gap-2 bg-[#7B1131] hover:bg-[#5A0C24] text-white px-7 sm:px-8 py-3.5 sm:py-4 rounded-full text-xs sm:text-sm font-heading font-bold tracking-wide transition-all duration-200 shadow-warm-md hover:shadow-warm-lg hover:scale-[1.02] cursor-pointer"
           >
-            <span>Explore All 10 Services</span>
+            <span>Explore Your Options</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           

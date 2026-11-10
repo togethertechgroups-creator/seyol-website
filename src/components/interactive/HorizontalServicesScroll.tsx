@@ -97,7 +97,7 @@ export default function HorizontalServicesScroll() {
               href="/services"
               className="inline-flex items-center space-x-2 px-5 py-2.5 rounded-full bg-white hover:bg-cream-dark text-maroon font-bold text-xs sm:text-sm border border-neutral-300 transition-all duration-200"
             >
-              <span>Explore All Services</span>
+              <span>Explore Your Options</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

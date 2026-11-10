@@ -290,7 +290,7 @@ export default function HomePage() {
               href="/services"
               className="px-8 py-3.5 rounded-full bg-[#160307]/75 hover:bg-[#160307]/95 text-cream-light border border-gold/50 backdrop-blur-md font-bold text-xs sm:text-sm tracking-wide hover:scale-105 transition-all duration-200 shadow-warm-lg"
             >
-              Explore All 10 Services
+              Explore Your Options
             </Link>
           </div>
         </div>
