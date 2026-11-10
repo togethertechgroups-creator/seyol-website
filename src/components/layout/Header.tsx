@@ -115,10 +115,10 @@ export const Header: React.FC = () => {
         />
       )}
 
-      <div className="pointer-events-auto w-full max-w-[1240px] relative z-50 flex flex-col">
+      <div className="pointer-events-auto w-full max-w-[1280px] relative z-50 flex flex-col">
         
         {/* ── Sleek White Floating Navbar Container ── */}
-        <div className="w-full bg-white rounded-xl sm:rounded-2xl h-[58px] sm:h-[64px] px-3 sm:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1 sm:gap-2 border border-neutral-200/80">
+        <div className="w-full bg-white rounded-xl sm:rounded-2xl h-[58px] sm:h-[64px] px-3 sm:px-4 xl:px-6 shadow-[0_4px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-1.5 sm:gap-3 border border-neutral-200/80">
           
           {/* ── Left: SEYOL Wordmark Logo ── */}
           <Link
@@ -138,7 +138,7 @@ export const Header: React.FC = () => {
           </Link>
 
           {/* ── Center: Desktop Navigation Bar with Dropdowns (64px height centered) ── */}
-          <nav className="hidden lg:flex items-center space-x-1 xl:space-x-2 shrink font-heading text-[13px] xl:text-[14px] font-semibold text-neutral-800 tracking-wide leading-none h-[64px]">
+          <nav className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 shrink font-heading text-[12.5px] xl:text-[13.5px] font-semibold text-neutral-800 tracking-wide leading-none h-[64px]">
             {navLinks.map((link) => {
               const isCurrentRoute = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) || (link.href === '/' && pathname === '/start-here');
               const isDropdownOpen = link.key && activeDropdown === link.key;
@@ -156,7 +156,7 @@ export const Header: React.FC = () => {
                       href={link.href}
                       prefetch={true}
                       onClick={() => setActiveDropdown(null)}
-                      className={`relative flex items-center space-x-0.5 px-2 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 cursor-pointer ${
+                      className={`relative flex items-center space-x-0.5 px-1.5 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 cursor-pointer ${
                         isHighlighted
                           ? 'text-[#7B1131] font-bold'
                           : 'text-neutral-700 hover:text-black hover:bg-neutral-50/80'
@@ -325,7 +325,7 @@ export const Header: React.FC = () => {
                   key={link.name}
                   href={link.href}
                   prefetch={true}
-                  className={`relative flex items-center px-2 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 ${
+                  className={`relative flex items-center px-1.5 xl:px-2.5 py-2 whitespace-nowrap rounded-lg transition-all duration-150 ${
                     isHighlighted
                       ? 'text-[#7B1131] font-bold'
                       : 'text-neutral-700 hover:text-black hover:bg-neutral-50/80'
@@ -341,28 +341,31 @@ export const Header: React.FC = () => {
               );
             })}
 
+            {/* Subtle Divider */}
+            <div className="h-4 w-px bg-neutral-200 mx-1 xl:mx-1.5 self-center shrink-0" />
+
             {/* Shopping Cart Icon in Navigation */}
             <Link
               href="/cart"
               aria-label="Shopping Cart"
-              className="relative p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-[#7B1131] hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-1"
+              className="relative w-8 h-8 rounded-full flex items-center justify-center text-neutral-600 hover:text-[#7B1131] hover:bg-[#FAF6EE] transition-all cursor-pointer shrink-0"
               title="View Shopping Cart"
             >
-              <ShoppingCart className="w-3.5 h-3.5" />
+              <ShoppingCart className="w-4 h-4" />
               {totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-[#7B1131] text-white text-[9px] font-bold min-w-[15px] h-[15px] px-0.5 rounded-full flex items-center justify-center ring-1 ring-white shadow-2xs leading-none">
+                <span className="absolute -top-1 -right-1 bg-[#7B1131] text-white text-[9px] font-bold min-w-[16px] h-[16px] px-0.5 rounded-full flex items-center justify-center ring-1.5 ring-white shadow-2xs leading-none">
                   {totalItems > 99 ? '99+' : totalItems}
                 </span>
               )}
             </Link>
 
-            {/* Compact Search Button */}
+            {/* Search Button */}
             <button
               onClick={() => setSearchOpen(true)}
-              className="p-1.5 rounded-lg flex items-center justify-center text-neutral-600 hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer shrink-0 ml-0.5"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-neutral-600 hover:text-[#7B1131] hover:bg-[#FAF6EE] transition-all cursor-pointer shrink-0"
               title="Search SEYOL Care"
             >
-              <Search className="w-3.5 h-3.5" />
+              <Search className="w-4 h-4" />
             </button>
           </nav>
 
@@ -448,21 +451,21 @@ export const Header: React.FC = () => {
             <button
               onClick={() => openCallBooking()}
               aria-label="Book a 15-Minute Call"
-              className="px-3 sm:px-4.5 h-[32px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#5A0C24] text-white text-[10.5px] sm:text-[12px] font-heading font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center shrink-0 hover:scale-[1.02] active:scale-[0.98]"
+              className="px-3 xl:px-4 h-[32px] sm:h-[36px] rounded-full bg-[#7B1131] hover:bg-[#5A0C24] text-white text-[10.5px] xl:text-[11.5px] font-heading font-bold tracking-wide transition-all duration-150 whitespace-nowrap cursor-pointer shadow-xs flex items-center justify-center shrink-0 hover:scale-[1.02] active:scale-[0.98]"
             >
               <span>Book a 15-Minute Call</span>
             </button>
 
-            {/* 3. Shopping Cart Action Icon */}
+            {/* 3. Mobile-only Shopping Cart Icon (desktop cart is in navigation menu) */}
             <Link
               href="/cart"
               aria-label="View Shopping Cart"
-              className="relative w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-xl border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
+              className="lg:hidden relative w-[30px] h-[30px] sm:w-[32px] sm:h-[32px] rounded-full border border-neutral-300 hover:border-[#7B1131] text-[#7B1131] hover:bg-[#FAF6EE] transition-all duration-150 shrink-0 cursor-pointer flex items-center justify-center shadow-2xs bg-white"
               title="Shopping Cart"
             >
-              <ShoppingCart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#7B1131]" />
+              <ShoppingCart className="w-3.5 h-3.5 text-[#7B1131]" />
               {totalItems > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-[#7B1131] text-white text-[9.5px] font-bold min-w-[17px] h-[17px] px-1 rounded-full flex items-center justify-center ring-2 ring-white shadow-xs leading-none">
+                <span className="absolute -top-1 -right-1 bg-[#7B1131] text-white text-[9px] font-bold min-w-[16px] h-[16px] px-0.5 rounded-full flex items-center justify-center ring-1.5 ring-white shadow-xs leading-none">
                   {totalItems > 99 ? '99+' : totalItems}
                 </span>
               )}
