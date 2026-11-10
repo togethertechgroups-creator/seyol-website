@@ -9,7 +9,6 @@ import heroBg2 from '../assets4/ChatGPT Image Aug 25, 2026, 09_12_27 AM.png';
 import heroBg3 from '../assets4/ChatGPT Image Aug 25, 2026, 08_26_15 AM.png';
 import ScrollExpand from '../components/shared/ScrollExpand';
 import WordReveal from '../components/shared/WordReveal';
-import HorizontalWords from '../components/shared/HorizontalWords';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
@@ -316,21 +315,16 @@ export default function HomePage() {
 
 
       {/* ========================================================================= */}
-      {/* KINETIC TYPOGRAPHY: HORIZONTAL PINNED SCROLL WORDS SECTION                 */}
-      {/* ========================================================================= */}
-      <HorizontalWords />
-
-      {/* ========================================================================= */}
       {/* SECTION 8: THE SEYOL METHOD (Section Explaining Philosophy in 4 Pillars)  */}
       {/* ========================================================================= */}
 
-      {/* Top Organic Wave Transition to Deep Maroon - Overlapping directly onto the photo */}
-      <div className="w-full overflow-hidden leading-none -mt-16 sm:-mt-24 lg:-mt-32 relative z-30 pointer-events-none">
+      {/* Top Organic Wave Transition to Deep Maroon */}
+      <div className="w-full overflow-hidden leading-none relative z-20 pointer-events-none bg-[#FAF6EE]">
         <svg
           viewBox="0 0 1440 120"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-16 sm:h-24 lg:h-36 text-[#6d132c] block"
+          className="w-full h-12 sm:h-20 lg:h-28 text-[#6d132c] block -mb-px"
           preserveAspectRatio="none"
         >
           <path
