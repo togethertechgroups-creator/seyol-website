@@ -26,31 +26,18 @@ interface StageCardData {
   badge: string;
 }
 
+interface StageItem {
+  title: string;
+  desc: string;
+  href: string;
+  ctaText: string;
+}
+
 interface RecommendationPath {
   stageName: string;
   headline: string;
   summary: string;
-  service: {
-    badge: string;
-    title: string;
-    desc: string;
-    href: string;
-    ctaText: string;
-  };
-  classItem: {
-    badge: string;
-    title: string;
-    desc: string;
-    href: string;
-    ctaText: string;
-  };
-  product: {
-    badge: string;
-    title: string;
-    desc: string;
-    href: string;
-    ctaText: string;
-  };
+  items: StageItem[];
 }
 
 const STAGES: StageCardData[] = [
@@ -99,133 +86,206 @@ const STAGES: StageCardData[] = [
 const RECOMMENDATIONS: Record<StageId, RecommendationPath> = {
   planning: {
     stageName: 'Planning for Pregnancy',
-    headline: 'Preconception Care & Uterine Vitality',
-    summary: 'Prepare your womb, harmonize your reproductive cycle, and nourish mind-body alignment with traditional Siddha & Ayurvedic preconception therapies.',
-    service: {
-      badge: 'CLINICAL SERVICE',
-      title: 'Preconception Support & Uterine Wellness',
-      desc: 'Pelvic basin tonification, warm herbal Kizhi fomentation, and restorative botanical bodywork for reproductive vitality.',
-      href: '/services/preconception-support',
-      ctaText: 'View Service Details',
-    },
-    classItem: {
-      badge: 'PARENT EDUCATION',
-      title: 'Pregnancy to Postpartum Traditional Nourishment',
-      desc: 'Master ancient healing food preparations, herbal tonics, and uterine strengthening nutrition.',
-      href: '/classes/pregnancy-to-postpartum-traditional-nourishment',
-      ctaText: 'Explore Workshop',
-    },
-    product: {
-      badge: 'HERBAL ESSENTIAL',
-      title: 'Restorative Mother Massage Oil',
-      desc: 'Cold-pressed sesame, wild turmeric, and traditional herbal infusions to warm and strengthen abdominal tissue.',
-      href: '/products',
-      ctaText: 'Shop Formulation',
-    },
+    headline: 'Preconception Care & Reproductive Wellness',
+    summary: 'A holistic preconception programme combining traditional women’s wellness practices with evidence-based fertility guidance, menstrual cycle awareness, and emotional grounding.',
+    items: [
+      {
+        title: 'Preconception Support',
+        desc: 'A holistic preconception programme combining traditional women’s wellness practices with evidence-based fertility guidance, menstrual cycle awareness, and emotional grounding.',
+        href: '/services/preconception-support',
+        ctaText: 'Explore Preconception Support',
+      },
+    ],
   },
   pregnant: {
     stageName: 'Currently Pregnant',
     headline: 'Pregnancy Comfort & Maternal Equilibrium',
-    summary: 'Alleviate lumbar strain, sciatic ache, and fluid retention while strengthening maternal pelvic mobility through evidence-informed prenatal care.',
-    service: {
-      badge: 'CLINICAL SERVICE',
-      title: 'Prenatal Massage Therapy',
-      desc: 'Gentle, safe, side-lying clinical massage specifically calibrated for second and third trimester postural comfort.',
-      href: '/services/prenatal-massage-therapy',
-      ctaText: 'View Prenatal Massage',
-    },
-    classItem: {
-      badge: 'PARENT EDUCATION',
-      title: 'Prenatal Movement & Pelvic Comfort',
-      desc: 'Learn therapeutic pelvic alignment, gentle yoga stretches, and partner counterpressure methods for deep relief.',
-      href: '/classes/prenatal-movement-and-pelvic-comfort',
-      ctaText: 'Explore Movement Class',
-    },
-    product: {
-      badge: 'HERBAL ESSENTIAL',
-      title: 'Maternal Body Comfort & Belly Oil',
-      desc: 'Nourishing botanical blend designed to improve skin elasticity, prevent stretch strain, and soothe tired ligaments.',
-      href: '/products',
-      ctaText: 'Shop Body Oil',
-    },
+    summary: 'Alleviate lumbar strain, sciatic ache, and fluid retention while preparing your body and mind for birth through evidence-informed prenatal care.',
+    items: [
+      {
+        title: 'Prenatal Massage',
+        desc: 'Gentle, safe, side-lying clinical massage specifically calibrated for second and third trimester postural comfort and fluid drainage.',
+        href: '/services/prenatal-massage-therapy',
+        ctaText: 'View Prenatal Massage',
+      },
+      {
+        title: 'Newborn Care Essentials',
+        desc: 'Comprehensive newborn care class covering soothing, swaddling, bathing, diapering, and essential parenting rhythms.',
+        href: '/classes/newborn-care-essentials-for-modern-parents',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Traditional Baby Massage & Bath Workshop',
+        desc: 'Hands-on training for parents in traditional Indian infant bodywork, colic relief strokes, and safe warm water bathing holds.',
+        href: '/classes/traditional-baby-massage-and-bath-workshop',
+        ctaText: 'Explore Workshop',
+      },
+      {
+        title: 'Postpartum & Confinement Preparation',
+        desc: 'Master sacred fourth-trimester healing, Ayurvedic confinement nutrition, maternal restorative rest, and newborn bonding.',
+        href: '/classes/postpartum-and-confinement-preparation',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Breastfeeding & Bottle Feeding Basics',
+        desc: 'Master pain-free latching, colostrum harvesting, milk supply establishment, and balanced bottle feeding routines.',
+        href: '/classes/breastfeeding-and-bottle-feeding-basics',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Prenatal Movement & Comfort',
+        desc: 'Learn therapeutic pelvic alignment, gentle yoga stretches, and partner counterpressure methods for deep relief.',
+        href: '/classes/prenatal-movement-and-pelvic-comfort',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Pregnancy to Postpartum Nourishment',
+        desc: 'Master ancient healing food preparations, herbal tonics, and uterine strengthening nutrition for pregnancy and recovery.',
+        href: '/classes/pregnancy-to-postpartum-traditional-nourishment',
+        ctaText: 'Explore Workshop',
+      },
+      {
+        title: 'Partner & Family Preparation',
+        desc: 'Empowering partners and grandparents with practical newborn handling, caregiving roles, and family communication rhythms.',
+        href: '/classes/partner-and-family-preparation-for-baby',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Everyday Baby Care Essentials',
+        desc: 'Thoughtful cold-pressed oils, gentle herbal cleansers, and soothing essentials for your baby’s everyday care routine.',
+        href: '/products',
+        ctaText: 'Shop Baby Essentials',
+      },
+      {
+        title: 'Pregnancy Preparation Guide',
+        desc: 'A clinician-vetted downloadable guide with helpful information, hospital prep, and practical guidance for your next chapter.',
+        href: '/resources/pregnancy-comfort-and-movement-bundle',
+        ctaText: 'Explore Guide',
+      },
+    ],
   },
   birth: {
     stageName: 'Preparing for Birth',
     headline: 'Physiological Birth & Partner Labour Support',
     summary: 'Enter your birthing room with calmness, physiological mastery, and continuous advocate support tailored to your birth sanctuary.',
-    service: {
-      badge: 'CLINICAL SERVICE',
-      title: 'Birth Doula Support',
-      desc: 'Continuous one-on-one advocacy, active labour positioning, partner counterpressure, and hospital sanctuary guidance.',
-      href: '/services/birth-doula-support',
-      ctaText: 'View Doula Support',
-    },
-    classItem: {
-      badge: 'PARENT EDUCATION',
-      title: 'Preparing for Birth with SEYOL',
-      desc: 'Hands-on labour breathing rhythms, hospital procedure clarity, partner coaching, and physiological birth masterclass.',
-      href: '/classes/preparing-for-birth-with-seyol',
-      ctaText: 'Explore Birth Workshop',
-    },
-    product: {
-      badge: 'RESOURCE BUNDLE',
-      title: 'Hospital Bag & Birth Sanctuary Checklist',
-      desc: 'A comprehensive checklist for labour comfort, hospital documentation, and seamless postpartum home return.',
-      href: '/resources',
-      ctaText: 'Download Checklist',
-    },
+    items: [
+      {
+        title: 'Birth Support',
+        desc: 'Dedicated birth companion providing continuous one-on-one labour advocacy, active labour positioning, partner coaching, and physiological birth positions.',
+        href: '/services/birth-doula-support',
+        ctaText: 'View Doula Support',
+      },
+      {
+        title: 'Preparing for Birth with SEYOL',
+        desc: 'Hands-on labour breathing rhythms, hospital procedure clarity, partner coaching, and physiological birth masterclass.',
+        href: '/classes/preparing-for-birth-with-seyol',
+        ctaText: 'Explore Birth Workshop',
+      },
+    ],
   },
   delivered: {
     stageName: 'Already Delivered',
     headline: 'Sacred 40-Day Postpartum Healing & Infant Bathing',
-    summary: 'Honour the sacred fourth trimester with traditional belly binding (Kattu), hot herbal bath fomentation, and Ayurvedic infant bodywork.',
-    service: {
-      badge: 'CLINICAL SERVICE',
-      title: 'Postpartum Massage & Bengkung Wrap',
-      desc: 'Traditional 10-to-60 session recovery packages featuring full-body herbal oil massage, uterine tucking, and tight belly binding.',
-      href: '/services/postpartum-massage-and-wrap',
-      ctaText: 'View Postpartum Packages',
-    },
-    classItem: {
-      badge: 'PARENT EDUCATION',
-      title: 'Traditional Baby Massage & Bath Workshop',
-      desc: 'Hands-on training for parents in traditional Indian infant bodywork, colic relief strokes, and safe warm water bathing holds.',
-      href: '/classes/traditional-baby-massage-and-bath-workshop',
-      ctaText: 'Explore Infant Workshop',
-    },
-    product: {
-      badge: 'HERBAL ESSENTIAL',
-      title: 'Traditional Vethu Kuli Bath Sachets & Baby Oil',
-      desc: 'Authentic South Indian herbal bath sachets for joint healing alongside pure cold-pressed baby massage oil.',
-      href: '/products',
-      ctaText: 'Shop Postpartum Care',
-    },
+    summary: 'Honour the sacred fourth trimester with traditional belly binding (Kattu), hot herbal bath fomentation, and expert infant bodywork.',
+    items: [
+      {
+        title: 'Infant Massage and Bath',
+        desc: 'Expert newborn bodywork, rhythmic stroke sequences, and calming traditional bath routines administered by compassionate pediatric nurses.',
+        href: '/services/infant-massage-and-bath',
+        ctaText: 'View Service',
+      },
+      {
+        title: 'Postpartum Massage and Wrap',
+        desc: 'Traditional in-home recovery packages featuring full-body herbal oil massage, uterine tonification, hot herbal Kizhi fomentation, and cotton belly binding.',
+        href: '/services/postpartum-massage-and-wrap',
+        ctaText: 'View Postpartum Packages',
+      },
+      {
+        title: 'Stay-In Confinement Nanny',
+        desc: 'Experienced, vetted confinement nannies providing 24/7 round-the-clock newborn handling, mother recovery support, and confinement meals.',
+        href: '/services/stay-in-confinement-nanny-support',
+        ctaText: 'View Confinement Nanny',
+      },
+      {
+        title: 'Lactation & Feeding Support',
+        desc: 'Personalised one-to-one clinical guidance for pain-free latching, engorgement relief, milk supply optimization, and gentle feeding rhythms.',
+        href: '/services/lactation-and-breastfeeding-support',
+        ctaText: 'View Lactation Care',
+      },
+      {
+        title: 'Mother and Baby Combo',
+        desc: 'Synchronised dual care session providing maternal recovery bodywork alongside soothing newborn massage and traditional bath.',
+        href: '/services/mother-and-baby-combo-packages',
+        ctaText: 'View Dual Packages',
+      },
+      {
+        title: 'Hourly Newborn Support',
+        desc: 'Flexible, book-by-the-hour infant care, hands-on feeding help, calming routines, and restful respite for recovering parents.',
+        href: '/services/hourly-newborn-support',
+        ctaText: 'View Hourly Care',
+      },
+      {
+        title: 'Traditional Baby Massage & Bath Workshop',
+        desc: 'Hands-on training in traditional Indian infant bodywork, colic relief strokes, and safe warm water bathing holds.',
+        href: '/classes/traditional-baby-massage-and-bath-workshop',
+        ctaText: 'Explore Workshop',
+      },
+      {
+        title: 'Breastfeeding & Bottle Feeding Basics',
+        desc: 'Master pain-free latching, colostrum harvesting, milk supply establishment, and balanced bottle feeding routines.',
+        href: '/classes/breastfeeding-and-bottle-feeding-basics',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'Partner & Family Preparation',
+        desc: 'Empowering partners and grandparents with practical newborn handling, caregiving roles, and family communication rhythms.',
+        href: '/classes/partner-and-family-preparation-for-baby',
+        ctaText: 'Explore Class',
+      },
+      {
+        title: 'All Products',
+        desc: 'Handcrafted Ayurvedic & Siddha formulations, cold-pressed oils, herbal bath sachets, and curated care bundles.',
+        href: '/products',
+        ctaText: 'Browse All Products',
+      },
+      {
+        title: 'Newborn Care Checklist',
+        desc: 'A practical, clinician-vetted checklist to help prepare for your baby’s first days, feeding routines, and diapering essentials.',
+        href: '/resources/essential-indian-hospital-bag-checklist',
+        ctaText: 'Download Checklist',
+      },
+      {
+        title: 'Baby Massage Basics',
+        desc: 'Step-by-step guidance on gentle newborn massage strokes, colic relief movements, and calming bath-time routines.',
+        href: '/resources/traditional-infant-massage-video-library',
+        ctaText: 'Explore Guide',
+      },
+      {
+        title: 'Postpartum Self-Care Guide',
+        desc: 'A comprehensive recovery guide covering physical healing, emotional wellbeing, warm herbal nutrition, and gentle rest.',
+        href: '/resources/the-sacred-40-days-confinement-guide',
+        ctaText: 'Download Guide',
+      },
+      {
+        title: 'Newborn Handling Essentials',
+        desc: 'Practical techniques for safe head support, ergonomic carrying, burping positions, and calming fussy newborns.',
+        href: '/resources/newborn-care-starter-bundle',
+        ctaText: 'Explore Guide',
+      },
+    ],
   },
   caregiver: {
     stageName: 'Become a SEYOL Caregiver',
     headline: 'Accredited Caregiver Training & Employment Agency Standards',
     summary: 'Join Singapore and India’s premier mother & infant care network with licensed Ministry of Manpower (EA) accredited professional pathways.',
-    service: {
-      badge: 'CAREER PATHWAY',
-      title: 'Certified Doula & Confinement Training',
-      desc: 'Comprehensive clinical doula and confinement nanny certification program combining traditional care with safety standards.',
-      href: '/careers',
-      ctaText: 'Explore Training Pathways',
-    },
-    classItem: {
-      badge: 'PRACTICAL ACCREDITATION',
-      title: 'Postpartum Care Specialist Certification',
-      desc: 'Master the sacred 40-day care rituals, traditional belly binding, herbal nutrition, and gentle newborn bathing techniques.',
-      href: '/careers/practical-confinement-care',
-      ctaText: 'View Specialist Course',
-    },
-    product: {
-      badge: 'PROFESSIONAL NETWORK',
-      title: 'Join SEYOL Certified Network',
-      desc: 'Become a placement-ready caregiver with licensed employment agency support, ethical contracts, and continuous mentoring.',
-      href: '/careers/apply',
-      ctaText: 'Apply as Caregiver',
-    },
+    items: [
+      {
+        title: 'Careers & Training',
+        desc: 'Accredited caregiver training pathways, certified doula and confinement nanny certifications, and professional career placement.',
+        href: '/careers',
+        ctaText: 'Explore Careers & Training',
+      },
+    ],
   },
 };
 
@@ -354,75 +414,41 @@ export const WhereAreYouRightNow: React.FC = () => {
             </button>
           </div>
 
-          {/* 3 Core Pillar Recommendations Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            
-            {/* 1. Clinical Service */}
-            <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
-              <div className="space-y-2.5">
-                <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
-                  {activeRecommendation.service.title}
-                </h4>
-                <p className="text-xs text-neutral-600 leading-relaxed">
-                  {activeRecommendation.service.desc}
-                </p>
-              </div>
+          {/* Journey Stage Recommendations Grid */}
+          <div
+            className={`grid grid-cols-1 ${
+              activeRecommendation.items.length === 1
+                ? 'max-w-md mx-auto sm:max-w-lg'
+                : activeRecommendation.items.length === 2
+                  ? 'sm:grid-cols-2 max-w-3xl mx-auto'
+                  : 'sm:grid-cols-2 lg:grid-cols-3'
+            } gap-5`}
+          >
+            {activeRecommendation.items.map((item, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow"
+              >
+                <div className="space-y-2.5">
+                  <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-neutral-600 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
 
-              <div className="pt-5">
-                <Link
-                  href={activeRecommendation.service.href}
-                  className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] hover:bg-[#7B1131] text-[#7B1131] hover:text-white font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
-                >
-                  <span>{activeRecommendation.service.ctaText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
+                <div className="pt-5">
+                  <Link
+                    href={item.href}
+                    className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] hover:bg-[#7B1131] text-[#7B1131] hover:text-white font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
+                  >
+                    <span>{item.ctaText}</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
               </div>
-            </div>
-
-            {/* 2. Education & Workshop */}
-            <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
-              <div className="space-y-2.5">
-                <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
-                  {activeRecommendation.classItem.title}
-                </h4>
-                <p className="text-xs text-neutral-600 leading-relaxed">
-                  {activeRecommendation.classItem.desc}
-                </p>
-              </div>
-
-              <div className="pt-5">
-                <Link
-                  href={activeRecommendation.classItem.href}
-                  className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] hover:bg-[#7B1131] text-[#7B1131] hover:text-white font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
-                >
-                  <span>{activeRecommendation.classItem.ctaText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
-            {/* 3. Herbal Formulation / Resource */}
-            <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
-              <div className="space-y-2.5">
-                <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
-                  {activeRecommendation.product.title}
-                </h4>
-                <p className="text-xs text-neutral-600 leading-relaxed">
-                  {activeRecommendation.product.desc}
-                </p>
-              </div>
-
-              <div className="pt-5">
-                <Link
-                  href={activeRecommendation.product.href}
-                  className="w-full py-2.5 px-4 rounded-xl bg-[#FAF6EE] hover:bg-[#7B1131] text-[#7B1131] hover:text-white font-heading font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer"
-                >
-                  <span>{activeRecommendation.product.ctaText}</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-
+            ))}
           </div>
 
           {/* Supportive Help Footer Link */}
