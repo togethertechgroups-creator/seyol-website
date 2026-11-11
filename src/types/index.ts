@@ -85,6 +85,7 @@ export interface Product {
     name: string;
     traditionalRole: string;
     botanicalName?: string;
+    image?: string;
   }[];
   usageRitual: string[];
   safetyCertifications: string[];

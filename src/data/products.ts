@@ -5,7 +5,7 @@ export const productsData: Product[] = [
     id: 'product-soothing-baby-oil',
     slug: 'soothing-baby-massage-oil',
     title: 'Soothing Baby Massage Oil',
-    subtitle: 'Cold-Pressed Sweet Almond, Virgin Coconut & Calming Nilgiri Botanicals',
+    subtitle: 'Cold-Pressed Sweet Almond, Virgin Coconut',
     category: 'baby-massage',
     stages: ['newborn'],
     volume: '200 ml',
@@ -15,8 +15,8 @@ export const productsData: Product[] = [
     reviewCount: 342,
     isBestseller: true,
     isHerbalHeritage: true,
-    shortDescription: 'Specially crafted for newborn and sensitive baby skin. Cold-pressed virgin oils infused with gentle herbs to promote sound sleep, muscular development, and skin barrier protection.',
-    fullDescription: 'Crafted according to classical Siddha oil-curing methods (Thailam Pakam), SEY Soothing Baby Massage Oil provides gentle, deep nourishment for delicate infant skin. Free from mineral oils, artificial fragrances, parabens, and silicones. It absorbs cleanly without sticky residue, nurturing skin softness while aiding bone and muscle strength through daily tactile massage.',
+    shortDescription: 'Cold-Pressed Sweet Almond, Virgin Coconut',
+    fullDescription: 'Crafted using traditional oil-preparation methods, SEY Soothing Baby Massage Oil provides gentle nourishment for delicate infant skin. Free from mineral oils, artificial fragrances, parabens, and silicones. It absorbs cleanly without sticky residue, helping maintain skin softness while supporting bonding and relaxation through daily baby massage.',
     keyBenefits: [
       'Nourishes delicate newborn skin barrier without clogging pores',
       'Promotes longer, deeper sleep cycles when used before bedtime bath',
@@ -25,24 +25,16 @@ export const productsData: Product[] = [
     ],
     heroIngredients: [
       {
-        name: 'Cold-Pressed Sweet Almond Oil',
-        traditionalRole: 'Vata pacifying, rich in Vitamin E & essential fatty acids for muscle tone',
-        botanicalName: 'Prunus Amygdalus Dulcis'
+        name: 'Sweet Almond Oil (Chekku Processed)',
+        botanicalName: 'Prunus Amygdalus Dulcis',
+        traditionalRole: 'Vata pacifying, rich in Vitamin E & essential fatty acids for muscle tone.',
+        image: '/images/ingredients/sweet-almond-oil.jpg'
       },
       {
         name: 'Virgin Coconut Oil (Chekku Processed)',
-        traditionalRole: 'Cooling, naturally antimicrobial and hydrating for sensitive skin',
-        botanicalName: 'Cocos Nucifera'
-      },
-      {
-        name: 'Vetiver (Khus Root Extract)',
-        traditionalRole: 'Traditional South Indian cooling aromatic root promoting nervous calm',
-        botanicalName: 'Chrysopogon Zizanioides'
-      },
-      {
-        name: 'Country Rose Petals (Panneer Rose)',
-        traditionalRole: 'Soothes delicate skin inflammation and lends a faint natural floral aroma',
-        botanicalName: 'Rosa Damascena'
+        botanicalName: 'Cocos Nucifera',
+        traditionalRole: 'Cooling, naturally antimicrobial and hydrating for sensitive skin.',
+        image: '/images/ingredients/virgin-coconut-oil.jpg'
       }
     ],
     usageRitual: [

@@ -110,9 +110,13 @@ export default function ProductDetailPage() {
                 {product.title}
               </h1>
 
-              <p className="text-xs sm:text-sm text-gold-dark font-semibold mt-1">
-                {product.subtitle}
-              </p>
+              {/* Product Ingredients Highlight */}
+              <div className="mt-2.5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FAF0EB] border border-[#EAC8D2] text-maroon shadow-2xs">
+                <Sparkles className="w-3.5 h-3.5 text-maroon flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-heading font-extrabold tracking-tight">
+                  {product.subtitle}
+                </span>
+              </div>
             </div>
 
             {/* Price & Volume */}
@@ -128,7 +132,7 @@ export default function ProductDetailPage() {
               </span>
             </div>
 
-            <p className="text-xs sm:text-sm text-brown leading-relaxed">
+            <p className="text-sm sm:text-base text-brown/90 leading-relaxed font-sans">
               {product.fullDescription}
             </p>
 
@@ -203,63 +207,168 @@ export default function ProductDetailPage() {
       </section>
 
       {/* Hero Ingredients & Step-by-Step Usage Ritual */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Hero Botanical Ingredients */}
-          <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
+      {product.heroIngredients.some((ing) => !!ing.image) ? (
+        <>
+          {/* Dedicated Hero Ingredients Section with Photographs */}
+          <section className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border">
+            <div className="max-w-7xl mx-auto space-y-8">
+              <div className="text-center max-w-2xl mx-auto space-y-2.5">
+                <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-maroon bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full inline-block">
+                  Botanical Integrity
+                </span>
+                <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-brown tracking-tight">
+                  Hero Ingredients
+                </h2>
+                <p className="text-xs sm:text-sm text-brown-muted max-w-lg mx-auto">
+                  Chekku-processed virgin oils chosen specifically for pure nourishment and delicate infant skin.
+                </p>
+              </div>
 
-            <h3 className="font-heading text-xl font-bold text-brown">
-              Hero Ayurvedic & Siddha Ingredients
-            </h3>
-            <div className="space-y-3">
-              {product.heroIngredients.map((ing, i) => (
-                <div key={i} className="bg-cream-light p-3.5 rounded-xl border border-cream-border/70 space-y-0.5">
-                  <div className="font-heading font-bold text-xs text-maroon flex items-center justify-between">
-                    <span>{ing.name}</span>
-                    {ing.botanicalName && (
-                      <span className="font-sans italic text-[10px] text-brown-muted font-normal">
-                        {ing.botanicalName}
-                      </span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+                {product.heroIngredients.map((ing, i) => (
+                  <div
+                    key={i}
+                    className="bg-white rounded-3xl overflow-hidden border border-[#E8DFD0] shadow-warm-sm hover:shadow-warm-md transition-all duration-300 flex flex-col group"
+                  >
+                    {ing.image && (
+                      <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-[#F7F4EF]">
+                        <img
+                          src={ing.image}
+                          alt={ing.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
+                      </div>
                     )}
-                  </div>
-                  <p className="text-xs text-brown-muted">{ing.traditionalRole}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+                    <div className="p-6 sm:p-7 flex-1 flex flex-col justify-between space-y-4">
+                      <div className="space-y-2">
+                        <h3 className="font-heading font-bold text-xl sm:text-2xl text-maroon leading-snug">
+                          {ing.name}
+                        </h3>
+                        {ing.botanicalName && (
+                          <p className="text-xs sm:text-sm font-sans text-brown">
+                            <span className="text-brown-muted font-normal">Botanical Name: </span>
+                            <span className="italic font-semibold text-gold-dark">{ing.botanicalName}</span>
+                          </p>
+                        )}
+                      </div>
 
-          {/* How to Use Ritual */}
-          <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
-
-            <h3 className="font-heading text-xl font-bold text-brown">
-              Traditional Daily Application Routine
-            </h3>
-            <div className="space-y-3 text-xs text-brown">
-              {product.usageRitual.map((step, i) => (
-                <div key={i} className="flex items-start space-x-3 bg-cream-light p-3 rounded-xl border border-cream-border/70">
-                  <span className="w-5 h-5 rounded-full bg-maroon text-cream-light font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <span>{step}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* Certifications Box */}
-            <div className="pt-3 border-t border-cream-border space-y-1.5">
-              <div className="text-[10px] font-bold uppercase text-brown-muted">Safety & Quality Testing:</div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-brown-muted">
-                {product.safetyCertifications.map((cert, i) => (
-                  <div key={i} className="flex items-center space-x-1.5">
-                    <Check className="w-3 h-3 text-gold-dark" />
-                    <span>{cert}</span>
+                      <div className="pt-3 border-t border-cream-border/80">
+                        <ul className="space-y-2 text-xs sm:text-sm text-brown leading-relaxed list-disc list-inside marker:text-maroon">
+                          <li>{ing.traditionalRole}</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+          </section>
+
+          {/* Traditional Daily Application Routine & Safety Testing */}
+          <section className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 bg-cream border-b border-cream-border">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+              {/* How to Use Ritual */}
+              <div className="bg-cream-light rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
+                <h3 className="font-heading text-xl font-bold text-brown">
+                  Traditional Daily Application Routine
+                </h3>
+                <div className="space-y-3 text-xs sm:text-sm text-brown">
+                  {product.usageRitual.map((step, i) => (
+                    <div key={i} className="flex items-start space-x-3 bg-white p-3.5 rounded-xl border border-cream-border/70">
+                      <span className="w-5 h-5 rounded-full bg-maroon text-cream-light font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        {i + 1}
+                      </span>
+                      <span>{step}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Certifications Box */}
+              <div className="bg-cream-light rounded-3xl p-6 sm:p-8 border border-cream-border flex flex-col justify-between space-y-6 shadow-warm-sm">
+                <div className="space-y-4">
+                  <h3 className="font-heading text-xl font-bold text-brown">
+                    Safety &amp; Clinical Oversight
+                  </h3>
+                  <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
+                    Every batch is crafted according to traditional standards and verified for newborn skin safety.
+                  </p>
+                  <div className="space-y-2.5 pt-2">
+                    {product.safetyCertifications.map((cert, i) => (
+                      <div key={i} className="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-cream-border/70 text-xs sm:text-sm text-brown">
+                        <Check className="w-4 h-4 text-gold-dark flex-shrink-0 mt-0.5" />
+                        <span>{cert}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-cream-border/80 flex items-center gap-3 text-xs text-brown-muted">
+                  <ShieldCheck className="w-5 h-5 text-maroon flex-shrink-0" />
+                  <span>Free from mineral oils, parabens, artificial fragrances &amp; silicones.</span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      ) : (
+        <section className="py-12 px-4 sm:px-6 lg:px-8 bg-cream-light border-y border-cream-border">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Hero Botanical Ingredients */}
+            <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
+              <h3 className="font-heading text-xl font-bold text-brown">
+                Hero Ayurvedic &amp; Siddha Ingredients
+              </h3>
+              <div className="space-y-3">
+                {product.heroIngredients.map((ing, i) => (
+                  <div key={i} className="bg-cream-light p-3.5 rounded-xl border border-cream-border/70 space-y-0.5">
+                    <div className="font-heading font-bold text-xs text-maroon flex items-center justify-between">
+                      <span>{ing.name}</span>
+                      {ing.botanicalName && (
+                        <span className="font-sans italic text-[10px] text-brown-muted font-normal">
+                          {ing.botanicalName}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-brown-muted">{ing.traditionalRole}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* How to Use Ritual */}
+            <div className="bg-cream rounded-3xl p-6 sm:p-8 border border-cream-border space-y-4 shadow-warm-sm">
+              <h3 className="font-heading text-xl font-bold text-brown">
+                Traditional Daily Application Routine
+              </h3>
+              <div className="space-y-3 text-xs text-brown">
+                {product.usageRitual.map((step, i) => (
+                  <div key={i} className="flex items-start space-x-3 bg-cream-light p-3 rounded-xl border border-cream-border/70">
+                    <span className="w-5 h-5 rounded-full bg-maroon text-cream-light font-bold text-[10px] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {i + 1}
+                    </span>
+                    <span>{step}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Certifications Box */}
+              <div className="pt-3 border-t border-cream-border space-y-1.5">
+                <div className="text-[10px] font-bold uppercase text-brown-muted">Safety &amp; Quality Testing:</div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-brown-muted">
+                  {product.safetyCertifications.map((cert, i) => (
+                    <div key={i} className="flex items-center space-x-1.5">
+                      <Check className="w-3 h-3 text-gold-dark" />
+                      <span>{cert}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
