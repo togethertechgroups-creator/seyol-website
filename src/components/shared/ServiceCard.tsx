@@ -1,13 +1,27 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { Sparkles, Clock, Check, Calendar } from 'lucide-react';
 import { Service } from '../../types';
 import { useQuickEnquiry } from '../../context/QuickEnquiryContext';
 
 export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
   const { openEnquiry } = useQuickEnquiry();
+  const [selectedNannyPackage, setSelectedNannyPackage] = useState<string>('28 Days');
+
+  const isMotherBabyCombo =
+    service.id === 'mother-baby-combo' ||
+    service.slug === 'mother-and-baby-combo-packages';
+
+  const isNannyCare =
+    service.id === 'confinement-nanny' ||
+    service.slug === 'stay-in-confinement-nanny-support';
+
+  const isPostpartumMassage =
+    service.id === 'postpartum-massage-wrap' ||
+    service.slug === 'postpartum-massage-and-wrap';
 
   return (
     <motion.div
@@ -65,11 +79,57 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
               </p>
             </div>
 
-            {/* Duration / Inclusions Text */}
-            {service.duration && (
-              <p className="text-xs text-[#736B66] font-medium leading-relaxed pt-0.5">
-                {service.duration}
-              </p>
+            {/* 3. Nanny Service: Selectable Available Package Durations (No Session Duration) */}
+            {isNannyCare && (
+              <div className="space-y-2 pt-1">
+                <div className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#70152B] flex items-center justify-between">
+                  <span>Available Package Durations:</span>
+                  <span className="text-[10px] font-medium text-[#736B66]">Select to inquire</span>
+                </div>
+                <div className="grid grid-cols-4 gap-1.5">
+                  {['14 Days', '28 Days', '42 Days', '56 Days'].map((pkg) => (
+                    <button
+                      key={pkg}
+                      type="button"
+                      onClick={() => setSelectedNannyPackage(pkg)}
+                      className={`py-2 px-1 text-center rounded-xl text-xs font-heading font-bold transition-all cursor-pointer ${
+                        selectedNannyPackage === pkg
+                          ? 'bg-[#70152B] text-white shadow-2xs border border-[#70152B]'
+                          : 'bg-[#FAF6EE] text-[#524644] border border-[#EAE1D5] hover:border-[#70152B]/40 hover:bg-white'
+                      }`}
+                    >
+                      {pkg}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* 6. Postpartum Massage & Wrap: Differentiated Classic & Premium Sessions */}
+            {isPostpartumMassage && (
+              <div className="space-y-2 pt-1">
+                <div className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#70152B]">
+                  Available Session Durations:
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="p-2.5 rounded-xl bg-[#FAF6EE] border border-[#EAE1D5] text-center">
+                    <span className="block text-xs font-heading font-extrabold text-[#70152B]">Classic</span>
+                    <span className="text-[11px] text-[#524644] font-medium">60 minutes</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#FAF6EE] border border-[#EAE1D5] text-center">
+                    <span className="block text-xs font-heading font-extrabold text-[#70152B]">Premium</span>
+                    <span className="text-[11px] text-[#524644] font-medium">80 minutes</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Standard Duration Display (Only if not Nanny and not Mother & Baby Combo) */}
+            {!isNannyCare && !isMotherBabyCombo && !isPostpartumMassage && service.duration && (
+              <div className="flex items-center gap-2 text-xs text-[#736B66] font-medium pt-0.5">
+                <Clock className="w-3.5 h-3.5 text-[#70152B] shrink-0" />
+                <span>{service.duration}</span>
+              </div>
             )}
           </div>
 
@@ -94,7 +154,13 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
 
               <button
                 type="button"
-                onClick={() => openEnquiry({ serviceTitle: service.title })}
+                onClick={() =>
+                  openEnquiry({
+                    serviceTitle: isNannyCare
+                      ? `${service.title} (${selectedNannyPackage} Package)`
+                      : service.title,
+                  })
+                }
                 className="px-5 sm:px-6 py-2.5 rounded-full bg-[#70152B] hover:bg-[#580F21] text-white font-semibold text-xs sm:text-[13px] transition-all shadow-sm hover:shadow-warm-sm flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <span>Enquire</span>
@@ -108,3 +174,5 @@ export const ServiceCard: React.FC<{ service: Service }> = ({ service }) => {
     </motion.div>
   );
 };
+
+export default ServiceCard;

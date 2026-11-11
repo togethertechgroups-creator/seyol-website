@@ -13,6 +13,8 @@ export interface Service {
   bestFor: string;
   recommendedTimeline: string;
   duration: string;
+  packages?: string[];
+  sessionOptions?: { name: string; duration: string; description?: string }[];
   format: 'In-Home (Chennai / Tamil Nadu)' | 'Virtual & Hybrid' | 'In-Clinic / In-Home' | string;
   pricingGuide: string;
   depositInfo: string;

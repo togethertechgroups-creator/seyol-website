@@ -186,11 +186,24 @@ export default function ServiceDetailPage() {
 
   const [openPostpartumFaq, setOpenPostpartumFaq] = useState<number | null>(0);
   const [openLactationFaq, setOpenLactationFaq] = useState<number | null>(0);
+  const [selectedNannyDuration, setSelectedNannyDuration] = useState<string>('28 Days');
 
   const isPostpartumPage =
     cleanSlug.includes('postnatal') ||
     cleanSlug.includes('postpartum') ||
     cleanSlug.includes('wrap');
+
+  const isPreconceptionPage = cleanSlug.includes('preconception');
+  const isPrenatalPage = cleanSlug.includes('prenatal');
+  const isPostpartumMassagePage =
+    cleanSlug.includes('postpartum-massage') ||
+    cleanSlug.includes('postnatal') ||
+    (cleanSlug.includes('postpartum') && !cleanSlug.includes('combo'));
+  const isInfantBathPage = cleanSlug.includes('infant') || cleanSlug.includes('baby-massage');
+  const isMotherBabyComboPage = cleanSlug.includes('combo');
+  const isNannyPage = cleanSlug.includes('nanny');
+  const isLactationPage = cleanSlug.includes('lactation');
+  const isConsultationPage = cleanSlug.includes('consultation') || cleanSlug.includes('guidance');
 
   const service = services.find(
     (s) =>
@@ -293,22 +306,99 @@ export default function ServiceDetailPage() {
               </div>
             )}
 
-            {/* Quick Meta Specs */}
-            <div className="grid grid-cols-2 gap-3 bg-cream-light p-4 rounded-2xl border border-cream-border text-xs">
-              <div>
-                <div className="text-[10px] uppercase font-bold text-brown-muted">Session Duration</div>
-                <div className="font-semibold text-brown mt-0.5">{service.duration}</div>
+            {/* Quick Meta Specs / Package Selectors */}
+            {isMotherBabyComboPage ? (
+              /* Requirement 7: For Mother & Baby Postpartum Combo, completely remove session duration and when can you start bubbles */
+              null
+            ) : isNannyPage ? (
+              /* Requirement 3: 24/7 Stay-In Confinement Nanny Care - display selectable package durations (no session duration) */
+              <div className="space-y-3 bg-cream-light p-4 sm:p-5 rounded-2xl border border-cream-border">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#7B1131]">
+                    Available Confinement Packages
+                  </span>
+                  <span className="text-[11px] text-brown-muted font-medium">Select package to enquire</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {['14 Days', '28 Days', '42 Days', '56 Days'].map((pkg) => (
+                    <button
+                      key={pkg}
+                      type="button"
+                      onClick={() => setSelectedNannyDuration(pkg)}
+                      className={`py-3 px-2 rounded-xl text-xs sm:text-sm font-heading font-extrabold text-center transition-all cursor-pointer ${
+                        selectedNannyDuration === pkg
+                          ? 'bg-[#7B1131] text-white shadow-warm-xs border border-[#7B1131]'
+                          : 'bg-white text-brown border border-cream-border hover:border-[#7B1131]/40'
+                      }`}
+                    >
+                      {pkg}
+                    </button>
+                  ))}
+                </div>
+                <div className="text-[11px] text-brown-muted flex items-center justify-between pt-1 border-t border-cream-border/60">
+                  <span>Selected Package: <strong className="text-[#7B1131] font-bold">{selectedNannyDuration} Confinement Care</strong></span>
+                  <span>Advance booking recommended</span>
+                </div>
               </div>
-              <div>
-                <div className="text-[10px] uppercase font-bold text-brown-muted">When Can You Start</div>
-                <div className="font-semibold text-brown mt-0.5">{service.recommendedTimeline}</div>
+            ) : isPostpartumMassagePage ? (
+              /* Requirement 6: Postpartum Massage & Wrap - Classic (60 mins) & Premium (80 mins) + separate starting guidance */
+              <div className="space-y-3 bg-cream-light p-4 sm:p-5 rounded-2xl border border-cream-border">
+                <div className="text-[11px] font-heading font-extrabold uppercase tracking-wider text-[#7B1131]">
+                  Available Sessions:
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-xl bg-white border border-cream-border shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-heading font-extrabold text-sm text-[#7B1131]">Classic</span>
+                      <span className="text-xs font-bold text-brown bg-cream-light px-2.5 py-0.5 rounded-md">60 minutes</span>
+                    </div>
+                    <p className="text-[11px] text-brown-muted mt-1 leading-snug">
+                      Traditional full-body postpartum oil massage and abdominal binding.
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-white border border-cream-border shadow-2xs">
+                    <div className="flex items-center justify-between">
+                      <span className="font-heading font-extrabold text-sm text-[#7B1131]">Premium</span>
+                      <span className="text-xs font-bold text-brown bg-cream-light px-2.5 py-0.5 rounded-md">80 minutes</span>
+                    </div>
+                    <p className="text-[11px] text-brown-muted mt-1 leading-snug">
+                      Deep restorative bodywork, herbal Kizhi hot compress, and firm cotton wrap.
+                    </p>
+                  </div>
+                </div>
+                <div className="p-3.5 rounded-xl bg-white/90 border border-[#EAC8D2] text-xs text-brown leading-relaxed">
+                  <div className="text-[11px] uppercase font-heading font-extrabold text-[#7B1131] mb-1">
+                    When Can You Start?
+                  </div>
+                  <p className="font-medium text-brown">
+                    You can typically start 4–5 days after normal delivery or 5–7 days after caesarean section. You can also start after your doctor’s clearance.
+                  </p>
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Standard Meta Specs for other services */
+              <div className="grid grid-cols-2 gap-3 bg-cream-light p-4 rounded-2xl border border-cream-border text-xs">
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-brown-muted">Session Duration</div>
+                  <div className="font-semibold text-brown mt-0.5">{service.duration}</div>
+                </div>
+                <div>
+                  <div className="text-[10px] uppercase font-bold text-brown-muted">When Can You Start</div>
+                  <div className="font-semibold text-brown mt-0.5">{service.recommendedTimeline}</div>
+                </div>
+              </div>
+            )}
 
             {/* Action buttons */}
             <div className="pt-2 flex flex-col sm:flex-row gap-3">
               <button
-                onClick={() => openEnquiry({ serviceTitle: service.title })}
+                onClick={() =>
+                  openEnquiry({
+                    serviceTitle: isNannyPage
+                      ? `${service.title} (${selectedNannyDuration} Package)`
+                      : service.title,
+                  })
+                }
                 className="px-7 py-3.5 rounded-full bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm shadow-warm-md hover:scale-105 transition-all flex items-center justify-center space-x-2 cursor-pointer"
               >
                 <span>Get Free Price Quotation</span>
@@ -360,58 +450,119 @@ export default function ServiceDetailPage() {
             </div>
 
             {/* Benefits List */}
-            <div className="space-y-4 max-w-2xl">
-              {service.features.map((feat, idx) => {
-                const parts = feat.split(' - ');
-                const title = parts[0] || feat;
-                const desc = parts[1] || '';
-
-                return (
-                  <div key={idx} className="flex items-start space-x-3.5 group">
-                    <div className="w-6 h-6 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white shrink-0 group-hover:bg-gold group-hover:text-maroon transition-all shadow-xs mt-0.5">
+            {isPrenatalPage ? (
+              /* Requirement 5: Display the three prenatal benefits as separate, easy-to-read content blocks */
+              <div className="space-y-4 max-w-2xl">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm space-y-1.5 transition-all hover:bg-white/15">
+                  <h3 className="font-heading font-extrabold text-base sm:text-lg text-white flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-gold/20 text-[#E8C574] flex items-center justify-center shrink-0">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
-                    <div className="text-sm sm:text-base leading-relaxed text-white max-w-xl">
-                      <span className="font-extrabold text-white group-hover:text-gold-light transition-colors">
-                        {title}
-                      </span>
-                      {desc && (
-                        <span className="font-semibold text-white/95">
-                          {' '}– {desc}
-                        </span>
-                      )}
+                    <span>Alleviating Pregnancy Stress</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-sans pl-7">
+                    Amidst hormonal shifts, morning discomforts, and bodily strains, our massages provide a serene relief, addressing both mind and body stress.
+                  </p>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm space-y-1.5 transition-all hover:bg-white/15">
+                  <h3 className="font-heading font-extrabold text-base sm:text-lg text-white flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-gold/20 text-[#E8C574] flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
-                  </div>
-                );
-              })}
-            </div>
+                    <span>Boosted Circulation</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-sans pl-7">
+                    Prenatal massage eases blood flow, aiding the removal of pooled blood and lactic acid build-up, enhancing muscle oxygenation during pregnancy.
+                  </p>
+                </div>
+
+                <div className="p-4 sm:p-5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm space-y-1.5 transition-all hover:bg-white/15">
+                  <h3 className="font-heading font-extrabold text-base sm:text-lg text-white flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-full bg-gold/20 text-[#E8C574] flex items-center justify-center shrink-0">
+                      <Check className="w-3.5 h-3.5 stroke-[3]" />
+                    </div>
+                    <span>Increased Flexibility</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-sans pl-7">
+                    Massage can increase flexibility and range of motion by loosening tight hip muscles, offering comfort and the ability to assume diverse birthing positions.
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4 max-w-2xl">
+                {service.features.map((feat, idx) => {
+                  const parts = feat.split(' - ');
+                  const title = parts[0] || feat;
+                  const desc = parts[1] || '';
+
+                  return (
+                    <div key={idx} className="flex items-start space-x-3.5 group">
+                      <div className="w-6 h-6 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-white shrink-0 group-hover:bg-gold group-hover:text-maroon transition-all shadow-xs mt-0.5">
+                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                      </div>
+                      <div className="text-sm sm:text-base leading-relaxed text-white max-w-xl">
+                        <span className="font-extrabold text-white group-hover:text-gold-light transition-colors">
+                          {title}
+                        </span>
+                        {desc && (
+                          <span className="font-semibold text-white/95">
+                            {' '}– {desc}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           {/* Right Column: 2 Stacked Luxury Photo Cards */}
           <div className="lg:col-span-4 flex flex-col gap-4 sm:gap-5 justify-center w-full max-w-[380px] mx-auto lg:ml-auto">
             <div className="relative w-full h-[180px] sm:h-[210px] rounded-3xl overflow-hidden shadow-2xl border border-white/20 group bg-neutral-900">
               <img
-                src={service.benefitImages?.[0] || benefitImg1.src || (benefitImg1 as any)}
-                alt="Therapeutic Bodywork"
+                src={
+                  isPreconceptionPage
+                    ? '/assets4/preconception-consultation.jpg'
+                    : isConsultationPage
+                    ? '/assets4/care-guidance-consultation.jpg'
+                    : service.benefitImages?.[0] || benefitImg1.src || (benefitImg1 as any)
+                }
+                alt={isPreconceptionPage ? 'Personalised Fertility Consultation' : 'Care Guidance Consultation'}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 text-xs text-white flex items-center justify-between shadow-sm">
-                <span className="font-semibold text-xs text-cream-light">Therapeutic Touch</span>
-                <span className="text-gold-light text-[10px] uppercase font-bold tracking-wider">Certified Care</span>
+                <span className="font-semibold text-xs text-cream-light">
+                  {isPreconceptionPage || isConsultationPage ? '1-on-1 Guidance' : 'Therapeutic Touch'}
+                </span>
+                <span className="text-gold-light text-[10px] uppercase font-bold tracking-wider">
+                  {isPreconceptionPage || isConsultationPage ? 'Roadmap Session' : 'Certified Care'}
+                </span>
               </div>
             </div>
 
             <div className="relative w-full h-[180px] sm:h-[210px] rounded-3xl overflow-hidden shadow-2xl border border-white/20 group bg-neutral-900">
               <img
-                src={service.benefitImages?.[1] || benefitImg2.src || (benefitImg2 as any)}
-                alt="Restorative Comfort Touch"
+                src={
+                  isPreconceptionPage
+                    ? '/assets4/care-guidance-consultation.jpg'
+                    : isConsultationPage
+                    ? '/assets4/preconception-consultation.jpg'
+                    : service.benefitImages?.[1] || benefitImg2.src || (benefitImg2 as any)
+                }
+                alt={isPreconceptionPage ? 'Wellness Planning' : 'Care Advisor'}
                 className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
               <div className="absolute bottom-3 left-3 right-3 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-white/20 text-xs text-white flex items-center justify-between shadow-sm">
-                <span className="font-semibold text-xs text-cream-light">Relaxation &amp; Relief</span>
-                <span className="text-gold-light text-[10px] uppercase font-bold tracking-wider">Deep Calm</span>
+                <span className="font-semibold text-xs text-cream-light">
+                  {isPreconceptionPage || isConsultationPage ? 'Bespoke Care Protocol' : 'Relaxation & Relief'}
+                </span>
+                <span className="text-gold-light text-[10px] uppercase font-bold tracking-wider">
+                  {isPreconceptionPage || isConsultationPage ? 'Family Preparedness' : 'Deep Calm'}
+                </span>
               </div>
             </div>
           </div>
@@ -420,151 +571,170 @@ export default function ServiceDetailPage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 3. HOW IS IT DONE? SECTION                                                */}
+      {/* 3. HOW IS IT DONE? SECTION (Omitted for Preconception per Requirement 1)   */}
       {/* ========================================================================= */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-cream-border">
-        <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          
-          <div className="lg:col-span-7 space-y-7 pl-4 sm:pl-8 lg:pl-[30mm]">
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
-              How is it done?
-            </h2>
+      {!isPreconceptionPage && (
+        <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white border-b border-cream-border">
+          <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            <div className="lg:col-span-7 space-y-7 pl-4 sm:pl-8 lg:pl-[30mm]">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
+                How is it done?
+              </h2>
 
-            <div className="space-y-4 text-sm sm:text-base text-brown-dark leading-relaxed">
-              <div className="flex items-start space-x-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
-                <p className="leading-relaxed">
-                  <strong className="font-extrabold text-brown">Therapeutic Protocol &amp; Procedure:</strong>{' '}
-                  <span className="text-brown/90 font-medium">
-                    {service.summary}
-                  </span>
-                </p>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
-                <p className="leading-relaxed">
-                  <strong className="font-extrabold text-brown">Key Physiological &amp; Emotional Benefits:</strong>{' '}
-                  <span className="text-brown/90 font-medium">
-                    {service.benefit}
-                  </span>
-                </p>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
-                <p className="leading-relaxed">
-                  <strong className="font-extrabold text-brown">Duration:</strong>{' '}
-                  <span className="text-brown/90 font-medium">
-                    {service.duration}
-                  </span>
-                </p>
-              </div>
-
-              <div className="flex items-start space-x-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
-                <p className="leading-relaxed">
-                  <strong className="font-extrabold text-brown">When Can You Start:</strong>{' '}
-                  <span className="text-brown/90 font-medium">
-                    {service.recommendedTimeline}
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => openEnquiry({ serviceTitle: service.title })}
-                className="bg-[#7B1131] hover:bg-[#5e0c24] text-white px-9 py-3 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
-              >
-                Book Now
-              </button>
-            </div>
-          </div>
-
-          {/* Right Column: Image Frame */}
-          <div className="lg:col-span-5 flex justify-center items-center w-full">
-            <div className="relative w-full max-w-[380px] h-[440px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-cream-border/80 group bg-neutral-900">
-              <img
-                src={service.processImage || benefitImg1.src || (benefitImg1 as any)}
-                alt="How is it done"
-                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
-              />
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 4. POSTPARTUM BATH ADD-ON SECTION                                         */}
-      {/* ========================================================================= */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-cream/70 border-b border-cream-border">
-        <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-12">
-          
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
-              Postpartum Bath Add-On
-            </h2>
-            <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
-              We combine our specially curated SEYOL Ayurvedic Herbal Bath Sachets with fresh herbs and essential oils in warm water to create a cocoon of comfort for you to unwind.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-            {[
-              {
-                title: 'Postpartum Healing',
-                desc: 'Ayurvedic herbs used in the bath aid tissue repair, soothe perineal discomfort, and reduce inflammation after childbirth.',
-                icon: Heart,
-              },
-              {
-                title: 'Improved Sleep',
-                desc: 'The soothing effects of warm water infused with medicinal herbs prepare new mothers for deep, revitalizing sleep.',
-                icon: Clock,
-              },
-              {
-                title: 'Detoxification',
-                desc: 'Ayurvedic botanicals support natural perspiration and lymphatic drainage, promoting wholesome bodily cleansing.',
-                icon: Sparkles,
-              },
-              {
-                title: 'Uplifts Mood',
-                desc: 'Aromatic herbal essences offer mood-enhancing aromatherapy, uplifting your spirits and creating emotional serenity.',
-                icon: Smile,
-              },
-            ].map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-white rounded-3xl p-6 border border-cream-border shadow-warm-sm hover:shadow-warm-md transition-all duration-300 flex flex-col justify-between space-y-3"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-maroon-soft text-maroon flex items-center justify-center shadow-xs">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div className="space-y-1.5">
-                    <h3 className="font-heading font-bold text-base sm:text-lg text-brown">{item.title}</h3>
-                    <p className="text-xs text-brown-muted leading-relaxed font-medium">{item.desc}</p>
-                  </div>
+              <div className="space-y-4 text-sm sm:text-base text-brown-dark leading-relaxed">
+                <div className="flex items-start space-x-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
+                  <p className="leading-relaxed">
+                    <strong className="font-extrabold text-brown">Therapeutic Protocol &amp; Procedure:</strong>{' '}
+                    <span className="text-brown/90 font-medium">
+                      {service.summary}
+                    </span>
+                  </p>
                 </div>
-              );
-            })}
-          </div>
 
-          {/* Timing Note Card */}
-          <div className="max-w-xl mx-auto bg-white border border-gold/40 rounded-2xl p-5 text-center shadow-warm-xs space-y-1">
-            <div className="font-heading font-bold text-sm sm:text-base text-[#7B1131]">
-              Total Duration of Postpartum Massage, Bath &amp; Wrap
+                <div className="flex items-start space-x-3">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
+                  <p className="leading-relaxed">
+                    <strong className="font-extrabold text-brown">Key Physiological &amp; Emotional Benefits:</strong>{' '}
+                    <span className="text-brown/90 font-medium">
+                      {service.benefit}
+                    </span>
+                  </p>
+                </div>
+
+                {/* Duration: Suppressed for Mother & Baby Combo */}
+                {!isMotherBabyComboPage && service.duration && (
+                  <div className="flex items-start space-x-3">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
+                    <p className="leading-relaxed">
+                      <strong className="font-extrabold text-brown">Duration:</strong>{' '}
+                      <span className="text-brown/90 font-medium">
+                        {service.duration}
+                      </span>
+                    </p>
+                  </div>
+                )}
+
+                {/* When Can You Start: Suppressed for Mother & Baby Combo */}
+                {!isMotherBabyComboPage && service.recommendedTimeline && (
+                  <div className="flex items-start space-x-3">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#7B1131] mt-2 shrink-0" />
+                    <p className="leading-relaxed">
+                      <strong className="font-extrabold text-brown">When Can You Start:</strong>{' '}
+                      <span className="text-brown/90 font-medium">
+                        {service.recommendedTimeline}
+                      </span>
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() =>
+                    openEnquiry({
+                      serviceTitle: isNannyPage
+                        ? `${service.title} (${selectedNannyDuration} Package)`
+                        : service.title,
+                    })
+                  }
+                  className="bg-[#7B1131] hover:bg-[#5e0c24] text-white px-9 py-3 rounded-xl font-bold text-sm shadow-md hover:shadow-lg transition-all duration-300 cursor-pointer"
+                >
+                  Book Now
+                </button>
+              </div>
             </div>
-            <p className="text-xs text-brown font-semibold">
-              Each session is 1 hour 30 Minutes long.
-            </p>
-          </div>
 
-        </div>
-      </section>
+            {/* Right Column: Image Frame */}
+            <div className="lg:col-span-5 flex justify-center items-center w-full">
+              <div className="relative w-full max-w-[380px] h-[440px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-cream-border/80 group bg-neutral-900">
+                <img
+                  src={
+                    isConsultationPage
+                      ? '/assets4/care-guidance-consultation.jpg'
+                      : service.processImage || benefitImg1.src || (benefitImg1 as any)
+                  }
+                  alt={isConsultationPage ? 'Care Guidance Session' : 'How is it done'}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            </div>
+
+          </div>
+        </section>
+      )}
+
+      {/* ========================================================================= */}
+      {/* 4. POSTPARTUM BATH ADD-ON SECTION (Postpartum Massage Only)               */}
+      {/* ========================================================================= */}
+      {isPostpartumMassagePage && (
+        <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 bg-cream/70 border-b border-cream-border">
+          <div className="max-w-[96%] xl:max-w-[95%] 2xl:max-w-[1720px] mx-auto space-y-12">
+            
+            <div className="text-center max-w-2xl mx-auto space-y-3">
+              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-[#7B1131] tracking-tight">
+                Postpartum Bath Add-On
+              </h2>
+              <p className="text-xs sm:text-sm text-brown-muted leading-relaxed">
+                We combine our specially curated SEYOL Ayurvedic Herbal Bath Sachets with fresh herbs and essential oils in warm water to create a cocoon of comfort for you to unwind.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+              {[
+                {
+                  title: 'Postpartum Healing',
+                  desc: 'Ayurvedic herbs used in the bath aid tissue repair, soothe perineal discomfort, and reduce inflammation after childbirth.',
+                  icon: Heart,
+                },
+                {
+                  title: 'Improved Sleep',
+                  desc: 'The soothing effects of warm water infused with medicinal herbs prepare new mothers for deep, revitalizing sleep.',
+                  icon: Clock,
+                },
+                {
+                  title: 'Detoxification',
+                  desc: 'Ayurvedic botanicals support natural perspiration and lymphatic drainage, promoting wholesome bodily cleansing.',
+                  icon: Sparkles,
+                },
+                {
+                  title: 'Uplifts Mood',
+                  desc: 'Aromatic herbal essences offer mood-enhancing aromatherapy, uplifting your spirits and creating emotional serenity.',
+                  icon: Smile,
+                },
+              ].map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white rounded-3xl p-6 border border-cream-border shadow-warm-sm hover:shadow-warm-md transition-all duration-300 flex flex-col justify-between space-y-3"
+                  >
+                    <div className="w-12 h-12 rounded-2xl bg-maroon-soft text-maroon flex items-center justify-center shadow-xs">
+                      <Icon className="w-6 h-6" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <h3 className="font-heading font-bold text-base sm:text-lg text-brown">{item.title}</h3>
+                      <p className="text-xs text-brown-muted leading-relaxed font-medium">{item.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Timing Note Card */}
+            <div className="max-w-xl mx-auto bg-white border border-gold/40 rounded-2xl p-5 text-center shadow-warm-xs space-y-1">
+              <div className="font-heading font-bold text-sm sm:text-base text-[#7B1131]">
+                Total Duration of Postpartum Massage, Bath &amp; Wrap
+              </div>
+              <p className="text-xs text-brown font-semibold">
+                Each session is 1 hour 30 Minutes long.
+              </p>
+            </div>
+
+          </div>
+        </section>
+      )}
 
       {/* ========================================================================= */}
       {/* 5. COMBINED PACKAGES SECTION (Ultra-Premium Bento Grid)                   */}
