@@ -419,14 +419,52 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Card 3: Care Through Every Stage (Slot 3, Top-Right - Wireframe 3D Sphere Card) */}
+            {/* Card 3: Adapted for Modern Families (Slot 3, Top-Right - Concentric Radar Arcs Card) */}
             <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#E2D8CF] bg-gradient-to-b from-[#F7F2EC] via-[#EFE7DE] to-[#E5DCD2] text-[#3A1D1D]">
               {/* Text Content at Top */}
               <div className="relative z-10 space-y-2">
                 <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#3A1D1D] tracking-tight leading-snug">
-                  Care Through Every Stage
+                  Adapted for Modern Families
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed max-w-xs">
+                  Care shaped around today’s homes, schedules, routines and family needs.
+                </p>
+              </div>
+
+              {/* Concentric Radar Rings & Sweeping Beam in Maroon/Gold */}
+              <div className="relative w-full h-40 sm:h-44 overflow-hidden mt-4">
+                {/* Concentric Circular Arcs */}
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full border border-[#7B1131]/15" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full border border-[#7B1131]/20" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full border border-[#7B1131]/25" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full border border-[#C8A45D]/40" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full border border-[#C8A45D]/60 bg-[#7B1131]/15" />
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#7B1131] shadow-[0_0_10px_rgba(123,17,49,0.5)]" />
+
+                {/* Radar Sweeping Beam */}
+                <div
+                  className="absolute -bottom-10 left-1/2 origin-bottom -translate-x-1/2 w-56 h-56 pointer-events-none transition-transform duration-1000 ease-out group-hover:rotate-45"
+                  style={{
+                    background: 'conic-gradient(from 180deg at 50% 100%, rgba(200,164,93,0.35) 0deg, rgba(123,17,49,0.15) 25deg, transparent 55deg)',
+                    borderRadius: '50% 50% 0 0'
+                  }}
+                />
+
+                {/* Radar Scanner Line with Glowing Node */}
+                <div className="absolute -bottom-10 left-1/2 origin-bottom w-[1.5px] h-36 bg-gradient-to-t from-[#7B1131] via-[#C8A45D]/60 to-transparent rotate-[32deg] group-hover:rotate-[65deg] transition-transform duration-1000 ease-out">
+                  <div className="absolute top-5 -left-1 w-2.5 h-2.5 rounded-full bg-[#C8A45D] shadow-[0_0_8px_#C8A45D]" />
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Care Through Every Stage (Slot 4, Bottom-Left - Wireframe 3D Sphere Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#3A0715] bg-gradient-to-b from-[#380715] via-[#2A040F] to-[#1A0208] text-white">
+              {/* Text Content at Top */}
+              <div className="relative z-10 space-y-2">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug">
+                  Care Through Every Stage
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-white/80 leading-relaxed max-w-xs">
                   Support that can continue from preconception and pregnancy through birth, postpartum recovery and the early months with baby.
                 </p>
               </div>
@@ -439,70 +477,32 @@ export default function HomePage() {
                   fill="none"
                 >
                   {/* Outer border sphere */}
-                  <circle cx="100" cy="100" r="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.35" />
+                  <circle cx="100" cy="100" r="85" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="3 3" opacity="0.25" />
                   {/* Latitudes */}
-                  <ellipse cx="100" cy="100" rx="85" ry="55" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
-                  <ellipse cx="100" cy="100" rx="85" ry="24" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.45" />
+                  <ellipse cx="100" cy="100" rx="85" ry="55" stroke="#C8A45D" strokeWidth="1" strokeDasharray="3 3" opacity="0.35" />
+                  <ellipse cx="100" cy="100" rx="85" ry="24" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
                   {/* Equator / Central Horizon */}
                   <line x1="15" y1="100" x2="185" y2="100" stroke="#C8A45D" strokeWidth="1.2" strokeDasharray="2 2" opacity="0.6" />
                   {/* Longitudes */}
-                  <ellipse cx="100" cy="100" rx="55" ry="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.4" />
-                  <ellipse cx="100" cy="100" rx="24" ry="85" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.45" />
-                  <line x1="100" y1="15" x2="100" y2="185" stroke="#7B1131" strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
+                  <ellipse cx="100" cy="100" rx="55" ry="85" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="3 3" opacity="0.3" />
+                  <ellipse cx="100" cy="100" rx="24" ry="85" stroke="#C8A45D" strokeWidth="1" strokeDasharray="3 3" opacity="0.35" />
+                  <line x1="100" y1="15" x2="100" y2="185" stroke="#FFFFFF" strokeWidth="1" strokeDasharray="3 3" opacity="0.25" />
                 </svg>
 
                 {/* Floating Stage Tags Anchored on the Sphere */}
-                <div className="absolute top-[32%] left-[8%] bg-white/95 backdrop-blur-md border border-[#EAE1D5] rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-[#7B1131] shadow-md flex items-center gap-1 group-hover:-translate-y-1 transition-transform">
+                <div className="absolute top-[32%] left-[8%] bg-[#500C1F]/90 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-white shadow-md flex items-center gap-1 group-hover:-translate-y-1 transition-transform">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#C8A45D]" />
                   Preconception
                 </div>
 
-                <div className="absolute top-[48%] right-[6%] bg-white/95 backdrop-blur-md border border-[#EAE1D5] rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-[#7B1131] shadow-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#7B1131]" />
+                <div className="absolute top-[48%] right-[6%] bg-[#500C1F]/90 backdrop-blur-md border border-white/20 rounded-full px-2.5 py-1 text-[10px] font-heading font-bold text-white shadow-md flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#E8C574]" />
                   Pregnancy &amp; Birth
                 </div>
 
-                <div className="absolute bottom-[8%] left-[26%] bg-[#7B1131] text-white border border-white/50 rounded-full px-3 py-1 text-[10px] font-heading font-bold shadow-lg flex items-center gap-1 group-hover:scale-105 transition-transform">
+                <div className="absolute bottom-[8%] left-[26%] bg-[#7B1131] text-white border border-[#C8A45D]/60 rounded-full px-3 py-1 text-[10px] font-heading font-bold shadow-lg flex items-center gap-1 group-hover:scale-105 transition-transform">
                   <Sparkles className="w-3 h-3 text-[#E8C574]" />
                   Postpartum &amp; Early Months
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4: Adapted for Modern Families (Slot 4, Bottom-Left - Concentric Radar Arcs Card) */}
-            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#3A0715] bg-gradient-to-b from-[#380715] via-[#2A040F] to-[#1A0208] text-white">
-              {/* Text Content at Top */}
-              <div className="relative z-10 space-y-2">
-                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug">
-                  Adapted for Modern Families
-                </h3>
-                <p className="font-sans text-xs sm:text-sm text-white/80 leading-relaxed max-w-xs">
-                  Care shaped around today’s homes, schedules, routines and family needs.
-                </p>
-              </div>
-
-              {/* Concentric Radar Rings & Sweeping Beam */}
-              <div className="relative w-full h-40 sm:h-44 overflow-hidden mt-4">
-                {/* Concentric Circular Arcs */}
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-72 h-72 rounded-full border border-white/10" />
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-56 h-56 rounded-full border border-white/15" />
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-40 h-40 rounded-full border border-white/20" />
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-28 h-28 rounded-full border border-[#C8A45D]/40" />
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full border border-[#C8A45D]/60 bg-[#7B1131]/40" />
-                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#C8A45D] shadow-[0_0_12px_#C8A45D]" />
-
-                {/* Radar Sweeping Beam */}
-                <div
-                  className="absolute -bottom-10 left-1/2 origin-bottom -translate-x-1/2 w-56 h-56 pointer-events-none transition-transform duration-1000 ease-out group-hover:rotate-45"
-                  style={{
-                    background: 'conic-gradient(from 180deg at 50% 100%, rgba(200,164,93,0.38) 0deg, rgba(123,17,49,0.18) 25deg, transparent 55deg)',
-                    borderRadius: '50% 50% 0 0'
-                  }}
-                />
-
-                {/* Radar Scanner Line with Glowing Node */}
-                <div className="absolute -bottom-10 left-1/2 origin-bottom w-[1.5px] h-36 bg-gradient-to-t from-[#C8A45D] via-[#C8A45D]/60 to-transparent rotate-[32deg] group-hover:rotate-[65deg] transition-transform duration-1000 ease-out">
-                  <div className="absolute top-5 -left-1 w-2.5 h-2.5 rounded-full bg-[#C8A45D] shadow-[0_0_10px_#C8A45D]" />
                 </div>
               </div>
             </div>
