@@ -5,12 +5,14 @@ import Link from 'next/link';
 import { 
   Globe, Users, ShoppingCart, ShoppingBag, 
   CreditCard, BarChart3, Settings as SettingsIcon, 
-  LogOut, Calendar, Clock, Menu, X, CheckCircle2 
+  LogOut, Calendar, Clock, Menu, X, CheckCircle2,
+  MessageSquareText
 } from 'lucide-react';
 import { AdminWebsiteManager } from '../../components/admin/AdminWebsiteManager';
 import { AdminProductCatalog } from '../../components/admin/AdminProductCatalog';
 import { AdminClientEditor } from '../../components/admin/AdminClientEditor';
 import { AdminCallAppointments } from '../../components/admin/AdminCallAppointments';
+import { AdminEnquiryManager } from '../../components/admin/AdminEnquiryManager';
 import { AdminOrderManager } from '../../components/admin/AdminOrderManager';
 import { AdminPaymentManager } from '../../components/admin/AdminPaymentManager';
 import { AdminReportsAnalytics } from '../../components/admin/AdminReportsAnalytics';
@@ -19,7 +21,7 @@ import { AdminLoginScreen } from '../../components/admin/AdminLoginScreen';
 import { useAdminData } from '../../context/AdminDataContext';
 import { usePortalData } from '../../context/PortalDataContext';
 
-type AdminModule = 'customers' | 'calls' | 'orders' | 'website' | 'products' | 'payments' | 'reports' | 'settings';
+type AdminModule = 'customers' | 'calls' | 'enquiries' | 'orders' | 'website' | 'products' | 'payments' | 'reports' | 'settings';
 
 export default function AdminPage() {
   const { orders, products } = useAdminData();
@@ -125,6 +127,13 @@ export default function AdminPage() {
           badgeColor: 'bg-emerald-100 text-emerald-800 font-bold',
         },
         {
+          id: 'enquiries' as AdminModule,
+          label: 'Care Enquiries',
+          icon: MessageSquareText,
+          badge: 'New',
+          badgeColor: 'bg-[#7B1131] text-white font-bold',
+        },
+        {
           id: 'orders' as AdminModule,
           label: 'Store Orders',
           icon: ShoppingCart,
@@ -179,6 +188,7 @@ export default function AdminPage() {
     switch (activeTab) {
       case 'customers': return 'Client Portals & Care Editor';
       case 'calls': return '15-Minute Consultation Calls';
+      case 'enquiries': return 'Care Enquiries & Guidance Requests';
       case 'orders': return 'Store Orders & Dispatch Pipeline';
       case 'products': return 'Botanical Products & Bundles';
       case 'payments': return 'Invoices & Stripe Billing';
@@ -427,6 +437,7 @@ export default function AdminPage() {
           <div className="animate-fadeIn">
             {activeTab === 'customers' && <AdminClientEditor />}
             {activeTab === 'calls' && <AdminCallAppointments onNotify={showToast} />}
+            {activeTab === 'enquiries' && <AdminEnquiryManager onNotify={showToast} />}
             {activeTab === 'orders' && <AdminOrderManager />}
             {activeTab === 'products' && <AdminProductCatalog onNotify={showToast} />}
             {activeTab === 'website' && <AdminWebsiteManager onNotify={showToast} />}

@@ -617,16 +617,16 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 13: STILL UNSURE? WE'LL GUIDE YOU (Personalised Contact Form)      */}
+      {/* SECTION 13: STILL UNSURE? WE'LL GUIDE YOU (Personalised Care Enquiry Form) */}
       {/* ========================================================================= */}
       <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full font-sans">
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center max-w-2xl mx-auto space-y-3">
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
               Still Unsure? We’ll Guide You.
             </h2>
             <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
-              Share your due date, confinement preferences, or product questions with our senior care matrons.
+              Tell us what support you need, and our senior care team will connect you with the right doulas, educators, or specialists.
             </p>
           </div>
 

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "ENQ-MWBNIPWD-287",
+    "fullName": "Shalini Murugan",
+    "email": "shalini.m@gmail.com",
+    "whatsappCountryCode": "+91",
+    "whatsappNumber": "98402 11223",
+    "whatsappFull": "+91 98402 11223",
+    "country": "India",
+    "selectedHelpOptions": [
+      {
+        "category": "Services",
+        "option": "Birth Doula Support"
+      },
+      {
+        "category": "Classes",
+        "option": "Birth Preparation Class"
+      }
+    ],
+    "journeyStage": "Currently pregnant",
+    "message": "Looking for a doula in Chennai for January 2027 delivery.",
+    "createdAt": "2026-11-11T05:01:17.341Z",
+    "status": "Contacted",
+    "adminNotes": "Spoke with mother via WhatsApp; doula portfolio sent."
+  },
+  {
+    "id": "ENQ-2026-001",
+    "fullName": "Kavitha Ramesh",
+    "email": "kavitha.ramesh@gmail.com",
+    "whatsappCountryCode": "+91",
+    "whatsappNumber": "98401 55678",
+    "whatsappFull": "+91 98401 55678",
+    "country": "India",
+    "selectedHelpOptions": [
+      {
+        "category": "Services",
+        "option": "Stay-In Confinement Nanny Support"
+      },
+      {
+        "category": "Services",
+        "option": "Signature Infant Massage & Bath"
+      },
+      {
+        "category": "SEY By SEYOL Products",
+        "option": "Mother & Baby Complete Care Bundle"
+      }
+    ],
+    "journeyStage": "Preparing for birth",
+    "message": "Expecting my first baby in Chennai early next month. Looking for a traditional live-in nanny for 28 days along with postpartum herbal bath and massage support.",
+    "createdAt": "2026-11-10T14:30:00.000Z",
+    "status": "New",
+    "adminNotes": ""
+  },
+  {
+    "id": "ENQ-2026-002",
+    "fullName": "Divya Krishnan",
+    "email": "divya.k@gmail.com",
+    "whatsappCountryCode": "+65",
+    "whatsappNumber": "9123 4567",
+    "whatsappFull": "+65 9123 4567",
+    "country": "Singapore",
+    "selectedHelpOptions": [
+      {
+        "category": "Classes",
+        "option": "Traditional Baby Massage & Bath Class"
+      },
+      {
+        "category": "Classes",
+        "option": "Postpartum & Confinement Preparation Class"
+      },
+      {
+        "category": "Resources",
+        "option": "Free New Parent Starter Pack"
+      }
+    ],
+    "journeyStage": "Currently pregnant",
+    "message": "Based in Singapore. We are looking for online live classes to learn traditional massage techniques before baby arrives in December.",
+    "createdAt": "2026-11-09T08:15:00.000Z",
+    "status": "Contacted",
+    "adminNotes": "Followed up via WhatsApp on 09 Nov. Sent class timetable and calendar link."
+  },
+  {
+    "id": "ENQ-2026-003",
+    "fullName": "Nandhini Balasubramanian",
+    "email": "nandhini.b@outlook.com",
+    "whatsappCountryCode": "+971",
+    "whatsappNumber": "50 123 9876",
+    "whatsappFull": "+971 50 123 9876",
+    "country": "United Arab Emirates",
+    "selectedHelpOptions": [
+      {
+        "category": "Careers & Training",
+        "option": "Foundation Care Training Pathway"
+      },
+      {
+        "category": "Other Enquiries",
+        "option": "Partnerships & Business Enquiries"
+      }
+    ],
+    "journeyStage": "Supporting a parent or family",
+    "message": "Interested in enrolling in the Academy confinement training pathway and discussing cross-border care services for UAE families.",
+    "createdAt": "2026-11-08T11:45:00.000Z",
+    "status": "In Progress",
+    "adminNotes": "Care Academy lead coordinator assigned. Consultation scheduled."
+  }
+]
