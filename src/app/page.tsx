@@ -8,6 +8,7 @@ import heroBg1 from '../assets4/ChatGPT Image Aug 25, 2026, 09_09_24 AM.png';
 import heroBg2 from '../assets4/ChatGPT Image Aug 25, 2026, 09_12_27 AM.png';
 import heroBg3 from '../assets4/ChatGPT Image Aug 25, 2026, 08_26_15 AM.png';
 import motherBabyMethodImg from '../assets4/mother and baby.jpg';
+import realLifeFamilyImg from '../assets4/seyol_difference_family.jpg';
 import ScrollExpand from '../components/shared/ScrollExpand';
 import WordReveal from '../components/shared/WordReveal';
 import gsap from 'gsap';
@@ -507,36 +508,26 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Card 5: Care That Works in Real Life (Slot 5, Bottom-Center - Floating Chat Bubbles with Heart) */}
-            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#E2D8CF] bg-gradient-to-b from-[#F7F2EC] via-[#EFE7DE] to-[#E3D7CC] text-[#3A1D1D]">
+            {/* Card 5: Care That Works in Real Life (Slot 5, Bottom-Center - Photo Card) */}
+            <div className="group relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-warm-md hover:shadow-warm-xl transition-all duration-300 min-h-[340px] sm:min-h-[380px] flex flex-col justify-between p-6 sm:p-7 border border-[#EAE1D5]/70 bg-cream-card">
+              <Image
+                src={realLifeFamilyImg}
+                alt="Care That Works in Real Life"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              {/* Dark gradient overlay for text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-b from-[#1A0308]/90 via-[#1A0308]/45 to-[#1A0308]/20 pointer-events-none" />
+
               {/* Text Content at Top */}
-              <div className="relative z-10 space-y-2">
-                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-[#3A1D1D] tracking-tight leading-snug">
+              <div className="relative z-10 space-y-2 max-w-sm">
+                <h3 className="font-heading font-extrabold text-xl sm:text-2xl text-white tracking-tight leading-snug drop-shadow-sm">
                   Care That Works in Real Life
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#55403D] leading-relaxed max-w-xs">
+                <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed max-w-xs drop-shadow-sm">
                   Care designed to be easy to understand, follow and use at home.
                 </p>
-              </div>
-
-              {/* 3D-Styled Floating Chat Bubbles with Heart */}
-              <div className="relative w-full h-40 sm:h-44 flex items-center justify-center">
-                {/* Back Dark Maroon Bubble */}
-                <div className="w-16 h-12 sm:w-18 sm:h-14 bg-[#7B1131] rounded-2xl rounded-bl-sm shadow-md absolute bottom-14 right-16 sm:right-20 transform -rotate-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:-rotate-3 flex items-center justify-center">
-                  <div className="flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/60" />
-                  </div>
-                </div>
-
-                {/* Front White Bubble with Heart */}
-                <div className="w-24 h-20 sm:w-28 sm:h-24 bg-white rounded-3xl rounded-bl-md shadow-2xl border border-[#EAE1D5] flex items-center justify-center absolute bottom-4 right-6 sm:right-8 z-10 transform transition-all duration-300 group-hover:scale-105">
-                  <div className="relative">
-                    <Heart className="w-9 h-9 sm:w-11 sm:h-11 text-[#7B1131] fill-[#7B1131] drop-shadow-sm transition-transform duration-300 group-hover:scale-110" />
-                    <Sparkles className="w-3.5 h-3.5 text-[#C8A45D] absolute -top-1 -right-1" />
-                  </div>
-                </div>
               </div>
             </div>
 
