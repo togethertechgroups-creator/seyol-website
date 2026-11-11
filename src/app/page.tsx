@@ -599,16 +599,16 @@ export default function HomePage() {
       <TestimonialCarousel />
 
       {/* ========================================================================= */}
-      {/* SECTION 12: YOUR FIRST SEYOL RESOURCE (Free E-Books & Checklists)         */}
+      {/* SECTION 12: YOUR FIRST SEYOL RESOURCE (Free New Parent Starter Pack)      */}
       {/* ========================================================================= */}
       <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <div className="max-w-4xl mx-auto space-y-6">
-          <div className="text-center space-y-2">
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="text-center space-y-2.5">
             <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl font-extrabold text-brown tracking-tight leading-[1.18]">
               Your First SEYOL Resource
             </h2>
-            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
-              Download our expert-crafted checklists, newborn bath guides, and postpartum recovery handbooks.
+            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-2xl mx-auto leading-relaxed">
+              Claim our comprehensive Free New Parent Starter Pack — featuring 5 essential checklists, feeding logs, and postpartum guides.
             </p>
           </div>
 

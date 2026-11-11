@@ -47,6 +47,7 @@ export interface GuideLead {
   stage: JourneyStageKey | string;
   guideTitle: string;
   downloadedAt: string;
+  marketingConsent?: boolean;
 }
 
 export const defaultStageResourceGuides: Record<JourneyStageKey, StageResourceGuide> = {
