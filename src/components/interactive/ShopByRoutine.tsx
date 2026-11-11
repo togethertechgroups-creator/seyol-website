@@ -45,7 +45,7 @@ const ROUTINE_CATEGORIES: RoutineCategory[] = [
         categoryTag: 'Baby Massage',
         price: '₹680',
         volume: '200 ml',
-        image: '/images/products-hero-banner.png',
+        image: '/images/soothing-baby-massage-oil.png',
         link: '/products/soothing-baby-massage-oil',
         keyBenefit: '100% Edible-Grade Botanicals',
       },

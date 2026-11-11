@@ -49,7 +49,7 @@ export const productsData: Product[] = [
       'Zero Mineral Oil, Zero Liquid Paraffin, Zero Synthetic Fragrance',
       'Cruelty-Free & Ethically Sourced'
     ],
-    image: '/images/products-hero-banner.png',
+    image: '/images/soothing-baby-massage-oil.png',
     tags: ['Bestseller', 'Newborn Safe (0m+)', 'Ayush Certified', '100% Natural'],
     badge: 'Flagship Bestseller'
   },

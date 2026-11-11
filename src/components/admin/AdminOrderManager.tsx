@@ -323,7 +323,7 @@ export const AdminOrderManager: React.FC = () => {
           volumeOrType: '200ml Glass Bottle',
           price: 850,
           quantity: 1,
-          image: '/images/products-hero-banner.png',
+          image: '/images/soothing-baby-massage-oil.png',
         },
         {
           productId: 'prod-2',
