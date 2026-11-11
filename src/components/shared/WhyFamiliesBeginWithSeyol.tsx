@@ -18,7 +18,6 @@ import {
 import StatsCounter from '../ui/StatsCounter';
 import communityBgSrc from '../../assets4/community-bg.png';
 import { useAdminData } from '../../context/AdminDataContext';
-import { TestimonialCarousel } from './TestimonialCarousel';
 
 export const WhyFamiliesBeginWithSeyol: React.FC = () => {
   const { homeSettings } = useAdminData();
@@ -314,24 +313,6 @@ export const WhyFamiliesBeginWithSeyol: React.FC = () => {
             );
           })}
         </div>
-      </div>
-
-      {/* 5. Real Community Experiences & Testimonials */}
-      <div className="space-y-6 pt-4">
-        <div className="text-center max-w-2xl mx-auto space-y-3">
-          <span className="text-[11px] font-heading font-extrabold uppercase tracking-widest text-[#7B1131] bg-[#FAF0EB] border border-[#EAC8D2] px-3.5 py-1 rounded-full inline-block">
-            Community Experiences
-          </span>
-          <h3 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#3A1D1D] tracking-tight">
-            Stories from Families We Walk With
-          </h3>
-          <p className="font-sans text-xs sm:text-sm text-[#55403D] max-w-lg mx-auto leading-relaxed">
-            Real experiences from mothers, fathers, and families across Singapore and India who experienced their postpartum journey with SEYOL.
-          </p>
-        </div>
-
-        {/* Embedded Testimonial Carousel */}
-        <TestimonialCarousel filterStage="all" />
       </div>
 
     </section>

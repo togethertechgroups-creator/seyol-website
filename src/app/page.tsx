@@ -42,6 +42,7 @@ import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
 import { ComparisonCards } from '../components/interactive/ComparisonCards';
 import { WhyFamiliesBeginWithSeyol } from '../components/shared/WhyFamiliesBeginWithSeyol';
+import { TestimonialCarousel } from '../components/shared/TestimonialCarousel';
 import { EmailCapture } from '../components/shared/EmailCapture';
 import { ContactForm } from '../components/shared/ContactForm';
 import { FlowingHeroThreads } from '../components/shared/FlowingHeroThreads';
@@ -591,6 +592,11 @@ export default function HomePage() {
       {/* SECTION 10: WHY FAMILIES BEGIN WITH SEYOL (Merged Community & Heritage)    */}
       {/* ========================================================================= */}
       <WhyFamiliesBeginWithSeyol />
+
+      {/* ========================================================================= */}
+      {/* SECTION 11: TRUSTED BY FAMILIES AT EVERY STAGE (Maasi-Style Testimonials) */}
+      {/* ========================================================================= */}
+      <TestimonialCarousel />
 
       {/* ========================================================================= */}
       {/* SECTION 12: YOUR FIRST SEYOL RESOURCE (Free E-Books & Checklists)         */}
