@@ -41,8 +41,7 @@ import { MostParentsStartHere } from '../components/interactive/MostParentsStart
 import { SupportModeTabs } from '../components/interactive/SupportModeTabs';
 import { ShopByRoutine } from '../components/interactive/ShopByRoutine';
 import { ComparisonCards } from '../components/interactive/ComparisonCards';
-import { TrustBadges } from '../components/shared/TrustBadges';
-import { TestimonialCarousel } from '../components/shared/TestimonialCarousel';
+import { WhyFamiliesBeginWithSeyol } from '../components/shared/WhyFamiliesBeginWithSeyol';
 import { EmailCapture } from '../components/shared/EmailCapture';
 import { ContactForm } from '../components/shared/ContactForm';
 import { FlowingHeroThreads } from '../components/shared/FlowingHeroThreads';
@@ -589,112 +588,9 @@ export default function HomePage() {
       </section>
 
       {/* ========================================================================= */}
-      {/* SECTION 10: WHY FAMILIES BEGIN WITH SEYOL (Trust Badges & Founder Story)   */}
+      {/* SECTION 10: WHY FAMILIES BEGIN WITH SEYOL (Merged Community & Heritage)    */}
       {/* ========================================================================= */}
-
-      {/* Founder Story Snippet */}
-      <section className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full">
-        <div className="relative rounded-3xl sm:rounded-[36px] bg-gradient-to-br from-cream-light via-cream to-gold/10 border border-cream-border/90 p-8 sm:p-12 lg:p-16 shadow-warm-md overflow-hidden">
-          {/* Watermark */}
-          <div className="absolute -right-16 -bottom-16 opacity-5 pointer-events-none select-none">
-            <span className="font-serif text-[180px] font-black text-brown">SEYOL</span>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
-            {/* Left Narrative */}
-            <div className="lg:col-span-7 space-y-6">
-              <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[48px] font-extrabold text-brown tracking-tight leading-tight">
-                Why Families Begin with SEYOL
-              </h2>
-
-              <p className="font-sans text-base sm:text-lg md:text-[19px] text-brown leading-relaxed font-normal">
-                Derived from an <span className="text-maroon font-bold">Ancient Tamil word</span> signifying the <span className="text-maroon font-bold">God of Newborns</span>, our company name <strong className="font-bold text-brown">SEYOL</strong> embodies our commitment to guiding parents starting from conception to childbirth.
-              </p>
-
-              <div className="p-5 sm:p-6 rounded-2xl bg-cream-light/90 border border-cream-border/80 shadow-xs space-y-3">
-                <p className="text-sm sm:text-base text-brown-muted leading-relaxed font-sans">
-                  Headquartered in Singapore, <strong className="text-brown">SEYOL</strong> is a family business led by <strong className="text-maroon font-bold">Mrs. Jemma Francis</strong>, a Certified Birth &amp; Postpartum Doula and Childbirth Educator.
-                </p>
-
-                <p className="font-serif italic text-xl sm:text-2xl md:text-3xl text-maroon font-normal leading-relaxed pt-1">
-                  &ldquo;Embrace the warmth of Indian tradition coupled with our passion and dedication at SEYOL, your trusted partner in the beautiful journey to parenthood!&rdquo;
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/our-story"
-                  className="px-7 py-3.5 rounded-full bg-maroon hover:bg-maroon-dark text-cream-light font-bold text-xs sm:text-sm tracking-wide shadow-warm-md hover:scale-105 transition-all duration-200 shimmer-button"
-                >
-                  Read Full Founder Story
-                </Link>
-
-                <div className="flex items-center space-x-3 text-xs text-brown-muted font-medium">
-                  <span className="flex items-center space-x-1">
-                    <CheckCircle2 className="w-4 h-4 text-gold-dark" />
-                    <span>Singapore HQ</span>
-                  </span>
-                  <span>•</span>
-                  <span className="flex items-center space-x-1">
-                    <CheckCircle2 className="w-4 h-4 text-gold-dark" />
-                    <span>Certified Doula Led</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Founder Visual */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-3xl overflow-hidden shadow-warm-lg border-2 border-cream-border/80 aspect-[4/5] bg-brown hover-card-lift">
-                <img
-                  src={
-                    homeSettings?.founderStoryImage && !homeSettings.founderStoryImage.includes('unsplash')
-                      ? homeSettings.founderStoryImage
-                      : '/images/founder-jemma-francis.jpg'
-                  }
-                  alt={homeSettings?.founderName || 'Mrs. Jemma Francis - Founder of SEYOL'}
-                  className="parallax w-full h-full object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2a0c16]/90 via-[#2a0c16]/30 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 text-cream-light space-y-1.5">
-                  <div className="text-[11px] font-bold text-gold-light tracking-wider uppercase">
-                    {homeSettings?.founderTitle || 'Founder & Childbirth Educator'}
-                  </div>
-                  <h4 className="font-heading text-xl sm:text-2xl font-bold text-cream-light">
-                    {homeSettings?.founderName || 'Mrs. Jemma Francis'}
-                  </h4>
-                  <p className="text-xs text-cream-light/80 font-sans">
-                    {homeSettings?.founderSubtitle || 'Certified Birth & Postpartum Doula • Singapore & India'}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust Badges & Clinical Credentials Grid */}
-      <section className="py-6 pb-12 site-container mx-auto w-full">
-        <TrustBadges variant="full" />
-      </section>
-
-      {/* ========================================================================= */}
-      {/* SECTION 11: TRUSTED BY FAMILIES AT EVERY STAGE (Testimonials Carousel)   */}
-      {/* ========================================================================= */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 site-container mx-auto w-full border-b border-cream-border/60">
-        <div className="space-y-8">
-          <div className="text-center max-w-2xl mx-auto space-y-3">
-            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-brown tracking-tight leading-[1.18]">
-              Trusted by Families at Every Stage
-            </h2>
-            <p className="font-sans text-sm sm:text-base md:text-lg text-brown-muted max-w-xl mx-auto leading-relaxed">
-              Real experiences from parents, families, and learners who started their care journey with SEYOL.
-            </p>
-          </div>
-
-          <TestimonialCarousel filterStage="all" />
-        </div>
-      </section>
+      <WhyFamiliesBeginWithSeyol />
 
       {/* ========================================================================= */}
       {/* SECTION 12: YOUR FIRST SEYOL RESOURCE (Free E-Books & Checklists)         */}
