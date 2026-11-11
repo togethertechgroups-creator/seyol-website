@@ -4,12 +4,9 @@ import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { 
-  Heart, 
   ShieldCheck, 
-  GraduationCap, 
   ArrowRight, 
-  Clock, 
-  Flower2
+  Clock 
 } from 'lucide-react';
 import { useFifteenMinuteCall } from '../../context/FifteenMinuteCallContext';
 
@@ -363,12 +360,6 @@ export const WhereAreYouRightNow: React.FC = () => {
             {/* 1. Clinical Service */}
             <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10.5px] font-heading font-extrabold tracking-widest text-[#7B1131] bg-[#FAF5F7] px-2.5 py-0.5 rounded-full border border-[#E8D7DC]">
-                    {activeRecommendation.service.badge}
-                  </span>
-                  <Heart className="w-4 h-4 text-[#7B1131]" />
-                </div>
                 <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
                   {activeRecommendation.service.title}
                 </h4>
@@ -391,12 +382,6 @@ export const WhereAreYouRightNow: React.FC = () => {
             {/* 2. Education & Workshop */}
             <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10.5px] font-heading font-extrabold tracking-widest text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">
-                    {activeRecommendation.classItem.badge}
-                  </span>
-                  <GraduationCap className="w-4 h-4 text-amber-700" />
-                </div>
                 <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
                   {activeRecommendation.classItem.title}
                 </h4>
@@ -419,12 +404,6 @@ export const WhereAreYouRightNow: React.FC = () => {
             {/* 3. Herbal Formulation / Resource */}
             <div className="bg-white rounded-2xl p-5 sm:p-6 border border-[#E8DFD0] flex flex-col justify-between shadow-2xs hover:shadow-xs transition-shadow">
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10.5px] font-heading font-extrabold tracking-widest text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                    {activeRecommendation.product.badge}
-                  </span>
-                  <Flower2 className="w-4 h-4 text-emerald-700" />
-                </div>
                 <h4 className="font-heading text-lg font-bold text-neutral-900 leading-snug">
                   {activeRecommendation.product.title}
                 </h4>
